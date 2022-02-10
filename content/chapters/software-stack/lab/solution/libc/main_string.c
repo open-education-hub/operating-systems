@@ -1,0 +1,1 @@
+../../support/libc/main_string.c
