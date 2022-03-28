@@ -1,0 +1,44 @@
+---
+title: "OS: Compute"
+revealOptions:
+  background-color: 'aquamarine'
+  transition: 'none'
+  slideNumber: true
+  autoAnimateDuration: 0.0
+---
+
+# COMPUTE
+
+1. [Processes](#1-processes)
+1. [Threads](#2-threads)
+1. [Scheduling](#3-scheduling)
+1. [Synchronization](#4-synchronization)
+
+
+!INCLUDE "slides/intro.md"
+
+!INCLUDE "slides/processes.md"
+
+!INCLUDE "slides/threads.md"
+
+!INCLUDE "slides/process-attributes.md"
+
+!INCLUDE "slides/fork.md"
+
+!INCLUDE "slides/copy-on-write.md"
+
+!INCLUDE "slides/synchronization.md"
+
+!INCLUDE "slides/mutual-exclusion.md"
+
+!INCLUDE "slides/notifications.md"
+
+!INCLUDE "slides/barrier.md"
+
+!INCLUDE "slides/thread-safety.md"
+
+!INCLUDE "slides/scheduling.md"
+
+!INCLUDE "slides/scheduling-algorithms.md"
+
+!INCLUDE "slides/cool-extra-stuff.md"
