@@ -1,0 +1,1 @@
+../../../support/sum-array-bugs/seg-fault/Makefile
