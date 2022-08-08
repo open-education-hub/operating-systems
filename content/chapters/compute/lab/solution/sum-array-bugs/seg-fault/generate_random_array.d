@@ -1,0 +1,1 @@
+../../../support/sum-array/d/generate_random_array.d
