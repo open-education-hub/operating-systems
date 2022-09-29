@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        uses: github/super-linter@v4.0.2
         env:
           # Don't check already existent files
           VALIDATE_ALL_CODEBASE: false
