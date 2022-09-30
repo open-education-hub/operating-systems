@@ -1,0 +1,12 @@
+# Title of file 1
+This is a sample text from file 1.
+
+---
+
+!INCLUDE "file2.mdpp"
+
+This is another sample text from file 1.
+
+---
+
+!INCLUDE "file3.mdpp"
