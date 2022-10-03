@@ -1,0 +1,5 @@
+{
+  "reporters": ["console"],
+  "ignore": ["**/*.svg", "**/_site/**"],
+  "absolute": true
+}
