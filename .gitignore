@@ -53,3 +53,8 @@ dkms.conf
 
 # reveal-md slides output folder
 _site/
+
+# Temporary files
+*.swp
+*.swo
+*~
