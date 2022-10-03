@@ -72,29 +72,28 @@ const keywords = [
     new WordPattern(".csv", { noWordBoundary: true }),
     new WordPattern(".json", { noWordBoundary: true }),
     new WordPattern(".pdf", { noWordBoundary: true }),
-    new WordPattern(".html", { noWordBoundary: true })
-    new WordPattern(".c", { noWordBoundary: true })
-    new WordPattern(".cpp", { noWordBoundary: true })
-    new WordPattern(".h", { noWordBoundary: true })
-    new WordPattern(".hpp", { noWordBoundary: true })
-    new WordPattern(".py", { noWordBoundary: true })
-    new WordPattern(".rs", { noWordBoundary: true })
-    new WordPattern(".d", { noWordBoundary: true })
-    new WordPattern(".go", { noWordBoundary: true })
-    new WordPattern(".js", { noWordBoundary: true })
-    new WordPattern(".java", { noWordBoundary: true })
-    new WordPattern(".go", { noWordBoundary: true })
-    new WordPattern(".php", { noWordBoundary: true })
-    new WordPattern(".pl", { noWordBoundary: true })
-    new WordPattern(".rb", { noWordBoundary: true })
-    new WordPattern(".o", { noWordBoundary: true })
-    new WordPattern(".a", { noWordBoundary: true })
-    new WordPattern(".so", { noWordBoundary: true })
-    new WordPattern(".obj", { noWordBoundary: true })
-    new WordPattern(".lib", { noWordBoundary: true })
-    new WordPattern(".dll", { noWordBoundary: true })
-    new WordPattern(".dylib", { noWordBoundary: true })
-
+    new WordPattern(".html", { noWordBoundary: true }),
+    new WordPattern(".c", { noWordBoundary: true }),
+    new WordPattern(".cpp", { noWordBoundary: true }),
+    new WordPattern(".h", { noWordBoundary: true }),
+    new WordPattern(".hpp", { noWordBoundary: true }),
+    new WordPattern(".py", { noWordBoundary: true }),
+    new WordPattern(".rs", { noWordBoundary: true }),
+    new WordPattern(".d", { noWordBoundary: true }),
+    new WordPattern(".go", { noWordBoundary: true }),
+    new WordPattern(".js", { noWordBoundary: true }),
+    new WordPattern(".java", { noWordBoundary: true }),
+    new WordPattern(".go", { noWordBoundary: true }),
+    new WordPattern(".php", { noWordBoundary: true }),
+    new WordPattern(".pl", { noWordBoundary: true }),
+    new WordPattern(".rb", { noWordBoundary: true }),
+    new WordPattern(".o", { noWordBoundary: true }),
+    new WordPattern(".a", { noWordBoundary: true }),
+    new WordPattern(".so", { noWordBoundary: true }),
+    new WordPattern(".obj", { noWordBoundary: true }),
+    new WordPattern(".lib", { noWordBoundary: true }),
+    new WordPattern(".dll", { noWordBoundary: true }),
+    new WordPattern(".dylib", { noWordBoundary: true }),
 ];
 
 module.exports = {
