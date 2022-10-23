@@ -7,8 +7,11 @@
 #include <arpa/inet.h>
 #include <time.h>
 #include <unistd.h>
+#include <endian.h>
 
 #define MAX_SIZE 8
+
+
 
 int connect_to_server(char *ip, char *port_str)
 {
@@ -75,6 +78,7 @@ int main(int argc, char *argv[])
 	int ret;
 
 	uint32_t size;
+	uint64_t val;
 	time_t current_time;
 
 	if (argc != 3) {
@@ -98,12 +102,14 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	size = be32toh(size);
+
 	if (size > MAX_SIZE) {
 		fprintf(stderr, "Invalid size %u\n", size);
 		return 1;
 	}
 
-	ret = xrecv(sockfd, &current_time, size, 0);
+	ret = xrecv(sockfd, &val, size, 0);
 	if (ret < 0) {
 		perror("recv");
 		return 1;
@@ -111,6 +117,12 @@ int main(int argc, char *argv[])
 	if (ret != size) {
 		fprintf(stderr, "EOF\n");
 		return 1;
+	}
+
+	if (size == 4) {
+	    current_time = ntohl(val);
+	} else if (size == 8) {
+	    current_time = be64toh(val);
 	}
 
 	printf("The time is %s", ctime(&current_time));

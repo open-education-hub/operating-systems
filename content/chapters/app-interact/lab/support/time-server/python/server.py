@@ -29,8 +29,8 @@ def main():
 
             current_time = int(time.time())
 
-            cl_sock.sendall(struct.pack('<I', 8))
-            cl_sock.sendall(struct.pack('<Q', current_time))
+            cl_sock.sendall(struct.pack('>I', 8))
+            cl_sock.sendall(struct.pack('>Q', current_time))
 
             cl_sock.close()
         except Exception as ex:

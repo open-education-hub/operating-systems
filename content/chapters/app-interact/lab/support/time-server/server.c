@@ -80,9 +80,9 @@ int handle_client(int sockfd)
 	time_t current_time;
 	uint32_t size;
 
-	current_time = time(NULL);
+	current_time = htobe64(time(NULL));
 
-	size = sizeof(current_time);
+	size = htonl(sizeof(current_time));
 
 	ret = xsend(sockfd, &size, sizeof(size), 0);
 	if (ret < 0) {
@@ -90,7 +90,7 @@ int handle_client(int sockfd)
 		return 0;
 	}
 
-	ret = xsend(sockfd, &current_time, size, 0);
+	ret = xsend(sockfd, &current_time, sizeof(current_time), 0);
 	if (ret < 0) {
 		perror("send");
 		return 0;

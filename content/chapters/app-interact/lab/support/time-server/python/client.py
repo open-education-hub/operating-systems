@@ -38,7 +38,7 @@ def main():
         if len(buf) != 4:
             raise Exception('EOF')
 
-        size = struct.unpack('<I', buf)[0]
+        size = struct.unpack('>I', buf)[0]
 
         if size > MAX_SIZE:
             raise Exception(f'Invalid size {size}')
@@ -46,9 +46,9 @@ def main():
         buf = xrecv(sock, size)
 
         if size == 8:
-            current_time = struct.unpack('<Q', buf)[0]
+            current_time = struct.unpack('>Q', buf)[0]
         elif size == 4:
-            current_time = struct.unpack('<I', buf)[0]
+            current_time = struct.unpack('>I', buf)[0]
         else:
             raise Exception(f'Invalid size {size}')
 
