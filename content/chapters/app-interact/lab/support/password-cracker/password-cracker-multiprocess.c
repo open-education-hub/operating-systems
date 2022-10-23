@@ -51,7 +51,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	password[0] = first_char;
 
 	for (i = 1; i < PASSWORD_LEN; i++)
-		password[i] = -1;
+		password[i] = 'a'-1;
 
 
 	/*
@@ -65,7 +65,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 
 			if (k < PASSWORD_LEN) {
 				k++;
-				password[k] = '`';
+				password[k] = 'a'-1;
 			}
 		}
 
@@ -123,12 +123,14 @@ void create_workers(int *request_pipefd, int *result_pipefd)
 	int i;
 
 	for (i = 0; i < NUM_WORKERS; i++) {
+		/* create the request pipe */
 		ret = pipe(tmp_request_pipe);
 		if (ret < 0) {
 			perror("pipe");
 			exit(1);
 		}
 
+		/* create the result pipe */
 		ret = pipe(tmp_result_pipe);
 		if (ret < 0) {
 			perror("pipe");
@@ -142,13 +144,29 @@ void create_workers(int *request_pipefd, int *result_pipefd)
 		}
 
 		if (pid == 0) {
+			/*
+			 * in child process
+			 *
+			 * close the unused pipe ends:
+			 * - the write end of the request pipe, since the child will only read from this pipe
+			 * - the read end of the result pipe, since the child will only write to this pipe
+			 */
 			close(tmp_request_pipe[1]);
 			close(tmp_result_pipe[0]);
 
+			/* call the worker function */
 			worker(i, tmp_request_pipe[0], tmp_result_pipe[1]);
+
 			exit(0);
 		}
 
+		/*
+		 * in parent process
+		 *
+		 * close the unused pipe ends:
+		 * - the read end of the request pipe, since the parent will only write to this pipe
+		 * - the write end of the result pipe, since the parent will only read from this pipe
+		 */
 		close(tmp_request_pipe[0]);
 		close(tmp_result_pipe[1]);
 
@@ -169,9 +187,9 @@ int main()
 
 	create_workers(request_pipefd, result_pipefd);
 
-	printf("Worker processes started. Press ENTER\n");
-	getchar();
-
+	/*
+	 * send the first character of the password to each worker
+	 */
 	for (i = 0; i < NUM_WORKERS; i++) {
 		ret = write(request_pipefd[i], &char_list[i], sizeof(char));
 		if (ret < 0) {
@@ -181,6 +199,9 @@ int main()
 	}
 
 	for (i = 0; i < NUM_WORKERS; i++) {
+		/*
+		 * read the result for each worker
+		 */
 		ret = read(result_pipefd[i], &len, sizeof(len));
 		if (ret < 0) {
 			perror("read");
@@ -197,8 +218,6 @@ int main()
 			password[len] = 0;
 
 			printf("worker %d found %s\n", i, password);
-		} else {
-			printf("worker %d did't find anything\n", i);
 		}
 	}
 

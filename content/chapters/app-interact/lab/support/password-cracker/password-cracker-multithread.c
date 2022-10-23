@@ -42,7 +42,7 @@ void *worker(void *arg)
 	password[0] = first_char;
 
 	for (i = 1; i < PASSWORD_LEN; i++)
-		password[i] = -1;
+		password[i] = 'a'-1;
 
 	/*
 	 * generate all possible combinations
@@ -55,7 +55,7 @@ void *worker(void *arg)
 
 			if (k < PASSWORD_LEN) {
 				k++;
-				password[k] = '`';
+				password[k] = 'a'-1;
 			}
 		}
 
@@ -117,8 +117,7 @@ int main()
 
 		if (password) {
 			printf("worker %d found %s\n", i, password);
-		} else {
-			printf("worker %d did't find anything\n", i);
+			free(password);
 		}
 	}
 
