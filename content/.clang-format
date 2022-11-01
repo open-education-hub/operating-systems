@@ -1,6 +1,0 @@
-BasedOnStyle:		WebKit
-TabWidth:		8
-IndentWidth:		8
-UseTab:			Always
-ColumnLimit:		132
-PointerAlignment:	Right
