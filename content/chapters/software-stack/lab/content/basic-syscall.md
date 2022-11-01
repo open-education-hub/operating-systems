@@ -37,7 +37,7 @@ Hello, world!
 The two programs end up printing the `Hello, world!` message at standard output by issuing the `write` system call.
 Then they complete their work by issuing the `exit` system call.
 Use `man 2 write` and `man 3 exit` to get a detailed understanding of the syntax and use of the two system calls.
-You can also check the [online man pages](): [`write`](https://man7.org/linux/man-pages/man2/write.2.html), [`exit`](https://man7.org/linux/man-pages/man3/exit.3.html)
+You can also check the online man pages: [`write`](https://man7.org/linux/man-pages/man2/write.2.html), [`exit`](https://man7.org/linux/man-pages/man3/exit.3.html)
 
 We use `strace` to inspect system calls issued by a program:
 
