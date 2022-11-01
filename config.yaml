@@ -1,0 +1,131 @@
+stages:
+  - make_assets
+  - embed_reveal
+  - docusaurus
+
+build_dir: /build
+output_type: last
+output_dir: /output
+
+make_assets:
+  plugin: command
+  options:
+    command: make
+    locations:
+      - content/chapters/compute/lecture
+      - content/chapters/data/lecture
+      - content/chapters/io/lecture
+    args:
+      - all
+
+embed_reveal:
+  plugin: reveal_embed
+  options:
+    target: docusaurus
+    extension: mdx
+    build:
+      Compute: Compute
+      Data: Data
+      IO: IO
+
+docusaurus:
+  plugin: docusaurus
+  options:
+    course_name: SO
+    sidebar: js
+    structure:
+      - Introduction:
+        - Compute:
+            name: README
+            location: content/landing-page
+      - Lecture:
+        - Compute:
+            name: Compute
+            location: /build/embed_reveal/Compute
+        - Data:
+            name: Data
+            location: /build/embed_reveal/Data
+        - IO:
+            name: IO
+            location: /build/embed_reveal/IO
+      - Lab:
+        - Compute:
+          - Overview:
+              location: content/chapters/compute/lab
+              name: content/overview
+          - Benchmarks:
+              location: content/chapters/compute/lab
+              name: content/benchmarks
+          - Processes:
+              location: content/chapters/compute/lab
+              name: content/processes
+          - Threads:
+              location: content/chapters/compute/lab
+              name: content/threads
+          - Processes-threads-apache2:
+              location: content/chapters/compute/lab
+              name: content/processes-threads-apache2
+          - Copy-on-Write:
+              location: content/chapters/compute/lab
+              name: content/copy-on-write
+          - Synchronization:
+              location: content/chapters/compute/lab
+              name: content/synchronization
+          - Scheduling:
+              location: content/chapters/compute/lab
+              name: content/scheduling
+          - Arena:
+              location: content/chapters/compute/lab
+              name: content/arena
+        - Software-Stack:
+          - Introduction:
+              location: content/chapters/software-stack/lab
+              name: content/introduction
+          - Overview:
+              location: content/chapters/software-stack/lab
+              name: content/overview
+          - Modern Software Stacks:
+              location: content/chapters/software-stack/lab
+              name: content/modern-sw-stack
+          - Basic System Calls:
+              location: content/chapters/software-stack/lab
+              name: content/basic-syscall
+          - System Call Wrapper:
+              location: content/chapters/software-stack/lab
+              name: content/syscall-wrapper
+          - Common Functions:
+              location: content/chapters/software-stack/lab
+              name: content/common-functions
+          - Libc:
+              location: content/chapters/software-stack/lab
+              name: content/libc
+          - Static-dynamic:
+              location: content/chapters/software-stack/lab
+              name: content/static-dynamic
+          - Lybcall-Syscall:
+              location: content/chapters/software-stack/lab
+              name: content/libcall-syscall
+          - High-Level Languages:
+              location: content/chapters/software-stack/lab
+              name: content/high-level-lang
+          - App Investigation:
+              location: content/chapters/software-stack/lab
+              name: content/app-investigate
+          - Arena:
+              location: content/chapters/software-stack/lab
+              name: content/arena
+    static_assets:
+      - Compute: /build/make_assets/content/chapters/compute/lecture/_site
+      - Data: /build/make_assets/content/chapters/data/lecture/_site
+      - IO: /build/make_assets/content/chapters/io/lecture/_site
+    config_meta:
+      title: Operating Systems
+      url: http://localhost/
+      baseUrl: /operating-systems/
+      onBrokenLinks: warn
+      onBrokenMarkdownLinks: warn
+    config_socials:
+      Main site: https://curs.upb.ro
+      OCW: https://ocw.cs.pub.ro/courses/so
+      Facebook: https://www.facebook.com/sisteme.de.operare/
+    copyright_string: SO Team
