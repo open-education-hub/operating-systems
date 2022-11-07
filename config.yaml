@@ -14,6 +14,7 @@ make_assets:
     locations:
       - content/chapters/compute/lecture
       - content/chapters/data/lecture
+      - content/chapters/software-stack/lecture
       - content/chapters/io/lecture
     args:
       - all
@@ -24,9 +25,10 @@ embed_reveal:
     target: docusaurus
     extension: mdx
     build:
-      Compute: Compute
-      Data: Data
-      IO: IO
+      Compute: slides/Compute
+      Data: slides/Data
+      Software-Stack: slides/Software-Stack
+      IO: slides/IO
 
 docusaurus:
   plugin: docusaurus
@@ -35,7 +37,7 @@ docusaurus:
     sidebar: js
     structure:
       - Introduction:
-        - Compute:
+        - Intro:
             name: README
             location: content/landing-page
       - Lecture:
@@ -45,6 +47,9 @@ docusaurus:
         - Data:
             name: Data
             location: /build/embed_reveal/Data
+        - Software-Stack:
+            name: Software-Stack
+            location: /build/embed_reveal/Software-Stack
         - IO:
             name: IO
             location: /build/embed_reveal/IO
@@ -115,9 +120,10 @@ docusaurus:
               location: content/chapters/software-stack/lab
               name: content/arena
     static_assets:
-      - Compute: /build/make_assets/content/chapters/compute/lecture/_site
-      - Data: /build/make_assets/content/chapters/data/lecture/_site
-      - IO: /build/make_assets/content/chapters/io/lecture/_site
+      - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
+      - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
+      - slides/Data: /build/make_assets/content/chapters/data/lecture/_site
+      - slides/IO: /build/make_assets/content/chapters/io/lecture/_site
     config_meta:
       title: Operating Systems
       url: http://localhost/
