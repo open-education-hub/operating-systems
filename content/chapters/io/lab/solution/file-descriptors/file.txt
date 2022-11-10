@@ -1,0 +1,5 @@
+file.txt
+Makefile
+open_read_write
+open_read_write.c
+open_read_write.o
