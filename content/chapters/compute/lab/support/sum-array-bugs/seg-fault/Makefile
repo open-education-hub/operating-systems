@@ -1,12 +1,15 @@
 DC = dmd
-BINARY = sum_array_processes
+BINARIES = sum_array_processes sum_array_threads
 
-all: $(BINARY)
+all: $(BINARIES)
 
-$(BINARY): $(wildcard *.d)
-	$(DC) $(DFLAGS) $^ -of=$@
+sum_array_processes: sum_array_processes.d generate_random_array.d
+	$(DC) $^ -of=$@
+
+sum_array_threads: sum_array_threads.d generate_random_array.d
+	$(DC) $^ -of=$@
 
 clean:
-	-rm -f *.o $(BINARY)
+	-rm -f *.o $(BINARIES)
 
 .PHONY: all clean

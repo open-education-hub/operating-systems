@@ -3,7 +3,7 @@ module sum_array_processes;
 immutable size_t ARR_LEN = 100_000_000;
 
 void calculateArrayPartSum(immutable int[] arr, size_t start, size_t end,
-    long[] results, size_t tid)
+    long* results, size_t tid)
 {
     long sumArr = 0;
     int* segFaultPtr = null;
@@ -17,15 +17,14 @@ void calculateArrayPartSum(immutable int[] arr, size_t start, size_t end,
     results[tid] = sumArr;
 }
 
-long[] createSharedResultsArray(size_t numProcesses)
+long* createSharedResultsArray(size_t numProcesses)
 {
     import core.sys.posix.sys.mman;
 
     // This buffer will be shared by the process that creates it and all its
     // children due to the `MAP_SHARED` argument
-    return (cast(long*) mmap(null, numProcesses * long.sizeof,
-        PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0))
-        [0 .. numProcesses];
+    return cast(long*) mmap(null, numProcesses * long.sizeof,
+        PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
 }
 
 void main(string[] args)
@@ -34,7 +33,7 @@ void main(string[] args)
     import std.algorithm : min;
     import std.conv : to;
     import core.stdc.stdlib : exit;
-    import core.sys.posix.sys.wait : waitpid;
+    import core.sys.posix.sys.wait;
     import core.sys.posix.unistd : fork, pid_t;
     import std.datetime.stopwatch : StopWatch;
     import std.math.rounding : ceil;
@@ -49,11 +48,10 @@ void main(string[] args)
     immutable int[] arr = generateRandomArray(ARR_LEN);
     int numProcesses = args[1].to!int;
     long sumArr = 0;
-    long[] results = createSharedResultsArray(numProcesses);
+    long* results = createSharedResultsArray(numProcesses);
     pid_t[] children;
     StopWatch sw;
 
-    results.length = numProcesses;
     children.length = numProcesses;
     sw.start();
 
