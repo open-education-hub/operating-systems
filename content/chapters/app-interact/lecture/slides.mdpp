@@ -1,0 +1,29 @@
+---
+title: "OS: Application Interaction"
+revealOptions:
+    background-color: 'aquamarine'
+    transition: 'none'
+    slideNumber: true
+    autoAnimateDuration: 0.0
+---
+
+# Application Interaction
+
+1. [Why Applications Interact](./slides/why.md)
+1. [Definitions and Terms](./slides/defs.md)
+1. [App Classification](./slides/classification.md)
+1. [Interaction Channels](./slides/channels.md)
+1. [Roles of the Operating System](./slides/os-roles.md)
+1. [Programming Interface](./slides/api.md)
+
+!INCLUDE "slides/why.md"
+
+!INCLUDE "slides/defs.md"
+
+!INCLUDE "slides/classification.md"
+
+!INCLUDE "slides/channels.md"
+
+!INCLUDE "slides/os-roles.md"
+
+!INCLUDE "slides/api.md"
