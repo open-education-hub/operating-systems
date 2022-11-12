@@ -7,7 +7,7 @@
 #define NUM_ITER 10000000
 
 /* TODO 1: Add the `__thread` keyword to the declaration below. */
-static __thread int var;
+static int var;
 
 void *increment_var(void *arg)
 {
