@@ -31,7 +31,7 @@ def main():
     event = Condition()
 
     # Create and start the worker threads.
-    thread_pool = [Thread(target=worker, args=(sem, i)) for i in range(NUM_WORKERS)]
+    thread_pool = [Thread(target=worker, args=(event, i)) for i in range(NUM_WORKERS)]
     for t in thread_pool:
         t.daemon = True
         t.start()
