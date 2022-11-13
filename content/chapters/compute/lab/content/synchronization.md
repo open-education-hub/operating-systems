@@ -100,8 +100,14 @@ Concretely, before initiating an atomic transfer on one of its data buses, the C
 This way, one thread obtains **exclusive** access to the data bus while accessing data.
 As a side note, the critical sections in `support/race-condition/race_condition_mutex.d` are also atomic once they are wrapped between calls to `lock()` and `unlock()`. 
 
-As with every hardware feature, the x86 ISA exposes the `lock` instruction, which makes a given instruction run atomically.
-You can play with it [in the Arena](./arena.md#atomic-assembly).
+As with every hardware feature, the x86 ISA exposes an instruction for atomic operations.
+In particular this instruction is a **prefix**, called `lock`.
+It makes the instruction that follows it run atomically.
+The `lock` prefix ensures that the core performing the instruction has exclusive ownership of the cache line from where the data is transfered for the entire operation.
+This is how the increment is made into an indivisible unit.
+
+For example, `inc dword [x]` can be made atomic like so: `lock inc dword [x]`.
+You can play with the `lock` prefix [in the Arena](./arena.md#atomic-assembly).
 
 Compilers provide support for such hardware-level atomic operations.
 GCC exposes [builtins](https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html) such as `__atomic_load()`, `__atomic_store()`, `__atomic_compare_exchange()` and many others.
@@ -114,6 +120,7 @@ Now measure its running time against the mutex implementations.
 It should be somewhere between `race_condition.d` and `race_condition_mutex.d`.
 
 So using the hardware support is more efficient, but it can only be leveraged for simple, individual instructions, such as loads and stores.
+And the fact that high-level languages also expose an API for atomic operations shows how useful these operations are for developers.
 
 ### Semaphores
 
