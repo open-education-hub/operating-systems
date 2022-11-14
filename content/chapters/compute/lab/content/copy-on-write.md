@@ -43,7 +43,7 @@ In one of them compile and run the code in `support/fork-faults/fork_faults.c`.
 After each time you press `Enter` in the first terminal window, run the following command in the second window:
 
 ```
-student@os:~/.../lab/support/fork-faults$ ps -o min_flt,maj_flt $(pidof fork_faults)
+student@os:~/.../lab/support/fork-faults$ ps -o min_flt,maj_flt -p $(pidof fork_faults)
 ```
 
 It will show you the number of minor and major page faults performed by the `fork_faults` process and its child.
