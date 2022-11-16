@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "log.h"
+#include "log/log.h"
 
 #ifdef __cplusplus
 extern "C" {
