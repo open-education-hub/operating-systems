@@ -36,7 +36,7 @@ In such cases, user-level threads may be useful as context switches bring less o
 
 ### Practice: User-Level Threads Scheduler
 
-Go to `support/scheduler`.
+Go to `support/libult`.
 It contains a minimalist **user-level threads** scheduler.
 Compiling it produces a shared library called `libult.so`.
 You can also consult its [documentation](https://www.schaertl.me/posts/a-bare-bones-user-level-thread-library/).
