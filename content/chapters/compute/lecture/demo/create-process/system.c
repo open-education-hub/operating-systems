@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 extern char **environ;
 

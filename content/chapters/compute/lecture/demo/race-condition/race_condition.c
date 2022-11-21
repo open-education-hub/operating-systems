@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 #include "get_time.h"
 
 #define NUM_STEPS	1000000

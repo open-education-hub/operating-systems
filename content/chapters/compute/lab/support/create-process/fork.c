@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 int main(void)
 {

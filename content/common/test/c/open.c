@@ -4,8 +4,9 @@
  */
 
 #include <stdio.h>
-#include "log.h"
-#include "utils.h"
+
+#include "utils/log/log.h"
+#include "utils/utils.h"
 
 int main(void)
 {

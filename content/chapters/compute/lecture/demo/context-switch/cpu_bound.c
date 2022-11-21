@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 int main(void)
 {
