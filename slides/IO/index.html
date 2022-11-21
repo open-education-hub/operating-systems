@@ -17,110 +17,156 @@
     <div class="reveal">
       <div class="slides"><section  data-markdown><script type="text/template">
 
-# Centered Text
+# IO
 
-Nice words
+1. File Interface
+</script></section><section  data-markdown><script type="text/template">
+## Backstory
+</script></section><section ><section data-markdown><script type="text/template">
+- You finish your summer internship
+- You explain the cool internal parts of the project to your friends
+- They hit you with: "How do I interact with it?"
+- You describe the data gathering algorithms again and see them lose interest
 
-From presenter
-
-<aside class="notes"><p>test note</p>
-</aside></script></section><section ><section data-markdown><script type="text/template">
-# List Test
-
-* About binary executables
-* Sections
+What was missing?
 </script></section><section data-markdown><script type="text/template">
-## Vertical Slide
+### Interactive Software is Good Software
 
-Executable and Linking Format
-
-Linux / Unix
+![interactive software](./media/interactive-software.png)
 </script></section><section data-markdown><script type="text/template">
-## Split Slide (part 1)
+### Interactivity
 
-readelf
-
-nm
-
-IDA
-
------
-
-## Split Slide (part 2)
-
-strace
-
-GDB
+- Software does computation on data and returns data
+- The more data we provide to our application, the more relevant its result becomes
 </script></section></section><section ><section data-markdown><script type="text/template">
-# Links
-
-[OWASP Top 10](https://owasp.org/www-project-top-ten/)
+### Roadmap
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-auto-animate -->
-
-## Animated
+![roadmap](./media/roadmap.svg)
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-auto-animate -->
-
-## Animated
-
-recon
+![roadmap Data](./media/roadmap-Data.svg)
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-auto-animate -->
-
-## Animated
-
-recon
-
-enumerate
+![roadmap Compute](./media/roadmap-Compute.svg)
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-auto-animate -->
-
-## Animated
-
-recon
-
-enumerate
-
-RCE
+![roadmap IO](./media/roadmap-IO.svg)
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-auto-animate -->
+### What We Want
 
-## Animated
+<!-- TODO: Bring more info in before this -->
 
-recon
-
-enumerate
-
-RCE
-
-PrivEsc
-</script></section><section data-markdown><script type="text/template">
-## Code
-
-```python
-import sys
-
-def main():
-    sys.exit(0)
-```
-</script></section><section data-markdown><script type="text/template">
-## Text Color and Formatting
-<!-- .element: style="color:yellow" -->
-
-*red*
-<!-- .element: style="color:red" -->
-
-**blue**
-<!-- .element: style="color:blue" -->
-
-`green`
-<!-- .element: style="color:green" -->
+- Means for our application to communicate
+- Compatibility with various devices
+- Responsiveness (Non-blocking I/O)
+- Performance (fast transfer, I/O multiplexing)
 </script></section></section><section  data-markdown><script type="text/template">
-## Image
+## File Interface
+</script></section><section ><section data-markdown><script type="text/template">
+### File Interface - `open()`
 
-![VAS vs PAS](media/vas-pas.png)
-</script></section></div>
+![open](./media/file-interface-open.svg)
+</script></section><section data-markdown><script type="text/template">
+- Creates a new session to communicate with the file
+- Returns a **file handle** - used to reference the **communication channel**
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Descriptor
+
+- In higher level languages the file handle is an object that allows working with files
+- Implementation-wise, it is an integer between **0** and **1023**
+- To keep track of open files, each process holds a **FDT (File Descriptor Table)**
+- Each entry in the **FDT** is either null or a pointer to an **Open File Structure**
+</script></section><section data-markdown><script type="text/template">
+### File Descriptor Table
+
+![File Descriptor Table](./media/file-descriptor-table.svg)
+</script></section><section data-markdown><script type="text/template">
+### Open File Structure
+
+- Contains:
+  - Permissions
+  - The offset inside the file
+  - Number of handles referencing it
+  - **inode** (pointer to data and metadata)
+- The OS keeps track of all **Open File Structures** and stores them in the **Open File Table**
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Interface - `read()`/`write()`
+
+![read write](./media/file-interface-read-write.svg)
+</script></section><section data-markdown><script type="text/template">
+### File Interface - `read()`
+
+- Uses the **file handle** to read bytes
+- Return number of read bytes
+  - **-1**    - read failed
+  - **0**     - EOF reached
+  - **< num** - partial read
+</script></section><section data-markdown><script type="text/template">
+### File Interface - `write()`
+
+- Uses the **file handle** to write bytes
+- Return number of written bytes
+  - **-1**    - write failed
+  - **< num** - partial write
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Interface - `close()`
+
+![close](./media/file-interface-close.svg)
+</script></section><section data-markdown><script type="text/template">
+- Decrements the reference count in the Open File Structure
+  - Deletes the Open File Structure if the reference count is 0
+- Flushes OS buffers
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Interface - `lseek()`
+
+![lseek](./media/file-interface-lseek.svg)
+</script></section><section data-markdown><script type="text/template">
+- Uses the **file handle** to update the **offset** in file
+- Returns the new **offset** in file
+  - **-1** on error
+</script></section><section data-markdown><script type="text/template">
+### Sparse file
+
+What happens if the **offset** is bigger than the file size?
+
+- `demo/file-interface/sparse-file.c`
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Interface - `ftruncate()`
+
+![ftruncate](./media/file-interface-ftruncate.svg)
+</script></section><section data-markdown><script type="text/template">
+- Truncates the file indicated by the **file handle** to the indicated **length**
+- If the file size is smaller than **length**, the file is extended and "filled" with binary zeros to the indicated **length**
+</script></section><section data-markdown><script type="text/template">
+### `ftruncate()` demo
+
+- `demo/file-interface/truncate.c`
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Interface in Python
+
+- `demo/file-interface/py-file-ops.py`
+</script></section><section data-markdown><script type="text/template">
+### File Interface in C
+
+- `demo/file-interface/c-file-ops.c`
+</script></section></section><section ><section data-markdown><script type="text/template">
+### File Interface - `dup()`
+
+![dup](./media/file-interface-dup.svg)
+</script></section><section data-markdown><script type="text/template">
+- Results in two **file handles** that refer the same Open File Structure
+  - Duplicates a file descriptor into the smallest unused file descriptor
+</script></section><section data-markdown><script type="text/template">
+### `open()` vs `dup()` demo
+
+- `demo/file-interface/open-vs-dup.c`
+- `demo/file-interface/close-stdout.c`
+  - What could go wrong between **closing stdout** and **calling dup**?
+  - "Everything."
+</script></section><section data-markdown><script type="text/template">
+### File Interface - `dup2()`
+
+- Duplicates a file descriptor into a **designated** file descriptor
+- If the new file descriptor is open, it will be closed before being reused
+  - This action will be performed **atomically**
+</script></section></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
@@ -163,7 +209,7 @@ def main():
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"background-color":"aquamarine","transition":"none"}, queryOptions);
+      var options = extend(defaultOptions, {"background-color":"aquamarine","transition":"none","slideNumber":true,"autoAnimateDuration":0}, queryOptions);
     </script>
 
 
