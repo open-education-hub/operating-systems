@@ -1,0 +1,122 @@
+import logging
+import socket
+import subprocess
+import ipaddress
+
+import db
+import errors
+
+logger = logging.getLogger(__name__)
+
+class Net(object):
+    def __init__(self, id: int, name: str, bridge_iface_idx: int, ip: int, mask: int):
+        self.name = name
+        self.id = id
+        self.bridge_iface_idx = bridge_iface_idx
+        self.ip = ip
+        self.mask = mask
+
+
+def create_one_network(net: Net):
+    bridge_ip = net.ip + 1
+    bridge_ip_str = socket.inet_ntoa(bridge_ip.to_bytes(4, 'big'))
+
+    bridge_netmask = net.mask
+    bridge_netmask_str = socket.inet_ntoa(bridge_netmask.to_bytes(4, 'big'))
+
+    try:
+        res = subprocess.run(['/app/scripts/create_bridge.sh',
+                              f'br{net.bridge_iface_idx}',
+                              bridge_ip_str,
+                              bridge_netmask_str],
+                             text = True,
+                             stdout = subprocess.PIPE,
+                             stderr = subprocess.STDOUT)
+        if res.returncode != 0:
+            raise errors.NetworkCreateException(res.stdout)
+    except:
+        raise
+
+
+def create_networks():
+    all_networks_info = db.get_all_networks()
+
+    networks = []
+
+    for id, name, bridge_iface_idx, ip, mask in all_networks_info:
+        networks.append(Net(name, id, bridge_iface_idx, ip, mask))
+
+    for net in networks:
+        create_one_network(net)
+
+
+def create_interface_in_network(ip: int, iface_idx: int, net: Net):
+    ip_str = str(ipaddress.ip_address(ip))
+
+    netmask_str = str(ipaddress.ip_address(net.mask))
+
+    bridge_iface_name = f'br{net.bridge_iface_idx}'
+    tap_iface_name = f'tap{iface_idx}'
+
+    try:
+        res = subprocess.run(['/app/scripts/create_tap_interface.sh',
+                              tap_iface_name,
+                              ip_str,
+                              netmask_str,
+                              bridge_iface_name],
+                             text = True,
+                             stdout = subprocess.PIPE,
+                             stderr = subprocess.STDOUT)
+        if res.returncode != 0:
+            raise errors.InterfaceCreateException(res.stdout)
+    except:
+        raise
+
+
+def get_network_info(name: str):
+    info = db.get_network_info(name)
+
+    return Net(info[0], name, info[1], info[2], info[3])
+
+
+def find_unused_ip(net: Net):
+    first_ip = net.ip + 2
+    last_ip = (net.ip | ~net.mask) & 0xffffffff
+
+    all_ips = db.get_used_ips()
+
+    for ip in range(first_ip, last_ip):
+        if not ip in all_ips:
+            return ip
+
+    raise errors.NetworkFullException(f'{net.name}')
+
+
+def find_unused_tap_interface():
+    all_tap_interfaces = db.get_used_tap_interfaces()
+
+    idx = 0
+    while True:
+        if not idx in all_tap_interfaces:
+            return idx
+        idx += 1
+
+
+def find_unused_qemu_monitor_port():
+    all_qemu_monitor_ports = db.get_used_qemu_monitor_ports()
+
+    port = 10001
+    while True:
+        if not port in all_qemu_monitor_ports:
+            return port
+        port += 2
+
+
+def find_unused_qemu_serial_port():
+    all_qemu_serial_ports = db.get_used_qemu_serial_ports()
+
+    port = 10002
+    while True:
+        if not port in all_qemu_serial_ports:
+            return port
+        port += 2
