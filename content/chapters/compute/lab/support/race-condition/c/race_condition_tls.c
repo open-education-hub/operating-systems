@@ -57,7 +57,7 @@ int main(void)
 	rc = pthread_join(tids[0], NULL);
 	DIE(rc < 0, "pthread_join");
 	rc = pthread_join(tids[1], NULL);
-	DIE(rc < 0, "pthread_join");    
+	DIE(rc < 0, "pthread_join");
 
 	printf("var = %d; %p\n", var, &var);
 
