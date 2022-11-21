@@ -8,7 +8,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 static void wait_for_input(const char *msg)
 {

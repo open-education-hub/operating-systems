@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 #define MAX_LINE_SIZE		256
 #define MAX_ARGS		8

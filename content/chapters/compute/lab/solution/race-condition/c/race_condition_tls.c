@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <pthread.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 #define NUM_ITER 10000000
 

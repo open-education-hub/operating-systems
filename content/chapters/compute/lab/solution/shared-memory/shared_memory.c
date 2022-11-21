@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 #include <semaphore.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 int main(void)
 {

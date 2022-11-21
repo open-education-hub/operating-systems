@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <pthread.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 void *thread_func(void *arg)
 {

@@ -7,7 +7,7 @@
 #include <spawn.h>
 #include <sys/wait.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 extern char **environ;
 

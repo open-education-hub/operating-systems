@@ -5,7 +5,7 @@
 #include <sys/mman.h>
 #include <sys/wait.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 #define NUM_PAGES	1024
 

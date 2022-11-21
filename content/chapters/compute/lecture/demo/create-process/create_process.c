@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "utils.h"
+#include "utils/utils.h"
 
 int main(void)
 {
