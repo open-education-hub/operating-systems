@@ -1,6 +1,6 @@
 # File Descriptors
 
-After running the code in the ["File Descriptros" section](./file-descriptors.md), you saw that `open()` returns a **number**.
+After running the code in the ["File Handlers" section](./file-handlers.md), you saw that `open()` returns a **number**.
 This number is a **file descriptor**.
 Run the code above multiple times.
 You'll always get file descriptor 3.
