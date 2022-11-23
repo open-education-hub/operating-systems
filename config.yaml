@@ -121,35 +121,35 @@ docusaurus:
               name: content/arena
         - I/O:
           - Overview:
-            location: content/chapters/io/lab
-            name: content/overview
+              location: content/chapters/io/lab
+              name: content/overview
           - Introduction:
-            location: content/chapters/io/lab
-            name: content/introduction
+              location: content/chapters/io/lab
+              name: content/introduction
           - File Handlers:
-            location: content/chapters/io/lab
-            name: content/file-handlers
+              location: content/chapters/io/lab
+              name: content/file-handlers
           - File Descriptors:
-            location: content/chapters/io/lab
-            name: content/file-descriptors
+              location: content/chapters/io/lab
+              name: content/file-descriptors
           - Redirections:
-            location: content/chapters/io/lab
-            name: content/redirections
+              location: content/chapters/io/lab
+              name: content/redirections
           - Pipes:
-            location: content/chapters/io/lab
-            name: content/pipes
+              location: content/chapters/io/lab
+              name: content/pipes
           - File Mappings:
-            location: content/chapters/io/lab
-            name: content/file-mappings
+              location: content/chapters/io/lab
+              name: content/file-mappings
           - I/O Internals:
-            location: content/chapters/io/lab
-            name: content/io-internals
+              location: content/chapters/io/lab
+              name: content/io-internals
           - Devices:
-            location: content/chapters/io/lab
-            name: content/devices
+              location: content/chapters/io/lab
+              name: content/devices
           - Arena:
-            location: content/chapters/io/lab
-            name: content/arena
+              location: content/chapters/io/lab
+              name: content/arena
     static_assets:
       - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
       - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
