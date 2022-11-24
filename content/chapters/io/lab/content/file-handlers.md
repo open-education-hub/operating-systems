@@ -1,11 +1,11 @@
 # File Handling
 
 You've most likely had to deal with files in the past.
-Go to `support/simple-file-handling` and run a most basic command:
+Go to `support/simple-file-operations` and run a most basic command:
 `cat file.txt`:
 
 ```console
-student@os:~/.../lab/support/simple-file-handling$ cat file.txt
+student@os:~/.../lab/support/simple-file-operations$ cat file.txt
 OS Rullz!
 ```
 
@@ -17,24 +17,24 @@ This is part of what we're going to learn.
 To manipulate the file (read its contents, modify them, change its size etc.), each process must first get a **handler** to this file.
 Think of this handler as an object by which the process can identify and refer to the file.
 
-Now take a look at the code examples in `support/simple-file-handling`.
+Now take a look at the code examples in `support/simple-file-operations`.
 Each of them reads the contents of `file.txt`, modifies them and then reads the previously modified file again.
 Use `make` to compile the C code and `make java-file-operations` to compile the Java code.
 
 Now run the programs repeatedly in whatever order you wish:
 
 ```console
-student@os:~/.../lab/support/simple-file-handling$ python3 file_operations.py
+student@os:~/.../lab/support/simple-file-operations$ python3 file_operations.py
 File contents are: OS Rullz!
 Wrote new data to file
 File contents are: Python was here!
 
-student@os:~/.../lab/support/simple-file-handling$ ./file_operations  # from the C code
+student@os:~/.../lab/support/simple-file-operations$ ./file_operations  # from the C code
 File contents are: Python was here!
 Wrote new data to file
 File contents are: C was here!
 
-student@os:~/.../lab/support/simple-file-handling$ java FileOperations
+student@os:~/.../lab/support/simple-file-operations$ java FileOperations
 File contents are: Python was here!
 Wrote new data to file
 File contents are: C was here!
@@ -59,7 +59,7 @@ it attempts to open the `dir` directory the same way `file_operations.c` tried t
 Compile and run the code.
 
 ```console
-student@os:~/.../lab/support/simple-file-handling$ ./directory_operations
+student@os:~/.../lab/support/simple-file-operations$ ./directory_operations
 18:18:11 FATAL directory_operations.c:14: fopen: Is a directory
 ```
 
