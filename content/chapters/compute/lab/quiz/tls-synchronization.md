@@ -8,9 +8,12 @@ Is placing `var` from `support/race-condition/c/race_condition_tls.c` in the TLS
 
 - No, because the race condition remains.
 It just doesn't manifest itself anymore
-+ No, because the threads now access different variables, not the same one.
+
++ No, because the threads now access different variables, not the same one
+
 - Yes, because we now remove the race condition
-- Yes, because now the result is correct.
+
+- Yes, because now the result is correct
 
 ## Feedback
 

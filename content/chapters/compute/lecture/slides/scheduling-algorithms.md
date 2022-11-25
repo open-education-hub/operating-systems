@@ -53,10 +53,10 @@
 ### Scheduling Algorithms - Round-Robin
 
 1. Add each new thread to a queue
-2. Remove one thread from the queue and run it
-3. The thread runs until finished or until its time slice ends
-4. If the thread is not finished, add it back to the queue
-5. Repeat from step 2
+1. Remove one thread from the queue and run it
+1. The thread runs until finished or until its time slice ends
+1. If the thread is not finished, add it back to the queue
+1. Repeat from step 2
 
 ----
 
@@ -100,7 +100,9 @@ struct schedcoop_private {
 	struct uk_thread_list sleeping_threads;
 };
 ```
+
 * `yield` means scheduling another thread:
+
 ```c
 static void schedcoop_yield(struct uk_sched *s)
 {

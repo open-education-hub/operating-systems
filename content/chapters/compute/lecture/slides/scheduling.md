@@ -20,6 +20,8 @@
 
 #### Thread States
 
+<!-- markdownlint-disable MD051 -->
+
 * At most one RUNNING thread per core
 * Queues for BLOCKED and READY threads
 * [Quiz](../quiz/number-of-running-threads.md)
@@ -28,17 +30,19 @@
 
 A more detailed diagram is [here](#the-suspended-states)
 
+<!-- markdownlint-enable MD051 -->
+
 ---
 
 ### Context Switch - When?
 
 * Voluntary - initiated by the running thread:
-    * RUNNING thread performs a blocking action (eg: I/O call)
-    * The thread calls `yield()` / `SwitchToThread()`
+  * RUNNING thread performs a blocking action (eg: I/O call)
+  * The thread calls `yield()` / `SwitchToThread()`
 * Involuntary - initiated by the OS:
-    * RUNNING thread ends
-    * RUNNING thread's time slice expires
-    * A thread with higher priority is READY
+  * RUNNING thread ends
+  * RUNNING thread's time slice expires
+  * A thread with higher priority is READY
 
 ----
 
@@ -78,7 +82,7 @@ nonvoluntary_ctxt_switches:     7
 
 * `demo/context-switch/io_bound.c`:
 
-```
+```console
 student@os:~$ cat /proc/$(pidof io_bound)/status
 [...]
 voluntary_ctxt_switches:        3729

@@ -7,8 +7,11 @@ What is the maximum number of threads that can be in the RUNNING state at any ti
 ## Question Answers
 
 - All of them
+
 - Only one
+
 - It depends on the ISA
+
 + As many as the number of CPU cores
 
 ## Feedback

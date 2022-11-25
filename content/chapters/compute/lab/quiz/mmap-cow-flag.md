@@ -7,15 +7,18 @@ From the description in its [man page](https://man7.org/linux/man-pages/man2/mma
 ## Question Answers
 
 - `MAP_SHARED`
+
 + `MAP_PRIVATE`
+
 - `MAP_ANONYMOUS`
+
 - `MAP_POPULATE`
 
 ## Feedback
 
 Quoting the [man page](https://man7.org/linux/man-pages/man2/mmap.2.html):
 
-```
+```text
 MAP_PRIVATE
               Create a private copy-on-write mapping.
 ```

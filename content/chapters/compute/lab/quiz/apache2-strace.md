@@ -7,8 +7,11 @@ What is the document root of the `apache2` server?
 ## Question Answers
 
 - `/etc/apache2`
+
 + `/usr/local/apache2/htdocs/`
+
 - `/var/www/html`
+
 - `/var/www/apache2/htdocs`
 
 ## Feedback

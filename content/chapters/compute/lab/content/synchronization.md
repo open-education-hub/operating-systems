@@ -56,7 +56,7 @@ When calling `unlock()`, the internal variable is set to 0 and all waiting threa
 **Be careful:** It is generally considered unsafe and [in many cases undefined behaviour](https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_lock.html) to call `unlock()` from a different thread than the one that acquired the lock.
 So the general workflow should look something like this:
 
-```
+```text
 within a single thread:
     mutex.lock()
     // do atomic stuff
@@ -98,7 +98,7 @@ Modern processors are capable of _atomically_ accessing data, either for reads o
 An atomic action is and indivisible sequence of operations that a thread runs without interference from others.
 Concretely, before initiating an atomic transfer on one of its data buses, the CPU first makes sure all other transfers have ended, then **locks** the data bus by stalling all cores attempting to transfer data on it.
 This way, one thread obtains **exclusive** access to the data bus while accessing data.
-As a side note, the critical sections in `support/race-condition/race_condition_mutex.d` are also atomic once they are wrapped between calls to `lock()` and `unlock()`. 
+As a side note, the critical sections in `support/race-condition/race_condition_mutex.d` are also atomic once they are wrapped between calls to `lock()` and `unlock()`.
 
 As with every hardware feature, the x86 ISA exposes an instruction for atomic operations.
 In particular this instruction is a **prefix**, called `lock`.
@@ -262,7 +262,7 @@ Try to compile the code.
 It fails.
 The compiler is smart and tells you what to do instead:
 
-```
+```console
 Error: read-modify-write operations are not allowed for `shared` variables
         Use `core.atomic.atomicOp!"+="(var, 1)` instead
 ```
@@ -287,9 +287,9 @@ You should see that in the end, `var` is 0.
 
 [Quiz 2](../quiz/tls-var-copies.md)
 
-2. Print the address and value of `var` in each thread.
+1. Print the address and value of `var` in each thread.
 See that they differ.
 
-3. Modify the value of `var` in the `main()` function before calling `pthread_create()`.
+1. Modify the value of `var` in the `main()` function before calling `pthread_create()`.
 Notice that the value doesn't propagate to the other threads.
-This is because, upon creating a new thread, its TLS is initialised. 
+This is because, upon creating a new thread, its TLS is initialised.

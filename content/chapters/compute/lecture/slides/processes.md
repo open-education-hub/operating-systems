@@ -4,6 +4,8 @@
 
 ---
 
+<!-- markdownlint-disable MD051 -->
+
 ### Processes
 
 * A process is a **running program**
@@ -11,6 +13,8 @@
 * An application can spawn multiple processes
 * The OS allows each [thread](#threads) to run on a **core** for a few milliseconds (time slice)
 * Then the OS pauses the thread and replaces it with another one (context switch)
+
+<!-- markdownlint-enable MD051 -->
 
 ----
 

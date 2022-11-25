@@ -8,7 +8,9 @@ Why does the scheduler need a COMPLETED queue and not simply terminate one threa
 
 - The COMPLETED queue is an implementation preference.
 The scheduler can expose the same functions without it
+
 - Because the OS's scheduler may kill the main kernel-level thread unless we keep the user-level thread in a queue
+
 + The COMPLETED queue is needed to save the value returned by the thread so that it can later be retrieved by `threads_join()`.
 
 ## Feedback

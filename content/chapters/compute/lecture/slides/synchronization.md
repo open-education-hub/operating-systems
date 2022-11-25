@@ -46,7 +46,6 @@ if (lock = 0) {
 
 ![Race Condition - TOCTOU](./media/race-condition-toctou-generated.gif)
 
-
 * **Wrong:** threads enter critical section simultaneously
 
 ----

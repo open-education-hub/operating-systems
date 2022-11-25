@@ -7,7 +7,9 @@ Why does code with the the larger (coarser) critical section run faster than the
 ## Question Answers
 
 + Because the more granular code causes more context switches, which are expensive
+
 - Because the coarser code can be better optimised by the compiler
+
 - Because the loops in the more granular code run for more steps
 
 ## Feedback

@@ -4,6 +4,7 @@ The main criterion we use to rank CPUs is their _computation power_, i.e. their 
 Numerous benchmarks exist out there and they are publicly displayed on sites such as [CPUBenchmark](https://www.cpubenchmark.net/).
 
 This benchmark measures the performance of the computer's CPU in a variety of scenarios:
+
 - its ability to perform integer operations
 - its speed in floating point arithmetic
 - data encryption and compression

@@ -7,8 +7,11 @@ What is the exit code of the faulty child process spawned by `support/sum-array-
 ## Question Answers
 
 + 11 because this is the code of the `SIGSEGV` signal
+
 - 11 because this code is always returned when a process ends with an error
+
 - 11 because this is the value of the least significant 4 bytes of the partial array sum calculated by the process
+
 - 6 because the child process was aborted
 
 ## Feedback
