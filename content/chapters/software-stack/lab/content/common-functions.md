@@ -17,7 +17,7 @@ We print messages using the `write()` system call wrapper implemented in `syscal
 
 Let's build and run the program:
 
-```
+```console
 student@os:~/.../lab/support/common-functions$ make main_string
 gcc -fno-stack-protector   -c -o main_string.o main_string.c
 gcc -fno-stack-protector   -c -o string.o string.c
@@ -47,7 +47,7 @@ The `main()` function `main_printf.c` file contains all the string and printing 
 
 Let's build and run the program:
 
-```
+```console
 student@os:~/.../lab/support/common-functions$ make main_printf
 gcc -fno-stack-protector   -c -o printf.o printf.c
 gcc -nostdlib -no-pie -Wl,--entry=main -Wl,--build-id=none  main_printf.o printf.o string.o syscall.o   -o main_printf

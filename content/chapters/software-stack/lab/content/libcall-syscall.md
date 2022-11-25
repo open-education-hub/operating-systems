@@ -12,7 +12,7 @@ A library call could be mapped to no system calls, one system call, two or more 
 The `support/libcall-syscall/` folder stores the implementation of a simple program that makes different library calls.
 Let's build the program and then trace the library calls (with `ltrace`) and the system calls (with `strace`):
 
-```
+```console
 student@os:~/.../lab/support/libcall-syscall$ make
 cc -Wall   -c -o call.o call.c
 cc   call.o   -o call
@@ -38,6 +38,7 @@ exit_group(0)                           = ?
 ```
 
 We have the following mappings:
+
 * The `fopen()` library call invokes the `openat` and the `fstat` system calls.
 * The `fwrite()` library call invokes no system calls.
 * The `strlen()` library call invokes no system calls.

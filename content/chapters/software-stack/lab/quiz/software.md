@@ -7,8 +7,11 @@ Which of the following is **not** an advantage of software when compared to hard
 ## Question Answers
 
 - reusability
+
 + performance
+
 - portability
+
 - flexibility
 
 ## Feedback

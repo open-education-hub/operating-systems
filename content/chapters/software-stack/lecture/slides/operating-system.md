@@ -98,13 +98,13 @@ Security role: _Reference Monitor_
 
 ### Privileged vs Unprivileged Actions
 
-**Unprivileged**
+#### Unprivileged
 
 * memory access (read, write)
 * logical and arithmetic operations
 * function calls
 
-**Privileged**
+#### Privileged
 
 * I/O resource access (files, network, terminal, time)
 * memory allocation
@@ -158,14 +158,14 @@ Also called **supervisor mode**
 
 * ANSI / ISO
   * standard API, portable across OSes
-  * https://www.iso-9899.info/wiki/The_Standard
+  * <https://www.iso-9899.info/wiki/The_Standard>
 * POSIX
   * standard for UNIX-based OSes: Linux, \*BSD, macOS
   * Windows has a POSIX API
-  * https://pubs.opengroup.org/onlinepubs/9699919799/
+  * <https://pubs.opengroup.org/onlinepubs/9699919799>
 * Windows API
   * formerly Win32 API
-  * https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list
+  * <https://learn.microsoft.com/en-us/windows/win32/apiindex/windows-api-list>
 
 ----
 

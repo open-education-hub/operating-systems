@@ -26,7 +26,7 @@ These programs are almost identical to those used in the past sections:
 
 Let's build and run them:
 
-```
+```console
 student@os:~/.../lab/support/libc$ ls
 hello  hello.c  hello.o  main_printf  main_printf.c  main_printf.o  main_string  main_string.c  main_string.o  Makefile
 
@@ -70,7 +70,7 @@ abc
 
 The behavior / output is similar to the ones in the previous sections:
 
-```
+```console
 student@os:~/.../lab/support/libc$ ../../solution/basic-syscall/hello-nasm
 Hello, world!
 Bye, world!
@@ -93,7 +93,7 @@ abc
 We can inspect the system calls made to check the similarities.
 For example, for the `main_printf` program we get the outputs:
 
-```
+```console
 student@os:~/.../lab/support/libc$ strace ./main_printf
 execve("./main_printf", ["./main_printf"], 0x7fff7b38c240 /* 66 vars */) = 0
 brk(NULL)                               = 0x15af000

@@ -11,16 +11,19 @@ Moreover, these pieces of instructions can be duplicated and run on different pi
 All we are left with is creating those pieces of instructions, also called programs.
 
 In summary, software has intrinsic characteristics:
+
 * **flexibility**: We can (easily) create new pieces of software.
   Little is required, we don't need raw materials as in the case of hardware or housing or transportation.
 * **reusability**: Software can be easily copied to new systems and provide the same benefits there.
 
 Other characteristics are important to have, as they make life easier for both users and developers of software:
+
 * **portability**: This is the ability to build and run the same program on different computing platforms.
   This allows a developer to write the application code once and then run it everywhere.
 * **fast development**: We want developers to be able to write code faster, using higher-level programming languages.
 
 The last two characteristics rely on two items:
+
 * **higher-level programming languages**: As discussed above, a compiler will take a higher-level program and transform it into binary code for different computing platforms, thus providing portability.
   Also, it's easier to read (comprehend) and write (develop) source code in a higher-level programming language, thus providing fast development.
 * **software stacks**: A software stack is the layering of software such that each lower layer provides a set of features that the higher layer can directly use.

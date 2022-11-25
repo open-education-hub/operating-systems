@@ -6,7 +6,7 @@ Typically, the executables found in modern operating systems are dynamically-lin
 The `support/static-dynamic/` folder stores the implementation of a simple "Hello, World!"-printing program that uses both static and dynamic linking of libraries.
 Let's build and run the two executables:
 
-```
+```console
 student@os:~/.../lab/support/static-dynamic$ ls
 hello.c  Makefile
 
@@ -34,7 +34,7 @@ The two executables (`hello` and `hello_static`) behave similarly, despite havin
 
 We use `nm` and `ldd` to catch differences between the two types of resulting executables:
 
-```
+```console
 student@os:~/.../lab/support/static-dynamic$ ldd hello
         linux-vdso.so.1 (0x00007ffc8d9b2000)
         libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f10d1d88000)
@@ -56,7 +56,7 @@ Also, given the statically-linked executable integrated entire parts of statical
 We can use `strace` to see that there are differences in the preparatory system calls for each type of executables.
 For the dynamically-linked executable, the dynamically-linked library (`/lib/x86_64-linux-gnu/libc.so.6`) is opened during runtime:
 
-```
+```console
 student@os:~/.../lab/support/static-dynamic$ strace ./hello
 execve("./hello", ["./hello"], 0x7ffc409c6640 /* 66 vars */) = 0
 brk(NULL)                               = 0x55a72eda6000
@@ -108,7 +108,7 @@ exit_group(0)                           = ?
 
 Similarly, we can investigate a system executable (`/bin/ls`) to see that indeed all referenced dynamically-linked libraries are opened (via the `openat` system call) at runtime:
 
-```
+```console
 student@os:~/.../lab/support/static-dynamic$ ldd $(which ls)
 	linux-vdso.so.1 (0x00007ffc3bdf3000)
 	libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007f092bd88000)
