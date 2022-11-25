@@ -5,8 +5,11 @@ When is the major drawback of this allocation strategy?
 ## Question Answers
 
 - Allocating memory upfront is wasteful because you do not use it right away.
+
 + After a few reallocations, you might be allocating too much memory upfront.
+
 - The `appendElem` function becomes more complex.
+
 - The `capacity` field requires extra space which may lead to memory exhaustion when using a large number of `IntArray`s
 
 ## Feedback
