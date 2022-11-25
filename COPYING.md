@@ -7,7 +7,7 @@ A copy of each license is below.
 
 Copy of CC BY-SA 4.0:
 
-```
+```text
 Attribution-NonCommercial-ShareAlike 4.0 International
 
 =======================================================================
@@ -449,7 +449,7 @@ Creative Commons may be contacted at creativecommons.org.
 
 Copy of BSD-3-Clause:
 
-```
+```text
 Copyright 2021 University POLITEHNICA of Bucharest
 
 Redistribution and use in source and binary forms, with or without
