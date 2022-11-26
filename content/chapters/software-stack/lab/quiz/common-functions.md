@@ -1,4 +1,4 @@
-# Common functions
+# Common Functions
 
 ## printf() System Call
 

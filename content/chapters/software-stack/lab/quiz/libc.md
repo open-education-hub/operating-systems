@@ -1,6 +1,6 @@
 # libc
 
-## malloc
+## `malloc()`
 
 ### Question Text
 

@@ -64,15 +64,11 @@ When a thread ends its execution, it is added to the COMPLETED queue, together w
 
 ### Thread Control Block
 
-<!-- markdownlint-disable MD051 -->
-
 Let's dissect the `threads_create()` function a bit.
 It first initialises its queues and the timer for preemption.
-We'll discuss preemption [in the next section](#preemption).
+We'll discuss preemption [in the next section](#scheduling---how-is-it-done).
 After performing initialisations, the function creates a `TCB` object.
 TCB stands for **Thread Control Block**.
-
-<!-- markdownlint-enable MD051 -->
 
 During the [lecture](../../lecture/), you saw that the kernel stores one instance of a [`task_struct`](https://elixir.bootlin.com/linux/v5.19.11/source/include/linux/sched.h#L726) for each thread.
 Remember that its most important fields are:
@@ -183,12 +179,8 @@ If you encounter the following error when running `test_ult`, remember what you 
 
 > Hint: Use the `LD_LIBRARY_PATH` variable.
 
-<!-- markdownlint-disable MD051 -->
-
 Notice that the threads run their code and alternatively, because their prints appear interleaved.
-[In the next section](#preemption), we'll see how this is done.
-
-<!-- markdownlint-enable MD051 -->
+[In the next section](#scheduling---how-is-it-done), we'll see how this is done.
 
 [Quiz](../quiz/ult-thread-ids.md)
 

@@ -20,17 +20,13 @@
 
 #### Thread States
 
-<!-- markdownlint-disable MD051 -->
-
 * At most one RUNNING thread per core
 * Queues for BLOCKED and READY threads
 * [Quiz](../quiz/number-of-running-threads.md)
 
 <img src="media/thread-states.svg" alt="Thread State Diagram" style="width:700px;"/>
 
-A more detailed diagram is [here](#the-suspended-states)
-
-<!-- markdownlint-enable MD051 -->
+A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
 
 ---
 
