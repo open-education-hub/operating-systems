@@ -16,7 +16,8 @@ Software running while you are doing your homework:
 * Crypto miner
 * The OS itself
 
-Only one CPU. How?
+Only one CPU.
+How?
 
 ----
 

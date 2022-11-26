@@ -14,7 +14,8 @@ Therefore, they are more lightweight than processes.
 
 Go to `support/wait-for-me/wait_for_me_threads.d`.
 Spawn a thread that executes the `negateArray()` function.
-For now, do not wait for it to finish; simply start it.
+For now, do not wait for it to finish;
+simply start it.
 
 Compile the code and run the resulting executable several times.
 See that the negative numbers appear from different indices.

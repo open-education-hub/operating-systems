@@ -14,4 +14,5 @@ When is the major drawback of this allocation strategy?
 
 ## Feedback
 
-The reallocation factor is highly dependant on the use case. For applications that require a long time to use up the memory that they allocated it is better to use a linear function and not an exponential one.
+The reallocation factor is highly dependant on the use case.
+For applications that require a long time to use up the memory that they allocated it is better to use a linear function and not an exponential one.

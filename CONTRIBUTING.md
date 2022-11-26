@@ -32,9 +32,9 @@ Use phrases like "find the flag", "run this command", "download the tool".
 ## Images
 
 Images and diagrams would ideally be animated on slides.
-Aim to use reveal.js features to animate drawing of diagrams.
+Aim to use `reveal.js` features to animate drawing of diagrams.
 
-If reveal.js drawing is difficult, use [draw.io](https://app.diagrams.net/) to create diagrams.
+If `reveal.js` drawing is difficult, use [draw.io](https://app.diagrams.net/) to create diagrams.
 Ideally you would "animate" those diagrams by creating multiple incremental versions of the diagram and adding each to a slide;
 when browsing slides pieces of these diagrams will "appear" and complete the final image, rendering an animation-like effect.
 

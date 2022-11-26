@@ -2,7 +2,8 @@
 
 ## Question Text
 
-Who is the parent of the `sleep` processes? Why?
+Who is the parent of the `sleep` processes?
+Why?
 
 ## Question Answers
 

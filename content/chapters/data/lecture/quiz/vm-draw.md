@@ -14,4 +14,5 @@ Which of the following answers does not represent a virtual memory drawback?
 
 ## Feedback
 
-Sharing memory by default between processes is a big security threat. Imagine that each application you installed could access other application's memories.
+Sharing memory by default between processes is a big security threat.
+Imagine that each application you installed could access other application's memories.
