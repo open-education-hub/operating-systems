@@ -32,7 +32,7 @@ As above, the output will differ between systems.
 So, depending on the developers' choice, applications may be:
 
 * compiled into executables, from compiled languages such as C, C++, Go, Rust, D
-* developed as scripts, from interpreted languages such as Python, Perl, Javascript
+* developed as scripts, from interpreted languages such as Python, Perl, JavaScript
 
 #### Practice
 

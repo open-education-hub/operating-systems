@@ -65,7 +65,7 @@ Its main purpose is to determine the way in which child processes interact with 
 Now let's test this flag, as well as its opposite: `MAP_SHARED`.
 Compile and run the code in `support/shared-memory/shared_memory.c`.
 
-1. See the value read by the parent id different from that written by the child.
+1. See the value read by the parent is different from that written by the child.
 Modify the `flags` parameter of `mmap()` so they are the same.
 
 1. Create a semaphore in the shared page and use it to make the parent signal the child before it can exit.
