@@ -32,14 +32,15 @@
 Software running while you are doing your homework:
 
 * Code editor
-* Browser with 10+ https://stackoverflow.com/ tabs
+* Browser with 10+ <https://stackoverflow.com/> tabs
 * Discord
 * Spotify
 * Bittorrent client
 * Crypto miner
 * The OS itself
 
-Only one CPU. How?
+Only one CPU.
+How?
 </script></section><section data-markdown><script type="text/template">
 #### Some CPU internals
 
@@ -97,7 +98,7 @@ Way more processes than cores!
 * A process is a **running program**
   * It is a collection of resources (Memory, CPU, I/O) and abstractions over them (VAS, threads, file descriptors)
 * An application can spawn multiple processes
-* The OS allows each [thread](#threads) to run on a **core** for a few milliseconds (time slice)
+* The OS allows each [thread](./threads.md) to run on a **core** for a few milliseconds (time slice)
 * Then the OS pauses the thread and replaces it with another one (context switch)
 </script></section><section data-markdown><script type="text/template">
 #### What We Want
@@ -367,7 +368,6 @@ if (lock = 0) {
 
 ![Race Condition - TOCTOU](./media/race-condition-toctou-generated.gif)
 
-
 * **Wrong:** threads enter critical section simultaneously
 </script></section><section data-markdown><script type="text/template">
 #### Synchronization - Solution
@@ -542,11 +542,14 @@ Thread 2: locked resource 2. Waiting for resource 1...
 #### Two Types of Primitives
 
 1. For mutual exclusion:
-  * mutexes, spinlocks
-  * methods: `lock()` and `unlock()`
+
+* mutexes, spinlocks
+* methods: `lock()` and `unlock()`
+
 1. For ordering:
-  * semaphore, condition variables
-  * methdos: `wait()` and `notify()`
+
+* semaphore, condition variables
+* methdos: `wait()` and `notify()`
 </script></section></section><section  data-markdown><script type="text/template">
 ### Semaphores
 
@@ -688,17 +691,17 @@ int add2(int x)
 
 <img src="media/thread-states.svg" alt="Thread State Diagram" style="width:700px;"/>
 
-A more detailed diagram is [here](#the-suspended-states)
+A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
 </script></section></section><section ><section data-markdown><script type="text/template">
 ### Context Switch - When?
 
 * Voluntary - initiated by the running thread:
-    * RUNNING thread performs a blocking action (eg: I/O call)
-    * The thread calls `yield()` / `SwitchToThread()`
+  * RUNNING thread performs a blocking action (eg: I/O call)
+  * The thread calls `yield()` / `SwitchToThread()`
 * Involuntary - initiated by the OS:
-    * RUNNING thread ends
-    * RUNNING thread's time slice expires
-    * A thread with higher priority is READY
+  * RUNNING thread ends
+  * RUNNING thread's time slice expires
+  * A thread with higher priority is READY
 </script></section><section data-markdown><script type="text/template">
 #### Context Switch - How?
 
@@ -730,7 +733,7 @@ nonvoluntary_ctxt_switches:     7
 
 * `demo/context-switch/io_bound.c`:
 
-```
+```console
 student@os:~$ cat /proc/$(pidof io_bound)/status
 [...]
 voluntary_ctxt_switches:        3729
@@ -786,10 +789,10 @@ nonvoluntary_ctxt_switches:     3
 ### Scheduling Algorithms - Round-Robin
 
 1. Add each new thread to a queue
-2. Remove one thread from the queue and run it
-3. The thread runs until finished or until its time slice ends
-4. If the thread is not finished, add it back to the queue
-5. Repeat from step 2
+1. Remove one thread from the queue and run it
+1. The thread runs until finished or until its time slice ends
+1. If the thread is not finished, add it back to the queue
+1. Repeat from step 2
 </script></section><section data-markdown><script type="text/template">
 #### Round-Robin - Example
 
@@ -825,7 +828,9 @@ struct schedcoop_private {
 	struct uk_thread_list sleeping_threads;
 };
 ```
+
 * `yield` means scheduling another thread:
+
 ```c
 static void schedcoop_yield(struct uk_sched *s)
 {
@@ -953,6 +958,7 @@ student@os:~/.../compute/lecture/demo/create-process$ strace ./fork_exec
 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7e83aa4810) = 5279
 [...]
 ```
+
 * `fork()` and `pthread_create()` are `libc` wrappers to the same syscall: `clone()`
 </script></section></section><section ><section data-markdown><script type="text/template">
 ### Libc vs Linux vs Windows
