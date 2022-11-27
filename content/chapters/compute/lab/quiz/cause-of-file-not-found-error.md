@@ -7,8 +7,11 @@ What causes the `FileNotFoundError` when running `support/wait-for-me/wait_for_m
 ## Question Answers
 
 + The parent process attempts to open the file before the child process has had the time to create it
+
 - There is a syntax error in the Python code
+
 - The mode with which to open the file is not specified in the parent process
+
 - The child process doesn't close the file
 
 ## Feedback

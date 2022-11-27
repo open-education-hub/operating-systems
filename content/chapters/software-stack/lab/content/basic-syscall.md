@@ -10,12 +10,13 @@ The program invokes two system calls: `write` and `exit`.
 The program is duplicated in two files using the two x86 assembly language syntaxes: the Intel / NASM syntax (`hello.asm`) and the AT&T / GAS syntax (`hello.s`).
 
 The implementation follows the [x86_64 Linux calling convention](https://x64.syscall.sh/):
+
 * system call ID is passed in the `rax` register
 * system call arguments are passed, in order, in the `rdi`, `rsi`, `rdx`, `r10`, `r8`, `r9` registers
 
 Let's build and run the two programs:
 
-```
+```console
 student@os:~/.../lab/support/basic-syscall$ ls
 hello.asm  hello.s  Makefile
 
@@ -41,7 +42,7 @@ You can also check the online man pages: [`write`](https://man7.org/linux/man-pa
 
 We use `strace` to inspect system calls issued by a program:
 
-```
+```console
 student@os:~/.../lab/support/basic-syscall$ strace ./hello-nasm
 execve("./hello-nasm", ["./hello-nasm"], 0x7ffc4e175f00 /* 63 vars */) = 0
 write(1, "Hello, world!\n", 14Hello, world!
@@ -51,6 +52,7 @@ exit(0)                                 = ?
 ```
 
 There are three system calls captured by `strace`:
+
 * `execve`: this is issued by the shell to create the new process;
   you'll find out more about `execve` in the "Compute" chapter
 * `write`: called by the program to print `Hello, world!` to standard output

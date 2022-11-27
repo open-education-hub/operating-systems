@@ -7,8 +7,11 @@ Why does the `mini_shell` process stop after executing a single command?
 ## Question Answers
 
 - Because of an implementation error
+
 + Because the `mini_shell` process doesn't exist anymore
+
 - Because the OS sees that the command has ended and ends the `mini_shell` process as well
+
 - Because `exec*()` syscalls also kill the caller process when the callee ends
 
 ## Feedback

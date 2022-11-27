@@ -7,7 +7,7 @@ We'll see that in order to create both threads and processes, the underlying Lin
 For this, we'll run both `sum_array_threads` and `sum_array_processes` under `strace`.
 As we've already established, we're only interested in the `clone` syscall:
 
-```
+```console
 student@os:~/.../lab/support/sum-array/d$ strace -e clone ./sum_array_threads 2
 clone(child_stack=0x7f60b56482b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1819693], tls=0x7f60b5649640, child_tidptr=0x7f60b5649910) = 1819693
 clone(child_stack=0x7f60b4e472b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1819694], tls=0x7f60b4e48640, child_tidptr=0x7f60b4e48910) = 1819694
@@ -20,6 +20,7 @@ clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, c
 We ran each program with an argument of 2, so we have 2 calls to `clone`.
 Notice that in the case of threads, the `clone` syscall receives more arguments.
 The relevant flags passed as arguments when creating threads are documented in [`clone`'s man page](https://man.archlinux.org/man/clone3.2.en):
+
 - `CLONE_VM`: the child and the parent process share the same VAS
 - `CLONE_{FS,FILES,SIGHAND}`: the new thread shares the filesystem information, file and signal handlers with the one that created it
 The syscall also receives valid pointers to the new thread's stack and TLS, i.e. the only parts of the VAS that are distinct between threads (although they are technically accessible from all threads).
@@ -64,10 +65,10 @@ Its main purpose is to determine the way in which child processes interact with 
 Now let's test this flag, as well as its opposite: `MAP_SHARED`.
 Compile and run the code in `support/shared-memory/shared_memory.c`.
 
-1. See the value read by the parent id different from that written by the child.
+1. See the value read by the parent is different from that written by the child.
 Modify the `flags` parameter of `mmap()` so they are the same.
 
-2. Create a semaphore in the shared page and use it to make the parent signal the child before it can exit.
+1. Create a semaphore in the shared page and use it to make the parent signal the child before it can exit.
 Use the API defined in [`semaphore.h`](https://man7.org/linux/man-pages/man0/semaphore.h.0p.html).
 **Be careful!**
 The value written and read previously by the child and the parent, respectively, must not change.
@@ -87,7 +88,7 @@ Let's see how and why.
 First, we run the following command to trace the `execve()` syscalls used by `sleepy_creator`.
 We'll leave `fork()` for later.
 
-```
+```console
 student@os:~/.../support/sleepy$ strace -e execve -ff -o syscalls ./sleepy_creator
 ```
 
@@ -98,7 +99,7 @@ the other logs those two syscalls when made by the child process.
 Let's take a look at them.
 The numbers below will differ from those on your system:
 
-```
+```console
 student@os:~/.../support/sleepy:$ cat syscalls.2523393  # syscalls from parent process
 execve("sleepy_creator", ["sleepy_creator"], 0x7ffd2c157758 /* 39 vars */) = 0
 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=2523394, si_uid=1052093, si_status=0, si_utime=0, si_stime=0} ---
@@ -128,10 +129,11 @@ Find a way to do this.
 
 > **Hint**:  You can see what `sleepy` does and draw inspiration from there.
 > Use `strace` to also list the calls to `clone()` perfromed by `sleepy` or its children.
-> [Remember](#threads-and-processes-clone) what `clone()` is used for and use its parameters to deduce which of the two scenarios happens to `sleepy`. 
+> [Remember](#threads-and-processes-clone) what `clone()` is used for and use its parameters to deduce which of the two scenarios happens to `sleepy`.
 
 **Moral of the story**: We can add another step to the moral of [our previous story](./processes.md#practice-fork).
 When spawning a new command, the call order is:
+
 - parent: `fork()`, `exec()`, `wait()`
 - child: `exit()`
 
@@ -191,7 +193,7 @@ Single-threadedness is a common trope for interpreted languages to use some sort
 [Ruby MRI, the reference Ruby interpreter](https://git.ruby-lang.org/ruby.git) uses a similar mechanism, called the [Global VM Lock](https://ivoanjo.me/blog/2022/07/17/tracing-ruby-global-vm-lock/).
 JavaScript is even more straightforward: it is single-threaded by design, also for GC-related reasons.
 It does, however support asynchronous actions, but these are executed on the same thread as every other code.
-This is implemented by placing each instruction on a [call stack](https://medium.com/swlh/what-does-it-mean-by-javascript-is-single-threaded-language-f4130645d8a9). 
+This is implemented by placing each instruction on a [call stack](https://medium.com/swlh/what-does-it-mean-by-javascript-is-single-threaded-language-f4130645d8a9).
 
 ### Atomic Assembly
 

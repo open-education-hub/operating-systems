@@ -33,7 +33,7 @@ Remember from the [Data chapter](../../../data/) that **demand paging** means th
 On the other hand, **copy-on-write** posits that the virtual memory is already mapped to some frames.
 These frames are only duplicated when one of the processes attempts to write data to them.
 
-#### Practice
+### Practice
 
 Now let's see the copy-on-write mechanism in practice.
 Keep in mind that `fork()` is a function used to create a process.
@@ -42,7 +42,7 @@ Open two terminals (or better: use [`tmux`](https://github.com/tmux/tmux/wiki)).
 In one of them compile and run the code in `support/fork-faults/fork_faults.c`.
 After each time you press `Enter` in the first terminal window, run the following command in the second window:
 
-```
+```console
 student@os:~/.../lab/support/fork-faults$ ps -o min_flt,maj_flt -p $(pidof fork_faults)
 ```
 

@@ -8,7 +8,9 @@ Which type of scheduler does `libult.so` use?
 ## Question Answers
 
 + It uses a preemptive scheduler
+
 - It uses a cooperative scheduler
+
 - It uses both a cooperative and a preemptive scheduler
 
 ## Feedback

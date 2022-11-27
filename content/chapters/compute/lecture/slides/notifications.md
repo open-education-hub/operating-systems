@@ -25,11 +25,14 @@
 #### Two Types of Primitives
 
 1. For mutual exclusion:
-  * mutexes, spinlocks
-  * methods: `lock()` and `unlock()`
+
+* mutexes, spinlocks
+* methods: `lock()` and `unlock()`
+
 1. For ordering:
-  * semaphore, condition variables
-  * methdos: `wait()` and `notify()`
+
+* semaphore, condition variables
+* methdos: `wait()` and `notify()`
 
 ---
 

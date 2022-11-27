@@ -33,6 +33,7 @@ Hence, the first argumetn we give to `CreateProcess()` is `"cmd /s ls"`.
 
 Run the code and see how `fork()` returns **twice**.
 It creates another process and then returns a different value to each of the two processes:
+
 - it returns 0 to the child process
 - it returns the PID of the child process to the parent
 
@@ -43,7 +44,7 @@ Can you tell how many processes there will be in the end?
 
 Run the code and analyse the process hierarchy using the following output:
 
-```
+```console
 After first fork: PID = 8667; PPID = 6579
  * first fork()
  -- Press ENTER to continue ...

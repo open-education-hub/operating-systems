@@ -1,35 +1,44 @@
-# Static Executables
+# libs
 
-## Question Text
+## Static Executables
+
+### Question Text
 
 Which of the following tools has no influence over statically-linked executables? (choose 2 answers)
 
-## Question Answers
+### Question Answers
 
 + `ltrace`
+
 - `strace`
+
 - `nm`
+
 + `ldd`
+
 - `rm`
 
-## Feedback
+### Feedback
 
 `ltrace` and `ldd` are used to capture connections to dynamic libraries.
 They have no effect on statically-linked executables.
 
-# Dynamic Libraries
+## Dynamic Libraries
 
-## Question Text
+### Question Text
 
 Which of the following is a dynamic library?
 
-## Question Answers
+### Question Answers
 
 - `libc.a`
+
 + `libc.so`
+
 - `libc.exe`
+
 - `libc.c`
 
-## Feedback
+### Feedback
 
 The `.so` (_shared object_) extension is used for dynamic libraries in Linux.

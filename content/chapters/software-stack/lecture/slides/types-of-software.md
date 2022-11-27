@@ -46,6 +46,7 @@
 ### Applications and Libraries
 
 Common features / attributes
+
 * machine / binary code (for compiled programs)
 * data and instructions sections (`rodata`, `data`, `bss`, `text`)
 * stored as files in the filesystem

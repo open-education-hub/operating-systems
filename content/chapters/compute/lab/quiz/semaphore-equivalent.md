@@ -7,8 +7,11 @@ From running and inspecting the code in `support/apache2-simulator/apache2_simul
 ## Question Answers
 
 - The value of `msg_mutex`
+
 - The time a worker thread has to wait before running
+
 + The length of the `messages` list
+
 - The number of worker threads
 
 ## Feedback

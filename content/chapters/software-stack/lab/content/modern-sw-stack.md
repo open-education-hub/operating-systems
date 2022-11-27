@@ -20,6 +20,7 @@ More than these wrappers, the standard C library provides its own API that is ty
 Part of the API exposed by the standard C library is the **standard C API**, also called **ANSI C** or **ISO C**;
 this API is typically portable across all platforms (operating systems and hardware).
 This API, going beyond system call wrappers, has several advantages:
+
 * portability: irrespective of the underlying operating system (and system call API), the API is the same
 * extensive features: string management, I/O formatting
 * possibility of increased efficiency with techniques such as buffering, as we show later

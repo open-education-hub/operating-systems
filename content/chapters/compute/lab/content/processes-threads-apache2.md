@@ -9,6 +9,7 @@ Instead, `apache2` provides a couple of modules called MPMs (Multi-Processing Mo
 Each module implements a different concurrency model and the users can pick whatever module best fits their needs by editing the server configuration files.
 
 The most common MPMs are
+
 - `prefork`: there are multiple worker processes, each process is single-threaded and handles one client request at a time
 - `worker`: there are multiple worker processes, each process is multi-threaded, and each thread handles one client request at a time
 - `event`: same as `worker` but designed to better handle some particular use cases
@@ -25,14 +26,14 @@ This will start a container with `apache2` running inside.
 
 Check that the server runs as expected:
 
-```
+```console
 student@os:~$ curl localhost:8080
 <html><body><h1>It works!</h1></body></html>
 ```
 
 Now go inside the container and take a look at running processes:
 
-```
+```console
 student@os:~/.../lab/support/apache2$ docker exec -it apache2-test bash
 
 root@56b9a761d598:/usr/local/apache2# ps -ef
@@ -49,7 +50,7 @@ The first one, running as root, is the main process, while the other 2 are the w
 
 Let's confirm that we are using the `event` mpm:
 
-```
+```console
 root@56b9a761d598:/usr/local/apache2# grep mod_mpm conf/httpd.conf
 LoadModule mpm_event_module modules/mod_mpm_event.so
 #LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
@@ -59,7 +60,7 @@ LoadModule mpm_event_module modules/mod_mpm_event.so
 The `event` mpm is enabled, so we expect each worker to be multi-threaded.
 Let's check:
 
-```
+```console
 root@56b9a761d598:/usr/local/apache2# ps -efL
 UID          PID    PPID     LWP  C NLWP STIME TTY          TIME CMD
 root           1       0       1  0    1 20:56 pts/0    00:00:00 httpd -DFOREGROUND
@@ -91,7 +92,7 @@ Let's see this dynamic scaling in action.
 We need to create a number of simultaneous connections that is larger than the current number of threads.
 There is a simple script in `support/apache2/make_conn.py` to do this:
 
-```
+```console
 student@os:~/.../lab/support/apache2$ python3 make_conn.py localhost 8080
 Press ENTER to exit
 ```
@@ -100,7 +101,7 @@ The script has created 100 connections and will keep them open until we press En
 
 Now, in another terminal, let's check the situation inside the container:
 
-```
+```console
 student@os:~/.../lab/support/apache2$ docker exec -it apache2-test bash
 
 root@56b9a761d598:/usr/local/apache2# ps -efL

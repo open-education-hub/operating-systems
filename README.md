@@ -16,6 +16,7 @@ It currently consists of 5 chapters:
 
 Each chapter has its own folder.
 Content for each chapter is split in two subfolders:
+
 * `lecture/`: content to be presented and discussed as part of lectures
 * `lab/`: content to be worked on as practical activities during labs / seminars
 

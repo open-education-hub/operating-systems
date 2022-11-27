@@ -7,8 +7,11 @@ Which of the following library calls will for sure invoke a system call?
 ## Question Answers
 
 + `fopen()`
+
 - `fwrite()`
+
 - `printf()`
+
 - `strcpy()`
 
 ## Feedback

@@ -10,7 +10,8 @@ To build the C examples on Linux, run `make`.
 
 ### Sparse file
 
-We open a file write some bytes, make a jump using `lseek()` and repeat two times. Zones between writes are empty, yet the total size of the `sparse.dat` keeps track of them.
+We open a file write some bytes, make a jump using `lseek()` and repeat two times.
+Zones between writes are empty, yet the total size of the `sparse.dat` keeps track of them.
 
 Follow this example using the following command to track `sparse.dat` file size.
 
@@ -31,7 +32,8 @@ Expected output:
 
 ### Truncate
 
-We open `fake-gargantua.dat` for write and use `ftruncate()` to set its size to `20GB`. This only impacts the metadata of the file, so the size (number of used blocks) stays **0**.
+We open `fake-gargantua.dat` for write and use `ftruncate()` to set its size to `20GB`.
+This only impacts the metadata of the file, so the size (number of used blocks) stays **0**.
 
 Expected output:
 

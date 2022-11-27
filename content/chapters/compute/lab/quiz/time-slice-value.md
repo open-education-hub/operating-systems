@@ -7,8 +7,11 @@ Using the [man page](https://man7.org/linux/man-pages/man2/setitimer.2.html), wh
 ## Question Answers
 
 - 100 milliseconds
+
 - 10 microseconds
+
 - 100 microseconds
+
 + 10 milliseconds
 
 ## Feedback
@@ -35,5 +38,5 @@ struct timeval {
 	suseconds_t tv_usec;        /* microseconds */
 };
 ```
-So when constructing the `timer` variable, `{ 0, 10000 }` means 0 seconds and 10000 microseconds, i.e. 0 seconds and 10 milliseconds. 
 
+So when constructing the `timer` variable, `{ 0, 10000 }` means 0 seconds and 10000 microseconds, i.e. 0 seconds and 10 milliseconds.

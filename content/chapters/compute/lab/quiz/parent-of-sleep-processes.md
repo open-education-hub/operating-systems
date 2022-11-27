@@ -2,13 +2,17 @@
 
 ## Question Text
 
-Who is the parent of the `sleep` processes? Why?
+Who is the parent of the `sleep` processes?
+Why?
 
 ## Question Answers
 
 - `sleepy_creator.py` because it is the one who created them
-- `bash` because it is `sleepy_creator.py`'s parent and when a process dies, its parent adopts its orphan children 
+
+- `bash` because it is `sleepy_creator.py`'s parent and when a process dies, its parent adopts its orphan children
+
 + `systemd` because this is the default process that adopts orphans
+
 - `systemd` because it is `sleepy_creator.py`'s parent and when a process dies, its parent adopts its orphan children
 
 ## Feedback

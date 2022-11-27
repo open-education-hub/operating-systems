@@ -10,11 +10,12 @@ Because a process needs a separate virtual address space (VAS) and needs to dupl
 On the other hand, threads belonging to the same process share the same VAS and, implicitly, the same OS-internal structures.
 Therefore, they are more lightweight than processes.
 
-#### Practice: Wait for Me Once More!
+#### Practice: Wait for Me Once More
 
 Go to `support/wait-for-me/wait_for_me_threads.d`.
 Spawn a thread that executes the `negateArray()` function.
-For now, do not wait for it to finish; simply start it.
+For now, do not wait for it to finish;
+simply start it.
 
 Compile the code and run the resulting executable several times.
 See that the negative numbers appear from different indices.
@@ -46,7 +47,7 @@ Therefore, when we split our workload between several threads and one of them ca
 The same thing happens when we use processes instead of threads: one process causes an error, which gets it killed, but the other processes continue their work unhindered.
 This is why we end up with a lower sum in the end: because one process died too early and didn't manage to write the partial sum it had computed to the `results` array.
 
-#### Practice: Wait for It!
+#### Practice: Wait for It
 
 The process that spawns all the others and subsequently calls `waitpid` to wait for them to finish can also get their return codes.
 Update the code in `support/sum-array-bugs/seg-fault/sum_array_processes.d` and modify the call to `waitpid` to obtain and investigate this return code.
@@ -56,7 +57,7 @@ Remember to use the appropriate [macros](https://linux.die.net/man/2/waitpid) fo
 When a process runs into a system error, it receives a signal.
 A signal is a means to interrupt the normal execution of a program from the outside.
 It is associated with a number.
-Use `kill -l` to find the full list of signals. 
+Use `kill -l` to find the full list of signals.
 
 [Quiz](../quiz/seg-fault-exit-code.md)
 
@@ -74,7 +75,7 @@ One uses threads while the other uses processes.
 Run both programs with and without memory corruption.
 Pass any value as a third argument to trigger the corruption.
 
-```
+```console
 student@os:~/.../sum-array-bugs/memory-corruption/python$ python3 memory_corruption_processes.py <number_of_processes>  # no memory corruption
 [...]
 

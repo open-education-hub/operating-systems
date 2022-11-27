@@ -2,13 +2,16 @@
 
 ## Question Text
 
-How many threads can be RUNNING simultaneously if we only create them using the API exposed by `libult.so`? 
+How many threads can be RUNNING simultaneously if we only create them using the API exposed by `libult.so`?
 
 ## Question Answers
 
 - Equal to the number of cores on the CPU
+
 + 1
+
 - None
+
 - 2: the main thread and another one for the created threads
 
 ## Feedback

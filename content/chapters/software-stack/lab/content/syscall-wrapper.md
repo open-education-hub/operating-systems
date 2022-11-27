@@ -12,7 +12,7 @@ This way, C programs can be written that make function calls that end up making 
 
 Let's build, run and trace system calls for the program:
 
-```
+```console
 student@os:~/.../lab/support/syscall-wrapper$ ls
 main.c  Makefile  syscall.h  syscall.s
 

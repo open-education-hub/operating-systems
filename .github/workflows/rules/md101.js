@@ -10,9 +10,6 @@ const keywords = [
     new WordPattern("ping"),
     new WordPattern("traceroute"),
     new WordPattern("sudo"),
-    new WordPattern("(?<!(system |ISRG ))root(?! ca)", { suggestion: "root" }),// match "root", but not "root CA", "MacOS System Root" and "ISRG Root X1"
-    new WordPattern("true"),
-    new WordPattern("false"),
     new WordPattern("jps"),
     new WordPattern("name=value"),
     new WordPattern("key=value"),

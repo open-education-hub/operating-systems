@@ -1,7 +1,7 @@
 ## Scheduling
 
-- https://github.com/kissen/threads
-- https://www.schaertl.me/posts/a-bare-bones-user-level-thread-library/
+- <https://github.com/kissen/threads>
+- <https://www.schaertl.me/posts/a-bare-bones-user-level-thread-library/>
 
 Up to now we know that the OS decides which **thread** (not process) runs on each CPU core at each time.
 Now we'll learn about the component that performs this task specifically: **the scheduler**.
@@ -16,6 +16,7 @@ To do this, the scheduler must decide, at given times, to suspend a thread, save
 This event is called a **context switch**.
 A context switch means changing the state of one thread (the replaced thread) from RUNNING to WAITING and the state of the replacement thread from READY / WAITING to RUNNING.
 
+<!-- TODO -->
 - Quiz?
 
 ### User-Level vs Kernel-Level Threads
@@ -25,7 +26,7 @@ The threads you've used so far are **kernel-level threads (KLT)**.
 They are created and scheduled in the kernel of the OS.
 One of the most important of their features is that they offer true parallelism.
 With KLTs, we can truly run a program on all the cores of our CPU at once.
-But we must pay a price for this: scheduling them is very complex and context switches are costly (in terms of time), especially when switching threads belonging to different processes. 
+But we must pay a price for this: scheduling them is very complex and context switches are costly (in terms of time), especially when switching threads belonging to different processes.
 
 By contrast, **user-level threads (ULT)** are managed by the user space.
 More of the ULTs created by a program are generally mapped to the same kernel thread.
@@ -65,7 +66,7 @@ When a thread ends its execution, it is added to the COMPLETED queue, together w
 
 Let's dissect the `threads_create()` function a bit.
 It first initialises its queues and the timer for preemption.
-We'll discuss preemption [in the next section](#preemption).
+We'll discuss preemption [in the next section](#scheduling---how-is-it-done).
 After performing initialisations, the function creates a `TCB` object.
 TCB stands for **Thread Control Block**.
 
@@ -155,7 +156,7 @@ There are some visible similarities between the two TCBs.
 
 Therefore, the workflow for creating and running a thread goes like this:
 
-```
+```console
 main thread
     |
     `--> threads_create()
@@ -172,14 +173,14 @@ main thread
 Compile and run the code in `support/libult/test_ult.c`.
 If you encounter the following error when running `test_ult`, remember what you learned about the loader and using custom shared libraries in the [Software Stack lab](../../software-stack/lab).
 
-```
+```console
 ./test_ult: error while loading shared libraries: libult.so: cannot open shared object file: No such file or directory
 ```
 
 > Hint: Use the `LD_LIBRARY_PATH` variable.
 
 Notice that the threads run their code and alternatively, because their prints appear interleaved.
-[In the next section](#preemption), we'll see how this is done.
+[In the next section](#scheduling---how-is-it-done), we'll see how this is done.
 
 [Quiz](../quiz/ult-thread-ids.md)
 
@@ -207,7 +208,6 @@ This increases its complexity and the duration of context switches, but threads 
 Preemptive schedulers assign only allow threads to run for a maximum amount of time, called **time slice** (usually a few milliseconds).
 They use timers which fire when a new time slice passes.
 The firing of one such timer causes a context switch whereby the currently RUNNING thread is _preempted_ (i.e. suspended) and replaced with another one.
-
 
 [Quiz](../quiz/type-of-scheduler-in-libult.md)
 
@@ -259,6 +259,6 @@ This is how scheduling is done!
 Re-run the code in `support/libult/test_ult.c`.
 Notice that now no context switch happens between the 2 created threads because they end before the timer can fire.
 
-2. Now change the `printer_thread()` function in `test_ult.c` to make it run for more than 2 seconds.
+1. Now change the `printer_thread()` function in `test_ult.c` to make it run for more than 2 seconds.
 See that now the prints from the two threads appear intermingled.
 Add prints to the `handle_sigprof()` function in `support/libult/threads.c` to see the context switch happen.

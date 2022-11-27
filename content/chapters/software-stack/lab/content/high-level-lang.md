@@ -8,14 +8,14 @@ Such that a call to a function in Python would end-up making a call to a functio
 The `support/high-level-lang/` folder stores the implementation of a simple "Hello, World!"-printing program in Python.
 We simply invoke the `python` interpreter to run the program:
 
-```
+```console
 student@os:~/.../lab/support/high-level-lang$ python hello.py
 Hello, world!
 ```
 
 We count the number of functions called from the standard C library and the number of system calls:
 
-```
+```console
 student@os:~/.../lab/support/high-level-lang$ ltrace -l 'libc*' python hello.py 2> libc.out
 Hello, world!
 
@@ -31,7 +31,7 @@ student@os:~/.../lab/support/high-level-lang$ wc -l syscall.out
 
 The dynamic standard C library (`libc.so.6`) is a dependency of the Python interpreter (`/usr/bin/python3`):
 
-```
+```console
 student@os:~/.../lab/support/high-level-lang$ ldd /usr/bin/python3
 [...]
         libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fa6fd6d0000)
@@ -45,7 +45,7 @@ Each new layer in the software stack simplifies development but adds overhead.
 
 We can use `perf` to compare the running time between the Python and a C "Hello, World!"-printing programs:
 
-```
+```console
 student@os:~/.../lab/support/high-level-lang$ sudo perf stat ../static-dynamic/hello
 Hello, World!
 
@@ -102,7 +102,7 @@ Enter the `support/high-level-lang/` folder and go through the practice items be
 
    Compare the values with those from the "Hello, World!"-printing programs in C and Python.
 
-2. Create a "Hello, World!"-printing program in a programming language of your choice (other than C, Python and Go).
+1. Create a "Hello, World!"-printing program in a programming language of your choice (other than C, Python and Go).
    Find the values above (library calls, system calls and running time).
 
 [Quiz](../quiz/high-level-lang.md)

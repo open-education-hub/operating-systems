@@ -140,7 +140,7 @@ What happens if the **offset** is bigger than the file size?
 
 - `demo/file-interface/open-vs-dup.c`
 - `demo/file-interface/close-stdout.c`
-  - What could go wrong between **closing stdout** and **calling dup**?
+  - What could go wrong between **closing** `stdout` and **calling dup**?
   - "Everything."
 
 ----

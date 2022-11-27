@@ -7,8 +7,11 @@ The pages of which sections in the process virtual address space are **always** 
 ## Question Answers
 
 - None, because they are marked copy-on-write
+
 - Kernel pages because there is only one kernel
+
 + Non-writable sections, such as `.text` or `.rodata`
+
 - `libc` pages, because it is a shared library and all processes refer the same memory
 
 ## Feedback

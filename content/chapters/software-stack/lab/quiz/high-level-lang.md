@@ -7,8 +7,11 @@ A Python program is not a proper argument for ...
 ## Question Answers
 
 - `ltrace`
+
 - `strace`
+
 - `rm`
+
 + `ldd`
 
 ## Feedback

@@ -95,8 +95,8 @@ If you get stuck, take a sneak peak at the solutions in the `solution/high-level
    Both files are passed as the two command-line arguments for the program.
    Sample run:
 
-   ```
-   $ cp src dest
+   ```console
+   student@so:~$ cp src dest
    ```
 
    Use `ltrace` and `strace` to compute the number of library calls and system calls.

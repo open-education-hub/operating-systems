@@ -6,9 +6,10 @@ They consider contributions to both actual content (mostly Markdown) and support
 ## First Steps
 
 Some good first steps and best practices when using Git are explained here:
-* the Git Immersion tutorial: https://gitimmersion.com/
-* the Atlassian tutorial: https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud
-* this blog post on the ROSEdu Techblog: https://techblog.rosedu.org/git-good-practices.html
+
+* the Git Immersion tutorial: <https://gitimmersion.com/>
+* the Atlassian tutorial: <https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud>
+* this blog post on the ROSEdu Techblog: <https://techblog.rosedu.org/git-good-practices.html>
 
 ## Language
 
@@ -31,9 +32,9 @@ Use phrases like "find the flag", "run this command", "download the tool".
 ## Images
 
 Images and diagrams would ideally be animated on slides.
-Aim to use reveal.js features to animate drawing of diagrams.
+Aim to use `reveal.js` features to animate drawing of diagrams.
 
-If reveal.js drawing is difficult, use [draw.io](https://app.diagrams.net/) to create diagrams.
+If `reveal.js` drawing is difficult, use [draw.io](https://app.diagrams.net/) to create diagrams.
 Ideally you would "animate" those diagrams by creating multiple incremental versions of the diagram and adding each to a slide;
 when browsing slides pieces of these diagrams will "appear" and complete the final image, rendering an animation-like effect.
 
@@ -66,6 +67,6 @@ Also make sure one pull request covers only **one** topic.
 
 Use commit messages with verbs at imperative mood: "Add README", "Update contents", "Introduce feature".
 Prefix each commit message with the chapter it belongs to: `software-stack`, `data`, `compute`, `io`, `app-interact`.
-How a good commit message should look like: https://cbea.ms/git-commit/
+How a good commit message should look like: <https://cbea.ms/git-commit/>
 
 The use of `-s` / `--signoff` when creating a commit is optional, but strongly recommended.

@@ -5,7 +5,7 @@ For now we know that applications are developed using high-level languages and t
 
 Let's enter the `support/app-investigate/` folder and run the `get_app_types.sh` script:
 
-```
+```console
 student@so:~/.../lab/support/app-investigate$ ./get_app_types.sh
 binary apps: 2223
 Perl apps: 256
@@ -19,7 +19,7 @@ The output will differ between systems, given each has particular types of appli
 
 We list them by running the command inside the `get_app_types.sh` script:
 
-```
+```console
 student@so:~/.../lab/support/app-investigate$ find /usr/bin /bin /usr/sbin /sbin -type f -exec file {} \;
 [...]
 /usr/bin/qpdldecode: ELF 64-bit LSB shared object, x86-64 [...]
@@ -32,7 +32,7 @@ As above, the output will differ between systems.
 So, depending on the developers' choice, applications may be:
 
 * compiled into executables, from compiled languages such as C, C++, Go, Rust, D
-* developed as scripts, from interpreted languages such as Python, Perl, Javascript
+* developed as scripts, from interpreted languages such as Python, Perl, JavaScript
 
 #### Practice
 

@@ -5,7 +5,7 @@
 If you have already cloned the repository, make sure it is updated.
 Run this command inside the repository clone directory:
 
-```
+```console
 git pull --rebase
 ```
 
@@ -14,14 +14,14 @@ If that is the case, commit changes and retry.
 
 If you haven't already cloned the repository, do it and enter the repository:
 
-```
+```console
 git clone https://github.com/open-education-hub/operating-systems
 cd operating-sytems
 ```
 
 While inside the repository clone top directory, run the `update-repo.sh` script:
 
-```
+```console
 bash util/update-repo.sh software-stack
 ```
 
@@ -30,7 +30,7 @@ If that is the case, commit changes and re-run the script.
 
 Navigate to the chapter lab directory:
 
-```
+```console
 cd content/chapters/software-stack/lab/
 ```
 

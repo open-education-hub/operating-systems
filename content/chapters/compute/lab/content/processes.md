@@ -5,7 +5,7 @@ Let's take the `ls` command as a trivial example.
 `ls` is a **program** on your system.
 It has a binary file which you can find and inspect with the help of the `which` command:
 
-```
+```console
 student@os:~$ which ls
 /usr/bin/ls
 
@@ -17,7 +17,7 @@ When you run it, the `ls` binary stored **on the disk** at `/usr/bin/ls` is read
 The loader spawns a **process** by copying some of the contents `/usr/bin/ls` in memory (such as the `.text`, `.rodata` and `.data` sections).
 Using `strace`, we can see the [`execve`](https://man7.org/linux/man-pages/man2/execve.2.html) system call:
 
-```
+```console
 student@os:~$ strace -s 100 ls -a  # -s 100 limits strings to 100 bytes instead of the default 32
 execve("/usr/bin/ls", ["ls", "-a"], 0x7fffa7e0d008 /* 61 vars */) = 0
 [...]
@@ -28,7 +28,9 @@ close(2)                                = 0
 exit_group(0)                           = ?
 +++ exited with 0 +++
 ```
+
 Look at its parameters:
+
 - the path to the **program**: `/usr/bin/ls`
 - the list of arguments: `"ls", "-a"`
 - the environment variables: the rest of the syscall's arguments
@@ -47,7 +49,7 @@ It would probabily look like the code in `support/sum-array/d/sum_array_sequenti
 The program also measures the time spent computing the sum.
 Let's compile and run it:
 
-```
+```console
 student@os:~/.../lab/support/sum-array/d$ ./sum_array_sequential
 Array sum is: 49945994146
 Time spent: 127 ms
@@ -63,10 +65,11 @@ Due to how it's implemented so far, our program only uses one of our CPU's cores
 We never tell it to distribute its workload on other cores.
 This is wasteful as the rest of our cores remain unused:
 
-```
+```console
 student@os:~$ lscpu | grep ^CPU\(s\):
 CPU(s):                          8
 ```
+
 We have 7 more cores waiting to add numbers in our array.
 
 ![What if we used 100% of the CPU?](../media/100-percent-cpu.jpeg)
@@ -119,7 +122,7 @@ Now use `pstree -pac` and look for the `sleep` processes you have just created.
 
 [Quiz](../quiz/parent-of-sleep-processes.md)
 
-2. Change the code in `sleepy_creator.py` so that the `sleep 1000` processes are the children of `sleepy_creator.py`.
+1. Change the code in `sleepy_creator.py` so that the `sleep 1000` processes are the children of `sleepy_creator.py`.
 Kill the previously created `sleep` processes using `killall sleep`.
 Verify that `sleepy_creator.py` remains the parent of the `sleep`s it creates using `pstree -pac`.
 
@@ -136,7 +139,7 @@ Go to `support/sleepy/sleepy_creator.c` and use [`system`](https://man7.org/linu
 The `man` page also mentions that `system` calls `fork()` and `exec()` to run the command it's given.
 If you want to find out more about them, head over to the [Arena and create your own mini-shell](./arena.md#mini-shell).
 
-#### Practice: Wait for Me!
+#### Practice: Wait for Me
 
 Run the code in `support/wait-for-me/wait_for_me_processes.py`.
 The parent process creates one child that writes and message to the given file.
@@ -167,6 +170,7 @@ Now we will move one step lower on the call stack and call `fork()` ourselves.
 We say that `fork()` returns **twice**: once in the parent process and once more in the child process.
 This means that after `fork()` returns, assuming no error has occurred, both the child and the parent resume execution from the same place: the instruction following the call to `fork()`.
 What's different between the two processes is the value returned by `fork()`:
+
 - **child process**: `fork()` returns 0
 - **parent process**: `fork()` returns the PID of the child process (> 0)
 - **on error**: `fork()` returns -1, only once, in the initial process
@@ -174,10 +178,11 @@ What's different between the two processes is the value returned by `fork()`:
 Therefore, the typical code for handling a `fork()` is available in `support/create-process/fork.c`.
 Take a look at it and then run it.
 Notice what each of the two processes prints:
+
 - the PID of the child is also known by the parent
 - the PPID of the child is the PID of the parent
 
-Unlike `system()`, who also waits for its child, when using `fork()` we must do the waiting ourselves. 
+Unlike `system()`, who also waits for its child, when using `fork()` we must do the waiting ourselves.
 In order to wait for a process to end, we use the [`waitpid()`](https://linux.die.net/man/2/waitpid) syscall.
 It places the exit code of the child process in the `status` parameter.
 This argument is actually a bitfield containing more information that merely the exit code.
@@ -190,7 +195,7 @@ Now modify the example to do the following:
 
 1. Change the return value of the child process so that the value displayed by the parent is changed.
 
-2. Create a child process of the newly created child.
+1. Create a child process of the newly created child.
 Use a similar logic and a similar set of prints to those in the support code.
 Take a look at the printed PIDs.
 Make sure the PPID of the "grandchild" is the PID of the child, whose PPID is, in turn, the PID of the parent.

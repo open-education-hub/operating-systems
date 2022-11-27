@@ -7,8 +7,11 @@ Which section may store per-thread non-shared (variables) variables?
 ## Question Answers
 
 - On the heap
+
 - In the `.rodata` section
+
 + On the stack
+
 - In the `.text` section
 
 ## Feedback

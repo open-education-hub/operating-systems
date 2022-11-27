@@ -7,8 +7,11 @@ What type of parallel actions never cause race conditions?
 ## Question Answers
 
 - Only reads
+
 - Reads and writes
+
 + Reads and executions
+
 - All parallel actions can cause race conditions
 
 ## Feedback

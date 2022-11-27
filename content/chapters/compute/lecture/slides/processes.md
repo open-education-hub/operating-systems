@@ -9,7 +9,7 @@
 * A process is a **running program**
   * It is a collection of resources (Memory, CPU, I/O) and abstractions over them (VAS, threads, file descriptors)
 * An application can spawn multiple processes
-* The OS allows each [thread](#threads) to run on a **core** for a few milliseconds (time slice)
+* The OS allows each [thread](./threads.md) to run on a **core** for a few milliseconds (time slice)
 * Then the OS pauses the thread and replaces it with another one (context switch)
 
 ----

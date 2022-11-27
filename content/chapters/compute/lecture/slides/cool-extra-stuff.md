@@ -32,6 +32,7 @@ student@os:~/.../compute/lecture/demo/create-process$ strace ./fork_exec
 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7e83aa4810) = 5279
 [...]
 ```
+
 * `fork()` and `pthread_create()` are `libc` wrappers to the same syscall: `clone()`
 
 ---
