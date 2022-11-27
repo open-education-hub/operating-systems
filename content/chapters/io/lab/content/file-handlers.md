@@ -37,7 +37,7 @@ File contents are: C was here!
 student@os:~/.../lab/support/simple-file-operations$ java FileOperations
 File contents are: Python was here!
 Wrote new data to file
-File contents are: C was here!
+File contents are: Java was here!
 ```
 
 Note that each piece of code creates a variable which is then used as a handler.
