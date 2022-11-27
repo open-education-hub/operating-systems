@@ -1,3 +1,4 @@
 redirect
 redirect_parallel
+redirect_file.txt
 redirect_std*_file.txt

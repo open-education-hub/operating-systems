@@ -83,7 +83,7 @@ int main(void)
 	rc = pipe(pipedes);
 	DIE(rc < 0, "pipe");
 
-	printf("pipedes[0] = %d; pipedes[1] = %d\n", pipedes[0], pipedes[1]);
+	printf("pipedes[0] = %d; pipedes[1] = %d\n", pipedes[PIPE_READ], pipedes[PIPE_WRITE]);
 
 	wait_for_input("pipe created");
 
