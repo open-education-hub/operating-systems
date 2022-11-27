@@ -31,13 +31,13 @@ In UNIX, the need for such a channel is fulfilled by the [`pipe()` syscall](http
 Imagine there's a literal pipe between any 2 adjacent commands in the image above where data is what flows through this pipe **in only a single way**.
 This is why the `|` operator in Bash is called pipe and why the syscall is also named `pipe()`.
 
-his type of pipe is also called an **anonymous pipe**, because it cannot be identified using a name (i.e. it is not backed by any file).
+This type of pipe is also called an **anonymous pipe**, because it cannot be identified using a name (i.e. it is not backed by any file).
 The data written to it is kept in a circular buffer inside the kernel from where it can be then read by the child process.
 This is faster than writing data to a file, so we achieve both our [initial goals](#pipes).
 
 ## Practice: Find the Right ~~Hole~~ File Descriptor
 
-Navigate to `support/pipes/anonymous_pipes.c`.
+Navigate to `support/pipes/anonymous_pipe.c`.
 Compile and run the code.
 In another terminal, use `lsof` to see:
 
@@ -58,7 +58,7 @@ An important thing to take note of before we actually use pipes is that file des
 So if the parent opens some file descriptors (like, say, for a pipe), the child will also be able to use them.
 Don't believe us?
 
-Modify the code in `support/pipes/anonymous_pipes.c` and call `wait_for_input()` form the child process.
+Modify the code in `support/pipes/anonymous_pipes.c` and call `wait_for_input()` from the child process.
 Then use `lsof` again with the PID of the child process to make sure file descriptors 3 and 4 are still open.
 
 ### Practice: Now We Pipe

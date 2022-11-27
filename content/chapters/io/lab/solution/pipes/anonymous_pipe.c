@@ -85,7 +85,7 @@ int main(void)
 	rc = pipe(pipedes);
 	DIE(rc < 0, "pipe");
 
-	printf("pipedes[0] = %d; pipedes[1] = %d\n", pipedes[0], pipedes[1]);
+	printf("pipedes[0] = %d; pipedes[1] = %d\n", pipedes[PIPE_READ], pipedes[PIPE_WRITE]);
 
 	wait_for_input("pipe created");
 
@@ -93,6 +93,8 @@ int main(void)
 	switch (pid) {
 	case -1:  /* Fork failed, cleaning up. */
 		/* TODO: Close both heads of the pipe. */
+		close(pipedes[PIPE_READ]);
+		close(pipedes[PIPE_WRITE]);
 		DIE(pid, "fork");
 		return EXIT_FAILURE;
 
@@ -110,7 +112,7 @@ int main(void)
 		close(pipedes[PIPE_READ]);
 
 		/* TODO: Call parent loop and pass pipe head used for writing. */
-		child_loop(pipedes[PIPE_WRITE]);
+		parent_loop(pipedes[PIPE_WRITE]);
 
 		/* Wait for child process to finish. */
 		wait(NULL);
