@@ -116,7 +116,7 @@ drwxrwxr-x 1 student student    0 Nov 20 14:11 ../
 ---------- 1 student student  45 Nov 20 18:26 write_file.txt
 ```
 
-[Quiz](write-file-permissions.md)
+[Quiz](../quiz/write-file-permissions.md)
 
 **Remember:**
 **It is mandatory that we pass a `mode` argument to `open()` when using the `O_CREAT` flag.**
