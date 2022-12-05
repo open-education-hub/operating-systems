@@ -16,7 +16,7 @@ Zones between writes are empty, yet the total size of the `sparse.dat` keeps tra
 Follow this example using the following command to track `sparse.dat` file size.
 
 ```console
-student@os:~/.../lecture/demo/file-interface$ watch -n 0.5 ls -l sparse.dat
+student@os:~/.../demo/file-interface$ watch -n 0.5 ls -l sparse.dat
 ```
 
 Expected output:
@@ -38,7 +38,7 @@ This only impacts the metadata of the file, so the size (number of used blocks) 
 Expected output:
 
 ```console
-student@os:~/.../lecture/demo/file-interface$ ./truncate
+student@os:~/.../demo/file-interface$ ./truncate
  * Open an empty file for writting
  -- Press ENTER to continue ...
 
@@ -87,13 +87,13 @@ They use the same open file strcucture to keep track of the offset in file.
 Follow the list of open files from the `proc` view:
 
 ```console
-student@os:~/.../lecture/demo/file-interface$ watch -n 0.5 'ls -l /proc/$(pidof open-vs-dup)/fd | sort -nk 9'
+student@os:~/.../demo/file-interface$ watch -n 0.5 'ls -l /proc/$(pidof open-vs-dup)/fd | sort -nk 9'
 ```
 
 Expected output:
 
 ```console
-student@os:~/.../lecture/demo/file-interface$ ./open-vs-dup
+student@os:~/.../demo/file-interface$ ./open-vs-dup
 ...
  * Read 23 bytes from first file descriptor
  -- Press ENTER to continue ...
@@ -122,13 +122,13 @@ After the calling `dup()`, the output will be redirected to `my_stdout.txt`.
 Follow the list of open files from the `proc` view:
 
 ```console
-student@os:~/.../lecture/demo/file-interface$ watch -n 0.5 'ls -l /proc/$(pidof close-stdout)/fd | sort -nk 9'
+student@os:~/.../demo/file-interface$ watch -n 0.5 'ls -l /proc/$(pidof close-stdout)/fd | sort -nk 9'
 ```
 
 Expected output:
 
 ```console
-student@os:~/.../lecture/demo/file-interface$ ./close-stdout
+student@os:~/.../demo/file-interface$ ./close-stdout
 * Open file
  -- Press ENTER to continue ...
 
@@ -136,7 +136,7 @@ student@os:~/.../lecture/demo/file-interface$ ./close-stdout
  -- Press ENTER to continue ...
 
 # Use cat to display the final output
-student@os:~/.../lecture/demo/file-interface$ cat my_stdout.txt
+student@os:~/.../demo/file-interface$ cat my_stdout.txt
 This will go to stdout
  * Close the file descriptors
  -- Press ENTER to continue ...

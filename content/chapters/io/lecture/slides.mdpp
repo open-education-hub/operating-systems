@@ -18,3 +18,7 @@ revealOptions:
 ---
 
 !INCLUDE "slides/file-interface.md"
+
+---
+
+!INCLUDE "slides/devices.md"
