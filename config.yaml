@@ -139,26 +139,35 @@ docusaurus:
               location: content/chapters/io/lab
               name: content/pipes
           - Local I/O in Action:
-                location: content/chapters/io/lab
-                name: content/local-io-in-action
+              location: content/chapters/io/lab
+              name: content/local-io-in-action
           - Remote I/O:
-                location: content/chapters/io/lab
-                name: content/remote-io
+              location: content/chapters/io/lab
+              name: content/remote-io
           - Networking 101:
-                location: content/chapters/io/lab
-                name: content/networking-101
+              location: content/chapters/io/lab
+              name: content/networking-101
           - Client-Server Model:
-                location: content/chapters/io/lab
-                name: content/client-server-model
+              location: content/chapters/io/lab
+              name: content/client-server-model
           - Beyond Network Sockets:
-                location: content/chapters/io/lab
-                name: content/beyond-network-sockets
+              location: content/chapters/io/lab
+              name: content/beyond-network-sockets
           - File Mappings:
               location: content/chapters/io/lab
               name: content/file-mappings
           - I/O Internals:
               location: content/chapters/io/lab
               name: content/io-internals
+          - Zero-Copy:
+              location: content/chapters/io/lab
+              name: content/zero-copy
+          - Asynchronous I/O:
+              location: content/chapters/io/lab
+              name: content/async-io
+          - I/O Multiplexing:
+              location: content/chapters/io/lab
+              name: content/io-multiplexing
           - Devices:
               location: content/chapters/io/lab
               name: content/devices
