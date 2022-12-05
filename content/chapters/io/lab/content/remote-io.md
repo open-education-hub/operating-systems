@@ -232,7 +232,7 @@ To get a high-level understanding of how these messages are passed and what othe
 
 #### Practice: Network Sockets Challenge
 
-Use the API you've just learned about to fill in the TODOs in `support/receive-challenges/receive_newt_dgram_socket.c`.
+Use the API you've just learned about to fill in the TODOs in `support/receive-challenges/receive_net_dgram_socket.c`.
 This is like `receiver.py`
 For it to run properly, you should compile it using `make`, then run it and after that run `send_net_dgram_socket`.
-If you solved the challenge correctly, `receive_newt_dgram_socket` should display the flag.
+If you solved the challenge correctly, `receive_net_dgram_socket` should display the flag.
