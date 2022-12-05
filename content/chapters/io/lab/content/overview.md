@@ -14,4 +14,7 @@ In this chapter, you will learn how the operating systems handles file operation
 1. [Beyond Network Sockets](./beyond-network-sockets.md)
 1. [File Mappings](./file-mappings.md)
 1. [IO Internals](./io-internals.md)
+1. [Zero-copy](./zero-copy.md)
+1. [Asynchronous I/O](./async-io.md)
+1. [I/O Multiplexing](./io-multiplexing.md)
 1. [Arena](./arena.md)
