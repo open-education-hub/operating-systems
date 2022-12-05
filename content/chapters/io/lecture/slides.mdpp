@@ -10,6 +10,7 @@ revealOptions:
 # IO
 
 1. File Interface
+1. Interprocess Communication
 
 ---
 
@@ -22,3 +23,7 @@ revealOptions:
 ---
 
 !INCLUDE "slides/devices.md"
+
+---
+
+!INCLUDE "slides/IPC.md"
