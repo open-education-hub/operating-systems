@@ -19,8 +19,8 @@ int main(void)
 {
 	int rc;
 	int fd;
-	struct sockaddr_in addr, raddr;
-	socklen_t raddrlen;
+	struct sockaddr_in addr;
+	socklen_t addrlen;
 	char buffer[BUFSIZ];
 
 	/* Create socket. */
@@ -28,7 +28,7 @@ int main(void)
 	DIE(fd < 0, "socket");
 
 	/* Bind socket to address. */
-	memset(&addr, 0, sizeof(raddr));
+	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -37,7 +37,7 @@ int main(void)
 	DIE(rc < 0, "bind");
 
 	/* Read flag from socket. */
-	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &raddr, &raddrlen);
+	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &addr, &addrlen);
 	DIE(rc < 0, "recvfrom");
 
 	printf("Flag is: %s\n", buffer);
