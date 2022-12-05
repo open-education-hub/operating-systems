@@ -138,6 +138,21 @@ docusaurus:
           - Pipes:
               location: content/chapters/io/lab
               name: content/pipes
+          - Local I/O in Action:
+                location: content/chapters/io/lab
+                name: content/local-io-in-action
+          - Remote I/O:
+                location: content/chapters/io/lab
+                name: content/remote-io
+          - Networking 101:
+                location: content/chapters/io/lab
+                name: content/networking-101
+          - Client-Server Model:
+                location: content/chapters/io/lab
+                name: content/client-server-model
+          - Beyond Network Sockets:
+                location: content/chapters/io/lab
+                name: content/beyond-network-sockets
           - File Mappings:
               location: content/chapters/io/lab
               name: content/file-mappings
