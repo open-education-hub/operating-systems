@@ -21,7 +21,7 @@ $(SITE): $(SLIDES)
 videos:
 	for TARGET in $(TARGETS); do \
 		$(FFMPEG) -framerate 0.5 -f image2 -y \
-			-i "$(MEDIA_DIR)/$$TARGET/$$TARGET-%d.svg" $(MEDIA_DIR)/$$TARGET-generated.gif; \
+			-i "$(MEDIA_DIR)/$$TARGET/$$TARGET-%d.svg" -vf format=yuv420p $(MEDIA_DIR)/$$TARGET-generated.gif; \
 	done
 
 open: $(SITE)
