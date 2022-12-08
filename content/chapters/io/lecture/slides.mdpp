@@ -11,6 +11,7 @@ revealOptions:
 
 1. File Interface
 1. Interprocess Communication
+1. IO Optimizations
 
 ---
 
@@ -27,3 +28,7 @@ revealOptions:
 ---
 
 !INCLUDE "slides/IPC.md"
+
+---
+
+!INCLUDE "slides/optimizations.md"
