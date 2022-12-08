@@ -126,7 +126,7 @@ prw-r--r-- 1 student student 0 nov 22 18:38 my_fifo
   - `AF_UNIX` for communication on the **same host**
   - `AF_INET` for communication over the internet
 - **Type**
-  - **Stream** establishes a reliable connection and ensures all data is transmited
+  - **Stream** establishes a reliable connection and ensures all data is transmitted
   - **Datagram** sends data faster without checking its integrity
 
 ----
@@ -259,7 +259,7 @@ srwxrwxr-x 1 student student    0 dec  2 16:03 unix_socket
 - Used in communication on **different hosts**
 - Each host is identified by an [**IP address**](https://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-05)
 - For a host to support multiple applications that require network connection we use **ports**
-  - A port is an integet between **0** and **65536**
+  - A port is an integer between **0** and **65536**
 - An application is identified by an IP address and a port
   - e.g.: `217.182.27.243:25565`
 
