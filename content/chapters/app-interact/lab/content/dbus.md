@@ -151,7 +151,8 @@ Then input all of the above into a `gdbus` call, which, if everything is correct
 
 Note: if you are running on a desktop computer (which doesn't have a battery), you will get the value 0.0.
 
-# TODO: Arena task: python code that uses the dbus api
+This task can also be solved in a python script.
+Check out the details in the [arena section](./arena.md#d-bus).
 
 ### Firefox
 
