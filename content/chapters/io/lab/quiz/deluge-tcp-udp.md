@@ -16,4 +16,4 @@ Speed is nice to have.
 Correctness is mandatory in most scenarios, including this one.
 The only situation when correctness may be overlooked is when some given data will be quckly replaced by some other data.
 But files are persistent.
-If you download a video game from as a torrent (we've all done that), you want to keep it for a while and first and foremost, it to work properly, i.e. not be corrupt.
+If you download a video game from as a torrent (we've all done that), you want to keep it for a while and first and foremost, it has to work properly, i.e. not be corrupt.
