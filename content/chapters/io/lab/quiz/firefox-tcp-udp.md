@@ -17,7 +17,7 @@ What about video content, such as YouTube?
 
 ## Feedback
 
-The "TCP vs UDP" quesiton boils down to 2 things:
+The "TCP vs UDP" question boils down to 2 things:
 
 - is the data updated in real-time (multiple times per second)?
 - can we afford a few errors / missing messages?

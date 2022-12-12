@@ -19,4 +19,4 @@ What is its cause?
 ## Feedback
 
 One port may only be bound to **one socket** at a time.
-The fact that it's the same program using it is irrelevant.
+The fact that it's the same program (same source code) using it is irrelevant because they're different processes.

@@ -8,8 +8,8 @@ For example, here are the `man` pages for [`sendto()`](https://linux.die.net/man
 Going back to our [initial example](./remote-io.md#one-browser---many-connections) with how the browser gets data from <https://open-education-hub.github.io/operating-systems/>, by now we know the preferred method for transferring text is TCP.
 
 Unlike UDP, TCP is **connection-oriented**.
-This is why in the example with the browser we kept using the word **conenction**.
-What'd different from UDP is that this connection is **bidirectional**, so we can both [`send()`](https://man7.org/linux/man-pages/man2/send.2.html) and receive ([`recv()`](https://man7.org/linux/man-pages/man2/recv.2.html)) data from it.
+This is why in the example with the browser we kept using the word **connection**.
+What's different from UDP is that this connection is **bidirectional**, so we can both [`send()`](https://man7.org/linux/man-pages/man2/send.2.html) and receive ([`recv()`](https://man7.org/linux/man-pages/man2/recv.2.html)) data from it.
 Notice that the syscalls have changed.
 We were using `sendto()` and `recvfrom()` for UDP and now we're using `send()` and `recv()` for TCP.
 And yes, despite the fact that we're using Python, these are syscalls.

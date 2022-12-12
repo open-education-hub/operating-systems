@@ -34,11 +34,11 @@ Therefore, it is used by many **real-time services**, such as for streaming or v
 TCP is the polar opposite of UDP.
 TCP makes sure the data is given to the application correctly by performing error checks on the receiving end and then retransmitting any incorrect or missing messages.
 For this reason, TCP is good for applications that require precise data, such as banking applications, static images or text.
-The cost of correctness, however, is tranmission speed.
+The cost of correctness, however, is transmission speed.
 
 ### Practice: Encapsulation Example: Deluge Revived
 
-[Quiz](./deluge-tcp-udp.md)
+[Quiz](../quiz/deluge-tcp-udp.md)
 
 You haven't forgotten about our favourite Bittorrent clint, [Deluge](https://deluge-torrent.org/), have you?
 It implements its own protocol for transferring data.
@@ -60,8 +60,8 @@ There are compromises to be made everywhere.
 
 ## Local TCP and UDP Services
 
-To get a full list of all network-handling processes in your system together with the protocols they're using, we can use the `netstat` with the `-tunp` arguments.
-`-tulnp` is short for `-t -u -n -p`, which stand for:
+To get a full list of all network-handling processes in your system together with the protocols they're using, we can use the `netstat` with the `-tuanp` arguments.
+`-tuanp` is short for `-t -u -a -n -p`, which stand for:
 
 - `-t`: list processes using the TCP protocol
 - `-u`: list processes using the UDP protocol
@@ -108,7 +108,7 @@ And at the same time it uses UDP to exchange voice and video data during calls.
 
 ### Practice: Run `netstat` Yourself
 
-1. Run `netstat` on your own hos machine.
+1. Run `netstat` on your own host machine.
 Identify processes that use TCP and UDP and try to figure out what they might they be using these protocols for.
 Look for browsers (different sites and types of content), servers such as Apache2 or Nginx, online games etc.
 Discuss your findings with your class mates and teacher(s).
