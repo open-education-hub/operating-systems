@@ -21,6 +21,7 @@
 
 1. File Interface
 1. Interprocess Communication
+1. IO Optimizations
 </script></section><section  data-markdown><script type="text/template">
 ## Backstory
 </script></section><section ><section data-markdown><script type="text/template">
@@ -404,7 +405,7 @@ prw-r--r-- 1 student student 0 nov 22 18:38 my_fifo
   - `AF_UNIX` for communication on the **same host**
   - `AF_INET` for communication over the internet
 - **Type**
-  - **Stream** establishes a reliable connection and ensures all data is transmited
+  - **Stream** establishes a reliable connection and ensures all data is transmitted
   - **Datagram** sends data faster without checking its integrity
 </script></section><section data-markdown><script type="text/template">
 ### Stream and Datagram
@@ -505,7 +506,7 @@ srwxrwxr-x 1 student student    0 dec  2 16:03 unix_socket
 - Used in communication on **different hosts**
 - Each host is identified by an [**IP address**](https://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-05)
 - For a host to support multiple applications that require network connection we use **ports**
-  - A port is an integet between **0** and **65536**
+  - A port is an integer between **0** and **65536**
 - An application is identified by an IP address and a port
   - e.g.: `217.182.27.243:25565`
 </script></section><section data-markdown><script type="text/template">
@@ -522,7 +523,199 @@ srwxrwxr-x 1 student student    0 dec  2 16:03 unix_socket
 ### Socket Summary
 
 ![Socket Summary](./media/socket-summary-generated.gif)
-</script></section></div>
+</script></section><section  data-markdown><script type="text/template">
+## IO Buffering
+</script></section><section ><section data-markdown><script type="text/template">
+## `libc` Buffering
+</script></section><section data-markdown><script type="text/template">
+### `stdout` vs `stderr`
+
+- `demo/optimizations/stdout-vs-stderr.c`
+</script></section><section data-markdown><script type="text/template">
+### Investigate
+
+```console
+student@OS:~/.../demo/optimizations$ ./stdout-vs-stderr 
+Join the dark side!
+Hello from the other side!
+```
+
+- Not what we expected
+
+```console
+strace --trace=write ./stdout-vs-stderr
+```
+</script></section><section data-markdown><script type="text/template">
+### Observations
+
+- Each print to `stderr` results in a `write()`
+- Prints to `stdout` result in one single `write()`
+</script></section><section data-markdown><script type="text/template">
+### Behind The Scenes
+
+- Printing to `stdout` is **buffered** to avoid multiple context switches
+- The same is not true for `stderr` as we want to see errors as they occur
+</script></section><section data-markdown><script type="text/template">
+### Does It Work?
+
+- Attempt to write **10000 bytes** to a file, **1 byte** at a time
+  - `demo/optimizations/fwrite-10000.c`
+  - `demo/optimizations/write-10000.c`
+</script></section><section data-markdown><script type="text/template">
+### Can We Do More?
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Kernel Buffering
+</script></section><section data-markdown><script type="text/template">
+### Context
+
+- `libc` buffering reduces the number of context switches
+- But **synchronizing** the disk after every `write()` is a major bottleneck
+</script></section><section data-markdown><script type="text/template">
+### Kernel Buffer
+
+- Same as idea as `libc`
+- Each `write()` fills a buffer in kernel space
+- Transfer data to disk when
+  - Buffer is full
+  - `fsynk()` is called
+  - Enough time has passed since the last `write()`
+
+```console
+student@OS:~$ cat /proc/sys/vm/dirty_expire_centisecs 
+3000
+```
+</script></section><section data-markdown><script type="text/template">
+### Overview
+
+![IO Buffering Overview](./media/io-buffering-overview.svg)
+</script></section><section data-markdown><script type="text/template">
+### Does It Work?
+
+- Write **10000 bytes** to disk, **1 byte** at a time - with buffering
+  - `demo/optimizations/write-10000.c`
+- Write **1000 bytes** to disk, **1 byte** at a time - without buffering
+  - `demo/optimizations/write-1000-unbuf.c`
+</script></section></section><section  data-markdown><script type="text/template">
+## IO Buffering Drawbacks
+
+- Transfer of information between kernel buffers requires user space transitions
+- Operations might **block**
+  - Read when buffer is empty
+  - Write when buffer is full
+</script></section><section ><section data-markdown><script type="text/template">
+## Kernel Buffers Transfer
+
+![Repeated Copy](./media/repeated-copy.svg)
+</script></section><section data-markdown><script type="text/template">
+### Obvious Problems
+
+- We have an intermediary buffer
+  - Data from **read buffer** is copied to **application buffer**
+  - Data from **application buffer** is copied to **socket buffer**
+- We perform two context switches
+</script></section><section data-markdown><script type="text/template">
+### `zero-copy`
+
+![Zero-copy](./media/zero-copy.svg)
+</script></section><section data-markdown><script type="text/template">
+- `sendfile()` instructs kernel to copy data from one of its buffers to another
+- We perform a single context switch
+- Data is copied a single time
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Blocking IO
+
+- Reading from an empty buffer
+  - The kernel buffer is filled with information from the device
+  - The library buffer is filled from the kernel buffer
+  - `read()` operation resumes
+- What happens if the device has no information to share?
+  - `read()` **blocks**
+</script></section><section data-markdown><script type="text/template">
+### Non-Blocking IO
+
+- `O_NONBLOCK` makes operations return rather than block
+  - `SOCK_NONBLOCK` for sockets
+- Allows handling of input on multiple file descriptors
+  - Does not scale with number of file descriptors
+  - The thread is busy waiting instead of entering WAITING state
+  - Ugly
+</script></section></section><section ><section data-markdown><script type="text/template">
+## `epoll` Interface
+
+- Linux interface, non-portable
+- Kernel keeps an internal structure to monitor file descriptors
+- The thread enters WAITING state until new connections emerge
+- User updates the interface using the exposed interface
+  - `epoll_create()`
+  - `epoll_ctl()`
+  - `epoll_wait()`
+</script></section><section data-markdown><script type="text/template">
+### `epoll_create()`
+
+![epoll_create()](./media/epoll-create.svg)
+</script></section></section><section ><section data-markdown><script type="text/template">
+### `epoll_ctl()`
+
+![epoll_ctl()](./media/epoll-ctl-1.svg)
+</script></section><section data-markdown><script type="text/template">
+#### `epoll_ctl()`
+
+![epoll_ctl()](./media/epoll-ctl-2.svg)
+</script></section><section data-markdown><script type="text/template">
+#### `epoll_ctl()`
+
+![epoll_ctl()](./media/epoll-ctl-3.svg)
+</script></section><section data-markdown><script type="text/template">
+#### `epoll_ctl()`
+
+![epoll_ctl()](./media/epoll-ctl-4.svg)
+</script></section><section data-markdown><script type="text/template">
+#### `epoll_ctl()`
+
+![epoll_ctl()](./media/epoll-ctl-5.svg)
+</script></section><section data-markdown><script type="text/template">
+#### `epoll_ctl()`
+
+![epoll_ctl()](./media/epoll-ctl-6.svg)
+</script></section></section><section  data-markdown><script type="text/template">
+### `epoll_wait()`
+
+![epoll_wait()](./media/epoll-wait.svg)
+</script></section><section  data-markdown><script type="text/template">
+## Asynchronous IO
+</script></section><section ><section data-markdown><script type="text/template">
+## Client-Server 2.0
+
+- Real-life applications use **Client-Server** model
+- But they take into consideration scalability
+- Let us see what it takes to go from 1 client to **8**
+  - Use `demo/optimizations/client.py` for the client implementation
+  - Use `demo/optimizations/client_bench.sh` to compare implementations
+</script></section><section data-markdown><script type="text/template">
+### Trivial Server
+
+- Run server in a loop
+- `demo/optimizations/server.py`
+</script></section><section data-markdown><script type="text/template">
+### Good Old Processes
+
+- Create a process to handle each new client
+- `demo/optimizations/mp_server.py`
+</script></section><section data-markdown><script type="text/template">
+### Good Old Lightweight Processes
+
+- Create a process to handle each new client
+- `demo/optimizations/mt_server.py`
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Asynchronous IO
+
+- `demo/optimizations/async_server.py`
+</script></section><section data-markdown><script type="text/template">
+- The python asynchronous interface abstracts a lot of the functionality
+- The idea behind:
+  - The server socket is added to an **epoll instance**
+  - The specified **handle** is called for each event (new connection)
+</script></section></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
