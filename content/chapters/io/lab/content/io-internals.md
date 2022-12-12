@@ -1,4 +1,4 @@
-# I/O Intenals
+# I/O Internals
 
 Now we will take a short look at how the file descriptors you've just learnt about are handled in libc.
 The Software Stack chapter has taught us that applications generally interact with libraries which expose wrappers on top of syscalls.

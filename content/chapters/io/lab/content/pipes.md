@@ -70,7 +70,7 @@ The client (parent) ends communication when you type `"exit"`.
 
 You can comment out the calls to `wait_for_input()` if you find them annoying.
 
-### Practiece: Receive Pipes
+### Practice: Receive Pipes
 
 Use your knowledge of pipes to solve the a CTF challenge.
 Navigate to `support/receive-challenges` and look into the files `receive_pipe.c` and `send_fd_4.c`.
@@ -103,7 +103,7 @@ always use loops with `read()` and `write()`
 
 Because this pipe uses a file, which must have a name, it is called a **named pipe**.
 
-### Pracice: From the CLI
+### Practice: From the CLI
 
 First, let's use named pipes from the terminal.
 Use the `mkfifo` command to create one such file:
@@ -143,7 +143,7 @@ Also, the previous `echo` should finish now.
 **Reading from a pipe blocks while the pipe is empty.**
 **Writing to a pipe blocks until it is empty.**
 
-### Pracice: From the Code - Receive FIFO
+### Practice: From the Code - Receive FIFO
 
 The libc function with which we can create named pipes is...
 [`mkfifo()`](https://man7.org/linux/man-pages/man3/mkfifo.3.html).
