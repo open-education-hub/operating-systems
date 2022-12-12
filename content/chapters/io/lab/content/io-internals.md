@@ -115,7 +115,7 @@ Recompile the code and observe its change in behaviour under `strace`.
 
 [Quiz](../quiz/flush-libc-buffer.md)
 
-No we know that I/O buffering **does happen** within libc.
+Now we know that I/O buffering **does happen** within libc.
 If you need further convincing, check out the Musl implementation of [`fread()`](https://elixir.bootlin.com/musl/v1.2.3/source/src/stdio/fread.c#L6), for example.
 It first copies the [data previously saved in the internal buffer](https://elixir.bootlin.com/musl/v1.2.3/source/src/stdio/fread.c#L16):
 
