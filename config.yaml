@@ -168,9 +168,6 @@ docusaurus:
           - I/O Multiplexing:
               location: content/chapters/io/lab
               name: content/io-multiplexing
-          - Devices:
-              location: content/chapters/io/lab
-              name: content/devices
           - Arena:
               location: content/chapters/io/lab
               name: content/arena
