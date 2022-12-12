@@ -55,7 +55,7 @@ static size_t diy_fread(void *dst, size_t size, size_t nmemb, int fd)
 
 static size_t diy_fwrite(void *src, size_t size, size_t nmemb, int fd)
 {
-	size_t to_write = size * nmemb;
+	ssize_t to_write = size * nmemb;
 	size_t src_pos = 0;
 	size_t to_copy;
 
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 	struct stat statbuf;
 	struct timeval start, end;
 
-	DIE(argc != 3, "Usage: ./no_buffering read/write <file>");
+	DIE(argc != 3, "Usage: ./diy_buffering read/write <file>");
 
 	if (!strcmp(argv[1], "read"))
 		mode = O_RDONLY;
