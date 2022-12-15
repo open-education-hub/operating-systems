@@ -1,12 +1,13 @@
 import logging
-import subprocess
 import os
+import subprocess
 
 import db
 import errors
 import utils
 
 logger = logging.getLogger(__name__)
+
 
 class Disk(object):
     def __init__(self, id: int, size: int, template_name: str):
@@ -18,42 +19,50 @@ class Disk(object):
 def cleanup_disk(dsk: Disk):
     try:
         db.delete_disk(dsk.id)
-        os.system(f'rm -rf /vm-disks/{dsk.id}')
-    except:
+        os.system(f"rm -rf /vm-disks/{dsk.id}")
+    except Exception:
         pass
 
 
 def create_disk_from_template(template_name: str, size: int):
     try:
-        with open(f'/disk-templates/{template_name}/{template_name}.qcow2', 'rb') as f:
+        with open(f"/disk-templates/{template_name}/{template_name}.qcow2", "rb"):
             pass
-    except:
-        raise errors.DiskTemplateNotFound(f'{template_name}')
+    except Exception:
+        raise errors.DiskTemplateNotFound(f"{template_name}")
 
     disk_id = db.create_disk(size, template_name)
 
     try:
-        res = subprocess.run([f'/disk-templates/{template_name}/create_disk_from_template.sh',
-                              f'/disk-templates/{template_name}/{template_name}.qcow2',
-                              f'/vm-disks/{disk_id}/disk.qcow2',
-                              f'{size}'],
-                             text = True,
-                             stdout = subprocess.PIPE,
-                             stderr = subprocess.STDOUT)
+        res = subprocess.run(
+            [
+                f"/disk-templates/{template_name}/create_disk_from_template.sh",
+                f"/disk-templates/{template_name}/{template_name}.qcow2",
+                f"/vm-disks/{disk_id}/disk.qcow2",
+                f"{size}",
+            ],
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
 
         if res.returncode != 0:
             raise errors.CreateDiskFromTemplateException(res.stdout)
 
-        res = subprocess.run([f'/disk-templates/{template_name}/setup_root_password.sh',
-                              f'/vm-disks/{disk_id}/disk.qcow2',
-                              utils.DISK_TMP_PASSWORD],
-                             text = True,
-                             stdout = subprocess.PIPE,
-                             stderr = subprocess.STDOUT)
+        res = subprocess.run(
+            [
+                f"/disk-templates/{template_name}/setup_root_password.sh",
+                f"/vm-disks/{disk_id}/disk.qcow2",
+                utils.DISK_TMP_PASSWORD,
+            ],
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
 
         if res.returncode != 0:
             raise errors.CreateDiskFromTemplateException(res.stdout)
-    except:
+    except Exception:
         cleanup_disk(disk_id)
         raise
 

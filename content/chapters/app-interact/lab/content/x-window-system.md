@@ -12,7 +12,7 @@ But in the more usual case, when both the client and the server are on the same 
 Let's investigate the case when both the X client and X server run on the same machine.
 First we'll take a look at the Unix sockets that are in listening mode.
 
-```Bash
+```console
 student@os:~$ sudo netstat -xnlp | grep X11
 unix  2      [ ACC ]     STREAM     LISTENING     29120    3472/Xorg            @/tmp/.X11-unix/X0
 unix  2      [ ACC ]     STREAM     LISTENING     29121    3472/Xorg            /tmp/.X11-unix/X0
@@ -20,9 +20,10 @@ unix  2      [ ACC ]     STREAM     LISTENING     29121    3472/Xorg            
 
 We observe the `Xorg` process (the X server) listening on a Unix socket with the path `/tmp/.X11-unix/X0`.
 
-Now let's run an X client (that is, a GUI application) and check that it will indeed connect to this Unix socket. A very simple example is the `xeyes` application.
+Now let's run an X client (that is, a GUI application) and check that it will indeed connect to this Unix socket.
+A very simple example is the `xeyes` application:
 
-```Bash
+```console
 student@os:~$ strace -e trace=socket,connect xeyes
 socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0) = 3
 connect(3, {sa_family=AF_UNIX, sun_path=@"/tmp/.X11-unix/X0"}, 20) = 0
@@ -38,12 +39,10 @@ When the mouse is moved, the following events are taking place:
 - The X server will pass these "mouse moved" events to the clients (including xeyes)
 - The client (xeyes) uses these events to update its window (changing the position of the pupils inside the eyes)
 
-So, if we run `xeyes` under `strace`, we expect to see some communication on the Unix socket that is created at the beginning.
+So, if we run `xeyes` under `strace`, we expect to see some communication on the Unix socket that is created at the beginning:
 
-```Bash
+```console
 strace -e 'trace=!poll' -e trace='socket,connect,recvmsg' xeyes |& grep -v '\-1 EAGAIN
 ```
 
-![](../media/strace_xeyes.gif)
-
-
+![strace-xeyes](../media/strace_xeyes.gif)

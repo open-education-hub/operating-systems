@@ -1,3 +1,5 @@
+#!/bin/bash
+
 nbd_connect_qcow2()
 {
     local src="$1"

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-MYSQL_ROOT_PASSWORD=eiv2Siezofe7quahcido
-MYSQL_SO_CLOUD_PASSWORD=iK3ahthae3ieZ6gohkay
+MYSQL_ROOT_PASSWORD=eiv2Siezofe7quahcido #gitleaks:allow
+MYSQL_SO_CLOUD_PASSWORD=iK3ahthae3ieZ6gohkay #gitleaks:allow
 
 echo 'Setting up db'
 
 sudo rm -rf db-data
 
-docker run --rm -v $PWD/db-data:/var/lib/mysql \
+docker run --rm -v "$PWD"/db-data:/var/lib/mysql \
        -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
        -e MYSQL_USER=so-cloud \
        -e MYSQL_PASSWORD=$MYSQL_SO_CLOUD_PASSWORD \
@@ -18,9 +18,9 @@ docker run --rm -v $PWD/db-data:/var/lib/mysql \
 pid=$!
 
 while true; do
-    n=$(grep 'mariadb.org binary distribution' log | wc -l)
+    n=$(grep -c 'mariadb.org binary distribution' log)
 
-    if [ $n = 2 ]; then
+    if [ "$n" = 2 ]; then
 	break
     fi
 
@@ -32,13 +32,13 @@ wait $pid
 
 echo 'Creating tables'
 
-docker run --name mysql-tmp --rm -v $PWD/db-data:/var/lib/mysql mariadb:10.7 &> log &
+docker run --name mysql-tmp --rm -v "$PWD"/db-data:/var/lib/mysql mariadb:10.7 &> log &
 pid=$!
 
 while true; do
-    n=$(grep 'mariadb.org binary distribution' log | wc -l)
+    n=$(grep -c 'mariadb.org binary distribution' log)
 
-    if [ $n = 1 ]; then
+    if [ "$n" = 1 ]; then
 	break
     fi
 

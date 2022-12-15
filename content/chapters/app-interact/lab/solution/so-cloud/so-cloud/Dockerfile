@@ -1,6 +1,7 @@
 FROM ubuntu:22.04
 
-RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
+# hadolint ignore=DL3008
+RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     python3 \
     python3-pip \
     udev \
@@ -9,14 +10,14 @@ RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     whois \
     telnet \
     qemu-system \
+    qemu-utils \
     parted \
     e2fsprogs \
     cloud-guest-utils \
-    openssh-client
+    openssh-client && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install flask mysql-connector-python humanfriendly pexpect psutil
-
-RUN sed -i 's/nbd\*|//' /lib/udev/rules.d/60-block.rules
+# hadolint ignore=DL3013
+RUN pip3 install --no-cache-dir flask mysql-connector-python humanfriendly pexpect psutil
 
 WORKDIR /app
 RUN mkdir /app/scripts

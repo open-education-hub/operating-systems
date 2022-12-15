@@ -3,6 +3,7 @@
 set -o posix
 set -e
 
+# shellcheck source=content/chapters/app-interact/lab/solution/so-cloud/disk-templates/ubuntu_22.04/utils.sh
 source "$(dirname -- "${BASH_SOURCE[0]}")/utils.sh"
 
 if [ $EUID -ne 0 ]; then
