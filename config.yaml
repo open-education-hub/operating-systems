@@ -84,25 +84,25 @@ docusaurus:
               name: content/arena
         - Data:
           - Overview:
-              location: content/chapters/compute/lab
+              location: content/chapters/data/lab
               name: content/overview
           - Working with Memory:
-              location: content/chapters/compute/data
+              location: content/chapters/data/lab
               name: content/working-memory
           - Process Memory:
-              location: content/chapters/compute/data
+              location: content/chapters/data/lab
               name: content/process-memory
           - Investigate Memory:
-              location: content/chapters/compute/data
+              location: content/chapters/data/lab
               name: content/investigate-memory
           - Memory Support:
-              location: content/chapters/compute/data
+              location: content/chapters/data/lab
               name: content/memory-support
           - Memory Security:
-              location: content/chapters/compute/data
+              location: content/chapters/data/lab
               name: content/memory-security
           - Arena:
-              location: content/chapters/compute/data
+              location: content/chapters/data/lab
               name: content/arena
         - Software-Stack:
           - Introduction:
