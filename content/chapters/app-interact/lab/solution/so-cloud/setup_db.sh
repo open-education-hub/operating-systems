@@ -45,7 +45,7 @@ while true; do
     sleep 0.5
 done
 
-docker exec -i mysql-tmp mysql -u so-cloud -p$MYSQL_SO_CLOUD_PASSWORD so-cloud < db.sql
+docker exec -i mysql-tmp mysql -u so-cloud -p$MYSQL_SO_CLOUD_PASSWORD so-cloud < db.sqldump
 
 docker exec -i mysql-tmp mysql -u so-cloud -p$MYSQL_SO_CLOUD_PASSWORD so-cloud -e "INSERT INTO network(name, bridge_interface_idx, ip, mask) values('default', 0, 3232235520, 4294901760)"
 
