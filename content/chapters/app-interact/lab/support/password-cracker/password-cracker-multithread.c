@@ -7,10 +7,10 @@
 #include <openssl/sha.h>
 #include <pthread.h>
 
+#include "../utils/utils.h"
+
 #define NUM_WORKERS 26
-
 #define PASSWORD_LEN 4
-
 #define PASSWORD_HASH "\x59\xa5\xab\xc2\xa9\x9b\x95\xbe"		\
 	"\x73\xc3\x1e\xa2\x72\xab\x0f\x2f"				\
 	"\x2f\xe4\x2f\xec\x30\x36\x71\x55"				\
@@ -92,10 +92,7 @@ void create_workers(pthread_t *tids)
 
 	for (i = 0; i < NUM_WORKERS; i++) {
 		ret = pthread_create(&tids[i], NULL, worker, (void *)char_list[i]);
-		if (ret) {
-			perror("pthread_create");
-			exit(1);
-		}
+		DIE(ret, "pthread_create");
 	}
 }
 
@@ -110,10 +107,7 @@ int main()
 
 	for (i = 0; i < NUM_WORKERS; i++) {
 		ret = pthread_join(tids[i], (void **)&password);
-		if (ret < 0) {
-			perror("pthread_join");
-			return 1;
-		}
+		DIE(ret < 0, "pthread_join");
 
 		if (password) {
 			printf("worker %d found %s\n", i, password);
