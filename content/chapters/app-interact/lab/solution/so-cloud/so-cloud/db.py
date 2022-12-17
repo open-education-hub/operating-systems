@@ -22,7 +22,7 @@ if not db:
     raise Exception("MYSQL_DATABASE environment variable not set")
 
 
-# executes query with arguments, returns all values
+# Executes query with arguments, returns all values.
 def simple_query(query: str, args: Tuple = None) -> List:
     conn = mysql.connector.connect(host=host, user=user, password=password, database=db)
 
@@ -40,7 +40,7 @@ def simple_query(query: str, args: Tuple = None) -> List:
     return res
 
 
-# executes an insert of only one row, returns the id
+# Executes an insert of only one row, returns the id.
 def simple_insert_query(query: str, args: Tuple = None) -> int:
     conn = mysql.connector.connect(host=host, user=user, password=password, database=db)
 

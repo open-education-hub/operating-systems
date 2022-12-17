@@ -7,7 +7,7 @@ The clients and the server communicate using a standardized protocol, and the sy
 Although not so common nowadays, the X client can run on a different machine than the server, with the communication happening over the network.
 But in the more usual case, when both the client and the server are on the same machine, modern implementations of the X Window System use a faster communication channel, like a Unix socket.
 
-### X client and server on the same machine
+### X Client and Server on the Same Machine
 
 Let's investigate the case when both the X client and X server run on the same machine.
 First we'll take a look at the Unix sockets that are in listening mode.

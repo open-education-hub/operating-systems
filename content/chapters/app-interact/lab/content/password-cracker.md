@@ -8,7 +8,7 @@ This is not feasible for long passwords, so for our example we will consider onl
 In order to speed up the entire process, we want to parallelize the solution.
 Instead of one process checking all combinations, we'll split the work among multiple processes or threads.
 
-### Multiprocess version
+### Multiprocess Version
 
 The code for this version is in `support/password-cracker/password-cracker-multiprocess.c`.
 
@@ -44,6 +44,7 @@ Let's build and run the program:
 student@os:~/.../lab/password-cracker$ make
 gcc -Wall -o password-cracker-multiprocess password-cracker-multiprocess.c -lcrypto
 gcc -Wall -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -o password-cracker-multithread password-cracker-multithread.c -lcrypto -lpthread
+
 student@os:~/.../lab/password-cracker$ ./password-cracker-multiprocess
 worker 7 found haxx
 ```
@@ -56,7 +57,7 @@ Modify the program so that it only creates 4 workers.
 Each worker will receive 2 characters instead of one, defining an interval to search.
 For example, the first worker will receive `a` and `f`, meaning it will brute-force passwords starting with `a`, `b`, `c`, `d`, `e`, or `f`, the second `g` - `l`, and so on.
 
-### Multithreaded version
+### Multithreaded Version
 
 Check out the code in `support/password-cracker/password-cracker-multithread.c`.
 
@@ -70,7 +71,7 @@ student@os:~/.../lab/password-cracker$ ./password-cracker-multithread
 worker 7 found haxx
 ```
 
-### Multiprocess version in Python (1)
+### Multiprocess Version in Python (1)
 
 Code in `support/password-cracker/python/password-cracker-multiprocess-1.py`.
 
@@ -89,7 +90,7 @@ student@os:~/.../lab/password-cracker$ python3 python/password-cracker-multiproc
 worker 7 found haxx
 ```
 
-### Multiprocess version in Python (2)
+### Multiprocess Version in Python (2)
 
 Code in `support/password-cracker/python/password-cracker-multiprocess-2.py`.
 
@@ -113,7 +114,7 @@ Check that the `worker` function is indeed called from different worker processe
 One simple way to do this is to print out the current process ID at the beginning of the function.
 To get the current process ID, use the `getpid` function from the `os` module.
 
-### Multithreaded version in Python
+### Multithreaded Version in Python
 
 Code in `support/password-cracker/python/password-cracker-multithread.py`.
 

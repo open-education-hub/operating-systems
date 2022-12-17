@@ -3,7 +3,7 @@
 In this section we are going to build a "toy cloud" called `SO Cloud`.
 Similar to a real cloud (like `aws`), `SO Cloud` will allow us to create and manage virtual machines, through an `http` API.
 
-### Initial liftoff
+### Initial Liftoff
 
 First, we need to do some initial setup:
 
@@ -17,8 +17,10 @@ Then Go to `support/so-cloud` and run:
 student@os:~/.../so-cloud$ ./setup_db.sh
 Setting up db
 Creating tables
+
 student@os:~/.../so-cloud$ docker-compose build
 ...
+
 student@os:~/.../so-cloud$ docker-compose up
 ```
 
@@ -84,7 +86,7 @@ student@os:~/.../so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id
 We recognize some parameters that we specified at creation time, like `mem_size` and `disk_size`.
 Also, the IP address `192.168.0.2` has been allocated for our machine.
 
-### More implementation details
+### More Implementation Details
 
 The application consists of 2 containers:
 
@@ -170,7 +172,7 @@ Connection closed.
 root@adf6e0bf4e6e:/app# 
 ```
 
-### (Even) more implementation details
+### (Even) More Implementation Details
 
 There are 3 objects used by the system:
 
@@ -228,7 +230,7 @@ This explains why our vm received the ip address `192.168.0.2`.
 This disk is assigned to our vm (`disk_id` is `1`).
 The disk file will reside in `support/so-cloud/vm-disks/1/disk.qcow2`, or `/vm-disks/1/disk.qcow2` inside the container.
 
-### Virtual Machine creation
+### Virtual Machine Creation
 
 Take a look at the `vm_create` function in `support/so-cloud/so-cloud/vm.py`.
 The steps undertaken are roughly:
@@ -241,7 +243,7 @@ The steps undertaken are roughly:
 
 1. the virtual machine is restarted again with the final disk in place
 
-### Disk creation
+### Disk Creation
 
 All the disk templates are in `support/so-cloud/disk-templates`.
 This directory will be mounted in `/disk-templates` inside the container.
@@ -257,7 +259,7 @@ This is done in the `ubuntu_22_04_vm_prepare` function in `support/so-cloud/so-c
 The code will connect to the vm's qemu serial console using `pexpect`.
 Then it will use a series of `expect_exact` + `sendline` pairs to interact with the virtual machine, as if those commands were typed in the command-line.
 
-### Practice: create a new disk by hand
+### Practice: Create a New Disk by Hand
 
 Let's replicate the above mentioned steps and create a new disk ourselves.
 
@@ -266,8 +268,10 @@ First, we have to call the 2 scripts from the `create_disk_from_template` functi
 ```console
 student@os:~/.../so-cloud$ ./disk-templates/ubuntu_22.04/create_disk_from_template.sh ./disk-templates/ubuntu_22.04/ubuntu_22.04.qcow2 my-disk.qcow2 10737418240
 Image resized.
+
 student@os:~/.../so-cloud$ ls -lh my-disk.qcow2
 -rw-r--r-- 1 student student 619M Nov 20 15:41 my-disk.qcow2
+
 student@os:~/.../so-cloud$ sudo ./disk-templates/ubuntu_22.04/setup_root_password.sh my-disk.qcow2 123456
 ```
 

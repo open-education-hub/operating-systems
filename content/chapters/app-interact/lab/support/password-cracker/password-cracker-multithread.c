@@ -45,7 +45,7 @@ void *worker(void *arg)
 		password[i] = 'a'-1;
 
 	/*
-	 * generate all possible combinations
+	 * Generate all possible combinations.
 	 */
 	k = 1;
 
@@ -60,7 +60,7 @@ void *worker(void *arg)
 		}
 
 		if (k == PASSWORD_LEN) {
-			/* check one combination */
+			/* Check one combination. */
 			if (check_password(password, PASSWORD_LEN)) {
 				found = 1;
 				break;

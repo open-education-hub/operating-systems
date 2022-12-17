@@ -75,7 +75,7 @@ def start_qemu_for_vm(vm: VM):
 
     vm.qemu_pid = subprocess.Popen(qemu_cmd).pid
 
-    # wait for qemu to open the serial port
+    # Wait for qemu to open the serial port.
     while True:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -110,26 +110,26 @@ def ubuntu_22_04_vm_prepare(vm: VM):
     e.expect_exact("Password: ")
     e.sendline(utils.DISK_TMP_PASSWORD)
 
-    # the disk was resized by qemu-img in the create_disk_from_template.sh script
-    # but the existing partition and filesystem still have the original size from the template
-    # here we extend them to occupy the entire disk
+    # The disk was resized by qemu-img in the create_disk_from_template.sh script,
+    # but the existing partition and filesystem still have the original size from the template.
+    # Here we extend them to occupy the entire disk.
     logger.info("Resizing root partition and filesystem")
     e.expect_exact("root@ubuntu:~# ")
     e.sendline(
         'echo ", +" | sfdisk --force -N 1 /dev/sda && partprobe && resize2fs -f /dev/sda1'
     )
 
-    # the ubuntu 22.04 template does not have server keys for the ssh server
+    # The ubuntu 22.04 template does not have server keys for the ssh server
     # and because of that the ssh server is not able to start:
     #
     # [FAILED] Failed to start OpenBSD Secure Shell server.
     #
-    # here we generate them by running ssh-keygen -A
+    # Here we generate them by running ssh-keygen -A.
     logger.info("Setting up ssh server keys")
     e.expect_exact("root@ubuntu:~# ")
     e.sendline("ssh-keygen -A")
 
-    # setup ssh config: allow root login with password
+    # Setup ssh config: allow root login with password.
     e.expect_exact("root@ubuntu:~# ")
     e.sendline(
         "sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config"
@@ -140,7 +140,7 @@ def ubuntu_22_04_vm_prepare(vm: VM):
         "sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config"
     )
 
-    # setup network config
+    # Setup network config.
     logger.info("Setting up network config")
     iface_ip = ipaddress.ip_interface(f"{vm.ip_str}/{vm.netmask_str}").with_prefixlen
     gateway_ip = ipaddress.ip_address(vm.net.ip + 1)
@@ -160,16 +160,16 @@ def ubuntu_22_04_vm_prepare(vm: VM):
         )
     )
 
-    # stop vm
+    # Stop vm.
     logger.info("Stopping vm")
     e.expect_exact("root@ubuntu:~# ")
     e.sendline("halt")
 
-    e.expect_exact("reboot: System halted")
+    e.expect_exact("reboot: System halted", timeout=None)
 
     e.close()
 
-    # stop qemu
+    # Stop qemu.
     logger.info("Stopping qemu")
     stop_qemu_for_vm(vm)
 

@@ -12,7 +12,6 @@
 #define MAX_SIZE 8
 
 
-
 int connect_to_server(char *ip, char *port_str)
 {
 	int sockfd;

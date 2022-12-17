@@ -18,5 +18,5 @@ mkdir -p "$disk_dir"
 
 cp "$source_disk" "$destination_disk"
 
-# resize the disk to the desired size
+# Resize the disk to the desired size.
 qemu-img resize -f qcow2 "$destination_disk" "$size"

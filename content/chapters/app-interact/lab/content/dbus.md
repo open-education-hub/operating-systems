@@ -12,11 +12,11 @@ Once a process is connected, it can expose one or multiple `objects`.
 An object has a path-like name, consisting of strings separated by a slash character (for example `/org/freedesktop/Notifications`).
 Each object contains one or more `interfaces`, which have the methods that can be called on that object.
 
-### D-Bus inspection with d-feet
+### D-Bus Inspection with D-Feet
 
-In order to better understand these concepts, we'll use a graphical tool (`d-feet`) to inspect all the available D-Bus objects on our system.
+In order to better understand these concepts, we'll use a graphical tool (`D-Feet`) to inspect all the available D-Bus objects on our system.
 
-Run d-feet and select `Session Bus` from the top button:
+Run D-Feet and select `Session Bus` from the top button:
 
 ![dfeet-session-bus](../media/dfeet_session_bus.png)
 
@@ -46,7 +46,7 @@ Note that the last one (`org.freedesktop.Notifications`) is the same as the conn
 
 * The interface `org.freedesktop.Notifications` has some methods that can be called, such as `Notify`.
 
-### Calling D-Bus methods
+### Calling D-Bus Methods
 
 The application behind `org.freedesktop.Notifications` is responsible with desktop notifications (the small bubbles of text that appear at the top of the screen when some event happens).
 When an application wants to send a notification it needs to connect to D-Bus and call the `Notify` method from the `org.freedesktop.Notifications` interface.
@@ -114,7 +114,7 @@ Let's see how it works:
 
 You can also find this `gdbus` call in the `support/dbus/send_notification.sh` script.
 
-### Inspecting the low-level communication
+### Inspecting the Low-level Communication
 
 Let's run `gdbus` under `strace` to see what's happening behind the scenes.
 Run the script in `support/dbus/send_notification_strace.sh`:
