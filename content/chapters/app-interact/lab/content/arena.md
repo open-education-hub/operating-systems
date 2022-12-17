@@ -4,6 +4,9 @@
 
 Use the `dbus` python bindings to get the computer's battery level using a python script.
 You can start from the documentation [here](https://dbus.freedesktop.org/doc/dbus-python/tutorial.html#).
+You need to read the sections `Connecting to the Bus`, `Proxy objects`, and `Interfaces and methods`.
+
+There's also a skeleton you can use in `support/dbus/get_battery_level.py`.
 
 In summary, your script will start by connecting to the `System Bus`.
 Then you'll use the `get_object` method to obtain a proxy object.

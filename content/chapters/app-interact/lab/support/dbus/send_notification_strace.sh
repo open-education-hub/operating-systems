@@ -1,5 +1,6 @@
 #!/bin/bash
 
+strace -s 1000 -f -e trace=socket,connect,sendmsg,recvmsg \
 gdbus call \
       --session --dest org.freedesktop.Notifications \
       --object-path /org/freedesktop/Notifications \

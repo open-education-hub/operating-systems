@@ -42,7 +42,7 @@ When the mouse is moved, the following events are taking place:
 So, if we run `xeyes` under `strace`, we expect to see some communication on the Unix socket that is created at the beginning:
 
 ```console
-strace -e 'trace=!poll' -e trace='socket,connect,recvmsg' xeyes |& grep -v '\-1 EAGAIN
+strace -e 'trace=!poll' -e trace='socket,connect,recvmsg' xeyes |& grep -v '\-1 EAGAIN'
 ```
 
 ![strace-xeyes](../media/strace_xeyes.gif)

@@ -6,7 +6,6 @@ proxy = system_bus.get_object(
     "org.freedesktop.UPower", "/org/freedesktop/UPower/devices/DisplayDevice"
 )
 
-
 level = proxy.Get(
     "org.freedesktop.UPower.Device",
     "Percentage",
