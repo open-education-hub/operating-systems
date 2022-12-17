@@ -53,7 +53,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 
 
 		/*
-		 * generate all possible combinations
+		 * Generate all possible combinations.
 		 */
 		k = 1;
 
@@ -68,7 +68,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 			}
 
 			if (k == PASSWORD_LEN) {
-				/* check one combination */
+				/* Check one combination. */
 				if (check_password(password, PASSWORD_LEN)) {
 					found = 1;
 					break;
@@ -83,8 +83,8 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 
 	if (found) {
 	    /*
-	     * found the password. send the password length and the password
-	     * through the pipe
+	     * Found the password. Send the password length and the password
+	     * through the pipe.
 	     */
 	    v = PASSWORD_LEN;
 
@@ -95,7 +95,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	    DIE(ret < 0, "write");
 	} else {
 	    /*
-	     * didn't find the password. send the value 0 through the pipe
+	     * Didn't find the password. Send the value 0 through the pipe.
 	     */
 	    v = 0;
 
@@ -113,11 +113,11 @@ void create_workers(int *request_pipefd, int *result_pipefd)
 	int i;
 
 	for (i = 0; i < NUM_WORKERS; i++) {
-		/* create the request pipe */
+		/* Create the request pipe. */
 		ret = pipe(tmp_request_pipe);
 		DIE(ret < 0, "pipe");
 
-		/* create the result pipe */
+		/* Create the result pipe. */
 		ret = pipe(tmp_result_pipe);
 		DIE(ret < 0, "pipe");
 
@@ -126,27 +126,27 @@ void create_workers(int *request_pipefd, int *result_pipefd)
 
 		if (pid == 0) {
 			/*
-			 * in child process
+			 * In child process.
 			 *
-			 * close the unused pipe ends:
-			 * - the write end of the request pipe, since the child will only read from this pipe
-			 * - the read end of the result pipe, since the child will only write to this pipe
+			 * Close the unused pipe ends:
+			 * - the write end of the request pipe, since the child will only read from this pipe.
+			 * - the read end of the result pipe, since the child will only write to this pipe.
 			 */
 			close(tmp_request_pipe[1]);
 			close(tmp_result_pipe[0]);
 
-			/* call the worker function */
+			/* Call the worker function. */
 			worker(i, tmp_request_pipe[0], tmp_result_pipe[1]);
 
 			exit(0);
 		}
 
 		/*
-		 * in parent process
+		 * In parent process.
 		 *
-		 * close the unused pipe ends:
-		 * - the read end of the request pipe, since the parent will only write to this pipe
-		 * - the write end of the result pipe, since the parent will only read from this pipe
+		 * Close the unused pipe ends:
+		 * - the read end of the request pipe, since the parent will only write to this pipe.
+		 * - the write end of the result pipe, since the parent will only read from this pipe.
 		 */
 		close(tmp_request_pipe[0]);
 		close(tmp_result_pipe[1]);
@@ -172,7 +172,7 @@ int main()
 	create_workers(request_pipefd, result_pipefd);
 
 	/*
-	 * send the first character of the password to each worker
+	 * Send the first character of the password to each worker.
 	 */
 	chunk_size = char_list_len / NUM_WORKERS;
 
@@ -192,7 +192,7 @@ int main()
 
 	for (i = 0; i < NUM_WORKERS; i++) {
 		/*
-		 * read the result for each worker
+		 * Read the result for each worker.
 		 */
 		ret = read(result_pipefd[i], &len, sizeof(len));
 		DIE(ret < 0, "read");

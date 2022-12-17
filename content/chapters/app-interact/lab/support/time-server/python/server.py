@@ -27,7 +27,8 @@ def main():
 
     while True:
         try:
-            cl_sock, _ = sock.accept()
+            cl_sock, remote_addr = sock.accept()
+            print(f"Got connection from {remote_addr[0]}:{remote_addr[1]}")
 
             current_time = int(time.time())
 

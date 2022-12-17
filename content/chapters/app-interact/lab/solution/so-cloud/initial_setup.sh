@@ -3,10 +3,10 @@
 set -o posix
 set -e
 
-# Load the nbd module
+# Load the nbd module.
 sudo modprobe nbd max_part=16
 
-# Downloading disk templates
+# Downloading disk templates.
 DISKS=('https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img' 'ubuntu_22.04')
 
 len=${#DISKS[@]}

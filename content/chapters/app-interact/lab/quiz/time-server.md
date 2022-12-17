@@ -1,4 +1,4 @@
-# Time server protocol
+# Time Server Protocol
 
 ## Question Text
 

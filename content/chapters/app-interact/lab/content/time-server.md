@@ -23,7 +23,7 @@ student@os:~/.../support/time-server$ ./client 127.0.0.1 2000
 The time is Thu Sep  1 11:48:03 2022
 ```
 
-### Python version
+### Python Version
 
 In `support/time-server/python` we have the equivalent python implementation for both the server and client:
 

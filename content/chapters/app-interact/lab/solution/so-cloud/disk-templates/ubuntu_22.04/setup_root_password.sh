@@ -29,14 +29,14 @@ disk_mnt_dir="$disk_dir/mnt"
 
 mkdir -p "$disk_mnt_dir"
 
-# mount qcow2
+# Mount qcow2
 nbd_dev=$(nbd_connect_qcow2 "$source_disk")
 mount "${nbd_dev}p1" "$disk_mnt_dir"
 # -----------
 
 sed -i "s_root:\*:\(.*\)_root:$passwd_hash:\1_g" "$disk_mnt_dir/etc/shadow"
 
-# umount qcow2
+# Unmount qcow2
 umount "$disk_mnt_dir"
 qemu-nbd -d "$nbd_dev"
 # ------------

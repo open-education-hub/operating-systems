@@ -1,4 +1,4 @@
-# Time server interoperability
+# Time Server Interoperability
 
 ## Question Text
 
