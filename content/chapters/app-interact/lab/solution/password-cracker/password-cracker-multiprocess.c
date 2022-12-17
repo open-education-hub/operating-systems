@@ -88,7 +88,6 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	}
 
 	if (found) {
-	    printf("here %s\n", password);
 	    /*
 	     * found the password. send the password length and the password
 	     * through the pipe
