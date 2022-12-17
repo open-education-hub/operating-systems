@@ -17,10 +17,10 @@ By doing the same investigation on the python server we discover that the protoc
 This means that we can run the python server and the C client, or the C server and python client, and everything will work:
 
 ```console
-student@os:~/.../lab/time-server/python$ python3 server.py
+student@os:~/.../support/time-server/python$ python3 server.py
 ```
 
 ```console
-student@os:~/.../lab/time-server$ ./client 127.0.0.1 2000
+student@os:~/.../support/time-server$ ./client 127.0.0.1 2000
 The time is Thu Sep  1 11:48:03 2022
 ```

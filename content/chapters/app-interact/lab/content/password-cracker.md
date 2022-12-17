@@ -41,10 +41,10 @@ In summary, the flow will look like this:
 Let's build and run the program:
 
 ```console
-student@os:~/.../lab/password-cracker$ make
+student@os:~/.../support/password-cracker$ make
 gcc -Wall -o password-cracker-multiprocess password-cracker-multiprocess.c -lcrypto
 gcc -Wall -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -o password-cracker-multithread password-cracker-multithread.c -lcrypto -lpthread
-student@os:~/.../lab/password-cracker$ ./password-cracker-multiprocess
+student@os:~/.../support/password-cracker$ ./password-cracker-multiprocess
 worker 7 found haxx
 ```
 
@@ -66,7 +66,7 @@ This makes the communication easier: we'll use the thread function argument to s
 As for the result, each thread will return it as the return value of the thread function.
 
 ```console
-student@os:~/.../lab/password-cracker$ ./password-cracker-multithread
+student@os:~/.../support/password-cracker$ ./password-cracker-multithread
 worker 7 found haxx
 ```
 
@@ -85,7 +85,7 @@ So we don't need to create 2 pipes for each direction.
 * we don't have to write the code that generates all the password combinations, `itertools.product` will do it for us
 
 ```console
-student@os:~/.../lab/password-cracker$ python3 python/password-cracker-multiprocess-1.py
+student@os:~/.../support/password-cracker$ python3 python/password-cracker-multiprocess-1.py
 worker 7 found haxx
 ```
 
@@ -103,7 +103,7 @@ At the first glance it might look like the usual `map` function, but with the ke
 In other words, the work is distributed to the worker processes from the pool, and all the communication that we had to handle in the previous examples is done behind the scenes, greatly simplifying the code.
 
 ```console
-student@os:~/.../lab/password-cracker$ python3 python/password-cracker-multiprocess-2.py
+student@os:~/.../support/password-cracker$ python3 python/password-cracker-multiprocess-2.py
 worker 7 found haxx
 ```
 
@@ -120,7 +120,7 @@ Code in `support/password-cracker/python/password-cracker-multithread.py`.
 The Python equivalent of the previous multithreaded version.
 
 ```console
-student@os:~/.../lab/password-cracker$ python3 python/password-cracker-multithread.py
+student@os:~/.../support/password-cracker$ python3 python/password-cracker-multithread.py
 worker 7 found haxx
 ```
 
