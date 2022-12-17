@@ -1,0 +1,26 @@
+---
+version: '3.7'
+
+services:
+  db:
+    image: mariadb:10.7
+    volumes:
+      - ./db-data:/var/lib/mysql
+    restart: always
+
+  so-cloud:
+    build: ./so-cloud
+    init: true
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_USER: so-cloud
+      MYSQL_PASSWORD: iK3ahthae3ieZ6gohkay #gitleaks:allow
+      MYSQL_DATABASE: so-cloud
+      MYSQL_HOST: db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./disk-templates:/disk-templates
+      - ./vm-disks:/vm-disks
+      - /dev:/dev
+    privileged: true

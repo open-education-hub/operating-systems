@@ -1,0 +1,113 @@
+-- MariaDB dump 10.19  Distrib 10.7.6-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: so-cloud
+-- ------------------------------------------------------
+-- Server version	10.7.6-MariaDB-1:10.7.6+maria~ubu2004
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `disk`
+--
+
+DROP TABLE IF EXISTS `disk`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `disk` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `size` bigint(20) DEFAULT NULL,
+  `template_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `disk`
+--
+
+LOCK TABLES `disk` WRITE;
+/*!40000 ALTER TABLE `disk` DISABLE KEYS */;
+/*!40000 ALTER TABLE `disk` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `network`
+--
+
+DROP TABLE IF EXISTS `network`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `network` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `bridge_interface_idx` int(11) NOT NULL,
+  `ip` int(10) unsigned NOT NULL,
+  `mask` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `network`
+--
+
+LOCK TABLES `network` WRITE;
+/*!40000 ALTER TABLE `network` DISABLE KEYS */;
+/*!40000 ALTER TABLE `network` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vm`
+--
+
+DROP TABLE IF EXISTS `vm`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vm` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `disk_id` int(10) unsigned NOT NULL,
+  `mem_size` int(10) unsigned NOT NULL,
+  `network_id` int(11) unsigned NOT NULL,
+  `tap_interface_idx` int(10) unsigned NOT NULL,
+  `ip` int(10) unsigned NOT NULL,
+  `qemu_pid` int(10) DEFAULT NULL,
+  `qemu_monitor_port` int(10) unsigned NOT NULL,
+  `qemu_serial_port` int(10) unsigned NOT NULL,
+  `state` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `network_id` (`network_id`),
+  KEY `disk_id` (`disk_id`),
+  CONSTRAINT `vm_ibfk_1` FOREIGN KEY (`network_id`) REFERENCES `network` (`id`),
+  CONSTRAINT `vm_ibfk_2` FOREIGN KEY (`disk_id`) REFERENCES `disk` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vm`
+--
+
+LOCK TABLES `vm` WRITE;
+/*!40000 ALTER TABLE `vm` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vm` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-11-13 17:55:56

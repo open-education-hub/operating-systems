@@ -193,6 +193,25 @@ docusaurus:
           - Arena:
               location: content/chapters/io/lab
               name: content/arena
+        - Application-Interaction:
+          - Overview:
+              location: content/chapters/app-interact/lab
+              name: content/overview
+          - Time Server:
+              location: content/chapters/app-interact/lab
+              name: content/time-server
+          - Password Cracker:
+              location: content/chapters/app-interact/lab
+              name: content/password-cracker
+          - The X Window System:
+              location: content/chapters/app-interact/lab
+              name: content/x-window-system
+          - D-Bus:
+              location: content/chapters/app-interact/lab
+              name: content/dbus
+          - Arena:
+              location: content/chapters/app-interact/lab
+              name: content/arena
     static_assets:
       - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
       - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
