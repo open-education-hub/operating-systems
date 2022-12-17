@@ -9,8 +9,9 @@
 #include <unistd.h>
 #include <endian.h>
 
-#define MAX_SIZE 8
+#include "../utils/utils.h"
 
+#define MAX_SIZE 8
 
 int connect_to_server(char *ip, char *port_str)
 {
@@ -21,32 +22,20 @@ int connect_to_server(char *ip, char *port_str)
 	char *pend;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (sockfd < 0) {
-		perror("socket");
-		return sockfd;
-	}
+	DIE (sockfd < 0, "socket");
 
 	addr.sin_family = AF_INET;
 
 	ret = inet_aton(ip, &addr.sin_addr);
-	if (!ret) {
-		fprintf(stderr, "Invalid ip: %s\n", ip);
-		return ret;
-	}
+	DIE(!ret, "Invalid ip");
 
 	port = strtoul(port_str, &pend, 10);
-	if (!*port_str || *pend) {
-		fprintf(stderr, "Invalid port: %s\n", port_str);
-		return -1;
-	}
+	DIE (!*port_str || *pend, "Invalid port");
 
 	addr.sin_port = htons(port);
 
 	ret = connect(sockfd, (struct sockaddr *)&addr, sizeof(addr));
-	if (ret < 0) {
-		perror("connect");
-		return ret;
-	}
+	DIE(ret < 0, "connect");
 
 	return sockfd;
 }
@@ -86,37 +75,19 @@ int main(int argc, char *argv[])
 	}
 
 	sockfd = connect_to_server(argv[1], argv[2]);
-	if (sockfd < 0) {
-		fprintf(stderr, "Failed to create socket\n");
-		return 1;
-	}
+	DIE(sockfd < 0, "Failed to create socket");
 
 	ret = xrecv(sockfd, &size, sizeof(size), 0);
-	if (ret < 0) {
-		perror("recv");
-		return 1;
-	}
-	if (ret != sizeof(size)) {
-		fprintf(stderr, "EOF\n");
-		return 1;
-	}
+	DIE (ret < 0, "recv");
+	DIE (ret != sizeof(size), "EOF");
 
 	size = be32toh(size);
 
-	if (size > MAX_SIZE) {
-		fprintf(stderr, "Invalid size %u\n", size);
-		return 1;
-	}
+	DIE (size > MAX_SIZE, "Invalid size");
 
 	ret = xrecv(sockfd, &val, size, 0);
-	if (ret < 0) {
-		perror("recv");
-		return 1;
-	}
-	if (ret != size) {
-		fprintf(stderr, "EOF\n");
-		return 1;
-	}
+	DIE(ret < 0, "recv");
+	DIE(ret != size, "EOF");
 
 	if (size == 4) {
 	    current_time = ntohl(val);

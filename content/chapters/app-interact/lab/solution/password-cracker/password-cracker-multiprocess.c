@@ -6,10 +6,10 @@
 #include <sys/wait.h>
 #include <openssl/sha.h>
 
+#include "../utils/utils.h"
+
 #define NUM_WORKERS 4
-
 #define PASSWORD_LEN 4
-
 #define PASSWORD_HASH "\x59\xa5\xab\xc2\xa9\x9b\x95\xbe"		\
 	"\x73\xc3\x1e\xa2\x72\xab\x0f\x2f"				\
 	"\x2f\xe4\x2f\xec\x30\x36\x71\x55"				\
@@ -40,16 +40,10 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	int v;
 
 	ret = read(request_pipe_fd, &first_char_begin, sizeof(first_char_begin));
-	if (ret <= 0) {
-		perror("read");
-		return;
-	}
+	DIE(ret <= 0, "read");
 
 	ret = read(request_pipe_fd, &first_char_end, sizeof(first_char_end));
-	if (ret <= 0) {
-		perror("read");
-		return;
-	}
+	DIE(ret <= 0, "read");
 
 	for (c = first_char_begin; c <= first_char_end && !found; c++) {
 		password[0] = c;
@@ -95,16 +89,10 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	    v = PASSWORD_LEN;
 
 	    ret = write(result_pipe_fd, &v, sizeof(v));
-	    if (ret < 0) {
-		perror("write");
-		exit(1);
-	    }
+		DIE(ret < 0, "write");
 
 	    ret = write(result_pipe_fd, password, PASSWORD_LEN);
-	    if (ret < 0) {
-		perror("write");
-		exit(1);
-	    }
+	    DIE(ret < 0, "write");
 	} else {
 	    /*
 	     * Didn't find the password. Send the value 0 through the pipe.
@@ -112,10 +100,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	    v = 0;
 
 	    ret = write(result_pipe_fd, &v, sizeof(v));
-	    if (ret < 0) {
-		perror("write");
-		exit(1);
-	    }
+	    DIE(ret < 0, "write");
 	}
 }
 
@@ -130,23 +115,14 @@ void create_workers(int *request_pipefd, int *result_pipefd)
 	for (i = 0; i < NUM_WORKERS; i++) {
 		/* Create the request pipe. */
 		ret = pipe(tmp_request_pipe);
-		if (ret < 0) {
-			perror("pipe");
-			exit(1);
-		}
+		DIE(ret < 0, "pipe");
 
 		/* Create the result pipe. */
 		ret = pipe(tmp_result_pipe);
-		if (ret < 0) {
-			perror("pipe");
-			exit(1);
-		}
+		DIE(ret < 0, "pipe");
 
 		pid = fork();
-		if (pid < 0) {
-			perror("fork");
-			exit(1);
-		}
+		DIE(pid < 0, "fork");
 
 		if (pid == 0) {
 			/*
@@ -208,16 +184,10 @@ int main()
 		    first_char_end = char_list[char_list_len - 1];
 
 		ret = write(request_pipefd[i], &first_char_begin, sizeof(char));
-		if (ret < 0) {
-			perror("write");
-			return 1;
-		}
+		DIE(ret < 0, "write");
 
 		ret = write(request_pipefd[i], &first_char_end, sizeof(char));
-		if (ret < 0) {
-			perror("write");
-			return 1;
-		}
+		DIE(ret < 0, "write");
 	}
 
 	for (i = 0; i < NUM_WORKERS; i++) {
@@ -225,17 +195,11 @@ int main()
 		 * Read the result for each worker.
 		 */
 		ret = read(result_pipefd[i], &len, sizeof(len));
-		if (ret < 0) {
-			perror("read");
-			return 1;
-		}
+		DIE(ret < 0, "read");
 
 		if (len) {
 			ret = read(result_pipefd[i], password, len);
-			if (ret < 0) {
-				perror("read");
-				return 1;
-			}
+			DIE(ret < 0, "read");
 
 			password[len] = 0;
 
@@ -245,10 +209,7 @@ int main()
 
 	for (i = 0; i < NUM_WORKERS; i++) {
 		ret = wait(NULL);
-		if (ret < 0) {
-			perror("wait");
-			return 1;
-		}
+		DIE(ret < 0, "wait");
 	}
 
 	return 0;
