@@ -22,7 +22,7 @@ int connect_to_server(char *ip, char *port_str)
 	char *pend;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	DIE (sockfd < 0, "socket");
+	DIE(sockfd < 0, "socket");
 
 	addr.sin_family = AF_INET;
 
@@ -30,7 +30,7 @@ int connect_to_server(char *ip, char *port_str)
 	DIE(!ret, "Invalid ip");
 
 	port = strtoul(port_str, &pend, 10);
-	DIE (!*port_str || *pend, "Invalid port");
+	DIE(!*port_str || *pend, "Invalid port");
 
 	addr.sin_port = htons(port);
 
@@ -78,12 +78,12 @@ int main(int argc, char *argv[])
 	DIE(sockfd < 0, "Failed to create socket");
 
 	ret = xrecv(sockfd, &size, sizeof(size), 0);
-	DIE (ret < 0, "recv");
-	DIE (ret != sizeof(size), "EOF");
+	DIE(ret < 0, "recv");
+	DIE(ret != sizeof(size), "EOF");
 
 	size = be32toh(size);
 
-	DIE (size > MAX_SIZE, "Invalid size");
+	DIE(size > MAX_SIZE, "Invalid size");
 
 	ret = xrecv(sockfd, &val, size, 0);
 	DIE(ret < 0, "recv");
