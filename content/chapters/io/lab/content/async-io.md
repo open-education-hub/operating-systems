@@ -69,7 +69,7 @@ We use two implementations, in Python and in C.
    For each server, in a different console, we can test to see how well it behaves by running:
 
    ```console
-   student@os:/.../support/async/python$ time client_bench.sh
+   student@os:/.../support/async/python$ time ./client_bench.sh
    ```
 
    You will see a time duration difference between `mp_server.py` and the others, `mp_server.py` runs requests faster.
