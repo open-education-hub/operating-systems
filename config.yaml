@@ -129,7 +129,7 @@ docusaurus:
           - Static-dynamic:
               location: content/chapters/software-stack/lab
               name: content/static-dynamic
-          - Lybcall-Syscall:
+          - Libcall-Syscall:
               location: content/chapters/software-stack/lab
               name: content/libcall-syscall
           - High-Level Languages:
