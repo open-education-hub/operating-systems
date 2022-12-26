@@ -52,7 +52,6 @@ int main(void)
 		rc = sendto(fd, buffer, strlen(buffer), 0, (struct sockaddr *)&cli_addr, addrlen);
 		DIE(rc < 0, "sendto");
 	}
-	
 	close(fd);
 
 	return 0;
