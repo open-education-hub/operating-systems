@@ -59,6 +59,7 @@ int main(void)
 		rc = write(connectfd, buffer, strlen(buffer));
 		DIE(rc < 0, "write");
 	}
+
 	close(connectfd);
 	close(listenfd);
 
