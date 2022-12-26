@@ -43,8 +43,8 @@ int main(void)
 	rc = listen(listenfd, 10);
 	DIE(rc < 0, "listen");
 
-	/* Make server run indefinitely*/
-	while(1){
+	/* Make the server run indefinitely. */
+	while(1) {
 		/* Accept connection. */
 		connectfd = accept(listenfd, (struct sockaddr *) &cli_addr, &cli_addrlen);
 		DIE(connectfd < 0, "accept");
