@@ -41,19 +41,22 @@ int main(void)
 	rc = listen(listenfd, 10);
 	DIE(rc < 0, "listen");
 
-	/* Accept connection. */
-	connectfd = accept(listenfd, (struct sockaddr *) &raddr, &raddrlen);
-	DIE(connectfd < 0, "accept");
+	/* Make server run indefinitely. */
+	while(1) {
+		/* Accept connection. */
+		connectfd = accept(listenfd, (struct sockaddr *) &raddr, &raddrlen);
+		DIE(connectfd < 0, "accept");
 
-	/* Receive from client. */
-	rc = read(connectfd, buffer, BUFSIZ);
-	DIE(rc < 0, "read");
+		/* Receive from client. */
+		rc = read(connectfd, buffer, BUFSIZ);
+		DIE(rc < 0, "read");
 
-	printf("Received: %s\n", buffer);
+		printf("Received: %s\n", buffer);
 
-	/* Answer with the same string. */
-	rc = write(connectfd, buffer, strlen(buffer));
-	DIE(rc < 0, "write");
+		/* Answer with the same string. */
+		rc = write(connectfd, buffer, strlen(buffer));
+		DIE(rc < 0, "write");
+	}
 
 	close(connectfd);
 	close(listenfd);
