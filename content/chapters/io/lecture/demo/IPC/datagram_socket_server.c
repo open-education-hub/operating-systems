@@ -39,17 +39,20 @@ int main(void)
 	rc = bind(fd, (struct sockaddr *) &addr, sizeof(addr));
 	DIE(rc < 0, "bind");
 
-	/* Receive from client. */
-	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &cli_addr, &addrlen);
-	DIE(rc < 0, "recvfrom");
+	/* Make server run indefinitely*/
+	while(1){
+		/* Receive from client. */
+		rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &cli_addr, &addrlen);
+		DIE(rc < 0, "recvfrom");
 
-	printf("Received: %s\n", buffer);
+		printf("Received: %s\n", buffer);
 
-	/* Answer with the same string. */
-	addrlen = sizeof(cli_addr);
-	rc = sendto(fd, buffer, strlen(buffer), 0, (struct sockaddr *)&cli_addr, addrlen);
-	DIE(rc < 0, "sendto");
-
+		/* Answer with the same string. */
+		addrlen = sizeof(cli_addr);
+		rc = sendto(fd, buffer, strlen(buffer), 0, (struct sockaddr *)&cli_addr, addrlen);
+		DIE(rc < 0, "sendto");
+	}
+	
 	close(fd);
 
 	return 0;
