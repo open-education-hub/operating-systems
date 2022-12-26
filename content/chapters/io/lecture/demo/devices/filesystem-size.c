@@ -13,16 +13,20 @@
 
 #include "utils/utils.h"
 
-#define FS_PATH  "/dev/nvme0n1p5"
 #define SIZE_UNIT (1024UL * 1024 * 1024)  /* 1GB */
 
-int main(void)
+int main(int argc, const char *argv[])
 {
 	int fd;
 	unsigned long long numblocks = 0;
 	int rc;
 
-	fd = open(FS_PATH, O_RDONLY);
+	if (argc < 2) {
+		printf("Usage: %s partition_path\n", argv[0]);
+		return 0;
+	}
+
+	fd = open(argv[1], O_RDONLY);
 	DIE(fd < 0, "open");
 
 	rc = ioctl(fd, BLKGETSIZE64, &numblocks);
