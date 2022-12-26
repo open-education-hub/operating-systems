@@ -39,8 +39,8 @@ int main(void)
 	rc = bind(fd, (struct sockaddr *) &addr, sizeof(addr));
 	DIE(rc < 0, "bind");
 
-	/* Make server run indefinitely*/
-	while(1){
+	/* Make the server run indefinitely. */
+	while(1) {
 		/* Receive from client. */
 		rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &cli_addr, &addrlen);
 		DIE(rc < 0, "recvfrom");
