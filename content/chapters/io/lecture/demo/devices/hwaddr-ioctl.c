@@ -28,7 +28,6 @@ int main(int argc, const char *argv[])
 		return 0;
 	}
 
-
 	// Create socket
 	s = socket(PF_INET, SOCK_DGRAM, 0);
 	DIE(s < 0, "socket");
