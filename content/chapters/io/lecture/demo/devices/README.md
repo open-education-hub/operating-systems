@@ -21,7 +21,8 @@ We create a socket and call `ioctl()` using `SIOCGIFHWADDR` as argument to popul
 Expected output:
 
 ```console
-student@OS:~/.../demo/devices$ ./hwaddr-ioctl 
+student@OS:~/.../demo/devices$ # interface name might be different according to personal systems
+student@OS:~/.../demo/devices$ ./hwaddr-ioctl eth0
 Hardware address for interface eth0 is 00:00:5e:00:53:af
 ```
 
@@ -37,7 +38,8 @@ We open the filesystem block file from `/dev` and call `ioctl()` using `BLKGETSI
 Expected output:
 
 ```console
-student@OS:~/.../demo/devices$ ./filesystem-size
+student@OS:~/.../demo/devices$ # partition name might be different according to personal systems
+student@OS:~/.../demo/devices$ ./filesystem-size /dev/sda2
 Total space 300.132 GB
 ```
 
