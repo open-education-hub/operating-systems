@@ -1,8 +1,5 @@
 ## Scheduling
 
-- <https://github.com/kissen/threads>
-- <https://www.schaertl.me/posts/a-bare-bones-user-level-thread-library/>
-
 Up to now we know that the OS decides which **thread** (not process) runs on each CPU core at each time.
 Now we'll learn about the component that performs this task specifically: **the scheduler**.
 
@@ -202,10 +199,10 @@ However, as we've already stated, they rely on the "good will" of threads to yie
 
 #### Preemptive Scheduling
 
-Preemptive scheduling solve the issue stated above by leaving the task of suspending the currently RUNNING thread and replacing it with another one from the READY queue up to the scheduler.
+Preemptive scheduling solves the issue stated above by leaving the task of suspending the currently RUNNING thread and replacing it with another one from the READY queue up to the scheduler.
 This increases its complexity and the duration of context switches, but threads now are not required to worry about yielding themselves and can focus on running their code and performing the task for which they are created.
 
-Preemptive schedulers assign only allow threads to run for a maximum amount of time, called **time slice** (usually a few milliseconds).
+Preemptive schedulers allow threads to run only for a maximum amount of time, called **time slice** (usually a few milliseconds).
 They use timers which fire when a new time slice passes.
 The firing of one such timer causes a context switch whereby the currently RUNNING thread is _preempted_ (i.e. suspended) and replaced with another one.
 

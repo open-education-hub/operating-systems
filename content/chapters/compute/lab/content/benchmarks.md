@@ -3,7 +3,7 @@
 The main criterion we use to rank CPUs is their _computation power_, i.e. their ability to crunch numbers and do math.
 Numerous benchmarks exist out there and they are publicly displayed on sites such as [CPUBenchmark](https://www.cpubenchmark.net/).
 
-This benchmark measures the performance of the computer's CPU in a variety of scenarios:
+For example, a benchmark can measure the performance of the computer's CPU in a variety of scenarios:
 
 - its ability to perform integer operations
 - its speed in floating point arithmetic
@@ -11,10 +11,10 @@ This benchmark measures the performance of the computer's CPU in a variety of sc
 - sorting algorithms and others
 
 You can take a look at what exactly is measured using [this link](https://www.cpubenchmark.net/cpu.php?cpu=AMD+Ryzen+Threadripper+PRO+5995WX).
-It displays the scores obrtained by a high-end CPU.
-Apart from the tests above, other benchmarks might focus on other performance metrics such as branch prediction or prefetching.
+It displays the scores obtained by a high-end CPU.
+Apart from the tests above, other benchmarks might focus on different performance metrics such as branch prediction or prefetching.
 
-Other approaches are less artificial, measuring performance on real-world applications such as compile times and performance in the lastest (and most resource-demanding) video games.
+Other approaches are less artificial, measuring performance on real-world applications such as compile times and performance in the latest (and most resource-demanding) video games.
 The latter metric revolves around how many average FPS (frames per second) a given CPU is able to crank out in a specific video game.
 [This article](https://www.gamersnexus.net/guides/3577-cpu-test-methodology-unveil-for-2020-compile-gaming-more) goes into more detail regarding the methodology of running CPU benchmarks on real-world applications.
 
@@ -29,7 +29,7 @@ However, it is the **operating system** that provides the "brains" for this comp
 Specifically, modern CPUs have the capacity to run multiple tasks in parallel.
 But they do not provide a means to decide which task to run at each moment.
 The OS comes as an _orchestrator_ to **schedule** the way these tasks (that we will later call threads) are allowed to run and use the CPU's resources.
-This way OS tells the CPU what code to run on each CPU core so that it reaches a good balance between high throughput (running many instructions) and fair access to CPU cores.
+This way, the OS tells the CPU what code to run on each CPU core so that it reaches a good balance between high throughput (running many instructions) and fair access to CPU cores.
 
 It is cumbersome for a user-level application to interact directly with the CPU.
 The developer would have to write hardware-specific code which is not scalable and is difficult to maintain.

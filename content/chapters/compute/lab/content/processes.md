@@ -250,7 +250,7 @@ Notice what each of the two processes prints:
 Unlike `system()`, who also waits for its child, when using `fork()` we must do the waiting ourselves.
 In order to wait for a process to end, we use the [`waitpid()`](https://linux.die.net/man/2/waitpid) syscall.
 It places the exit code of the child process in the `status` parameter.
-This argument is actually a bitfield containing more information that merely the exit code.
+This argument is actually a bitfield containing more information than merely the exit code.
 To retrieve the exit code, we use the `WEXITSTATUS` macro.
 Keep in mind that `WEXITSTATUS` only makes sens if `WIFEXITED` is true, i.e. if the child process finished on its own and wasn't killed by another one or by an illegal action (such as a seg fault or illegal instruction) for example.
 Otherwise, `WEXITSTATUS` will return something meaningless.
@@ -265,5 +265,12 @@ Use a similar logic and a similar set of prints to those in the support code.
 Take a look at the printed PIDs.
 Make sure the PPID of the "grandchild" is the PID of the child, whose PPID is, in turn, the PID of the parent.
 
-**Moral of the story**: Usually the execution flow is `fork()`, followed by `wait()` (called by the parent) `exit()`, called by the child.
+**Moral of the story**: Usually the execution flow is:
+
+1. `fork()`, followed by
+
+1. `wait()` (called by the parent)
+
+1. `exit()`, called by the child.
+
 The order of last 2 steps may be swapped.
