@@ -41,36 +41,48 @@ I am the one who knocks!
 
 ### UNIX Sockets
 
-We use **UNIX sockets** to send a message to a server and wait for it to response with the exact same string.
+#### Stream Sockets
+
+We use **UNIX stream sockets** to send a message to a server and wait for it to response with the exact same string.
 This example is best followed using two terminals.
 
 First we start the server, which will block waiting for a connection.
 
 ```console
-student@os:~/.../demo/IPC$ ./unix_socket_server
+student@os:~/.../demo/IPC$ ./unix_stream_socket_server
 ```
 
 We then start the client, which will send the string to the server and will wait for the response.
 
 ```console
-student@os:~/.../demo/IPC$ ./unix_socket_client 
+student@os:~/.../demo/IPC$ ./unix_stream_socket_client
 Received: R2-D2 is underrated
 ```
 
 The server output is also updated, displaying the received string.
 
 ```console
-student@os:~/.../demo/IPC$ ./unix_socket_server
+student@os:~/.../demo/IPC$ ./unix_stream_socket_server
 Received: R2-D2 is underrated
 ```
 
-### Stream Sockets
+#### Datagram Sockets
+
+We use **UNIX datagram sockets** to send a message to a server and wait for it to response with the exact same string.
+
+When using **UNIX datagram sockets** we also need to bind the client to a socket path in order to receive a reply.
+
+The output is similar to [UNIX Stream Sockets](#unix-sockets).
+
+### Network Sockets
+
+#### Stream Sockets
 
 We use **stream sockets** to send a message to a server and wait for it to response with the exact same string.
 
 The output is similar to [UNIX Sockets](#unix-sockets).
 
-### Datagram Sockets
+#### Datagram Sockets
 
 We use **datagram sockets** to send a message to a server and wait for it to response with the exact same string.
 
