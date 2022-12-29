@@ -1,8 +1,5 @@
 ## Scheduling
 
-- <https://github.com/kissen/threads>
-- <https://www.schaertl.me/posts/a-bare-bones-user-level-thread-library/>
-
 Up to now we know that the OS decides which **thread** (not process) runs on each CPU core at each time.
 Now we'll learn about the component that performs this task specifically: **the scheduler**.
 
