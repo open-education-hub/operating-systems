@@ -1,2 +1,2 @@
-BINARIES = pipe fifo unix_socket_server unix_socket_client stream_socket_server stream_socket_client datagram_socket_server datagram_socket_client
+BINARIES = pipe fifo unix_stream_socket_server unix_stream_socket_client unix_datagram_socket_server unix_datagram_socket_client network_stream_socket_server network_stream_socket_client network_datagram_socket_server network_datagram_socket_client
 include ../../../../../common/makefile/multiple.mk
