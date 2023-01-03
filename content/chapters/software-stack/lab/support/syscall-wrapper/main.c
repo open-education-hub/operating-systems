@@ -1,4 +1,6 @@
-#include "syscall.h"
+/* SPDX-License-Identifier: BSD-3-Clause */
+
+#include "./syscall.h"
 
 int main(void)
 {

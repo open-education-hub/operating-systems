@@ -1,6 +1,8 @@
-#include "syscall.h"
-#include "string.h"
-#include "printf.h"
+/* SPDX-License-Identifier: BSD-3-Clause */
+
+#include "./syscall.h"
+#include "./string.h"
+#include "./printf.h"
 
 static const char src[] = "warhammer40k";
 static char dest[128];

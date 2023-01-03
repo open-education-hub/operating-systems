@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 import dbus
 
 system_bus = dbus.SystemBus()

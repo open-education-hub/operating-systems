@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #ifndef SYSCALL_H_
 #define SYSCALL_H_	1
 

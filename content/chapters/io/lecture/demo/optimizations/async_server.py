@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
 
+# SPDX-License-Identifier: BSD-3-Clause
+
 # https://docs.python.org/3/library/asyncio-stream.html
 
-import sys
 import asyncio
 import logging
+import sys
 
 
 def fibonacci(num):
     if num in (0, 1):
         return 1
-    return fibonacci(num-1) + fibonacci(num-2)
+    return fibonacci(num - 1) + fibonacci(num - 2)
 
 
 async def handle(reader, writer):
-    logging.info("Received connection from %s",
-                 writer.get_extra_info('peername'))
+    logging.info("Received connection from %s", writer.get_extra_info("peername"))
     response = ""
     try:
         data = await reader.read(256)
-        msg = data.decode('utf-8')
+        msg = data.decode("utf-8")
         logging.debug("Message: %s", msg)
         num = int(msg)
         if num < 0 or num > 34:
@@ -28,7 +29,7 @@ async def handle(reader, writer):
     except ValueError:
         response = "error"
 
-    writer.write(response.encode('utf-8'))
+    writer.write(response.encode("utf-8"))
     await writer.drain()
 
     writer.close()
@@ -45,8 +46,7 @@ async def run_server(port, hostname="0.0.0.0"):
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(name)s: %(message)s')
+    logging.basicConfig(level=logging.DEBUG, format="%(name)s: %(message)s")
 
     if len(sys.argv) != 2:
         print("Usage: {} port".format(sys.argv[0]), file=sys.stderr)

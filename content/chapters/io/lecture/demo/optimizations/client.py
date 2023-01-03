@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-import sys
-import socket
+# SPDX-License-Identifier: BSD-3-Clause
+
 import logging
 import random
+import socket
+import sys
 
 
 def handle(connection, num):
@@ -11,8 +13,8 @@ def handle(connection, num):
         num = random.randrange(35)
 
     logging.info("Sending %d", num)
-    connection.send(str(num).encode('utf-8'))
-    response = connection.recv(256).decode('utf-8')
+    connection.send(str(num).encode("utf-8"))
+    response = connection.recv(256).decode("utf-8")
     print("function({:d}): {}".format(num, response))
 
     connection.close()
@@ -27,13 +29,14 @@ def run_client(server_name, server_port, num=-1):
 
 
 def main():
-    logging.basicConfig(level=logging.INFO,
-                        format='%(name)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(name)s: %(message)s")
     random.seed()
 
     if len(sys.argv) < 3 or len(sys.argv) > 4:
-        print("Usage: {} server_name server_port [num]".format(
-            sys.argv[0]), file=sys.stderr)
+        print(
+            "Usage: {} server_name server_port [num]".format(sys.argv[0]),
+            file=sys.stderr,
+        )
         print("  0 <= num <= 34", file=sys.stderr)
         sys.exit(1)
 

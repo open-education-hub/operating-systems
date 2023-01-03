@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 from multiprocessing import Process
 from sys import argv
 from time import sleep

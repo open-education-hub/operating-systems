@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# SPDX-License-Identifier: BSD-3-Clause
+
 from argparse import ArgumentParser
 from threading import Barrier, Thread, current_thread
 
@@ -24,9 +26,7 @@ def main():
 
     threads = []
     for i in range(NUM_THREADS):
-        t = Thread(
-            target=thread_func, name=f"thread-{i}", args=(args.use_barrier,)
-        )
+        t = Thread(target=thread_func, name=f"thread-{i}", args=(args.use_barrier,))
         threads.append(t)
         t.start()
 

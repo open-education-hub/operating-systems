@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 import socket  # Exposes the Berkely Sockets API
 
 IP = "127.0.0.1"  # Loopback IP address (localhost)

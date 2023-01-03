@@ -1,30 +1,27 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-struct String_Internal
-{
+struct String_Internal {
     char* ptr;
     size_t len;
     int capacity;
 };
 
-typedef union String
-{
+typedef union String {
     struct String_Internal long_str;
     char small_str[24];
-}String;
+} String;
 
 void initString(String* str, char* ptr)
 {
     size_t len = strlen(ptr);
-    if (len < 16)
-    {
+    if (len < 16) {
         strncpy(str->small_str, ptr, len);
         str->long_str.capacity = -1;
-    }
-    else
-    {
+    } else {
         str->long_str.ptr = malloc(len*2);
         strncpy(str->long_str.ptr, ptr, len);
         str->long_str.len = len;
@@ -41,8 +38,7 @@ char* getString(String* str)
 {
     if (str->long_str.capacity == -1)
         return str->small_str;
-    else
-        return str->long_str.ptr;
+    return str->long_str.ptr;
 }
 
 void main()

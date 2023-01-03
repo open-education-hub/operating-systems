@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# SPDX-License-Identifier: BSD-3-Clause
+
 # https://docs.python.org/3.6/library/asyncio-stream.html#asyncio.start_server
 
 import asyncio

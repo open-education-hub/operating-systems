@@ -1,12 +1,13 @@
-# pylint: disable=missing-function-docstring
 #!/usr/bin/env python
+
+# SPDX-License-Identifier: BSD-3-Clause
 
 import sys
 
 
 def wait_for_input(msg):
-    print(f' * {msg}')
-    print(' -- Press ENTER to continue ...')
+    print(f" * {msg}")
+    print(" -- Press ENTER to continue ...")
     sys.stdout.flush()
     sys.stdin.readline()
 

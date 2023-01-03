@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>

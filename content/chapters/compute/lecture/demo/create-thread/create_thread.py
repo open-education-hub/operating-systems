@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# SPDX-License-Identifier: BSD-3-Clause
+
 from os import getpid, getppid
 from threading import Thread
 from time import sleep

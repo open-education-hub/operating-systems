@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 from threading import Thread
 
 NUM_ITER = 10_000_000

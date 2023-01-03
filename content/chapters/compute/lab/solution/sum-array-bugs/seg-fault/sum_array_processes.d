@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
 module sum_array_processes;
 
 immutable size_t ARR_LEN = 100_000_000;

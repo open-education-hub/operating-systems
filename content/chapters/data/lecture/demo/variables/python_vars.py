@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
+
 class AttackOnTitanCharacter:
     # constructor
     def __init__(self, id, name):
@@ -11,6 +14,7 @@ class AttackOnTitanCharacter:
     # destructor
     def __del__(self):
         print("destroying " + self.name)
+
 
 list = []
 list.append(AttackOnTitanCharacter(1, "Eren"))

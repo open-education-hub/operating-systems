@@ -1,14 +1,15 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define N 10
 
-typedef struct IntArray
-{
+typedef struct IntArray {
     size_t capacity;
     size_t len;
     int* ptr;
-}IntArray;
+} IntArray;
 
 IntArray *allocArray(size_t len)
 {
@@ -21,7 +22,7 @@ IntArray *allocArray(size_t len)
 
 void printArray(IntArray *arr)
 {
-    for(int i = 0; i < arr->len; i++)
+    for (int i = 0; i < arr->len; i++)
         printf("%d\n", arr->ptr[i]);
 }
 
@@ -53,8 +54,7 @@ void main()
     printArray(arr);
     printf("==============================\n");
 
-    for(int i = arr->len; i < N + N; i++)
-    {
+    for (int i = arr->len; i < N + N; i++) {
         appendElem(arr, i);
     }
 

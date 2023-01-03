@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
 module generate_random_array;
 
 immutable int MAX_ELEM = 1000;

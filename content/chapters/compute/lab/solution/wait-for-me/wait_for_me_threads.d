@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
 module wait_for_me_threads;
 
 const ARR_LEN = 400;

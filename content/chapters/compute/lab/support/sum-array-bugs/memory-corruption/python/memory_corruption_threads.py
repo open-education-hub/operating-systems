@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 from math import ceil
 from random import randint, seed
 from sys import argv

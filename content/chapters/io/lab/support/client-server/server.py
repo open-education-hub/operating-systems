@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 import socket  # Exposes the Berkely Sockets API
 from os import getpid
 

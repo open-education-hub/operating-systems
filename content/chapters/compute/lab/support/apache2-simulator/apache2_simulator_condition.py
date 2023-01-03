@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 from random import randint
 from threading import Condition, Thread
 from time import sleep

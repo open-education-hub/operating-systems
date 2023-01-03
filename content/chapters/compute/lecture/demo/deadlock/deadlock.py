@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# SPDX-License-Identifier: BSD-3-Clause
+
 from threading import Lock, Thread
 from time import sleep
 
