@@ -1,3 +1,5 @@
+LDFLAGS = -z lazy
+
 .PHONY: all clean
 
 all: hello
