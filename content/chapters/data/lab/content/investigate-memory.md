@@ -227,6 +227,13 @@ A true memory leak occurs when no pointers refer any memory area.
 
 1. Use `ltrace` to list `malloc()` and `free()` calls made by the investigated system executables.
 
+Note that, as explained in the [Software Stack lab](https://open-education-hub.github.io/operating-systems/Lab/Software-Stack/Libcall-Syscall/content/libcall-syscall), on some systems, `ltrace` does not accurately show the output, due to _now binding_.
+Fear not, you can always check the library calls with a more verbose and harder to parse `ltrace` command:
+
+```console
+student@os:~$ ltrace -x "*"
+```
+
 #### Quiz
 
 TODO

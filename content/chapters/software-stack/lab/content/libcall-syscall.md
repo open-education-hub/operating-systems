@@ -49,6 +49,35 @@ The main reason for `fwrite()` not making any system calls is the use of a stand
 Calls the `fwrite()` end up writing to that buffer to reduce the number of system calls.
 Actual system calls are made either when the standard C library buffer is full or when an `fflush()` library call is made.
 
+Note that on some systems, `ltrace` **does not work** as expected, due to **now binding**.
+To avoid this behaviour, you can force the **lazy binding** (based on which `ltrace` is constructed to work).
+An example can be found in `support/libcall-syscall/Makefile`, however for system binaries, such as `ls` or `pwd`, the only alternative is to add the `-x "*"` argument to force the command to trace all symbols in the symbol table:
+
+```console
+student@os:~$ ltrace -x "*" ls
+```
+
+You can always choose what library functions `ltrace` is investigating, by replacing the wildcard with their name:
+
+```console
+student@os:~$ ltrace -x "malloc" -x "free" ls
+malloc@libc.so.6(5)                                                    = 0x55c42b2b8910
+free@libc.so.6(0x55c42b2b8910)                                         = <void>
+malloc@libc.so.6(120)                                                  = 0x55c42b2b8480
+malloc@libc.so.6(12)                                                   = 0x55c42b2b8910
+malloc@libc.so.6(776)                                                  = 0x55c42b2b8930
+malloc@libc.so.6(112)                                                  = 0x55c42b2b8c40
+malloc@libc.so.6(1336)                                                 = 0x55c42b2b8cc0
+malloc@libc.so.6(216)                                                  = 0x55c42b2b9200
+malloc@libc.so.6(432)                                                  = 0x55c42b2b92e0
+malloc@libc.so.6(104)                                                  = 0x55c42b2b94a0
+malloc@libc.so.6(88)                                                   = 0x55c42b2b9510
+malloc@libc.so.6(120)                                                  = 0x55c42b2b9570
+[...]
+```
+
+If you would like to know more about **lazy binding**, **now binding** or **PLT** entries, check out [this blog post](https://maskray.me/blog/2021-09-19-all-about-procedure-linkage-table).
+
 #### Practice
 
 Enter the `support/libcall-syscall/` folder and go through the practice items below.
