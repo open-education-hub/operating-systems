@@ -1,3 +1,5 @@
+; SPDX-License-Identifier: BSD-3-Clause
+
 extern printf
 extern pthread_create
 extern pthread_join

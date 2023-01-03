@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,10 +10,11 @@ static void see_beyond(const char *s)
     int value = 0xaabbccdd;
     char buffer[32];
 
-    if (strlen(s) < 32)
+    if (strlen(s) < 32) {
         strcpy(buffer, s);
-    else
+    } else {
         memcpy(buffer, s, 32);
+    }
 
     printf("buffer is #%s#\n", buffer);
 }

@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <fcntl.h>
 #include <pthread.h>
 #include <stddef.h>
@@ -72,7 +74,6 @@ static void do_stderr_redirect()
 
 	rc = close(fd);
 	DIE(rc < 0, "close");
-
 }
 
 void *redirected_print(void *arg)

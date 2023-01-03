@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: BSD-3-Clause */
+// SPDX-License-Identifier: BSD-3-Clause
 
 import core.stdc.stdlib : malloc, free;
 import std.stdio : writeln, printf;

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 import socket
 import sys
 from timeit import default_timer as timer

@@ -1,8 +1,9 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 
 // naive version
-typedef struct Creature
-{
+typedef struct Creature {
     int isCat;
     int isDog;
     int isHuman;
@@ -13,12 +14,10 @@ typedef struct Creature
     int sex;
 
     /* potentially other traits */
-
-}Creature;
+} Creature;
 
 // better but not best
-typedef struct BetterCreature
-{
+typedef struct BetterCreature {
     char isCat;
     char isDog;
     char isHuman;
@@ -27,14 +26,13 @@ typedef struct BetterCreature
     char hasLegs;
     char hasTail;
     char hasColdBlood;
-}BetterCreature;
+} BetterCreature;
 
 // best
-typedef struct BestCreature
-{
+typedef struct BestCreature {
     // each bit signifies a traits
     char traits;
-}BestCreature;
+} BestCreature;
 
 #define isCat(p) (p & 1)
 #define isDog(p) (p & 2)
@@ -45,8 +43,7 @@ typedef struct BestCreature
 #define hasTail(p) (p & 64)
 #define hasColdblood(p) (p & 128)
 
-typedef struct BitfieldCreature
-{
+typedef struct BitfieldCreature {
     char isCat : 1;
     char isDog : 1;
     char isHuman : 1;
@@ -55,8 +52,7 @@ typedef struct BitfieldCreature
     char hasLegs : 1;
     char hasTail : 1;
     char hasColdBlood : 1;
-
-}BitfieldCreature;
+} BitfieldCreature;
 
 void main()
 {

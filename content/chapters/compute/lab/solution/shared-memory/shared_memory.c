@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 #include <sys/mman.h>
 #include <sys/types.h>

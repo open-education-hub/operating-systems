@@ -1,11 +1,12 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define ON_STACK 1
 #define N 10
 
-typedef struct AttackOnTitanCharacter
-{
+typedef struct AttackOnTitanCharacter {
     size_t id;
     char *name;
 } AttackOnTitanCharacter;
@@ -21,7 +22,7 @@ AttackOnTitanCharacter* createElem(size_t id, char *name)
 
 void freeList(AttackOnTitanCharacter **list, size_t length)
 {
-    for (int i=0; i<length; i++)
+    for (int i = 0; i < length; i++)
         free(list[i]);
 
 #ifndef ON_STACK
@@ -31,13 +32,12 @@ void freeList(AttackOnTitanCharacter **list, size_t length)
 
 void printCharacterList(AttackOnTitanCharacter **list, size_t length)
 {
-    for(int i=0; i < length; i++)
+    for (int i = 0; i < length; i++)
         printf("id = %ld, name = %s\n", list[i]->id, list[i]->name);
 }
 
 void main()
 {
-
 #ifdef ON_STACK
     // allocating the list on the stack
     AttackOnTitanCharacter *list[N];

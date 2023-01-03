@@ -1,4 +1,6 @@
-#include "syscall.h"
+/* SPDX-License-Identifier: BSD-3-Clause */
+
+#include "./syscall.h"
 
 static void reverse_string(char *a, unsigned int len)
 {
@@ -11,7 +13,7 @@ static void reverse_string(char *a, unsigned int len)
 		a[j] = aux;
 	}
 }
-	
+
 static unsigned int itoa(int n, char *a)
 {
 	unsigned int num_digits = 0;

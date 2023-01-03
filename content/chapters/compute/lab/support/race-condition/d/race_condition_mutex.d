@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
 module race_condition_mutex;
 
 import core.sync.mutex;

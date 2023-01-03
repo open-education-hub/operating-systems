@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdlib.h>
 
 void* allocateArray(size_t numElems, size_t elemSize)

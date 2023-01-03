@@ -1,11 +1,12 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include "string.h"
 
 unsigned long strlen(const char *s)
 {
 	unsigned long len;
 
-	for (len = 0; *s != '\0'; s++, len++)
-		;
+	for (len = 0; *s != '\0'; s++, len++) { }
 
 	return len;
 }

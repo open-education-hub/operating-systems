@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+# SPDX-License-Identifier: BSD-3-Clause
+
+from threading import Condition, Thread
 from time import sleep
-from threading import Thread, Condition
 
 cond = Condition()
 

@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <fcntl.h> /* open */
 #include <stdint.h> /* uint64_t  */
 #include <stdio.h> /* printf */

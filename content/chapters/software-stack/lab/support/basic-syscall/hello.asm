@@ -1,3 +1,5 @@
+; SPDX-License-Identifier: BSD-3-Clause
+
 section .rodata
 
 hello db "Hello, world!", 10, 0

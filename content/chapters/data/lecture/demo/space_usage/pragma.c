@@ -1,8 +1,9 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 #include <stdio.h>
 
 /*#pragma pack(1)*/
-struct S
-{
+struct S {
     char a;
     int b;
 };
@@ -15,5 +16,4 @@ void main()
 
     printf("%x\n", &s.a);
     printf("%x\n", &s.b);
-
 }

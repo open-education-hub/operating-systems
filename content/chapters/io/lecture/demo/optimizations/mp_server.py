@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 
-import sys
-import socket
-import multiprocessing
+# SPDX-License-Identifier: BSD-3-Clause
+
 import logging
+import multiprocessing
+import socket
+import sys
 
 
 def fibonacci(num):
     if num in (0, 1):
         return 1
-    return fibonacci(num-1) + fibonacci(num-2)
+    return fibonacci(num - 1) + fibonacci(num - 2)
 
 
 def handle(connection, address):
     logging.info("Received connection from %s", address)
     response = ""
     try:
-        msg = connection.recv(256).decode('utf-8')
+        msg = connection.recv(256).decode("utf-8")
         logging.debug("Message: %s", msg)
         num = int(msg)
         if num < 0 or num > 34:
@@ -25,7 +27,7 @@ def handle(connection, address):
     except ValueError:
         response = "error"
 
-    connection.send(response.encode('utf-8'))
+    connection.send(response.encode("utf-8"))
 
     connection.close()
 
@@ -47,9 +49,7 @@ def run_server(port, hostname="0.0.0.0"):
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(name)s: %(message)s')
-
+    logging.basicConfig(level=logging.DEBUG, format="%(name)s: %(message)s")
     if len(sys.argv) != 2:
         print("Usage: {} port".format(sys.argv[0]), file=sys.stderr)
         sys.exit(1)
