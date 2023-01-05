@@ -3,38 +3,72 @@
 In this section we are going to build a "toy cloud" called `SO Cloud`.
 Similar to a real cloud (like `aws`), `SO Cloud` will allow us to create and manage virtual machines, through an `http` API.
 
+### Prerequisites
+
+Make sure the following packages are installed:
+
+```console
+sudo apt-get -y update; sudo apt-get -y install docker-compose jq
+```
+
+Also, make sure your user can run docker commands.
+If not, maybe you need to add it to the `docker` group:
+
+```console
+sudo usermod -aG docker student
+```
+
+Then, after relogin:
+
+```console
+student@os:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+
+If you are running inside a virtual machine, you need to enable nested virtualization.
+Example for vmware:
+
+![so-cloud](../media/nested_virt.png)
+
 ### Initial Liftoff
 
 First, we need to do some initial setup:
 
 ```console
-student@os:~/.../so-cloud$ ./initial_setup.sh
+student@os:~/.../support/so-cloud$ ./initial_setup.sh
 ```
 
 Then Go to `support/so-cloud` and run:
 
 ```console
-student@os:~/.../so-cloud$ ./setup_db.sh
+student@os:~/.../support/so-cloud$ ./setup_db.sh
 Setting up db
+Starting db server
+Waiting for db server to start
+...
+Stopping db server
+Restarting db server
+Waiting for db server to start
 Creating tables
+Stopping db server
 
-student@os:~/.../so-cloud$ docker-compose build
+student@os:~/.../support/so-cloud$ docker-compose build
 ...
 
-student@os:~/.../so-cloud$ docker-compose up
+student@os:~/.../support/so-cloud$ docker-compose up
 ```
 
 Now the http API will listen on port `localhost:5000`. Let's try:
 
 ```console
-student@os:~/.../so-cloud$ curl localhost:5000
+student@os:~/.../support/so-cloud$ curl localhost:5000
 Welcome to SO Cloud!
 ```
 
 Let's check the running virtual machines:
 
 ```console
-student@os:~/.../so-cloud$ curl localhost:5000/vm_list
+student@os:~/.../support/so-cloud$ curl localhost:5000/vm_list
 []
 ```
 
@@ -42,7 +76,7 @@ We got an empty list, since there are no virtual machines yet.
 Let's create one (the command will take about 1 minute to complete):
 
 ```console
-student@os:~/.../so-cloud$ curl -H "Content-Type: application/json" \
+student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" \
 	-d '{ "name": "my_vm", "image": "ubuntu_22.04", "network": "default", "mem_size": "2G", "disk_size": "10G"}' \
 	localhost:5000/vm_create
 {"id":1,"status":"ok"}
@@ -51,14 +85,14 @@ student@os:~/.../so-cloud$ curl -H "Content-Type: application/json" \
 Check the virtual machine list again:
 
 ```console
-student@os:~/.../so-cloud$ curl localhost:5000/vm_list
+student@os:~/.../support/so-cloud$ curl localhost:5000/vm_list
 [{"id":1,"name":"my_vm"}]
 ```
 
 We can also use the `jq` tool to pretty print the `json` outputs:
 
 ```console
-student@os:~/.../so-cloud$ curl -s localhost:5000/vm_list | jq .
+student@os:~/.../support/so-cloud$ curl -s localhost:5000/vm_list | jq .
 [
   {
     "id": 1,
@@ -71,7 +105,7 @@ We see our newly created virtual machine.
 Let's get some information about it:
 
 ```console
-student@os:~/.../so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id": 1 }' localhost:5000/vm_info | jq .
+student@os:~/.../support/so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id": 1 }' localhost:5000/vm_info | jq .
 {
   "disk_size": 10737418240,
   "id": 1,
@@ -79,7 +113,8 @@ student@os:~/.../so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id
   "mem_size": 2147483648,
   "name": "my_vm",
   "network": "default",
-  "os": "ubuntu_22.04"
+  "os": "ubuntu_22.04",
+  "state": "RUNNING"
 }
 ```
 
@@ -98,7 +133,7 @@ Let's check them.
 After running `docker-compose up`, in another terminal run `docker-compose ps`:
 
 ```console
-student@os:~/.../so-cloud$ docker-compose ps
+student@os:~/.../support/so-cloud$ docker-compose ps
        Name                      Command              State                    Ports
 ------------------------------------------------------------------------------------------------------
 so-cloud_db_1         docker-entrypoint.sh mariadbd   Up      3306/tcp
@@ -109,7 +144,7 @@ so-cloud_so-cloud_1   python3 -u app.py               Up      0.0.0.0:5000->5000
 Now let's move inside the `so-cloud` container:
 
 ```console
-student@os:~/.../so-cloud$ docker-compose exec so-cloud bash
+student@os:~/.../support/so-cloud$ docker-compose exec so-cloud bash
 root@89a986d2526e:/app# 
 ```
 
@@ -174,6 +209,13 @@ root@adf6e0bf4e6e:/app#
 
 ### (Even) More Implementation Details
 
+The `so-cloud` container is the core of the entire system.
+It consists of a web application written in python using `flask`.
+This web application exposes a virtual machine `API` that the user can interact with (like `vm_create`).
+Upon receiving such a call, the application will do the necessary work behind the scenes: create disks, start qemu, interact with the database, etc, like in the diagram below:
+
+![so-cloud](../media/so_cloud.svg)
+
 There are 3 objects used by the system:
 
 - `vm` - the actual virtual machine
@@ -187,7 +229,7 @@ Each of these objects are stored in a table in the database.
 Let's check the database contents (take the password from the `setup_db.sh` file):
 
 ```console
-student@os:~/.../so-cloud$ docker-compose exec db mysql -u so-cloud -p so-cloud
+student@os:~/.../support/so-cloud$ docker-compose exec db mysql -u so-cloud -p so-cloud
 Enter password: 
 ...
 MariaDB [so-cloud]> select * from vm;
@@ -266,19 +308,19 @@ Let's replicate the above mentioned steps and create a new disk ourselves.
 First, we have to call the 2 scripts from the `create_disk_from_template` function:
 
 ```console
-student@os:~/.../so-cloud$ ./disk-templates/ubuntu_22.04/create_disk_from_template.sh ./disk-templates/ubuntu_22.04/ubuntu_22.04.qcow2 my-disk.qcow2 10737418240
+student@os:~/.../support/so-cloud$ ./disk-templates/ubuntu_22.04/create_disk_from_template.sh ./disk-templates/ubuntu_22.04/ubuntu_22.04.qcow2 my-disk.qcow2 10737418240
 Image resized.
 
-student@os:~/.../so-cloud$ ls -lh my-disk.qcow2
+student@os:~/.../support/so-cloud$ ls -lh my-disk.qcow2
 -rw-r--r-- 1 student student 619M Nov 20 15:41 my-disk.qcow2
 
-student@os:~/.../so-cloud$ sudo ./disk-templates/ubuntu_22.04/setup_root_password.sh my-disk.qcow2 123456
+student@os:~/.../support/so-cloud$ sudo ./disk-templates/ubuntu_22.04/setup_root_password.sh my-disk.qcow2 123456
 ```
 
 Now we can start a qemu instance using this disk:
 
 ```console
-student@os:~/.../so-cloud$ qemu-system-x86_64 -enable-kvm -m 2G -hda my-disk.qcow2 -nographic
+student@os:~/.../support/so-cloud$ qemu-system-x86_64 -enable-kvm -m 2G -hda my-disk.qcow2 -nographic
 ...
 Ubuntu 22.04 LTS ubuntu ttyS0
 
@@ -290,7 +332,7 @@ root@ubuntu:~#
 
 Here we can further run customization commands, like the ones in the `ubuntu_22_04_vm_prepare` function, or any other things that we want.
 
-When we're done, we run the `halt` command.
+When we're done, we run the `halt` command:
 
 ```console
 root@ubuntu:~# halt
@@ -303,3 +345,83 @@ root@ubuntu:~#          Stopping Session 1 of User root...
 ```
 
 When the `System halted` message is printed, press `CTRL+A X` to exit qemu (that is, press `CTRL+A`, release `CTRL` and `A`, press `X`).
+
+### Practice: Implement `vm_stop`
+
+The `vm_stop` command will stop a particular virtual machine, meaning it will stop the qemu process for that vm.
+The implementation starts in `api_vm_stop` in `app.py`, which is the function that handles the `http` request for the stop operation.
+Here you need to do the following:
+- extract the virtual machine `id` from the request
+- use the `vm.vm_get` function to convert this id into a `VM` structure
+- call `vm.vm_stop` and pass the `VM` object to it
+
+In `vm.vm_stop`:
+- call `stop_qemu_for_vm`
+- change the vm pid in the database to `-1`
+- change the vm state in the database to `VM_STATE_STOPPED`
+
+After modifying the code you should run `docker-compose build` and `docker-compose up` again.
+Also, if your database became inconsistent, you can clean it up by re-running the `setup_db.sh` script.
+Then delete all vm disks with `sudo rm -rf vm-disks/*`.
+
+With `vm_stop` implemented, the system should work like this:
+
+```
+student@os:~/.../support/so-cloud$ curl -s localhost:5000/vm_list | jq .
+[
+  {
+    "id": 1,
+    "name": "my_vm"
+  }
+]
+student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" -d '{ "id": 1}' localhost:5000/vm_scurl -s -H "Content-Type: application/json" -d '{ "id": 1 }' localhost:5000/vm_info | jq .
+{
+  "disk_size": 10737418240,
+  "id": 1,
+  "ip": "192.168.0.2",
+  "mem_size": 2147483648,
+  "name": "my_vm",
+  "network": "default",
+  "os": "ubuntu_22.04",
+  "state": "RUNNING"
+}
+```
+
+The vm is in the `RUNNING` state.
+Now let's stop it:
+
+```
+student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" -d '{ "id": 1}' localhost:5000/vm_stop
+{"status":"ok"}
+student@os:~/.../support/so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id": 1 }' localhost:5000/vm_info | jq .
+{
+  "disk_size": 10737418240,
+  "id": 1,
+  "ip": "192.168.0.2",
+  "mem_size": 2147483648,
+  "name": "my_vm",
+  "network": "default",
+  "os": "ubuntu_22.04",
+  "state": "STOPPED"
+}
+```
+
+Now the state is `STOPPED`.
+Inside the container, the qemu process should be gone as well:
+
+```
+student@os:~/.../support/so-cloud$ docker-compose exec so-cloud bash
+root@b0600eff8903:/app# ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 10:00 ?        00:00:00 /sbin/docker-init -- python3 -u app.py
+root           7       1  0 10:00 ?        00:00:00 python3 -u app.py
+root          33       0  0 10:00 pts/3    00:00:00 bash
+root          41      33  0 10:00 pts/3    00:00:00 ps -ef
+```
+
+Finally, the vm can be started again using `vm_start`:
+
+```
+student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" -d '{ "id": 1}' localhost:5000/vm_start
+{"status":"ok"}
+```

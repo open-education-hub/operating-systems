@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: BSD-3-Clause
-
 import ipaddress
 import logging
 import socket
@@ -45,25 +43,7 @@ def create_one_network(net: Net):
         if res.returncode != 0:
             raise errors.NetworkCreateException(res.stdout)
 
-        res = subprocess.run(
-            [
-                "iptables",
-                "-t",
-                "nat",
-                "-A",
-                "POSTROUTING",
-                "-s",
-                f"{net.ip_with_prefixlen}",
-                "-j",
-                "MASQUERADE"
-            ],
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-
-        if res.returncode != 0:
-            raise errors.NetworkCreateException(res.stdout)
+        # TODO: call iptables -t nat -A POSTROUTING -s {net.ip_with_prefixlen} -j MASQUERADE
     except Exception:
         raise
 

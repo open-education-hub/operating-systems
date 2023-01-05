@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: BSD-3-Clause
-
 import logging
 import os
 
@@ -68,28 +66,17 @@ def api_vm_create():
     return jsonify({"status": "error", "error_msg": error_str})
 
 
-@app.route('/vm_stop', methods = ['POST'])
+@app.route("/vm_stop", methods = ["POST"])
 def api_vm_stop():
     vm_info_args = request.json
 
-    id_ = vm_info_args.get('id', None)
-    if not id_:
-        return jsonify({ 'status': 'error', 'error_msg': 'VM id not provided' })
+    # TODO: Get the VM id from vm_info_args
 
-    try:
-        error_str = ''
-        v = vm.vm_get(id_)
-        vm.vm_stop(v)
+    # TODO: call vm.vm_get to obtain a VM object
 
-        return jsonify({ 'status': 'ok' })
-    except errors.VMNotFoundException as ex:
-        error_str = f"vm '{ex}' not found"
-    except Exception as ex:
-        import traceback
-        traceback.print_exc()
-        app.logger.error(f'vm_stop error: {ex}')
+    # TODO: call vm.vm_stop, pass the VM object as parameter
 
-    return jsonify({ 'status': 'error', 'error_msg': error_str})
+    return jsonify({ "status": "error", "error_msg": "not implemented" })
 
 
 @app.route('/vm_start', methods = ['POST'])
