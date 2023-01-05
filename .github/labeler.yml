@@ -1,0 +1,30 @@
+topic/software-stack:
+  - content/chapters/software-stack/**/*
+
+topic/data:
+  - content/chapters/data/**/*
+
+topic/compute:
+  - content/chapters/compute/**/*
+
+topic/io:
+  - content/chapters/io/**/*
+
+topic/app-interact:
+  - content/chapters/app-interact/**/*
+
+area/quiz:
+  - '**/quiz/*'
+
+area/content:
+  - any: ['**/lab/content/*.md', '**/media/**/*', '**/lecture/slides/**/*',
+    '**/*.mdpp']
+
+area/code:
+  - any: ['**/lab/support/**/*', '**/lab/solution/**/*', '**/lecture/demo/**/*']
+
+area/infra:
+  - '!content/chapters/**/*'
+
+area/assignment:
+  - assignments/**/*
