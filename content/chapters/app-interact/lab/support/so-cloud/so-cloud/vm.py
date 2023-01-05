@@ -157,13 +157,9 @@ def ubuntu_22_04_vm_prepare(vm: VM, ssh_pub_key: str = None):
 
     # Setup the ssh key, if present.
     if ssh_pub_key:
-        e.expect_exact("root@ubuntu:~# ")
-        e.sendline("mkdir -p /root/.ssh")
-
-        e.expect_exact("root@ubuntu:~# ")
-        e.sendline(
-            f"echo '{ssh_pub_key}' > /root/.ssh/authorized_keys"
-        )
+        # TODO: create the /root/.ssh directory
+        # TODO: write ssh_pub_key to /root/.ssh/authorized_keys
+        pass
 
     # Setup network config.
     logger.info("Setting up network config")

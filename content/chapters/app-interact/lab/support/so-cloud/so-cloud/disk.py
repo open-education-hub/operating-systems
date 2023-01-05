@@ -62,17 +62,7 @@ def create_disk_from_template(template_name: str, size: int):
             stderr=subprocess.STDOUT,
         )
 
-        if res.returncode != 0:
-            raise errors.CreateDiskFromTemplateException(f"setup_root_password.sh error: {res.stdout}")
-
-        res = subprocess.run([f"/disk-templates/{template_name}/copy_files.sh",
-                              f"/vm-disks/{disk_id}/disk.qcow2"],
-                             cwd=f"/disk-templates/{template_name}",
-                             text=True,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
-        if res.returncode != 0:
-            raise errors.CreateDiskFromTemplateException(f"copy_files.sh error: {res.stdout}")
+        # TODO: call /disk-templates/{template_name}/copy_files.sh
     except Exception:
         cleanup_disk(disk_id)
         raise
