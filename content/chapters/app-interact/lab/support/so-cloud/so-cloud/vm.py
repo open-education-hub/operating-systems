@@ -119,9 +119,9 @@ def ubuntu_22_04_vm_prepare(vm: VM, ssh_pub_key: Optional[str] = None):
     logger.info("Starting vm")
     start_qemu_for_vm(vm)
 
-    e = pexpect.spawn(f"telnet localhost {vm.qemu_serial_port}", timeout=30)
+    e = pexpect.spawn(f"telnet localhost {vm.qemu_serial_port}", timeout=None)
 
-    e.expect_exact("login: ", timeout=120)
+    e.expect_exact("login: ")
     e.sendline("root")
     e.expect_exact("Password: ")
     e.sendline(utils.DISK_TMP_PASSWORD)
