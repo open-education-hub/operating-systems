@@ -28,7 +28,20 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 If you are running inside a virtual machine, you need to enable nested virtualization.
 Example for vmware:
 
-![so-cloud](../media/nested_virt.png)
+![nested-virt-vmware](../media/nested_virt_vmware.png)
+
+For virtualbox:
+
+![nested-virt-vbox](../media/nested_virt_vbox.png)
+
+If the button is greyed out, try from the command line:
+
+```console
+student@os:~$ VBoxManage  list vms
+"USO 2022-2023" {042a5725-bfb7-4a46-9743-1164d3acac23}
+
+student@os:~$ VBoxManage modifyvm {042a5725-bfb7-4a46-9743-1164d3acac23} --nested-hw-virt on
+```
 
 ### Initial Liftoff
 
