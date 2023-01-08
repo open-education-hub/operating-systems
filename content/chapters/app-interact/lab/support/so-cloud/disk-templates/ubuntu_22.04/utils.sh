@@ -11,7 +11,7 @@ nbd_connect_qcow2()
 	    partprobe
 
 	    # Wait for partitions to appear
-	    for i in $(seq 1 60); do
+	    for _ in $(seq 1 60); do
 		if compgen -G "/dev/nbd${nbd_idx}p*" > /dev/null; then
 		    sleep 1
 		    echo "/dev/nbd${nbd_idx}"

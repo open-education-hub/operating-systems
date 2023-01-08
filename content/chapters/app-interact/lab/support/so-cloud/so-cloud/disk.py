@@ -48,7 +48,9 @@ def create_disk_from_template(template_name: str, size: int):
         )
 
         if res.returncode != 0:
-            raise errors.CreateDiskFromTemplateException(f"create_disk_from_template.sh error: {res.stdout}")
+            raise errors.CreateDiskFromTemplateException(
+                f"create_disk_from_template.sh error: {res.stdout}"
+            )
 
         res = subprocess.run(
             [

@@ -351,13 +351,19 @@ When the `System halted` message is printed, press `CTRL+A X` to exit qemu (that
 The `vm_stop` command will stop a particular virtual machine, meaning it will stop the qemu process for that vm.
 The implementation starts in `api_vm_stop` in `app.py`, which is the function that handles the `http` request for the stop operation.
 Here you need to do the following:
+
 - extract the virtual machine `id` from the request
-- use the `vm.vm_get` function to convert this id into a `VM` structure
+
+- use the `vm.vm_get` function to convert this ID into a `VM` structure
+
 - call `vm.vm_stop` and pass the `VM` object to it
 
 In `vm.vm_stop`:
+
 - call `stop_qemu_for_vm`
+
 - change the vm pid in the database to `-1`
+
 - change the vm state in the database to `VM_STATE_STOPPED`
 
 After modifying the code you should run `docker-compose build` and `docker-compose up` again.
@@ -366,7 +372,7 @@ Then delete all vm disks with `sudo rm -rf vm-disks/*`.
 
 With `vm_stop` implemented, the system should work like this:
 
-```
+```console
 student@os:~/.../support/so-cloud$ curl -s localhost:5000/vm_list | jq .
 [
   {
@@ -390,7 +396,7 @@ student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" -d '
 The vm is in the `RUNNING` state.
 Now let's stop it:
 
-```
+```console
 student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" -d '{ "id": 1}' localhost:5000/vm_stop
 {"status":"ok"}
 student@os:~/.../support/so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id": 1 }' localhost:5000/vm_info | jq .
@@ -409,7 +415,7 @@ student@os:~/.../support/so-cloud$ curl -s -H "Content-Type: application/json" -
 Now the state is `STOPPED`.
 Inside the container, the qemu process should be gone as well:
 
-```
+```console
 student@os:~/.../support/so-cloud$ docker-compose exec so-cloud bash
 root@b0600eff8903:/app# ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
@@ -421,7 +427,7 @@ root          41      33  0 10:00 pts/3    00:00:00 ps -ef
 
 Finally, the vm can be started again using `vm_start`:
 
-```
+```console
 student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" -d '{ "id": 1}' localhost:5000/vm_start
 {"status":"ok"}
 ```

@@ -1,7 +1,7 @@
+import logging
 import os
 import time
-import logging
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import errors
 import mysql.connector
@@ -26,7 +26,7 @@ if not db:
 
 
 # Executes query with arguments, returns all values.
-def simple_query(query: str, args: Tuple = None) -> List:
+def simple_query(query: str, args: Optional[Tuple] = None) -> List:
     conn = mysql.connector.connect(host=host, user=user, password=password, database=db)
 
     cursor = conn.cursor(prepared=True)
@@ -44,7 +44,7 @@ def simple_query(query: str, args: Tuple = None) -> List:
 
 
 # Executes an insert of only one row, returns the id.
-def simple_insert_query(query: str, args: Tuple = None) -> int:
+def simple_insert_query(query: str, args: Optional[Tuple] = None) -> int:
     conn = mysql.connector.connect(host=host, user=user, password=password, database=db)
 
     cursor = conn.cursor(prepared=True)

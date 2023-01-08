@@ -25,10 +25,12 @@ result = proxy.method(A, B, dbus_interface = "this.is.an.interface")
 ### SO-Cloud: More Disk Customization
 
 You might have probably noticed that there are 2 types of disk customizations:
+
 - One type is for things that can be done without running the virtual machine.
 If we only want to modify some files inside the disk filesystem, we can do this by mounting the disk and doing the necessary modifications.
 This is done, for example, in the `disk-templates/ubuntu_22.04/setup_root_password.sh` script.
 There we use `nbd_connect_qcow2` + `mount` to mount the disk, then we modify the `/etc/shadow` file to change the root password.
+
 - The second case is for operations that must be done with the virtual machine running.
 These are handled in the `ubuntu_22_04_vm_prepare` function: the virtual machine is first started (`start_qemu_for_vm`), then `pexpect` is used to interact with the virtual machine via the `qemu` serial console.
 Here we do things like running `ssh-keygen` - a binary that is part of the disk filesystem, which depends on other parts of the operating system from the disk to be running.
@@ -49,7 +51,7 @@ You can use `disk-templates/ubuntu_22.04/setup_root_password.sh` as an example.
 #### SSH Key Setup
 
 We want to be able to log into the virtual machine using an ssh key, instead of the password `123456`.
-Notice that the `vm_create` api also accepts an `ssh_key` parameter.
+Notice that the `vm_create` API also accepts an `ssh_key` parameter.
 Here the user can provide an ssh public key, which the system will install in `/root/.ssh/authorized_keys` in the newly created virtual machine.
 
 Your task is to implement this feature, as a customization from the second category (that is, implemented in the `ubuntu_22_04_vm_prepare` function).
@@ -99,7 +101,11 @@ Last login: Mon Jan  2 19:34:53 2023 from 192.168.0.1
 root@ubuntu:~#
 ```
 
+<!-- textlint-disable terminology -->
+
 ### SO-Cloud: Internet Access
+
+<!-- textlint-enable -->
 
 Notice that our virtual machines don't have internet access:
 

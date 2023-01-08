@@ -48,7 +48,9 @@ def api_vm_create():
 
     try:
         error_str = ""
-        vm_id = vm.vm_create(name, image, network_name, mem_size, disk_size, ssh_pub_key)
+        vm_id = vm.vm_create(
+            name, image, network_name, mem_size, disk_size, ssh_pub_key
+        )
         return jsonify({"status": "ok", "id": vm_id})
     except errors.VMAlreadyExistsException:
         error_str = f'vm "{name}" already exists'
@@ -66,9 +68,9 @@ def api_vm_create():
     return jsonify({"status": "error", "error_msg": error_str})
 
 
-@app.route("/vm_stop", methods = ["POST"])
+@app.route("/vm_stop", methods=["POST"])
 def api_vm_stop():
-    vm_info_args = request.json
+    # TODO: Get vm_info_args from request
 
     # TODO: Get the VM id from vm_info_args
 
@@ -76,29 +78,29 @@ def api_vm_stop():
 
     # TODO: call vm.vm_stop, pass the VM object as parameter
 
-    return jsonify({ "status": "error", "error_msg": "not implemented" })
+    return jsonify({"status": "error", "error_msg": "not implemented"})
 
 
-@app.route('/vm_start', methods = ['POST'])
+@app.route("/vm_start", methods=["POST"])
 def api_vm_start():
     vm_info_args = request.json
 
-    id_ = vm_info_args.get('id', None)
+    id_ = vm_info_args.get("id", None)
     if not id_:
-        return jsonify({ 'status': 'error', 'error_msg': 'VM id not provided' })
+        return jsonify({"status": "error", "error_msg": "VM id not provided"})
 
     try:
-        error_str = ''
+        error_str = ""
         v = vm.vm_get(id_)
         vm.vm_start(v)
 
-        return jsonify({ 'status': 'ok' })
+        return jsonify({"status": "ok"})
     except errors.VMNotFoundException as ex:
         error_str = f"vm '{ex}' not found"
     except Exception as ex:
-        app.logger.error(f'vm_start error: {ex}')
+        app.logger.error(f"vm_start error: {ex}")
 
-    return jsonify({ 'status': 'error', 'error_msg': error_str})
+    return jsonify({"status": "error", "error_msg": error_str})
 
 
 @app.route("/vm_list", methods=["GET"])

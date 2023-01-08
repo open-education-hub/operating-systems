@@ -6,6 +6,7 @@ import os
 import socket
 import subprocess
 import time
+from typing import Optional
 
 import db
 import disk
@@ -23,13 +24,13 @@ VM_STATE_PAUSED = 2
 
 def state_to_str(state: int) -> str:
     if state == VM_STATE_RUNNING:
-        return 'RUNNING'
+        return "RUNNING"
     elif state == VM_STATE_STOPPED:
-        return 'STOPPED'
+        return "STOPPED"
     elif state == VM_STATE_PAUSED:
-        return 'PAUSED'
+        return "PAUSED"
     else:
-        return 'UNKNOWN'
+        return "UNKNOWN"
 
 
 class VM(object):
@@ -114,7 +115,7 @@ def stop_qemu_for_vm(vm: VM):
     os.waitpid(vm.qemu_pid, 0)
 
 
-def ubuntu_22_04_vm_prepare(vm: VM, ssh_pub_key: str = None):
+def ubuntu_22_04_vm_prepare(vm: VM, ssh_pub_key: Optional[str] = None):
     logger.info(f"Preparing ubuntu 22.04 for vm {vm.name}")
 
     logger.info("Starting vm")
@@ -163,9 +164,7 @@ def ubuntu_22_04_vm_prepare(vm: VM, ssh_pub_key: str = None):
         e.sendline("mkdir -p /root/.ssh")
 
         e.expect_exact("root@ubuntu:~# ")
-        e.sendline(
-            f"echo '{ssh_pub_key}' > /root/.ssh/authorized_keys"
-        )
+        e.sendline(f"echo '{ssh_pub_key}' > /root/.ssh/authorized_keys")
 
     # Setup network config.
     logger.info("Setting up network config")
@@ -206,7 +205,14 @@ def ubuntu_22_04_vm_prepare(vm: VM, ssh_pub_key: str = None):
     stop_qemu_for_vm(vm)
 
 
-def vm_create(name: str, image: str, network_name: str, mem_size: int, disk_size: int, ssh_pub_key: str):
+def vm_create(
+    name: str,
+    image: str,
+    network_name: str,
+    mem_size: int,
+    disk_size: int,
+    ssh_pub_key: str,
+):
 
     if len(db.get_vm_by_name(name)) > 0:
         raise errors.VMAlreadyExistsException(name)

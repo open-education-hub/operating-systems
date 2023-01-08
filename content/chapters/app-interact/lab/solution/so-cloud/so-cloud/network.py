@@ -20,14 +20,15 @@ class Net(object):
         self.ip_str = socket.inet_ntoa(self.ip.to_bytes(4, "big"))
         self.mask = mask
         self.mask_str = socket.inet_ntoa(self.mask.to_bytes(4, "big"))
-        self.ip_with_prefixlen = ipaddress.ip_interface(f"{self.ip_str}/{self.mask_str}").with_prefixlen
+        self.ip_with_prefixlen = ipaddress.ip_interface(
+            f"{self.ip_str}/{self.mask_str}"
+        ).with_prefixlen
 
 
 def create_one_network(net: Net):
     bridge_ip = net.ip + 1
     bridge_ip_str = socket.inet_ntoa(bridge_ip.to_bytes(4, "big"))
 
-    bridge_netmask = net.mask
     bridge_netmask_str = net.mask_str
 
     try:
@@ -55,7 +56,7 @@ def create_one_network(net: Net):
                 "-s",
                 f"{net.ip_with_prefixlen}",
                 "-j",
-                "MASQUERADE"
+                "MASQUERADE",
             ],
             text=True,
             stdout=subprocess.PIPE,
@@ -66,8 +67,6 @@ def create_one_network(net: Net):
             raise errors.NetworkCreateException(res.stdout)
     except Exception:
         raise
-
-
 
 
 def create_networks():
