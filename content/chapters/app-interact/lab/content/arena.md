@@ -27,7 +27,7 @@ result = proxy.method(A, B, dbus_interface = "this.is.an.interface")
 You might have probably noticed that there are 2 types of disk customizations:
 
 - One type is for things that can be done without running the virtual machine.
-If we only want to modify some files inside the disk filesystem, we can do this by mounting the disk and doing the necessary modifications.
+If we only want to modify some files inside the disk filesystem, we can do so by mounting the disk.
 This is done, for example, in the `disk-templates/ubuntu_22.04/setup_root_password.sh` script.
 There we use `nbd_connect_qcow2` + `mount` to mount the disk, then we modify the `/etc/shadow` file to change the root password.
 

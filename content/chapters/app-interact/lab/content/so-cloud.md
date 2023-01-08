@@ -3,6 +3,21 @@
 In this section we are going to build a "toy cloud" called `SO Cloud`.
 Similar to a real cloud (like `aws`), `SO Cloud` will allow us to create and manage virtual machines, through an `http` API.
 
+### Containers
+
+Our app will make use of `docker` containers.
+A container is an OS-level virtualization method in which a group of userspace processes are isolated from the rest of the system.
+
+Take for example a database server.
+Instead of running it directly on the host system, we'll run it in its own container.
+This way the server process will be isolated from other processes on the system.
+It will also have its own filesystem.
+
+Besides isolation, containers are also useful for portability.
+Since a container comes with its own filesystem image, we can pack it together will all the dependencies, so that the app will run correctly no matter what packages are installed on the host system.
+
+Finally, since our application will consist of more than 1 container, we'll also use `docker-compose`, which is a tool that helps us with running multi-container applications
+
 ### Prerequisites
 
 Make sure the following packages are installed:
@@ -51,7 +66,7 @@ First, we need to do some initial setup:
 student@os:~/.../support/so-cloud$ ./initial_setup.sh
 ```
 
-Then Go to `support/so-cloud` and run:
+Then go to `support/so-cloud` and run:
 
 ```console
 student@os:~/.../support/so-cloud$ ./setup_db.sh
@@ -65,10 +80,7 @@ Waiting for db server to start
 Creating tables
 Stopping db server
 
-student@os:~/.../support/so-cloud$ docker-compose build
-...
-
-student@os:~/.../support/so-cloud$ docker-compose up
+student@os:~/.../support/so-cloud$ docker-compose up --build
 ```
 
 Now the http API will listen on port `localhost:5000`. Let's try:
@@ -222,12 +234,32 @@ root@adf6e0bf4e6e:/app#
 
 ### (Even) More Implementation Details
 
+The architecture of the system can be summarized in the following diagram:
+
+![so-cloud](../media/so_cloud.svg)
+
 The `so-cloud` container is the core of the entire system.
 It consists of a web application written in python using `flask`.
 This web application exposes a virtual machine `API` that the user can interact with (like `vm_create`).
-Upon receiving such a call, the application will do the necessary work behind the scenes: create disks, start qemu, interact with the database, etc, like in the diagram below:
 
-![so-cloud](../media/so_cloud.svg)
+So, when we're calling `curl` like in the example above:
+
+```console
+curl -H "Content-Type: application/json" \
+	-d '{ "name": "my_vm", "image": "ubuntu_22.04", "network": "default", "mem_size": "2G", "disk_size": "10G"}' \
+	localhost:5000/vm_create
+```
+
+it will do an `HTTP POST` request (because of the `-d` parameter) to `/vm_create`.
+The request will be handled by the `api_vm_create` function in `app.py` (because of the `@app.route("/vm_create", methods=["POST"])` line).
+
+Inside this function, we also have access to the request payload (the string that comes after `-d` in our `curl` call).
+More specifically, `request.json` will parse this payload as a `JSON` object and hand it back to us as a python dictionary.
+In this dictionary we'll find the parameters for our request, like `name`, `image`, `network`, and so on.
+
+The function will then take the actions required to create the virtual machine: create the disk, start qemu, interact with the database, etc.
+Finally, whatever is returned by the `api_vm_create` function will be received by the `curl` request as the `HTTP` response.
+Here we also return `JSON` objects, like `{"id":1,"status":"ok"}`.
 
 There are 3 objects used by the system:
 
@@ -379,7 +411,7 @@ In `vm.vm_stop`:
 
 - change the vm state in the database to `VM_STATE_STOPPED`
 
-After modifying the code you should run `docker-compose build` and `docker-compose up` again.
+After modifying the code you should run `docker-compose up --build` again.
 Also, if your database became inconsistent, you can clean it up by re-running the `setup_db.sh` script.
 Then delete all vm disks with `sudo rm -rf vm-disks/*`.
 
