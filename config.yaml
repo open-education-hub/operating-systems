@@ -209,6 +209,9 @@ docusaurus:
           - D-Bus:
               location: content/chapters/app-interact/lab
               name: content/dbus
+          - SO Cloud:
+              location: content/chapters/app-interact/lab
+              name: content/so-cloud
           - Arena:
               location: content/chapters/app-interact/lab
               name: content/arena
