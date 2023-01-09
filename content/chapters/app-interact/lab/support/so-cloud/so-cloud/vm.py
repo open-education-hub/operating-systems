@@ -276,9 +276,12 @@ def vm_create(
 
 
 def vm_stop(vm: VM):
-    stop_qemu_for_vm(vm)
-    db.update_vm_qemu_pid(vm.id, -1)
-    db.update_vm_state(vm.id, VM_STATE_STOPPED)
+    # TODO: Call stop_qemu_for_vm
+
+    # TODO: Change the vm pid in the database to -1
+
+    # TODO: Change the vm state in the database to VM_STATE_STOPPED
+    pass
 
 
 def vm_start(vm: VM):
