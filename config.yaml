@@ -16,6 +16,7 @@ make_assets:
       - content/chapters/data/lecture
       - content/chapters/software-stack/lecture
       - content/chapters/io/lecture
+      - content/chapters/app-interact/lecture
     args:
       - all
 
@@ -29,6 +30,7 @@ embed_reveal:
       Data: slides/Data
       Software-Stack: slides/Software-Stack
       IO: slides/IO
+      Application-Interaction: slides/Application-Interaction
 
 docusaurus:
   plugin: docusaurus
@@ -53,6 +55,9 @@ docusaurus:
         - IO:
             name: IO
             location: /build/embed_reveal/IO
+        - Application-Interaction:
+            name: Application-Interaction
+            location: /build/embed_reveal/Application-Interaction
       - Lab:
         - Compute:
           - Overview:
@@ -220,6 +225,7 @@ docusaurus:
       - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
       - slides/Data: /build/make_assets/content/chapters/data/lecture/_site
       - slides/IO: /build/make_assets/content/chapters/io/lecture/_site
+      - slides/Application-Interraction: /build/make_assets/content/chapters/app-interact/lecture/_site
     config_meta:
       title: Operating Systems
       url: http://localhost/
