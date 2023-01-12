@@ -225,7 +225,7 @@ docusaurus:
       - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
       - slides/Data: /build/make_assets/content/chapters/data/lecture/_site
       - slides/IO: /build/make_assets/content/chapters/io/lecture/_site
-      - slides/Application-Interraction: /build/make_assets/content/chapters/app-interact/lecture/_site
+      - slides/Application-Interaction: /build/make_assets/content/chapters/app-interact/lecture/_site
     config_meta:
       title: Operating Systems
       url: http://localhost/
