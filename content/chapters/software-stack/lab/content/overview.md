@@ -2,7 +2,7 @@ Software comprises of code and data that is loaded in memory and used by the CPU
 Code means instructions that are to be fetched by the CPU, decoded and executed.
 This is called **machine code**, i.e. binary instructions that are understood by the CPU.
 
-<img src="../media/hardware-software.svg" alt="Hardware and Software" width="60%" />
+![Hardware and Software](../media/hardware-software.svg)
 
 So, when compared to hardware, **software is highly flexible**.
 We can tie together specific instructions to handle a given task and run them on hardware (CPU, memory, I/O).
@@ -35,6 +35,6 @@ The last two characteristics rely on two items:
   This way, a software stack ensures portability across different other parts of software (and hardware as well).
   For example, the standard C library, that we will present shortly, ensures portability across different operating systems.
 
-<img src="../media/software-stack.svg" alt="Software Stack" width="60%" />
+![Software Stack](../media/software-stack.svg)
 
 [Quiz](../quiz/software.md)
