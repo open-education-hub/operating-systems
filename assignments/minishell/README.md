@@ -1,0 +1,230 @@
+# Minishell
+
+## Objectives
+
+- Learn how shells create new child processes and connect the I/O to the terminal.
+- Gain a better understanding of the `fork()` function wrapper.
+- Learn to correctly execute commands written by the user and treat errors.
+
+## Statement
+
+### Introduction
+
+A shell is a command-line interpreter that provides a text-based user interface for operating systems.
+Bash is both an interactive command language and a scripting language.
+It is used to interact with the file system, applications, operating system and more.
+
+For this assignment you will build a Bash-like shell with minimal functionalities like traversing the file system, running applications, redirecting their output or piping the output from one application into the input of another.
+The details of the functionalities that must be implemented will be further explained.
+
+### Shell Functionalities
+
+#### Changing the Current Directory
+
+The shell will support a built-in command for navigating the file system, called `cd`.
+To implement this feature you will need to store the current directory path because the user can provide either relative or absolute paths as arguments to the `cd` command.
+
+The built-in `pwd` command will show the current directory path.
+
+Check the following examples below to understand these functionalities.
+
+```sh
+> pwd
+/home/student
+> cd operating-systems/assignments/minishell
+> pwd
+/home/student/operating-systems/assignments/minishell
+> cd inexitent
+no such file or directory
+> cd /usr/lib
+> pwd
+/usr/lib
+```
+
+> **_NOTE:_** Using the `cd` command without any arguments or with more than one argument doesn't affect the current directory path.
+> Make sure this edge case is handled in a way that prevents crashes.
+>
+> **_BONUS 1:_** You can implement `cd` (without parameters) which will change the current directory to `$HOME` variable, if defined.
+>
+> **_BONUS 2:_** You can implement `cd -` which will change the current directory to `$OLDPWD` variable, if defined.
+
+#### Closing the Shell
+
+Inputting either `quit` or `exit` should close the minishell.
+
+#### Running an Application
+
+Suppose you have an executable named `sum` in the current directory.
+It takes arbitrarily many numbers as arguments and prints their sum to `stdout`.
+The following example shows how the minishell implemented by you should behave.
+
+```sh
+> ./sum 2 4 1
+7
+```
+
+If the executable is located at the `/home/student/sum` absolute path, the following example should also be valid.
+
+```sh
+> /home/student/sum 2 4 1
+7
+```
+
+Each application will run in a separate child process of the minishell created using [fork](https://man7.org/linux/man-pages/man2/fork.2.html).
+
+#### Environment Variables
+
+Your shell will support using environment variables.
+The environment variables will be initially inherited from the `bash` process that started your minishell application.
+
+If an undefined variable is used, its value is the empty string: `""`.
+
+> **_NOTE:_** The following examples contain comments which don't need to be supported by the minishell.
+> They are present here only to give a better understanding of the minishell's functionalities.
+
+```sh
+> NAME="John Doe"                    # Will assign the value "John Doe" to the NAME variable
+> AGE=27                             # Will assign the value 27 to the AGE variable
+> ./identify $NAME $LOCATION $AGE    # Will translate to ./identify "John Doe" "" 27 because $LOCATION is not defined
+```
+
+A variable can be assigned to another variable.
+
+```sh
+> OLD_NAME=$NAME    # Will assign the value of the NAME variable to OLD_NAME
+```
+
+#### Operators
+
+##### Sequential Operator
+
+By using the `;` operator, you can chain multiple commands that will run sequentially, one after another.
+In the command `expr1; expr2` it is guaranteed that `expr1` will finish before `expr2` is be evaluated.
+
+```sh
+> echo "Hello"; echo "world!"; echo "Bye!"
+Hello
+world!
+Bye!
+```
+
+##### Parallel Operator
+
+By using the `&` operator you can chain multiple commands that will run in parallel.
+When running the command `expr1 & expr2`, both expressions are evaluated at the same time (by different processes).
+The order in which the two commands finish is not guaranteed.
+
+```sh
+> echo "Hello" & echo "world!" & echo "Bye!"  # The words may be printed in any order
+world!
+Bye!
+Hello
+```
+
+##### Pipe Operator
+
+With the `|` operator you can chain multiple commands so that the standard output of the first command is redirected to the standard input of the second command.
+
+Hint: Look into [anonymous pipes](https://man7.org/linux/man-pages/man2/pipe.2.html) and file descriptor inheritance while using [fork](https://man7.org/linux/man-pages/man2/fork.2.html).
+
+```sh
+> echo "Bye"                      # command outputs "Bye"
+Bye
+> ./reverse_input
+Hello                             # command reads input "Hello"
+olleH                             # outputs the reversed string "olleH"
+> echo "world" | ./reverse_input  # the output generated by the echo command will be used as input for the reverse_input executable
+dlrow
+```
+
+##### Chain Operators for Conditional Execution
+
+The `&&` operator allows chaining commands that are executed sequentially, from left to right.
+The chain of execution stops at the first command **that exits with an error (return code not 0)**.
+
+```sh
+# throw_error always exits with a return code different than 0 and outputs to stderr "ERROR: I always fail"
+> echo "H" && echo "e" && echo "l" && ./throw_error && echo "l" && echo "o"
+H
+e
+l
+ERROR: I always fail
+```
+
+The `||` operator allows chaining commands that are executed sequentially, from left to right.
+The chain of execution stops at the first command **that exits successfully (return code is 0)**.
+
+```sh
+# throw_error always exits with a return code different than 0 and outputs to stderr "ERROR: I always fail"
+> ./throw_error || ./throw_error || echo "Hello" || echo "world!" || echo "Bye!"
+ERROR: I always fail
+ERROR: I always fail
+Hello
+```
+
+##### Operator Priority
+
+The priority of the available operators is the following.
+The lower the number, the **higher** the priority:
+
+1. Pipe operator (`|`)
+1. Conditional execution operators (`&&` or `||`)
+1. Parallel operator (`&`)
+1. Sequential operator (`;`)
+
+#### I/O Redirection
+
+The shell must support the following redirection options:
+
+- `< filename` - redirects `filename` to standard input
+- `> filename` - redirects standard output to `filename`
+- `2> filename` - redirects standard error to `filename`
+- `&> filename` - redirects standard output and standard error to `filename`
+- `>> filename` - redirects standard output to `filename` in append mode
+- `2>> filename` - redirects standard error to `filename` in append mode
+
+Hint: Look into [open](https://man7.org/linux/man-pages/man2/open.2.html), [dup2](https://man7.org/linux/man-pages/man2/dup.2.html) and [close](https://man7.org/linux/man-pages/man2/close.2.html).
+
+## Testing
+
+The testing is automated.
+Tests are located in the `inputs/` directory.
+
+```console
+student@os:~/.../assignments/minishell/checker/_test/inputs$ ls -F
+test_01.txt  test_03.txt  test_05.txt  test_07.txt  test_09.txt  test_11.txt  test_13.txt  test_15.txt  test_17.txt
+test_02.txt  test_04.txt  test_06.txt  test_08.txt  test_10.txt  test_12.txt  test_14.txt  test_16.txt  test_18.txt
+```
+
+To execute tests you need to run:
+
+```console
+student@os:~/.../assignments/minishell/checker$ ./run_all.sh
+```
+
+### Debug
+
+To inspect the differences between the output of the mini-shell and the reference binary set `DO_CLEANUP=no` in `_test/run_test.sh`.
+To see the results of the tests, you can check `_test/outputs/` directory.
+
+### Memory leaks
+
+To inspect the unreleased resources (memory leaks, file descriptors) set `USE_VALGRIND=yes` and `DO_CLEANUP=no` in `_test/run_test.sh`.
+You can modify both the path to the Valgrind log file and the command parameters.
+To see the results of the tests, you can check `_test/outputs/` directory.
+
+### Checkpatch
+
+`checkpatch.pl` is a script used in the development of the Linux kernel.
+It is used to check patches that are submitted to the kernel mailing list for adherence to the coding style guidelines of the Linux kernel.
+
+The script checks the code for common coding style issues, such as indentation, spacing, line length, function and variable naming conventions, and other formatting rules.
+It also checks for some common errors, such as uninitialized variables, memory leaks, and other potential bugs.
+
+You can [download](https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl) the `checkpatch.pl` script from the official Linux kernel repository.
+
+Running the following command will show you linting warnings and errors:
+
+```sh
+./checkpatch.pl --no-tree --terse -f /path/to/your/code.c
+```
