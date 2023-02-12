@@ -8,15 +8,15 @@ services:
       - ./db-data:/var/lib/mysql
     restart: always
 
-  so-cloud:
-    build: ./so-cloud
+  os-cloud:
+    build: ./os-cloud
     init: true
     ports:
       - "5000:5000"
     environment:
-      MYSQL_USER: so-cloud
+      MYSQL_USER: os-cloud
       MYSQL_PASSWORD: iK3ahthae3ieZ6gohkay #gitleaks:allow
-      MYSQL_DATABASE: so-cloud
+      MYSQL_DATABASE: os-cloud
       MYSQL_HOST: db
     volumes:
       - /etc/localtime:/etc/localtime:ro
