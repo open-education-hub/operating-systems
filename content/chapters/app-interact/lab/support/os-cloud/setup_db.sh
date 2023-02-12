@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYSQL_ROOT_PASSWORD=eiv2Siezofe7quahcido #gitleaks:allow
-MYSQL_SO_CLOUD_PASSWORD=iK3ahthae3ieZ6gohkay #gitleaks:allow
+MYSQL_OS_CLOUD_PASSWORD=iK3ahthae3ieZ6gohkay #gitleaks:allow
 
 echo 'Setting up db'
 
@@ -13,9 +13,9 @@ echo 'Starting db server'
 
 docker run --rm -v "$PWD"/db-data:/var/lib/mysql \
        -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
-       -e MYSQL_USER=so-cloud \
-       -e MYSQL_PASSWORD=$MYSQL_SO_CLOUD_PASSWORD \
-       -e MYSQL_DATABASE=so-cloud \
+       -e MYSQL_USER=os-cloud \
+       -e MYSQL_PASSWORD=$MYSQL_OS_CLOUD_PASSWORD \
+       -e MYSQL_DATABASE=os-cloud \
        -e MYSQL_HOST=db \
        mariadb:10.7 &> log &
 
@@ -54,9 +54,9 @@ done
 
 echo 'Creating tables'
 
-docker exec -i mysql-tmp mysql -u so-cloud -p$MYSQL_SO_CLOUD_PASSWORD so-cloud < db.sqldump
+docker exec -i mysql-tmp mysql -u os-cloud -p$MYSQL_OS_CLOUD_PASSWORD os-cloud < db.sqldump
 
-docker exec -i mysql-tmp mysql -u so-cloud -p$MYSQL_SO_CLOUD_PASSWORD so-cloud -e "INSERT INTO network(name, bridge_interface_idx, ip, mask) values('default', 0, 3232235520, 4294901760)"
+docker exec -i mysql-tmp mysql -u os-cloud -p$MYSQL_OS_CLOUD_PASSWORD os-cloud -e "INSERT INTO network(name, bridge_interface_idx, ip, mask) values('default', 0, 3232235520, 4294901760)"
 
 echo 'Stopping db server'
 

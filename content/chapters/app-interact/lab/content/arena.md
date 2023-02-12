@@ -22,7 +22,7 @@ So, if you want to call the method `this.is.an.interface.method` with the argume
 result = proxy.method(A, B, dbus_interface = "this.is.an.interface")
 ```
 
-### SO-Cloud: More Disk Customization
+### OS-Cloud: More Disk Customization
 
 You might have probably noticed that there are 2 types of disk customizations:
 
@@ -39,7 +39,7 @@ Note that in `ubuntu_22_04_vm_prepare`, for convenience, we also do some customi
 #### Copy Additional Files to the Newly Created Disk
 
 This is a customization from the first category.
-In `disk-templates/ubuntu_22.04/files` there is a file called `99-so-cloud-welcome` (a script that prints a greeting message).
+In `disk-templates/ubuntu_22.04/files` there is a file called `99-os-cloud-welcome` (a script that prints a greeting message).
 We want to copy this file to `/etc/update-motd.d` in our newly created disk, so that it will run whenever a user logs in.
 
 To do this, you will create a script called `copy_files.sh` in `disk-templates/ubuntu_22.04`.
@@ -59,15 +59,15 @@ The key will be accessible to the function as the `ssh_pub_key` parameter.
 Then it's only a matter of writing the key to the appropriate place, using a command like `echo key > /root/.ssh/authorized_keys`.
 Note that the `/root/.ssh` directory might not exist, so you need to create it as well.
 
-After the feature is complete, you can test it using the keys in the `support/so-cloud/keys` directory.
+After the feature is complete, you can test it using the keys in the `support/os-cloud/keys` directory.
 This directory contains a pair of public-private keys.
-The directory will also be mounted inside the `so-cloud` container in `/keys`.
+The directory will also be mounted inside the `os-cloud` container in `/keys`.
 
 You will create another virtual machine, passing the public key to `vm_create`:
 
 ```console
-student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" \
-	-d '{ "name": "my_vm2", "image": "ubuntu_22.04", "network": "default", "mem_size": "2G", "disk_size": "10G", "ssh_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8CDHgeE4NIIIih3wSz58GDkfPLUk2m9gmbZB1f6o8Lzawzb3HVFpslAUWK0f/Ymw9cloInpMo50gWMYFSyJ7ZrOWWak54BedpHDkFAxxy+JCE9b+pkKsrAT7wiir7gn2LHlhj55FLZkC9PpM9cBcrMfzlcP9Bf+2cnpDdINybSLmOUmrI23ANteM4lEVaa2yEbCaJk6dFB8+atz5zPjvVI0Hd+kJK7yJ0xV6Zc2ADle7TKW3dyiXOE9qFKe9933Rj7ocqNXCAO1cxUoJCVuVS7lh+1pSSPXLWLTOhVp/XiLGWVP6KRYmmn710MWKm9Kj1tPiGUphUraL20SJiRT6/ so-cloud-user"}' \
+student@os:~/.../support/os-cloud$ curl -H "Content-Type: application/json" \
+	-d '{ "name": "my_vm2", "image": "ubuntu_22.04", "network": "default", "mem_size": "2G", "disk_size": "10G", "ssh_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8CDHgeE4NIIIih3wSz58GDkfPLUk2m9gmbZB1f6o8Lzawzb3HVFpslAUWK0f/Ymw9cloInpMo50gWMYFSyJ7ZrOWWak54BedpHDkFAxxy+JCE9b+pkKsrAT7wiir7gn2LHlhj55FLZkC9PpM9cBcrMfzlcP9Bf+2cnpDdINybSLmOUmrI23ANteM4lEVaa2yEbCaJk6dFB8+atz5zPjvVI0Hd+kJK7yJ0xV6Zc2ADle7TKW3dyiXOE9qFKe9933Rj7ocqNXCAO1cxUoJCVuVS7lh+1pSSPXLWLTOhVp/XiLGWVP6KRYmmn710MWKm9Kj1tPiGUphUraL20SJiRT6/ os-cloud-user"}' \
 	localhost:5000/vm_create
 {"id":2,"status":"ok"}
 ```
@@ -75,7 +75,7 @@ student@os:~/.../support/so-cloud$ curl -H "Content-Type: application/json" \
 Obtain the IP address that was allocated to the new vm:
 
 ```console
-student@os:~/.../support/so-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id": 2 }' localhost:5000/vm_info | jq .
+student@os:~/.../support/os-cloud$ curl -s -H "Content-Type: application/json" -d '{ "id": 2 }' localhost:5000/vm_info | jq .
 {
   "disk_size": 10737418240,
   "id": 2,
@@ -88,29 +88,29 @@ student@os:~/.../support/so-cloud$ curl -s -H "Content-Type: application/json" -
 }
 ```
 
-Then go inside the `so-cloud` container and ssh to the vm using the private key in `/keys`.
+Then go inside the `os-cloud` container and ssh to the vm using the private key in `/keys`.
 It should work without prompting for the password:
 
 ```console
-student@os:~/.../support/so-cloud$ docker-compose exec so-cloud bash
+student@os:~/.../support/os-cloud$ docker-compose exec os-cloud bash
 root@ac93d3d6cab2:/app# ssh -i /keys/ssh_key root@192.168.0.3
 Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-56-generic x86_64)
 [...]
-Powered by SO Cloud
+Powered by OS Cloud
 Last login: Mon Jan  2 19:34:53 2023 from 192.168.0.1
 root@ubuntu:~#
 ```
 
 <!-- textlint-disable terminology -->
 
-### SO-Cloud: Internet Access
+### OS-Cloud: Internet Access
 
 <!-- textlint-enable -->
 
 Notice that our virtual machines don't have internet access:
 
 ```console
-Powered by SO Cloud
+Powered by OS Cloud
 Last login: Mon Jan  2 19:52:47 UTC 2023 on ttyS0
 root@ubuntu:~# curl google.com
 curl: (6) Could not resolve host: google.com
@@ -123,10 +123,10 @@ First, there is the concept of a `network`, which you saw in the previous sectio
 There is a network called `default`, with the address of `192.168.0.0/24`.
 All virtual machines are part of this network, that's why they were allocated ip addresses like `192.168.0.2`.
 
-Let's go inside the `so-cloud` container and take a look at the network interfaces:
+Let's go inside the `os-cloud` container and take a look at the network interfaces:
 
 ```console
-$ docker-compose exec so-cloud bash
+$ docker-compose exec os-cloud bash
 root@8333e5cefb0d:/app# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -158,7 +158,7 @@ Also, each virtual machine has the default gateway configured to be `192.168.0.1
 
 In summary, it looks something like this:
 
-![so-cloud](../media/so_cloud_networking.svg)
+![os-cloud](../media/os_cloud_networking.svg)
 
 All the traffic coming from the virtual machines passes through the `br0` interface.
 So, in order to make the internet work, al we have to do is a simple `NAT`, with a command like:

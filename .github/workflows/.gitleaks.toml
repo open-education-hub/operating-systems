@@ -7,8 +7,8 @@ title = "gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "allow ssh private key for the so-cloud task"
+description = "allow ssh private key for the os-cloud task"
 paths = [
-  '''content/chapters/app-interact/lab/solution/so-cloud/keys/ssh_key''',
-  '''content/chapters/app-interact/lab/support/so-cloud/keys/ssh_key'''
+  '''content/chapters/app-interact/lab/solution/os-cloud/keys/ssh_key''',
+  '''content/chapters/app-interact/lab/support/os-cloud/keys/ssh_key'''
 ]

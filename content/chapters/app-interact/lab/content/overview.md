@@ -17,5 +17,5 @@ sudo apt-get -y update; sudo apt-get -y install net-tools x11-apps libssl-dev d-
 1. [Password Cracker](./password-cracker.md)
 1. [The X Window System](./x-window-system.md)
 1. [D-Bus](./dbus.md)
-1. [SO Cloud](./so-cloud.md)
+1. [OS Cloud](./os-cloud.md)
 1. [Arena](./arena.md)

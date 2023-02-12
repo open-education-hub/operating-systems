@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.7.6-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: so-cloud
+-- Host: localhost    Database: os-cloud
 -- ------------------------------------------------------
 -- Server version	10.7.6-MariaDB-1:10.7.6+maria~ubu2004
 

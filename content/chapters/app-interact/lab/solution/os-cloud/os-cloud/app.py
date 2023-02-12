@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
 import logging
 import os
 
@@ -9,7 +11,7 @@ import vm
 from flask import Flask, jsonify, request
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("so-cloud")
+logger = logging.getLogger("os-cloud")
 
 app = Flask(__name__)
 
@@ -70,15 +72,24 @@ def api_vm_create():
 
 @app.route("/vm_stop", methods=["POST"])
 def api_vm_stop():
-    # TODO: Get vm_info_args from request
+    vm_info_args = request.json
 
-    # TODO: Get the VM id from vm_info_args
+    id_ = vm_info_args.get("id", None)
+    if not id_:
+        return jsonify({"status": "error", "error_msg": "VM id not provided"})
 
-    # TODO: call vm.vm_get to obtain a VM object
+    try:
+        error_str = ""
+        v = vm.vm_get(id_)
+        vm.vm_stop(v)
 
-    # TODO: call vm.vm_stop, pass the VM object as parameter
+        return jsonify({"status": "ok"})
+    except errors.VMNotFoundException as ex:
+        error_str = f"vm '{ex}' not found"
+    except Exception as ex:
+        app.logger.error(f"vm_stop error: {ex}")
 
-    return jsonify({"status": "error", "error_msg": "not implemented"})
+    return jsonify({"status": "error", "error_msg": error_str})
 
 
 @app.route("/vm_start", methods=["POST"])
@@ -142,7 +153,7 @@ def api_vm_info():
 
 @app.route("/")
 def hello():
-    return "Welcome to SO Cloud!\n"
+    return "Welcome to OS Cloud!\n"
 
 
 def prereq_checks():
