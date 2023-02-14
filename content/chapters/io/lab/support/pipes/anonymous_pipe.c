@@ -55,7 +55,12 @@ static void parent_loop(int writefd)
 	while (1)
 	{
 		memset(input, 0, BUFSIZE);
-		scanf("%s", input);
+		fgets(input, BUFSIZE, stdin);
+		// Remove trailing newline
+		if (input[strlen(input) - 1] == '\n')
+		{
+			input[strlen(input) - 1] = '\0';
+		}
 
 		if (check_for_exit(input))
 		{
