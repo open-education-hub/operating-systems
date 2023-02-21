@@ -12,9 +12,9 @@ make_assets:
   options:
     command: make
     locations:
-      - content/chapters/compute/lecture
-      - content/chapters/data/lecture
       - content/chapters/software-stack/lecture
+      - content/chapters/data/lecture
+      - content/chapters/compute/lecture
       - content/chapters/io/lecture
       - content/chapters/app-interact/lecture
     args:
@@ -26,9 +26,9 @@ embed_reveal:
     target: docusaurus
     extension: mdx
     build:
-      Compute: slides/Compute
-      Data: slides/Data
       Software-Stack: slides/Software-Stack
+      Data: slides/Data
+      Compute: slides/Compute
       IO: slides/IO
       Application-Interaction: slides/Application-Interaction
 
@@ -43,15 +43,15 @@ docusaurus:
             name: README
             location: content/landing-page
       - Lecture:
-        - Compute:
-            name: Compute
-            location: /build/embed_reveal/Compute
-        - Data:
-            name: Data
-            location: /build/embed_reveal/Data
         - Software-Stack:
             name: Software-Stack
             location: /build/embed_reveal/Software-Stack
+        - Data:
+            name: Data
+            location: /build/embed_reveal/Data
+        - Compute:
+            name: Compute
+            location: /build/embed_reveal/Compute
         - IO:
             name: IO
             location: /build/embed_reveal/IO
@@ -59,56 +59,6 @@ docusaurus:
             name: Application-Interaction
             location: /build/embed_reveal/Application-Interaction
       - Lab:
-        - Compute:
-          - Overview:
-              location: content/chapters/compute/lab
-              name: content/overview
-          - Benchmarks:
-              location: content/chapters/compute/lab
-              name: content/benchmarks
-          - Processes:
-              location: content/chapters/compute/lab
-              name: content/processes
-          - Threads:
-              location: content/chapters/compute/lab
-              name: content/threads
-          - Processes-threads-apache2:
-              location: content/chapters/compute/lab
-              name: content/processes-threads-apache2
-          - Copy-on-Write:
-              location: content/chapters/compute/lab
-              name: content/copy-on-write
-          - Synchronization:
-              location: content/chapters/compute/lab
-              name: content/synchronization
-          - Scheduling:
-              location: content/chapters/compute/lab
-              name: content/scheduling
-          - Arena:
-              location: content/chapters/compute/lab
-              name: content/arena
-        - Data:
-          - Overview:
-              location: content/chapters/data/lab
-              name: content/overview
-          - Working with Memory:
-              location: content/chapters/data/lab
-              name: content/working-memory
-          - Process Memory:
-              location: content/chapters/data/lab
-              name: content/process-memory
-          - Investigate Memory:
-              location: content/chapters/data/lab
-              name: content/investigate-memory
-          - Memory Support:
-              location: content/chapters/data/lab
-              name: content/memory-support
-          - Memory Security:
-              location: content/chapters/data/lab
-              name: content/memory-security
-          - Arena:
-              location: content/chapters/data/lab
-              name: content/arena
         - Software-Stack:
           - Introduction:
               location: content/chapters/software-stack/lab
@@ -145,6 +95,56 @@ docusaurus:
               name: content/app-investigate
           - Arena:
               location: content/chapters/software-stack/lab
+              name: content/arena
+        - Data:
+          - Overview:
+              location: content/chapters/data/lab
+              name: content/overview
+          - Working with Memory:
+              location: content/chapters/data/lab
+              name: content/working-memory
+          - Process Memory:
+              location: content/chapters/data/lab
+              name: content/process-memory
+          - Investigate Memory:
+              location: content/chapters/data/lab
+              name: content/investigate-memory
+          - Memory Support:
+              location: content/chapters/data/lab
+              name: content/memory-support
+          - Memory Security:
+              location: content/chapters/data/lab
+              name: content/memory-security
+          - Arena:
+              location: content/chapters/data/lab
+              name: content/arena
+        - Compute:
+          - Overview:
+              location: content/chapters/compute/lab
+              name: content/overview
+          - Benchmarks:
+              location: content/chapters/compute/lab
+              name: content/benchmarks
+          - Processes:
+              location: content/chapters/compute/lab
+              name: content/processes
+          - Threads:
+              location: content/chapters/compute/lab
+              name: content/threads
+          - Processes-threads-apache2:
+              location: content/chapters/compute/lab
+              name: content/processes-threads-apache2
+          - Copy-on-Write:
+              location: content/chapters/compute/lab
+              name: content/copy-on-write
+          - Synchronization:
+              location: content/chapters/compute/lab
+              name: content/synchronization
+          - Scheduling:
+              location: content/chapters/compute/lab
+              name: content/scheduling
+          - Arena:
+              location: content/chapters/compute/lab
               name: content/arena
         - I/O:
           - Overview:
