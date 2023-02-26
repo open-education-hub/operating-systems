@@ -3,6 +3,16 @@
 To get a better grasp on how the software stack works, let's do a bottom-up approach:
 we build and run different programs, that start of by using the system call API (the lowest layer in the software stack) and progressively use higher layers.
 
+### System Calls Explained
+
+A system call, or syscall for short, is a method used by applications to communicate with the operating system's kernel.
+
+The need for syscalls is tied to the modern operating systems model of conceptually separate into kernel space and user space. The kernel space is responsible for managing the hardware resources and provide an interface for the user space applications to request information from the hardware. The user space is where you are running your applications and processes.
+
+From the user space, we cannot directly access the hardware or perform privileged operations. We need to use syscalls to request OS services and perform privileged operations such as accessing the hardware.
+
+<img src="../media/syscall-explained.svg" alt="System Calls Explained" width="40%" />
+
 ### Basic System Calls
 
 The `support/basic-syscall/` folder stores the implementation of a simple program in assembly language for the x86_64 (64 bit) architecture.
