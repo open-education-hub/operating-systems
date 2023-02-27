@@ -41,7 +41,7 @@ Then they complete their work by issuing the `exit` system call.
 The `write` system call writes a buffer to the file referred by the first argument which is the file descriptor.
 File descriptors are going to be studied in-depth in future chapters.
 For now, it is enough for you to know that they are integers that behave like file handlers.
-The 3 most common file descriptors are: 
+The 3 most common file descriptors are:
 
 - `0` references the standard input (`stdin`)
 
