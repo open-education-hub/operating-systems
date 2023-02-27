@@ -8,12 +8,23 @@ we build and run different programs, that start of by using the system call API 
 A system call, or syscall for short, is a method used by applications to communicate with the operating system's kernel.
 
 The need for syscalls is tied to the modern operating systems model of conceptually separating into kernel space and user space.
-The kernel space manages the hardware resources and provides an interface for the user space applications to interact with the hardware.
+
+The kernel space manages the hardware resources such as CPU, I/O devices, disk or memory.
+Moreover, the kernel also provides an interface for the user space applications to interact with the hardware.
+
 The user space is where you are running your applications and processes.
+From the user space, we cannot directly access the hardware or perform privileged operations.
+You need to use syscalls to perform privileged operations such as accessing the hardware.
 
-From the user space, we cannot directly access the hardware or perform privileged operations. We need to use syscalls to request OS services and perform privileged operations such as accessing the hardware.
+Below, you can see some examples of system calls and what resource they request from the kernel:
 
-<img src="../media/syscall-explained.svg" alt="System Calls Explained" width="40%" />
+- `brk()` is used to allocate memory
+
+- `open()` is used to access the file system and open a specific file
+
+- `write()` is used to access the file system and modify the contents of a specific file
+
+![System Call API Explained](../media/syscall-explained.svg)
 
 ### Basic System Calls
 
