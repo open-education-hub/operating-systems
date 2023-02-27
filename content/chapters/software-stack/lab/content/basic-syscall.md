@@ -43,9 +43,11 @@ File descriptors are going to be studied in-depth in future chapters.
 For now, it is enough for you to know that they are integers that behave like file handlers.
 The 3 most common file descriptors are: 
 
-* `0` references the standard input (`stdin`)
-* `1` references the standard output (`stdout`)
-* `2` references the standard error (`stderr`)
+- `0` references the standard input (`stdin`)
+
+- `1` references the standard output (`stdout`)
+
+- `2` references the standard error (`stderr`)
 
 Use `man 2 write` and `man 3 exit` to get a detailed understanding of the syntax and use of the two system calls.
 You can also check the online man pages: [`write`](https://man7.org/linux/man-pages/man2/write.2.html), [`exit`](https://man7.org/linux/man-pages/man3/exit.3.html)
