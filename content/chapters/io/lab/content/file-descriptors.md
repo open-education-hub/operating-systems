@@ -71,7 +71,7 @@ It returns the number of bytes that were read from the file.
 Notice that the code doesn't simply call `read(fd, buff, bytes_to_read)`.
 Instead, it uses a `while` loop to read data from the file.
 
-The [return value of `read()`](https://man7.org/linux/man-pages/man2/read.2.html#RETURN_VALUE) may differ from `bytes_to_read` if there are not enough bytes available or if the operation is interrupted by a signal.
+The [return value of `read()`](https://man7.org/linux/man-pages/man2/read.2.html#RETURN_VALUE) may be less than `bytes_to_read` if there are not enough bytes available or if the operation is interrupted by a signal.
 A return value between **0** and `bytes_to_read` is not enough to decide whether we should stop reading.
 To determine this, we make another `read()` call, which will return **0** if the cursor is already at **EOF** (end of file).
 
