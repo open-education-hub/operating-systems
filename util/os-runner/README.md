@@ -1,6 +1,6 @@
 # OS-runner
 
-This is an isolated environment to run the examples and tasks from laboratories.
+This is an isolated environment to run the examples and tasks from laboratories and lectures.
 
 ## Prerequisites
 
