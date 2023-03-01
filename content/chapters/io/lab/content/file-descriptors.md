@@ -70,14 +70,13 @@ It returns the number of bytes that were read from the file.
 
 Notice that the code doesn't simply call `read(fd, buff, bytes_to_read)`.
 Instead, it uses a `while` loop to read data from the file.
-The reason is, as always, stated in [`read()`'s man page](https://man7.org/linux/man-pages/man2/read.2.html).
-The snippet below is about the number of bytes returned by `read()`:
 
-> It is not an error if this number is smaller than the number of
-> bytes requested; this may happen for example because fewer bytes
-> are actually available right now (maybe because we were close to
-> end-of-file, or because we are reading from a pipe, or from a
-> terminal), or because read() was interrupted by a signal.
+The [return value of `read()`](https://man7.org/linux/man-pages/man2/read.2.html#RETURN_VALUE) may be less than `bytes_to_read` if there are not enough bytes available or if the operation is interrupted by a signal.
+A return value between **0** and `bytes_to_read` is not enough to decide whether we should stop reading.
+To determine this, we make another `read()` call, which will return **0** if the cursor is already at **EOF** (end of file).
+
+The same goes for `write()`: its return value may differ from the intended number of bytes to write.
+Partial writes should also be handled at the application level and the way to do this is by using loops.
 
 **Remember:**
 **It is mandatory that we always use `read()` and `write()` inside `while` loops.**
@@ -143,7 +142,7 @@ Now recompile the code and then run it and then inspect the contents of the `wri
 If the new message were `"Something short"`, the contents of `write_file.txt` should be:
 
 ```console
-student@os:~/.../lab/support/file-descriptors$ cat ../../support/file-descriptors/write_file.txt 
+student@os:~/.../lab/support/file-descriptors$ cat ../../support/file-descriptors/write_file.txt
 Something shorte_file.txt: What's up, Doc?
 ```
 
@@ -157,7 +156,7 @@ Let's write data to a file twice and observe the behaviour:
 ```console
 student@os:~/.../lab/support/file-descriptors$ ls -l > file.txt
 
-student@os:~/.../lab/support/file-descriptors$ cat file.txt 
+student@os:~/.../lab/support/file-descriptors$ cat file.txt
 total 6
 -rw-rw-r-- 1 student student    0 Nov 20 21:11 file.txt
 -rw-rw-r-- 1 student student  125 Nov 20 18:26 Makefile
@@ -166,9 +165,9 @@ total 6
 -rw-rw-r-- 1 student student   34 Nov 20 18:26 read_file.txt
 -rw-r--r-- 1 student student   45 Nov 20 20:56 write_file.txt
 
-student@os:~/.../lab/support/file-descriptors$ ls > file.txt 
+student@os:~/.../lab/support/file-descriptors$ ls > file.txt
 
-student@os:~/.../lab/support/file-descriptors$ cat file.txt 
+student@os:~/.../lab/support/file-descriptors$ cat file.txt
 file.txt
 Makefile
 open_directory.c
@@ -210,7 +209,7 @@ In the following sections, we'll use file descriptors and `read()` and `write()`
 The table below shows the higher level API provided by libc and the syscalls it relies on.
 As usual, use the `man` pages when in doubt about either of them.
 
-| libc       | syscall   |
+|    libc    |  syscall  |
 | :--------: | :-------: |
 | `fopen()`  | `open()`  |
 | `fread()`  | `read()`  |
@@ -224,11 +223,11 @@ For a quick recap of the flags we've discussed so far, take a look at the follow
 But don't bother memorising it.
 You can find it any time in by typing [`man fopen`](https://man7.org/linux/man-pages/man3/fopen.3.html) in your terminal.
 
-| `fopen()` mode | `open()` flag                       |
-|:--------------:|:-----------------------------------:|
-| `"r"`          | `O_RDONLY`                          |
-| `"w"`          | `O_WRONLY │ O_CREAT │ O_TRUNC`      |
-| `"a"`          | `O_WRONLY │ O_CREAT │ O_APPEND`     |
-| `"r+"`         | `O_RDWR`                            |
-| `"w+"`         | `O_RDWR │ O_CREAT │ O_TRUNC`        |
-| `"a+"`         | `O_RDWR │ O_CREAT │ O_APPEND`       |
+| `fopen()` mode |          `open()` flag          |
+| :------------: | :-----------------------------: |
+|     `"r"`      |           `O_RDONLY`            |
+|     `"w"`      | `O_WRONLY │ O_CREAT │ O_TRUNC`  |
+|     `"a"`      | `O_WRONLY │ O_CREAT │ O_APPEND` |
+|     `"r+"`     |            `O_RDWR`             |
+|     `"w+"`     |  `O_RDWR │ O_CREAT │ O_TRUNC`   |
+|     `"a+"`     |  `O_RDWR │ O_CREAT │ O_APPEND`  |
