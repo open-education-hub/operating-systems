@@ -32,16 +32,8 @@ RUN useradd -ms /bin/bash student && echo "student:student" | chpasswd && usermo
 USER student
 WORKDIR /home/student
 
-# Configure bash
-RUN echo "PS1='🐳 ${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc
-RUN echo "PROMPT_DIRTRIM=3" >> ~/.bashrc
-RUN echo "alias python=python3" >> ~/.bashrc
-
-# Add aliases for labs
-RUN echo 'alias go_ss="cd ~/operating-systems/content/chapters/software-stack/lab/"' >> ~/.bashrc
-RUN echo 'alias go_data="cd ~/operating-systems/content/chapters/data/lab/"' >> ~/.bashrc
-RUN echo 'alias go_compute="cd ~/operating-systems/content/chapters/compute/lab/"' >> ~/.bashrc
-RUN echo 'alias go_io="cd ~/operating-systems/content/chapters/io/lab/"' >> ~/.bashrc
-RUN echo 'alias go_appInt="cd ~/operating-systems/content/chapters/app-interact/lab/"' >> ~/.bashrc
+# Customize .bashrc
+COPY config_terminal.sh /init-scripts/config_terminal.sh
+RUN cat /init-scripts/config_terminal.sh >> ~/.bashrc
 
 ENTRYPOINT [ "bash" ]
