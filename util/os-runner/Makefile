@@ -8,7 +8,7 @@ HOSTNAME="os"
 docker-image:
 	docker build -t $(OS_IMAGE) .
 
-start:
+start: docker-image
 	docker run	\
 		--detach	\
 		--name $(OS_CONTAINER)	\
@@ -18,7 +18,7 @@ start:
 		--env "TERM=xterm-256color"	\
 		-it $(OS_IMAGE)
 
-run:
+run: docker-image
 	docker exec -it $(OS_CONTAINER) bash
 
 clean:
