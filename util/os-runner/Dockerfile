@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# hadolint ignore=DL3008
 RUN apt-get update &&   \
     apt-get install -y sudo man vim git tmux wget curl  \
     linux-tools-5.15.0-60-generic   \
