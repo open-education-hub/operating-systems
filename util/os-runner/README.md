@@ -5,7 +5,7 @@ This is an isolated environment to run the examples and tasks from laboratories.
 ## Prerequisites
 
 - [Install docker](https://docs.docker.com/get-docker/)
-- Change`OS_HOME` variable from `Makefile` to the directory where you cloned the repo
+- Change the `OS_HOME` variable from `Makefile` to the directory where you cloned the repository
 
 ## Usage
 
