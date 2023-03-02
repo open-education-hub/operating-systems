@@ -1,4 +1,4 @@
-OS_HOME=$$HOME/school/os
+OS_HOME=
 OS_IMAGE="os-runner-image"
 OS_CONTAINER="os-runner"
 HOSTNAME="os"
