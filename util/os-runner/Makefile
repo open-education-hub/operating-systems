@@ -18,7 +18,7 @@ start: docker-image
 		--env "TERM=xterm-256color"	\
 		-it $(OS_IMAGE)
 
-run: docker-image
+attach: docker-image
 	docker exec -it $(OS_CONTAINER) bash
 
 clean:
