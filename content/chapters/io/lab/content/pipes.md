@@ -70,6 +70,21 @@ The client (parent) ends communication when you type `"exit"`.
 
 You can comment out the calls to `wait_for_input()` if you find them annoying.
 
+Sample output:
+
+```console
+student@os:~/.../support/pipes$ ./anonymous_pipe
+pipedes[0] = 3; pipedes[1] = 4
+ * pipe created
+ -- Press ENTER to continue ...
+echo
+[Child received]: echo
+echo
+[Child received]: echo
+to pipe, or not to pipe
+[Child received]: to pipe, or not to pipe
+```
+
 ### Practice: Receive Pipes
 
 Use your knowledge of pipes to solve the a CTF challenge.
