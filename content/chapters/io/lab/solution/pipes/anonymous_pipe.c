@@ -9,10 +9,10 @@
 
 #include "utils/utils.h"
 
-#define BUFSIZE 128
-#define EXIT_STR "exit"
-#define PIPE_READ 0
-#define PIPE_WRITE 1
+#define BUFSIZE 	128
+#define EXIT_STR	"exit"
+#define PIPE_READ	0
+#define PIPE_WRITE	1
 
 static bool check_for_exit(const char *input)
 {
@@ -59,9 +59,7 @@ static void parent_loop(int writefd)
 		fgets(input, BUFSIZE, stdin);
 		// Remove trailing newline
 		if (input[strlen(input) - 1] == '\n')
-		{
 			input[strlen(input) - 1] = '\0';
-		}
 
 		if (check_for_exit(input))
 		{
