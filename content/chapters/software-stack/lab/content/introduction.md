@@ -19,15 +19,6 @@ git clone https://github.com/open-education-hub/operating-systems
 cd operating-sytems
 ```
 
-While inside the repository clone top directory, run the `update-repo.sh` script:
-
-```console
-bash util/update-repo.sh software-stack
-```
-
-The script may fail if you have uncommitted changes and it will instruct you to commit them.
-If that is the case, commit changes and re-run the script.
-
 Navigate to the chapter lab directory:
 
 ```console
