@@ -2,7 +2,7 @@
 
 Most modern computing systems use a software stack such as the one in the figure below:
 
-<img src="../media/modern-sw-stack.svg" alt="Modern Software Stack" width="40%" />
+![Modern Software Stack](../media/modern-sw-stack-2.svg)
 
 This modern software stack allows fast development and provides a rich set of applications to the user.
 
