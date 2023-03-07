@@ -1,4 +1,4 @@
-### App Investigation
+# App Investigation
 
 Let's spend some time investigating actual applications residing on the local system.
 For now we know that applications are developed using high-level languages and then compiled or interpreted to use the lower-layer interfaces of the software stack, such as the system call API.
@@ -34,7 +34,7 @@ So, depending on the developers' choice, applications may be:
 * compiled into executables, from compiled languages such as C, C++, Go, Rust, D
 * developed as scripts, from interpreted languages such as Python, Perl, JavaScript
 
-#### Practice
+## Practice
 
 Enter the `support/app-investigate/` folder and go through the practice items below.
 Select a binary executable application and a scripted application from those listed above.

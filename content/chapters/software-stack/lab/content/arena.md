@@ -1,8 +1,8 @@
-## Arena
+# Arena
 
 Go through the practice items below to hone your skills in working with layers of the software stack.
 
-### System Calls
+## System Calls
 
 Enter the `support/basic-syscall/` folder and go through the practice items below.
 If you get stuck, take a sneak peak at the solutions in the `solution/basic-syscall/` folder.
@@ -35,7 +35,7 @@ For debugging, use `strace` to trace the system calls from your program and make
    Create a Makefile for that program.
    Run the resulting program with `strace` to see the actual system calls being made (and their arguments).
 
-### System Call Wrappers
+## System Call Wrappers
 
 Enter the `support/syscall-wrapper/` folder and go through the practice items below.
 If you get stuck, take a sneak peak at the solutions in the `solution/syscall-wrapper/` folder.
@@ -49,7 +49,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/syscall-wr
    Then make the call to `getpid`;
    it gets no arguments and returns an integer (the PID - *process ID* of the current process).
 
-### Common Functions
+## Common Functions
 
 Enter the `support/common-functions/` folder and go through the practice items below.
 If you get stuck, take a sneak peak at the solutions in the `solution/common-functions/` folder.
@@ -64,7 +64,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/common-fun
    Make calls to `printf()` and `flush()` to validate the implementation.
    Use `strace` to inspect the `write` system calls invoked by `printf()` and `flush()`.
 
-### Libraries and libc
+## Libraries and libc
 
 Enter the `support/libc/` folder and go through the practice items below.
 If you get stuck, take a sneak peak at the solutions in the `solution/libc/` folder.
@@ -78,7 +78,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/libc/` fol
 1. Inside the `vendetta.c` file make a call to `sin()` function (for sine).
    Compute `sin(0)` and `sin(PI/2)`.
 
-### High-Level Languages
+## High-Level Languages
 
 Enter the `support/high-level-lang/` folder and go through the practice items below.
 If you get stuck, take a sneak peak at the solutions in the `solution/high-level-lang/` folder.
@@ -104,7 +104,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/high-level
    Use source files of different sizes.
    Compare the ouputs of these commands on the three programs.
 
-### App Investigation
+## App Investigation
 
 Enter the `support/app-investigation/` folder and go through the practice items below.
 

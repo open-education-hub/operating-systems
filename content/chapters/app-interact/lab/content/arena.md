@@ -1,6 +1,6 @@
-## Arena
+# Arena
 
-### D-Bus
+## D-Bus
 
 Use the `dbus` python bindings to get the computer's battery level using a python script.
 You can start from the documentation [here](https://dbus.freedesktop.org/doc/dbus-python/tutorial.html#).
@@ -22,7 +22,7 @@ So, if you want to call the method `this.is.an.interface.method` with the argume
 result = proxy.method(A, B, dbus_interface = "this.is.an.interface")
 ```
 
-### OS-Cloud: More Disk Customization
+## OS-Cloud: More Disk Customization
 
 You might have probably noticed that there are 2 types of disk customizations:
 
@@ -36,7 +36,7 @@ These are handled in the `ubuntu_22_04_vm_prepare` function: the virtual machine
 Here we do things like running `ssh-keygen` - a binary that is part of the disk filesystem, which depends on other parts of the operating system from the disk to be running.
 Note that in `ubuntu_22_04_vm_prepare`, for convenience, we also do some customizations that fall into the first category (like modifying `/etc/ssh/sshd_config`).
 
-#### Copy Additional Files to the Newly Created Disk
+### Copy Additional Files to the Newly Created Disk
 
 This is a customization from the first category.
 In `disk-templates/ubuntu_22.04/files` there is a file called `99-os-cloud-welcome` (a script that prints a greeting message).
@@ -48,7 +48,7 @@ Then, in the `create_disk_from_template` function in `disk.py` you will call thi
 
 You can use `disk-templates/ubuntu_22.04/setup_root_password.sh` as an example.
 
-#### SSH Key Setup
+### SSH Key Setup
 
 We want to be able to log into the virtual machine using an ssh key, instead of the password `123456`.
 Notice that the `vm_create` API also accepts an `ssh_key` parameter.
@@ -103,7 +103,7 @@ root@ubuntu:~#
 
 <!-- textlint-disable terminology -->
 
-### OS-Cloud: Internet Access
+## OS-Cloud: Internet Access
 
 <!-- textlint-enable -->
 

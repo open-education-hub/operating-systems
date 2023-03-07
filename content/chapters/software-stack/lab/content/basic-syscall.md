@@ -1,9 +1,9 @@
-## Analyzing the Software Stack
+# Analyzing the Software Stack
 
 To get a better grasp on how the software stack works, let's do a bottom-up approach:
 we build and run different programs, that start of by using the system call API (the lowest layer in the software stack) and progressively use higher layers.
 
-### System Calls Explained
+## System Calls Explained
 
 A system call, or syscall for short, is a method used by applications to communicate with the operating system's kernel.
 
@@ -26,7 +26,7 @@ Below, you can see some examples of system calls and what resource they request 
 
 ![System Call API Explained](../media/syscall-explained.svg)
 
-### Basic System Calls
+## Basic System Calls
 
 The `support/basic-syscall/` folder stores the implementation of a simple program in assembly language for the x86_64 (64 bit) architecture.
 The program invokes two system calls: `write` and `exit`.
@@ -99,7 +99,7 @@ Obviously, this is not portable (specific to a given CPU architecture, x86_64 in
 For portability and maintainability, we require a higher level language, such as C.
 In order to use C, we need function wrappers around system calls.
 
-#### Practice
+### Practice
 
 Update the `hello.asm` and / or `hello.s` files to print both `Hello, world!` and `Bye, world!`.
 This means adding another `write` system call.

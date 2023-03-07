@@ -1,4 +1,4 @@
-## Memory Support
+# Memory Support
 
 **Manual memory management** (MMM) is one of the most difficult tasks.
 Even experienced programmers make mistakes when tackling such a complicated endeavor.
@@ -12,7 +12,7 @@ A middle-ground between programming languages that have AMM (Java, Python, Swift
 Concretely, these languages offer lightweight library solutions to optimally track down the lifetime of an object.
 This is done by using reference counted objects.
 
-### Reference Counting
+## Reference Counting
 
 Reference counting is a technique of tracking the lifetime of an object by counting how many references to an object exist.
 As long as at least one reference exists, the object cannot be destroyed.
@@ -33,7 +33,7 @@ The operations that trigger a reference decrement are:
 Modern programming languages offer the possibility to specify what code should be run in each of these situations, therefore enabling the implementation of referenced counted data structures.
 As such, copy constructors may be used to automatically initialize an object from another object, assignment operators may be used to assign an object to another object an destructors may be used to destroy objects.
 
-### Operator overloading
+## Operator overloading
 
 Navigate to the `support/reference-counting` directory.
 Analyze the `operators.d` file.
@@ -51,7 +51,7 @@ Compile and run the program in `operators.d`.
 Notice how the different special functions are automatically called.
 Considering the definition of `Obj` from the file `operators.d`, answer the following [Quiz](../quiz/operators.md).
 
-#### Practice
+### Practice
 
 Navigate to the `support/reference-counting` directory.
 Analyze the `refcount_skel.d`.

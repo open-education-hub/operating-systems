@@ -1,4 +1,4 @@
-## Modern Software Stacks
+# Modern Software Stacks
 
 Most modern computing systems use a software stack such as the one in the figure below:
 

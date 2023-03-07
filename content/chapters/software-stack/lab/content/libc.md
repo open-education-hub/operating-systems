@@ -1,4 +1,4 @@
-### Libraries and libc
+# Libraries and libc
 
 Once we have common functions implemented, we can reuse them at any time.
 The main unit for software reusability is the **library**.
@@ -161,7 +161,7 @@ Summarizing, the advantages and disadvantages of using the standard C library ar
 * (-) a level of overhead as the standard C library wraps system calls
 * (-) potential security issues: a larger set of (potentially vulnerable) functions are presented by the standard C library
 
-#### Practice
+## Practice
 
 Enter the `support/libc/` folder and go through the practice items below.
 

@@ -1,11 +1,11 @@
-## Synchronization
+# Synchronization
 
 So far we've used threads and processes without wondering how to "tell" them how to access shared data.
 Moreover, in order to make threads wait for each other, we simply had the main thread wait for the others to finish all their work.
 But what if we want one thread to wait until another one simply performs some specific action after which it resumes its execution?
 For this, we need to use some more complex synchronization mechanisms.
 
-### Race Conditions
+## Race Conditions
 
 For example, what if one thread wants to increase a global variable while another one wants to decrease it?
 Let's say the assembly code for increasing and decreasing the variable looks like the one in the snippet below.
@@ -63,7 +63,7 @@ within a single thread:
     mutex.unlock()
 ```
 
-#### Synchronization - Overhead
+### Synchronization - Overhead
 
 > There ain't no such thing as a free lunch
 
@@ -76,14 +76,14 @@ The cause of this is that now when one thread is executing the critical section,
 Waiting means changing its state from RUNNING to WAITING, which brings further overhead from the scheduler.
 This latter overhead comes from the **context switch**s that is necessary for a thread to switch its state from RUNNING to WAITING and back.
 
-#### Practice: Wrap the Whole `for` Statements in Critical Sections
+### Practice: Wrap the Whole `for` Statements in Critical Sections
 
 Move the calls to `lock()` and `unlock()` outside the `for` statements so that the critical sections become the entire statement.
 Measure the new time spent by the code and compare it with the execution times recorded when the critical sections were made up of only `var--` and `var++`.
 
 [Quiz](../quiz/coarse-vs-granular-critical-section.md)
 
-### Atomics
+## Atomics
 
 So now we know how to use mutexes.
 And we know that mutexes work by using an internal variable that can be either 1 (locked) or 0 (unlocked).
@@ -122,7 +122,7 @@ It should be somewhere between `race_condition.d` and `race_condition_mutex.d`.
 So using the hardware support is more efficient, but it can only be leveraged for simple, individual instructions, such as loads and stores.
 And the fact that high-level languages also expose an API for atomic operations shows how useful these operations are for developers.
 
-### Semaphores
+## Semaphores
 
 Up to know we've learned how to create critical sections that can be accessed by **only one thread** at a time.
 These critical sections revolved around **data**.
@@ -148,7 +148,7 @@ When a thread attempts to `acquire()` a semaphore, it will wait if this counter 
 Otherwise, the thread **decrements** the internal counter and the function returns.
 The opposite of `acquire()` is `release()`, which increases the internal counter by a given value (by default 1).
 
-#### Practice: `apache2` Simulator - Semaphore
+### Practice: `apache2` Simulator - Semaphore
 
 Go to `support/apache2-simulator/apache2_simulator_semaphore.py`.
 In the `main()` function we create a semaphore which we increment (`release()`) upon every new message.
@@ -171,7 +171,7 @@ event.release()
 Since the length of the `messages` list is simply `len(messages)`, it may seem a bit redundant to use a semaphore to store essentially the same value.
 In the next section, we'll look at a more refined mechanism for our use case: _condition variables_.
 
-### Conditions
+## Conditions
 
 Another way we can implement our `apache2` simulator is to use a condition variable.
 This one is probably the most intuitive synchronization primitive.
@@ -184,7 +184,7 @@ As you might expect, they are complementary:
 - `notify()` wakes up one or more `wait()`-ing threads.
 If `notify()` is called before any thread has called `wait()`, the first thread that calls it will continue its execution unhindered.
 
-#### Practice: `apache2` Simulator - Condition
+### Practice: `apache2` Simulator - Condition
 
 But this is not all, unfortunately.
 Look at the code in `support/apache2-simulator/apache2_simulator_condition.py`.
@@ -231,7 +231,7 @@ Now that you understand the concept of synchronization, you should apply it in a
 [In the Arena](./arena.md#synchronization---thread-safe-data-structure), you'll find an exercise asking you to make an existing arraylist implementation thread-safe.
 Have fun!
 
-### Thread-Local Storage (TLS)
+## Thread-Local Storage (TLS)
 
 First things first: what if we don't want data to be shared between threads?
 Are we condemned to have to worry about race conditions?
@@ -242,7 +242,7 @@ As its name implies, this is a type of storage that is "owned" by individual thr
 **Do not confuse it with copy-on-write**.
 TLS pages are always duplicated when creating a new thread and their contents are re-initialised.
 
-#### Practice: D - TLS by Default
+### Practice: D - TLS by Default
 
 Take a look again at `support/race-condition/d/race_condition.d`, specifically at how `var` is declared:
 
@@ -270,7 +270,7 @@ Error: read-modify-write operations are not allowed for `shared` variables
 `__gshared` is a rawer version of `shared`.
 It doesn't forbid anything.
 
-#### Practice: C - TLS on Demand
+### Practice: C - TLS on Demand
 
 The perspective of C towards TLS is opposed to that of D: in C/C++ everything is shared by default.
 This makes multithreading easier and more lightweight to implement than in D, because synchronization is left entirely up to the developer, at the cost of potential unsafety.

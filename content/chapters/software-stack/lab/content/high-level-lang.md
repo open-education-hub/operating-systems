@@ -1,4 +1,4 @@
-### High-Level Languages
+# High-Level Languages
 
 Using the standard C library (libc) frees the programmer from the cumbersome steps of invoking system calls and reimplementing commun features.
 Still, for improved development time and safety, other programming languages can be used, such as Rust, Python, JavaScript.
@@ -92,7 +92,7 @@ When deciding what programming language and what libraries and software componen
 Newer modern programming languages such as Go, Rust, D aim to add the benefits of high-level programming languages and keep efficiency close to the C programming language.
 Generally, additional software layers (libraries, language environments, interpreters) simplify development but decrease speed and efficiency.
 
-#### Practice
+## Practice
 
 Enter the `support/high-level-lang/` folder and go through the practice items below.
 

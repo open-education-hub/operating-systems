@@ -1,4 +1,4 @@
-## Time Server
+# Time Server
 
 Check out the code in `support/time-server/server.c` and `support/time-server/client.c`.
 
@@ -23,7 +23,7 @@ student@os:~/.../support/time-server$ ./client 127.0.0.1 2000
 The time is Thu Sep  1 11:48:03 2022
 ```
 
-### Python Version
+## Python Version
 
 In `support/time-server/python` we have the equivalent python implementation for both the server and client:
 
@@ -36,7 +36,7 @@ student@os:~/.../support/time-server/python$ python3 client.py 127.0.0.1 2000
 The time is Thu Sep  1 11:58:01 2022
 ```
 
-#### Practice
+### Practice
 
 Try to figure out the protocol used by the server and the client.
 You can do this by reading the source code, corroborated with information obtained at runtime.
