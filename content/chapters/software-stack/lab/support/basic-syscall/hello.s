@@ -17,7 +17,7 @@ main:
     # rax <- __NR_write (index of write syscall: 1)
     # rdi <- first syscall argument (fd: 1)
     # rsi <- second syscall argument (buffer: hello)
-    # rdx <- third syscall argument (lenght: 14)
+    # rdx <- third syscall argument (length: 14)
     mov $1, %rdi
     lea hello, %rsi
     mov $14, %rdx
