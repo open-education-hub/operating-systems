@@ -1,7 +1,7 @@
 # Analyzing the Software Stack
 
 To get a better grasp on how the software stack works, let's do a bottom-up approach:
-we build and run different programs, that start of by using the system call API (the lowest layer in the software stack) and progressively use higher layers.
+we build and run different programs, that start off by using the system call API (the lowest layer in the software stack) and progressively use higher layers.
 
 ## System Calls Explained
 
@@ -61,7 +61,7 @@ Hello, world!
 The two programs end up printing the `Hello, world!` message at standard output by issuing the `write` system call.
 Then they complete their work by issuing the `exit` system call.
 
-The `write` system call writes a buffer to the file referred by the first argument which is the file descriptor.
+The `write` system call writes a buffer to the file referred by the first argument, which is the file descriptor.
 File descriptors are going to be studied in-depth in future chapters.
 For now, it is enough for you to know that they are integers that behave like file handlers.
 The 3 most common file descriptors are:

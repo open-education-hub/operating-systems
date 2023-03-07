@@ -50,7 +50,7 @@ student@os:~/.../lab/support/static-dynamic$ nm hello_static | wc -l
 1674
 ```
 
-The dynamic executable references the dyamically-linked libc library (`/lib/x86_64-linux-gnu/libc.so.6`), whil the statically-linked executable has no references.
+The dynamic executable references the dynamically-linked libc library (`/lib/x86_64-linux-gnu/libc.so.6`), while the statically-linked executable has no references.
 Also, given the statically-linked executable integrated entire parts of statically-linked libraries, there are many more symbols than in the case of a dynamically-linked executable (`1674` vs. `33`).
 
 We can use `strace` to see that there are differences in the preparatory system calls for each type of executables.

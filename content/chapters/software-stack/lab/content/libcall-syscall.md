@@ -7,7 +7,7 @@ The standard C library has primarily two uses:
 
 The first use means a 1-to-1 mapping between library calls and system calls: one library call means one system call.
 The second group doesn't have a standard mapping.
-A library call could be mapped to no system calls, one system call, two or more system calls or it may depend (a system call may or may not happen).
+A library call could be mapped to no system calls, one system call, two or more system calls, or it may depend (a system call may or may not happen).
 
 The `support/libcall-syscall/` folder stores the implementation of a simple program that makes different library calls.
 Let's build the program and then trace the library calls (with `ltrace`) and the system calls (with `strace`):
