@@ -1,4 +1,4 @@
-## Usage of Processes and Threads in `apache2`
+# Usage of Processes and Threads in `apache2`
 
 We'll take a look at how a real-world application - the `apache2` HTTP server - makes use of processes and threads.
 Since the server must be able to handle multiple clients at the same time, it must therefore use some form of concurrency.
@@ -18,7 +18,7 @@ In principle, `prefork` provides more stability and backwards compatibility, but
 On the other hand, `worker` and `event` are more scalable, and thus able to handle more simultaneous connections, due to the usage of threads.
 On modern systems `event` is almost always the default.
 
-### `apache2` Live Action
+## `apache2` Live Action
 
 Let's run an actual instance of `apache2` and see how everything works.
 Go to `support/apache2` and run `make run`.
@@ -53,8 +53,8 @@ Let's confirm that we are using the `event` mpm:
 ```console
 root@56b9a761d598:/usr/local/apache2# grep mod_mpm conf/httpd.conf
 LoadModule mpm_event_module modules/mod_mpm_event.so
-#LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
-#LoadModule mpm_worker_module modules/mod_mpm_worker.so
+LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+LoadModule mpm_worker_module modules/mod_mpm_worker.so
 ```
 
 The `event` mpm is enabled, so we expect each worker to be multi-threaded.
@@ -135,7 +135,7 @@ root         152     146     152  0    1 21:10 pts/1    00:00:00 ps -efL
 
 We see a much larger number of threads, as expected.
 
-### Practice: Investigate `apache2` Using `strace`
+## Practice: Investigate `apache2` Using `strace`
 
 Use `strace` to discover the server document root.
 The document root is the path in the filesystem from where `httpd` serves all the files requested by the clients.
@@ -151,7 +151,7 @@ Then check the `strace` output to see what files were opened by the server.
 
 [Quiz](../quiz/apache2-strace.md)
 
-### Conclusion
+## Conclusion
 
 So far, you've probably seen that spawning a process can "use" a different program (hence the path in the args of `system` or `Popen`), but some languages such as Python allow you to spawn a process that executes a function from the same script.
 A thread, however, can only start from a certain entry point **within the current address space**, as it is bound to the same process.

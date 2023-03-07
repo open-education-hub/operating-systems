@@ -1,4 +1,4 @@
-## Processes
+# Processes
 
 A process is simply a running program.
 Let's take the `ls` command as a trivial example.
@@ -41,7 +41,7 @@ We will get into more details regarding `execve` [towards the end of this lab](.
 
 ![Loading of `ls` Process](../media/loading-of-ls-process.svg)
 
-### Sum of the Elements in an Array
+## Sum of the Elements in an Array
 
 Let's assume we only have one process on our system and that process knows how to add the numbers in an array.
 It can use however many resources it wants since there is no other process to contest it.
@@ -59,7 +59,7 @@ You will most likely get a different sum (because the array is made up of random
 This is perfectly fine.
 Use these examples qualitatively, not quantitatively.
 
-### Spreading the Work Among Other Processes
+## Spreading the Work Among Other Processes
 
 Due to how it's implemented so far, our program only uses one of our CPU's cores.
 We never tell it to distribute its workload on other cores.
@@ -94,7 +94,7 @@ In general, **the maximum number of threads that can run at the same time is equ
 In our example, each process only has one thread: its main thread.
 So by consequence and by forcing the terminology (because it's the main thread of these processes that is running, not the processes themselves), we can only run in parallel a number of processes equal to at most the number of cores.
 
-#### Practice: Baby steps - Python
+### Practice: Baby steps - Python
 
 Run the code in `support/create-process/popen.py`.
 It simply spawns a new process running the `ls` command using [`subprocess.Popen()`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen).
@@ -109,7 +109,7 @@ Now change the command to anything you want.
 Also give it some arguments.
 From the outside, it's as if you were running these commands from the terminal.
 
-#### Practice: High level - Python
+### Practice: High level - Python
 
 Head over to `support/sleepy/sleepy_creator.py`.
 Use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
@@ -191,7 +191,7 @@ Use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
    Note that the parent process `sleepy_creator.py` (`PID 16107`) is still alive and its child processes (the 10 `sleep 1000`) have its ID as their `PPID`.
    You've successfully waited for the child processes to finish their execution.
 
-#### Practice: Lower level - C
+### Practice: Lower level - C
 
 Now let's see how to create a child process in C.
 There are multiple ways of doing this.
@@ -204,7 +204,7 @@ Go to `support/sleepy/sleepy_creator.c` and use [`system`](https://man7.org/linu
 The `man` page also mentions that `system` calls `fork()` and `exec()` to run the command it's given.
 If you want to find out more about them, head over to the [Arena and create your own mini-shell](./arena.md#mini-shell).
 
-#### Practice: Wait for Me
+### Practice: Wait for Me
 
 Run the code in `support/wait-for-me/wait_for_me_processes.py`.
 The parent process creates one child that writes and message to the given file.
@@ -224,7 +224,7 @@ The most basic form of synchronization is **waiting**.
 Concretely, if the parent process **waits** for the child to end, we are sure the file is created and its contents are written.
 Use `join()` to make the parent wait for its child before reading the file.
 
-#### Practice: `fork()`
+### Practice: `fork()`
 
 Up to now we've been creating processes using various high-level APIs, such as `Popen()`, `Process()` and `system()`.
 Yes, despite being a C function, as you've seen from its man page, `system()` itself calls 2 other functions: `fork()` to create a process and `execve()` to execute the given command.
