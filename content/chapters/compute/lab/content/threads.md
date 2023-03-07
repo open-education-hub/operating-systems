@@ -1,6 +1,6 @@
-## Threads
+# Threads
 
-### Spreading the Work Among Other Threads
+## Spreading the Work Among Other Threads
 
 Compile the code in `support/sum-array/d/sum_array_threads.d` and run it using 1, 2, 4 and 8 threads as you did before.
 Each thread runs the `calculateArrayPartSum` function and then finishes.
@@ -10,7 +10,7 @@ Because a process needs a separate virtual address space (VAS) and needs to dupl
 On the other hand, threads belonging to the same process share the same VAS and, implicitly, the same OS-internal structures.
 Therefore, they are more lightweight than processes.
 
-#### Practice: Wait for Me Once More
+### Practice: Wait for Me Once More
 
 Go to `support/wait-for-me/wait_for_me_threads.d`.
 Spawn a thread that executes the `negateArray()` function.
@@ -31,11 +31,11 @@ Also, at this point, you might be wondering why this exercise is written in D, w
 There is a very good reason for this and has to do with how threads are synchronized by default in Python.
 You can find out what this is about [in the Arena section](./arena.md#the-gil), after you have completed the [Synchronization section](./synchronization.md).
 
-### Threads vs Processes
+## Threads vs Processes
 
 So why use the implementation that spawns more processes if it's slower than the one using threads?
 
-#### Safety
+### Safety
 
 Compile and run the two programs in `support/sum-array-bugs/seg-fault/`, first with 2 processes and threads and then with 4.
 They do the same thing as before: compute the sum the elements in an array, but with a twist: each of them contains a bug causing a seg fault.
@@ -47,7 +47,7 @@ Therefore, when we split our workload between several threads and one of them ca
 The same thing happens when we use processes instead of threads: one process causes an error, which gets it killed, but the other processes continue their work unhindered.
 This is why we end up with a lower sum in the end: because one process died too early and didn't manage to write the partial sum it had computed to the `results` array.
 
-#### Practice: Wait for It
+### Practice: Wait for It
 
 The process that spawns all the others and subsequently calls `waitpid` to wait for them to finish can also get their return codes.
 Update the code in `support/sum-array-bugs/seg-fault/sum_array_processes.d` and modify the call to `waitpid` to obtain and investigate this return code.
@@ -65,7 +65,7 @@ So up to this point we've seen that one advantage of processes is that they offe
 Because they use separate virtual address spaces, sibling processes are better isolated than threads.
 Thus, an application that uses processes can be more robust to errors than if it were using threads.
 
-#### Memory Corruption
+### Memory Corruption
 
 Because they share the same address space,  threads run the risk of corrupting each other's data.
 Take a look at the code in `support/sum-array-bugs/memory-corruption/python/`.

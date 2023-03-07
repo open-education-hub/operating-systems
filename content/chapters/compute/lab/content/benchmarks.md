@@ -1,4 +1,4 @@
-## Benchmarks
+# Benchmarks
 
 The main criterion we use to rank CPUs is their _computation power_, i.e. their ability to crunch numbers and do math.
 Numerous benchmarks exist out there and they are publicly displayed on sites such as [CPUBenchmark](https://www.cpubenchmark.net/).
@@ -21,7 +21,7 @@ The latter metric revolves around how many average FPS (frames per second) a giv
 Most benchmarks, unfortunately, are not open source, especially the more popular ones, such as [Geekbench 5](https://browser.geekbench.com/processor-benchmarks).
 Despite this shortcoming, benchmarks are widely used to compare the performance of various computer **hardware**, CPUs included.
 
-### The Role of the Operating System
+## The Role of the Operating System
 
 As you've seen so far, the CPU provides the "muscle" required for fast computation, i.e. the highly optimised hardware and multiple ALUs, FPUs
 and cores necessary to perform those computations.

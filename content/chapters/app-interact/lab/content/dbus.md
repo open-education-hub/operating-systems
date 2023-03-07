@@ -1,4 +1,4 @@
-## D-Bus
+# D-Bus
 
 D-Bus is an Inter-Process Communication (IPC) mechanism that is commonly present on Linux.
 It is particularly used by various components of the desktop environment (like GNOME) to communicate between one another, although the system itself is general-purpose and can be used in any other situations.
@@ -12,7 +12,7 @@ Once a process is connected, it can expose one or multiple `objects`.
 An object has a path-like name, consisting of strings separated by a slash character (for example `/org/freedesktop/Notifications`).
 Each object contains one or more `interfaces`, which have the methods that can be called on that object.
 
-### D-Bus Inspection with D-Feet
+## D-Bus Inspection with D-Feet
 
 In order to better understand these concepts, we'll use a graphical tool (`D-Feet`) to inspect all the available D-Bus objects on our system.
 
@@ -46,7 +46,7 @@ Note that the last one (`org.freedesktop.Notifications`) is the same as the conn
 
 * The interface `org.freedesktop.Notifications` has some methods that can be called, such as `Notify`.
 
-### Calling D-Bus Methods
+## Calling D-Bus Methods
 
 The application behind `org.freedesktop.Notifications` is responsible with desktop notifications (the small bubbles of text that appear at the top of the screen when some event happens).
 When an application wants to send a notification it needs to connect to D-Bus and call the `Notify` method from the `org.freedesktop.Notifications` interface.
@@ -114,7 +114,7 @@ Let's see how it works:
 
 You can also find this `gdbus` call in the `support/dbus/send_notification.sh` script.
 
-### Inspecting the Low-level Communication
+## Inspecting the Low-level Communication
 
 Let's run `gdbus` under `strace` to see what's happening behind the scenes.
 Run the script in `support/dbus/send_notification_strace.sh`:
@@ -159,7 +159,7 @@ On a closer look, we can even identify some strings from our notification, like 
 \0\0\0\0\377\377\377\377", iov_len=260}], msg_iovlen=1, msg_controllen=0,
 ```
 
-#### Practice
+### Practice
 
 Use D-Bus to find out the computer's battery level.
 There is the `org.freedesktop.UPower` interface on the system bus that can provide this information.
@@ -179,7 +179,7 @@ Note: if you are running on a desktop computer or inside a virtual machine, you 
 This task can also be solved in a python script.
 Check out the details in the [arena section](./arena.md#d-bus).
 
-### Firefox
+## Firefox
 
 Let's do the following experiment:
 

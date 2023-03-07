@@ -1,4 +1,4 @@
-### Library calls vs system calls
+# Library calls vs system calls
 
 The standard C library has primarily two uses:
 
@@ -78,7 +78,7 @@ malloc@libc.so.6(120)                                                  = 0x55c42
 
 If you would like to know more about **lazy binding**, **now binding** or **PLT** entries, check out [this blog post](https://maskray.me/blog/2021-09-19-all-about-procedure-linkage-table).
 
-#### Practice
+## Practice
 
 Enter the `support/libcall-syscall/` folder and go through the practice items below.
 

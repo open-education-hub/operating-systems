@@ -1,4 +1,4 @@
-### System Call Wrappers
+# System Call Wrappers
 
 The `support/syscall-wrapper/` folder stores the implementation of a simple program written in C (`main.c`) that calls the `write()` and `exit()` functions.
 The functions are defined in `syscall.asm` as wrappers around corresponding system calls.
@@ -41,7 +41,7 @@ By creating system call wrappers as C functions, we are now relieved of the burd
 Of course, there has to be an initial implementation of wrapper functions written in assembly language;
 but, after that, we can use C only.
 
-#### Practice
+## Practice
 
 Update the files in the `support/syscall-wrapper/` folder to make `read` system call available as a wrapper.
 Make a call to the `read` system call to read data from standard input in a buffer.

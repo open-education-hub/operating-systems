@@ -1,5 +1,5 @@
-## Arena
+# Arena
 
 Challenge tasks
 
-### Use-After-Free
+## Use-After-Free

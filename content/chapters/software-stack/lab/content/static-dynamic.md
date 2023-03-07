@@ -1,4 +1,4 @@
-### Statically-linked and Dynamically-linked Libraries
+# Statically-linked and Dynamically-linked Libraries
 
 Libraries can be statically-linked or dynamically-linked, creating statically-linked executables and dynamically-linked executables.
 Typically, the executables found in modern operating systems are dynamically-linked, given their reduced size and ability to share libraries at runtime.

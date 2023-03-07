@@ -1,9 +1,9 @@
-## OS Cloud
+# OS Cloud
 
 In this section we are going to build a "toy cloud" called `OS Cloud`.
 Similar to a real cloud (like `aws`), `OS Cloud` will allow us to create and manage virtual machines, through an `http` API.
 
-### Containers
+## Containers
 
 Our app will make use of `docker` containers.
 A container is an OS-level virtualization method in which a group of userspace processes are isolated from the rest of the system.
@@ -18,7 +18,7 @@ Since a container comes with its own filesystem image, we can pack it together w
 
 Finally, since our application will consist of more than 1 container, we'll also use `docker-compose`, which is a tool that helps us with running multi-container applications
 
-### Prerequisites
+## Prerequisites
 
 Make sure the following packages are installed:
 
@@ -58,7 +58,7 @@ student@os:~$ VBoxManage  list vms
 student@os:~$ VBoxManage modifyvm {042a5725-bfb7-4a46-9743-1164d3acac23} --nested-hw-virt on
 ```
 
-### Initial Liftoff
+## Initial Liftoff
 
 First, we need to do some initial setup:
 
@@ -146,7 +146,7 @@ student@os:~/.../support/os-cloud$ curl -s -H "Content-Type: application/json" -
 We recognize some parameters that we specified at creation time, like `mem_size` and `disk_size`.
 Also, the IP address `192.168.0.2` has been allocated for our machine.
 
-### More Implementation Details
+## More Implementation Details
 
 The application consists of 2 containers:
 
@@ -232,7 +232,7 @@ Connection closed.
 root@adf6e0bf4e6e:/app# 
 ```
 
-### (Even) More Implementation Details
+## (Even) More Implementation Details
 
 The architecture of the system can be summarized in the following diagram:
 
@@ -317,7 +317,7 @@ This explains why our vm received the ip address `192.168.0.2`.
 This disk is assigned to our vm (`disk_id` is `1`).
 The disk file will reside in `support/os-cloud/vm-disks/1/disk.qcow2`, or `/vm-disks/1/disk.qcow2` inside the container.
 
-### Virtual Machine Creation
+## Virtual Machine Creation
 
 Take a look at the `vm_create` function in `support/os-cloud/os-cloud/vm.py`.
 The steps undertaken are roughly:
@@ -330,7 +330,7 @@ The steps undertaken are roughly:
 
 1. the virtual machine is restarted again with the final disk in place
 
-### Disk Creation
+## Disk Creation
 
 All the disk templates are in `support/os-cloud/disk-templates`.
 This directory will be mounted in `/disk-templates` inside the container.
@@ -346,7 +346,7 @@ This is done in the `ubuntu_22_04_vm_prepare` function in `support/os-cloud/os-c
 The code will connect to the vm's qemu serial console using `pexpect`.
 Then it will use a series of `expect_exact` + `sendline` pairs to interact with the virtual machine, as if those commands were typed in the command-line.
 
-### Practice: Create a New Disk by Hand
+## Practice: Create a New Disk by Hand
 
 Let's replicate the above mentioned steps and create a new disk ourselves.
 
@@ -391,7 +391,7 @@ root@ubuntu:~#          Stopping Session 1 of User root...
 
 When the `System halted` message is printed, press `CTRL+A X` to exit qemu (that is, press `CTRL+A`, release `CTRL` and `A`, press `X`).
 
-### Practice: Implement `vm_stop`
+## Practice: Implement `vm_stop`
 
 The `vm_stop` command will stop a particular virtual machine, meaning it will stop the qemu process for that vm.
 The implementation starts in `api_vm_stop` in `app.py`, which is the function that handles the `http` request for the stop operation.

@@ -8,6 +8,7 @@ function strip_words(line) {
     QUOTED_WORD_REGEX,
     'i.e.',
     'e.g.',
+    'etc.',
     '...'
   ]
 

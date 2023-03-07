@@ -1,6 +1,6 @@
-## Arena
+# Arena
 
-### Threads and Processes: `clone`
+## Threads and Processes: `clone`
 
 Let's go back to our initial demos that used threads and processes.
 We'll see that in order to create both threads and processes, the underlying Linux syscall is `clone`.
@@ -29,7 +29,7 @@ By contrast, when creating a new process, the arguments of the `clone` syscall a
 Remember that in both cases `clone` creates a new **thread**.
 When creating a process, `clone` creates this new thread within a new separate address space.
 
-### Libraries for Parallel Processing
+## Libraries for Parallel Processing
 
 In `support/sum-array/d/sum_array_threads.d` we spawned threads "manually" by using the `spawn` function.
 This is **not** a syscall, but a wrapper over the most common thread-management API in POSIX-based operating systems (such as Linux, FreeBSD, macOS): POSIX Threads or `pthreads`.
@@ -54,7 +54,7 @@ Now run the `sum_array_threads_reduce` binary using 1, 2, 4, and 8 threads as be
 You'll see lower running times than `sum_array_threads` due to the highly-optimised code of the `reduce` function.
 For this reason and because library functions are usually much better tested than your own code, it is always preferred to use a library function for a given task.
 
-### Shared Memory
+## Shared Memory
 
 As you remember from the [Data chapter](../../data/), one way to allocate a given number of pages is to use the `mmap()` syscall.
 Let's look at its [man page](https://man7.org/linux/man-pages/man2/mmap.2.html), specifically at the `flags` argument.
@@ -79,9 +79,9 @@ If you want to share a semaphore or other types of memory between any two proces
 For this, you should use **named semaphores**, created using [`sem_open()`](https://man7.org/linux/man-pages/man3/sem_open.3.html).
 You'll get more accustomed to such functions in the [Application Interaction chapter](../../../app-interact/).
 
-### Mini-shell
+## Mini-shell
 
-#### First Step: `system` Dissected
+### First Step: `system` Dissected
 
 You already know that `system` calls `fork()` and `execve()` to create the new process.
 Let's see how and why.
@@ -137,12 +137,12 @@ When spawning a new command, the call order is:
 - parent: `fork()`, `exec()`, `wait()`
 - child: `exit()`
 
-#### Command Executor in Another language
+### Command Executor in Another language
 
 Now implement the same functionality (a Bash command executor) in any other language, other than C/C++.
 Use whatever API is provided by your language of choice for creating and waiting for processes.
 
-### The GIL
+## The GIL
 
 Throughout this lab you might have noticed that there were no thread exercises _in Python_.
 If you did, you probably wondered why.
@@ -161,7 +161,7 @@ Do not make the confusion to believe threads in Python are [user-level threads](
 [`threading.Thread`](https://docs.python.org/3/library/threading.html#threading.Thread)s are kernel-level threads.
 It's just that they are forced to run concurrenntly by the GIL.
 
-#### Practice: Array Sum in Python
+### Practice: Array Sum in Python
 
 Let's first probe this by implementing two parallel versions of the code in `support/sum-array/python/sum_array_sequential.py`.
 One version should use threads and the other should use processes.
@@ -174,7 +174,7 @@ Run the code in `support/race-condition/python/race_condition.py`.
 Every time, `var` will be 0 because the GIL doesn't allow the two threads to run in parallel and reach the critical section at the same time.
 This means that the instructions `var += 1` and `var -= 1` become atomic.
 
-#### But Why?
+### But Why?
 
 Unlike Bigfoot, or the Loch Ness monster, we have proof that the GIL is real.
 At first glance, this seems like a huge disadvantage.
@@ -195,7 +195,7 @@ JavaScript is even more straightforward: it is single-threaded by design, also f
 It does, however support asynchronous actions, but these are executed on the same thread as every other code.
 This is implemented by placing each instruction on a [call stack](https://medium.com/swlh/what-does-it-mean-by-javascript-is-single-threaded-language-f4130645d8a9).
 
-### Atomic Assembly
+## Atomic Assembly
 
 No, this section is not about nukes, sadly :(.
 Instead, we aim to get accustomed to the way in which the x86 ISA provides atomic instructions.
@@ -217,7 +217,7 @@ Now add the `lock` prefix before `inc` and `dec`.
 Reassemble and rerun the code.
 And now we have synchronized the two threads by leveraging CPU support.
 
-### Synchronization - Thread-Safe Data Structure
+## Synchronization - Thread-Safe Data Structure
 
 Now it's time for a fully practical exercise.
 Go to `support/CLIST/`.

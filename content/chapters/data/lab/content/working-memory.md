@@ -1,4 +1,4 @@
-## Working with Memory
+# Working with Memory
 
 As previously stated, from a programmer's perspective, memory is abstracted into variables.
 This hides most of the lower level abstractions.
@@ -6,7 +6,7 @@ Each variable is characterized by an address (or location in memory), type and a
 Some languages require that the developer spells out these attributes explicitly (**statically typed languages** - notable examples: C\C++, D, Java) whereas others deduce them by analyzing the context (**dynamically typed languages** - notable examples: Python, JavaScript).
 Nevertheless, the language compiler needs to handle this information and, based on it, generate code that manages memory correctly and efficiently.
 
-### Memory Access
+## Memory Access
 
 Accessing memory is defined by reading or writing values to or from a variable.
 From a programmer's perspective this looks pretty straightforward:
@@ -34,7 +34,7 @@ Using the above information, the compiler and the operating system co-work to al
 No matter what sort of language you are using, statically or dynamically typed, a variable is always described by the **(address, size, access rights)** triplet.
 By using this triplet the content of a variable is stored, retrieved or rewritten.
 
-#### Practice
+### Practice
 
 Navigate to the `support/memory-access/` directory.
 Inspect the `mem_access.c` source file.
@@ -44,11 +44,11 @@ Inspect the `mem_access.c` source file.
 1. Try to modify the `ca`,`cp` and `cp2` variables by assigning some other value to them.
    Explain the behavior.
 
-#### Quiz
+### Quiz
 
 [Quiz](../quiz/memory-access.md)
 
-### Memory Protection
+## Memory Protection
 
 Memory contents (both code and data) are separated into sections or zones.
 This makes it easier to manage.
@@ -111,7 +111,7 @@ This fails because strings are, in Python, immutable.
 Once a string is being created, it can not be modified;
 you have to create a new string.
 
-#### Practice
+### Practice
 
 Go to the `support/memory-protection/` folder and solve the practice items below.
 
@@ -120,14 +120,14 @@ Go to the `support/memory-protection/` folder and solve the practice items below
 
    Access the `ro` variable and show that, indeed, for write and execution access, _Segmentation fault_ is issued.
 
-### Memory Allocation Strategy
+## Memory Allocation Strategy
 
 Navigate to the `support/memory-alloc/` directory.
 It contains 3 implementations of the same program in different languages: C, Python and D.
 The program creates a list of entries, each entry storing a name and an id.
 The purpose of this exercise is to present the different strategies that programming languages adopt to manage memory.
 
-#### C
+### C
 
 The C implementation manages the memory manually.
 You can observe that all allocations are performed via `malloc` and the memory is freed using `free`.
@@ -136,7 +136,7 @@ Stack memory need not be freed, hence static arrays are automatically de-allocat
 Heap memory, however, is managed by the user, therefore it is the burden of the programmer to find the optimal memory strategy.
 This offers the advantage that you can fine tune the memory usage depending on your application, but this comes with a cost: more often than not, managing memory is a highly complex error-prone task.
 
-#### Python
+### Python
 
 The Python implementation of the program has no notion of memory allocation.
 It simply defines variables and the garbage collector takes care of allocating and deallocating memory.
@@ -145,21 +145,21 @@ Garbage collection lifts the burden of memory management from the user, however,
 For example, real-time applications that need to take action immediately once a certain event occurs cannot use a garbage collector (GC).
 That is because the GC usually stops the application to free dead objects.
 
-#### D
+### D
 
-The previous 2 examples have showcased extreme situations: fully manual vs. fully automatic memory management.
+The previous 2 examples have showcased extreme situations: fully manual vs fully automatic memory management.
 In D, both worlds are combined: variables may be allocated manually on the stack/heap or allocated via the garbage collector (for brevity, `malloc`-based allocation is not presented in this example).
 Arrays that are allocated on the stack behave the same as in C, whereas array allocated with the garbage collector mimic Python lists.
 Classes are also garbage collected.
 
-### Memory Vulnerabilities
+## Memory Vulnerabilities
 
 The purpose of this exercise is to provide examples on how memory corruption may occur and what are the safety guards implemented by different programming languages.
 
 Navigate to the `support/memory-vuln/` directory.
 It features 3 files, each showcasing what happens in case of actions that may lead to memory corruption.
 
-#### C
+### C
 
 The C implementation showcases some of the design flaws of the language can lead to memory corruption.
 
@@ -176,13 +176,13 @@ At that time the resource constraints - DRAM memory was around a few KBs, operat
 Moreover, security was not a concern because the internet basically did not exist.
 As a consequence, the language was not developed with memory safety in mind.
 
-#### Python
+### Python
 
 Technically, it is not possible to do any memory corruption in Python (that is if you avoid calling C functions from it).
 Pointers do not formally exist and any kind of array access is checked to be within its bounds.
 The example simply showcases what happens when an out of bounds access is performed - an `IndexError` is thrown and execution halts.
 
-#### D
+### D
 
 The D implementation uses almost the same code as the C implementation, but suffers from minor syntax modifications.
 In essence, the two implement the same logic.
@@ -202,7 +202,7 @@ Taking the address of a local, doing pointer arithmetic, reinterpret casts, call
 If any of these unsafe features are manually proven to be safe, the `@trusted` keyword may be used to disable the checks but still consider the code `@safe`.
 This is to allow writing system code which by its nature is unsafe.
 
-### Memory Corruption
+## Memory Corruption
 
 For this practice item you will need to identify the programming mistake that makes it possible to corrupt memory.
 

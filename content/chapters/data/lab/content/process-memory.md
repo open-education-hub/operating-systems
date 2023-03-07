@@ -1,6 +1,6 @@
-## Process Memory
+# Process Memory
 
-### Memory Regions
+## Memory Regions
 
 To better manage a program's memory, the operating systems creates an address space for each process.
 The address space is compartmentalized in multiple areas, each with its own role.
@@ -87,7 +87,7 @@ student@os:~$ ps -o pid,rss,vsz -p $$
 
 The resident size is `1968K`, much smaller than the virtual size.
 
-#### Practice
+### Practice
 
 Enter the `support/memory-areas/` directory.
 We investigate other programs.
@@ -137,11 +137,11 @@ We investigate other programs.
 1. Make a program in another language of your choice that prints `Hello, world!` and sleeps and investigate it with `pmap`.
    Note that in the case of interpreted languages (Python, Lua, Perl, Ruby, PHP, JavaScript etc.) you have to investigate the interpretor process.
 
-#### Quiz
+### Quiz
 
 TODO
 
-### Memory Layout of Statically-Linked and Dynamically-Linked Executables
+## Memory Layout of Statically-Linked and Dynamically-Linked Executables
 
 We want to see the difference in memory layout between the statically-linked and dynamically-linked executables.
 
@@ -204,11 +204,11 @@ text    data     bss     dec     hex filename
 4598     736     824    6158    180e hello-dynamic
 ```
 
-#### Quiz
+### Quiz
 
 Based on the information above, answer [this quiz](../quiz/static-dynamic.md).
 
-#### Practice
+### Practice
 
 1. Let's investigate another static executable / process.
 
@@ -227,7 +227,7 @@ Based on the information above, answer [this quiz](../quiz/static-dynamic.md).
 
    Investigate the process using `pmap` and the executable using `size`.
 
-### Memory Layout of Multi-threaded Programs
+## Memory Layout of Multi-threaded Programs
 
 When a new thread is created, a new stack is allocated for a thread.
 The default stack size if `8 MB` / `8192 KB`:
@@ -260,7 +260,7 @@ As you can see, there is a new `8192 KB` area created for every thread, also inc
 **We will discuss more about threads in the future.
 For now, we want to point out how threads affect the process memory layout.**
 
-#### Practice
+### Practice
 
 1. Build the multithreaded program as a static executable.
    Run it.
@@ -269,11 +269,11 @@ For now, we want to point out how threads affect the process memory layout.**
 1. Make a program in another language of your choice that creates threads.
    Investigate it with `pmap`.
 
-#### Quiz
+### Quiz
 
 TODO
 
-### Modifying Memory Region Size
+## Modifying Memory Region Size
 
 We want to observe the update in size of memory regions for different instructions used in a program.
 
@@ -330,7 +330,7 @@ ffffffffff600000      4K --x--   [ anon ]
 
 We notice the size increase of text, data, bss, heap and stack sections.
 
-#### Practice
+### Practice
 
 1. Comment out different parts of the `hello.c` program to notice differences in only specific areas (text, data, bss, heap, stack).
 
@@ -343,11 +343,11 @@ We notice the size increase of text, data, bss, heap and stack sections.
    Start the program and investigate the resulting process at each allocation step.
    Notice which memory area is updated and explain why.
 
-#### Quiz
+### Quiz
 
 TODO
 
-### Allocating and Deallocating Memory
+## Allocating and Deallocating Memory
 
 Memory areas in a process address space are static or dynamic.
 Static memory areas are known at the beginning of process life time (i.e. at load-time), while dynamic memory areas are managed at runtime.
@@ -523,7 +523,7 @@ This is a behavior of the `malloc()` in libc, documented in the [manual page](ht
 A variable `MALLOC_THRESHOLD` holds the size after which `mmap` is used, instead of `brk`.
 This is based on a heuristic of using the heap or some other area in the process address space.
 
-#### Practice
+### Practice
 
 1. Use `pmap` to analyze the process address space for `ALLOC_SIZE_KB` initialized to `256`.
    Notice the new memory areas and the difference between the use of `mmap` syscall and `brk` syscall.
@@ -534,11 +534,11 @@ This is based on a heuristic of using the heap or some other area in the process
 
 1. Use `valgrind` on different executables in the system (in `/bin/`, `/usr/bin/`) and see if they have memory leaks.
 
-#### Quiz
+### Quiz
 
 TODO
 
-### Memory Mapping
+## Memory Mapping
 
 The `mmap` syscall is used to allocate memory as _anonymous mapping_, that is reserving memory in the process address space.
 An alternate use is for mapping files in the memory address space.
@@ -593,11 +593,11 @@ Although we would have expected the use of multiple system calls to cause overhe
 
 Browse the two source code files (`mmap_copy.c` and `read_write_copy.c`) for a glimpse on how the two types of copies are implemented.
 
-#### Quiz
+### Quiz
 
 TODO
 
-#### Practice
+### Practice
 
 1. Use a diffent value for `BUFSIZ` and see if that affects the comparison between the two executables.
 

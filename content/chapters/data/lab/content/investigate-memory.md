@@ -1,4 +1,4 @@
-## Investigate Memory Actions
+# Investigate Memory Actions
 
 Memory actions generally mean:
 
@@ -11,7 +11,7 @@ Because, if not done right, these can get to memory loss and poor memory use.
 
 Memory loss generally happens in the form of memory leaks.
 
-### Memory Leaks
+## Memory Leaks
 
 A memory leak occurs when we lose reference to a memory area.
 That is, a pointer used to point to a memory area.
@@ -125,18 +125,18 @@ The size (`0x94`) is the same value shown by Valgrind (`148`).
 `mtrace` provides an outcome similar to Valgrind.
 Valgrind is however more powerful: it works on different types of memory (not only those allocated with `malloc()`) and it doesn't require access to the source code (and the compiler phase).
 
-#### Practice
+### Practice
 
 1. Print the size of the `Student` class and the `struct student` structure to see if it equates to the leak shown by Valgrind.
 
 1. Solve the memory leaks in both programs.
    Validate with Valgrind.
 
-#### Quiz
+### Quiz
 
 TODO
 
-### Memory Actions (and Leaks) in Existing Programs
+## Memory Actions (and Leaks) in Existing Programs
 
 We can use Valgrind to investigate existing programs in the system.
 This tells us whether they possess memory leaks:
@@ -221,7 +221,7 @@ This may be a false positive or the subject of an actual investigation.
 Note that the `still reachable` section of the output refers to memory that wasn't freed but still has pointers referring it.
 A true memory leak occurs when no pointers refer any memory area.
 
-#### Practice
+### Practice
 
 1. Investigate 2-3 other executables in the system using Valgrind.
 
@@ -234,11 +234,11 @@ Fear not, you can always check the library calls with a more verbose and harder 
 student@os:~$ ltrace -x "*"
 ```
 
-#### Quiz
+### Quiz
 
 TODO
 
-### jemalloc
+## jemalloc
 
 [jemalloc](http://jemalloc.net/) is a featureful allocator that is intended to replace the standard allocator in the standard C library (libc).
 jemalloc provides replacements for the general `malloc()` and `free()` functions and also provides a custom API targeted for performance tuning.
@@ -306,7 +306,7 @@ student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/l
 26732 pts/22   00:00:01 bash
 ```
 
-### malloc in Musl
+## malloc in Musl
 
 Each libc (or memory allocator such as `jemalloc`) uses their own implementation of `malloc()`, `free()` and other functions.
 [Musl libc](https://musl.libc.org/) is a lightweight standard C library provide compatible features with the more heavyweights [GNU libc](https://www.gnu.org/software/libc/).
@@ -323,7 +323,7 @@ And [the implementation of `calloc()`](https://elixir.bootlin.com/musl/v1.2.3/so
 
 You needn't spend too much time browsing the implementation of these functions, just having a broad understanding of how they work.
 
-### App Investigation: Deluge
+## App Investigation: Deluge
 
 [Deluge](https://www.deluge-torrent.org/) is a Bittorrent client written in Python.
 
@@ -368,14 +368,14 @@ torrentmanager.py:135:class TorrentManager(component.Component):
 
 This gives us an overview of when memory is allocated in Deluge / Python.
 
-#### Practice
+### Practice
 
 1. Investigate the lines shown to contain instantiations of classes.
    Explore the source code and understand their placements in the source code.
 
 1. Find out other classes and search for their instantiation in the source code.
 
-### App Investigation: Servo
+## App Investigation: Servo
 
 [Servo](https://servo.org/) is a browser engine written in Rust that provides reusable components to implement web standards.
 
@@ -403,11 +403,11 @@ See [the initialization of `ffi`](https://github.com/servo/servo/blob/master/com
 See the use of the allocator in the [`Cargo.toml` file in the `net` component](https://github.com/servo/servo/blob/master/components/net/Cargo.toml).
 Search for the _alloc_ string.
 
-#### Practice
+### Practice
 
 1. Look for uses of the allocator in other components of Servo.
 
-### Investigation: Alocator in the D Programming Language
+## Investigation: Alocator in the D Programming Language
 
 [Phobos](https://github.com/dlang/phobos) is the standard library that comes with the D programming language compiler.
 
@@ -442,11 +442,11 @@ student@os:~/.../std/experimental/allocator$ grep -r 'allocate('
 We see that there are definitions of the function (as expected) as part of `...allocator` files: `mallocator.d`, `gc_allocator.d`, `mmap_allocator.d`.
 Browse the functions and look for implementations of the `allocate()` function.
 
-#### Practice
+### Practice
 
 1. Do a similar search and then source code browsing for the `deallocate()` function.
 
-### App Investigation: Git
+## App Investigation: Git
 
 [Git](https://git-scm.com/) is among the most used source code management system, powering development infrastructures such as [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/) and [Bitbucket](https://bitbucket.org/).
 
@@ -509,7 +509,7 @@ student@os:~/.../lab/support/git$ grep -rc 'xmalloc(' . | grep -v ':0' | sort -n
 
 We can look into the [`merge-recursive.c` file](https://github.com/git/git/blob/master/merge-recursive.c) for uses of the `xmalloc()` function.
 
-#### Practice
+### Practice
 
 1. Do the same actions as above for the `mmap()` and `xmmap()` function calls.
 

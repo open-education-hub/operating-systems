@@ -1,4 +1,4 @@
-## Copy-on-Write
+# Copy-on-Write
 
 So far you know that the parent and child process have separate virtual address spaces.
 But how are they created, namely how are they "separated"?
@@ -33,7 +33,7 @@ Remember from the [Data chapter](../../../data/) that **demand paging** means th
 On the other hand, **copy-on-write** posits that the virtual memory is already mapped to some frames.
 These frames are only duplicated when one of the processes attempts to write data to them.
 
-### Practice
+## Practice
 
 Now let's see the copy-on-write mechanism in practice.
 Keep in mind that `fork()` is a function used to create a process.

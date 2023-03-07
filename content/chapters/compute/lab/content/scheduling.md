@@ -1,4 +1,4 @@
-## Scheduling
+# Scheduling
 
 Up to now we know that the OS decides which **thread** (not process) runs on each CPU core at each time.
 Now we'll learn about the component that performs this task specifically: **the scheduler**.
@@ -16,7 +16,7 @@ A context switch means changing the state of one thread (the replaced thread) fr
 <!-- TODO -->
 - Quiz?
 
-### User-Level vs Kernel-Level Threads
+## User-Level vs Kernel-Level Threads
 
 There are two types of threads.
 The threads you've used so far are **kernel-level threads (KLT)**.
@@ -32,7 +32,7 @@ So if we cannot run code in parallel with ULTs, then why use them?
 Well, programs that create many context switches may suffer from the larger overhead if they use kernel-level threads.
 In such cases, user-level threads may be useful as context switches bring less overhead between user-level threads.
 
-### Practice: User-Level Threads Scheduler
+## Practice: User-Level Threads Scheduler
 
 Go to `support/libult`.
 It contains a minimalist **user-level threads** scheduler.
@@ -59,7 +59,7 @@ When a thread ends its execution, it is added to the COMPLETED queue, together w
 
 [Quiz](../quiz/why-use-completed-queue.md)
 
-### Thread Control Block
+## Thread Control Block
 
 Let's dissect the `threads_create()` function a bit.
 It first initialises its queues and the timer for preemption.
@@ -181,14 +181,14 @@ Notice that the threads run their code and alternatively, because their prints a
 
 [Quiz](../quiz/ult-thread-ids.md)
 
-### Scheduling - How is it done?
+## Scheduling - How is it done?
 
 There are two types of schedulers: **preemptive** and **cooperative**.
 When discussing this distinction, we need to first define the notion of **yielding**.
 Yielding the CPU means that a thread suspends its own execution and enters the WAITING or READY state, either as a result of a blocking call (I/O operations or calling the scheduler's `yield()` function directly).
 So, yielding the CPU triggers a context switch whereby the current thread stops running and another one resumes or starts running in its place.
 
-#### Cooperative Scheduling
+### Cooperative Scheduling
 
 Cooperative scheduling relies on the fact that threads themselves would yield the CPU at some point.
 If threads don't abide by this convention, they end up monopolising the CPU (since there is no one to suspend them) and end up starving the others.
@@ -197,7 +197,7 @@ You can get a feel of this behaviour by running the cooperative [scheduler from 
 This type of schedulers have the advantage of being lightweight, thus resulting in less overhead caused by context switches.
 However, as we've already stated, they rely on the "good will" of threads to yield the CPU at some point.
 
-#### Preemptive Scheduling
+### Preemptive Scheduling
 
 Preemptive scheduling solves the issue stated above by leaving the task of suspending the currently RUNNING thread and replacing it with another one from the READY queue up to the scheduler.
 This increases its complexity and the duration of context switches, but threads now are not required to worry about yielding themselves and can focus on running their code and performing the task for which they are created.
@@ -250,7 +250,7 @@ if (setcontext(&running->context) == -1) {
 
 This is how scheduling is done!
 
-#### Practice: Another Time Slice
+### Practice: Another Time Slice
 
 1. Modify the time slice set to the timer to 2 seconds.
 Re-run the code in `support/libult/test_ult.c`.

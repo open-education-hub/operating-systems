@@ -1,4 +1,4 @@
-### Common Functions
+# Common Functions
 
 By using wrapper calls, we are able to write our programs in C.
 However, we still need to implement common functions for string management, working with I/O, working with memory.
@@ -79,7 +79,7 @@ We see that we have greater printing flexibility with the `printf()` function.
 However, one downside of the current implementation is that it makes a system call for each character.
 This is inefficient and could be improved by printing a whole string.
 
-#### Practice
+## Practice
 
 Enter the `support/common-functions/` folder and go through the practice items below.
 
