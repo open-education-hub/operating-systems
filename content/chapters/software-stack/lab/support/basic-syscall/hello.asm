@@ -10,7 +10,7 @@ global main
 
 main:
     push rbp
-    mov rsp, rbp
+    mov rbp, rsp
 
     ; Call write(1, "Hello, world!\n", 14).
     ; rax <- __NR_write (index of write syscall: 1)
