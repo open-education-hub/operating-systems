@@ -1,6 +1,6 @@
 # High-Level Languages
 
-Using the standard C library (libc) frees the programmer from the cumbersome steps of invoking system calls and reimplementing commun features.
+Using the standard C library (libc) frees the programmer from the cumbersome steps of invoking system calls and reimplementing common features.
 Still, for improved development time and safety, other programming languages can be used, such as Rust, Python, JavaScript.
 Most (if not all) of these high-level programming languages still make use of the standard C library.
 Such that a call to a function in Python would end-up making a call to a function in the standard C library.
@@ -40,7 +40,7 @@ student@os:~/.../lab/support/high-level-lang$ ldd /usr/bin/python3
 
 We can see the complexity of invoking the Python interpreter, resulting in more the 50,000 of library calls being made.
 This means added overhead versus a simple C function.
-However this also means faster development in the Python programming language.
+However, this also means faster development in the Python programming language.
 Each new layer in the software stack simplifies development but adds overhead.
 
 We can use `perf` to compare the running time between the Python and a C "Hello, World!"-printing programs:
@@ -86,9 +86,9 @@ Hello, world!
 ```
 
 We can see that on all metrics, the running of the Python program is less efficient than the running of the C program.
-`69` milliseconds are used by Python whereas less than `1` millisecond for the C program.
+The Python code takes `69` milliseconds, whereas the C code runs in less than `1` millisecond.
 
-When deciding what programming language and what libraries and software components to use, you have to balance requirements for fast development and increased safety (inherent to higher-level programming languages) with requirements for speed of efficiency (common to lower-level programming languages such as C).
+When deciding what programming language and what libraries and software components to use, you have to balance requirements for fast development and increased safety (inherent to higher-level programming languages) with requirements for speed or efficiency (common to lower-level programming languages such as C).
 Newer modern programming languages such as Go, Rust, D aim to add the benefits of high-level programming languages and keep efficiency close to the C programming language.
 Generally, additional software layers (libraries, language environments, interpreters) simplify development but decrease speed and efficiency.
 

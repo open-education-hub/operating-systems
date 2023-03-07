@@ -5,7 +5,7 @@ Go through the practice items below to hone your skills in working with layers o
 ## System Calls
 
 Enter the `support/basic-syscall/` folder and go through the practice items below.
-If you get stuck, take a sneak peak at the solutions in the `solution/basic-syscall/` folder.
+If you get stuck, take a sneak peek at the solutions in the `solution/basic-syscall/` folder.
 
 For debugging, use `strace` to trace the system calls from your program and make sure the arguments are set right.
 
@@ -38,12 +38,12 @@ For debugging, use `strace` to trace the system calls from your program and make
 ## System Call Wrappers
 
 Enter the `support/syscall-wrapper/` folder and go through the practice items below.
-If you get stuck, take a sneak peak at the solutions in the `solution/syscall-wrapper/` folder.
+If you get stuck, take a sneak peek at the solutions in the `solution/syscall-wrapper/` folder.
 
 1. Update the files in the `syscall-wrapper/` folder to make the `getpid` system call available as a wrapper.
    Create a function with the signature `unsigned int itoa(int n, char *a)` that converts an integer to a string.
    It returns the number of digits in the string.
-   For example, it will convert the number `1234` to the string `"1234"` string (NUL-terminated, 5 bytes long);
+   For example, it will convert the number `1234` to the string `"1234"` string (`NULL`-terminated, 5 bytes long);
    the return value is `4` (the number of digits of the `"1234"` string).
 
    Then make the call to `getpid`;
@@ -52,7 +52,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/syscall-wr
 ## Common Functions
 
 Enter the `support/common-functions/` folder and go through the practice items below.
-If you get stuck, take a sneak peak at the solutions in the `solution/common-functions/` folder.
+If you get stuck, take a sneak peek at the solutions in the `solution/common-functions/` folder.
 
 1. Update the `putchar()` function in `main_printf.c` to implement a buffered functionality of `printf()`.
    Characters passed via the `putchar()` call will be stored in a predefined static global buffer.
@@ -60,14 +60,14 @@ If you get stuck, take a sneak peak at the solutions in the `solution/common-fun
    This results in a reduced number of `write` system calls.
    Use `strace` to confirm the reduction of the number of `write` system calls.
 
-1. Update the `main_printf.c` file to also feature a `flush()` function that forces the flushing the static global buffer and a `write` system call.
+1. Update the `main_printf.c` file to also feature a `flush()` function that forces the flushing of the static global buffer and a `write` system call.
    Make calls to `printf()` and `flush()` to validate the implementation.
    Use `strace` to inspect the `write` system calls invoked by `printf()` and `flush()`.
 
 ## Libraries and libc
 
 Enter the `support/libc/` folder and go through the practice items below.
-If you get stuck, take a sneak peak at the solutions in the `solution/libc/` folder.
+If you get stuck, take a sneak peek at the solutions in the `solution/libc/` folder.
 
 1. Inside the `vendetta.c` file make a call `open("a.txt", O_RDWR | O_CREAT, 0644)` to open / create the `a.txt` file.
    Make sure you include all required headers.
@@ -81,7 +81,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/libc/` fol
 ## High-Level Languages
 
 Enter the `support/high-level-lang/` folder and go through the practice items below.
-If you get stuck, take a sneak peak at the solutions in the `solution/high-level-lang/` folder.
+If you get stuck, take a sneak peek at the solutions in the `solution/high-level-lang/` folder.
 
 1. Create programs in C, Python and Go that compute the N-th Fibonacci number.
    `N` is passed as a command-line argument.
@@ -102,7 +102,7 @@ If you get stuck, take a sneak peak at the solutions in the `solution/high-level
    Use `ltrace` and `strace` to compute the number of library calls and system calls.
    Use `perf` to measure the running time.
    Use source files of different sizes.
-   Compare the ouputs of these commands on the three programs.
+   Compare the outputs of these commands on the three programs.
 
 ## App Investigation
 

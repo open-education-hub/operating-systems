@@ -7,7 +7,7 @@ Each function invokes the corresponding system call using the specific system ca
 The implementation of the two wrapper functions in `syscall.asm` is very simple, as the function arguments are passed in the same registers required by the system call.
 This is because of the overlap of the first three registers for the [x86_64 Linux function calling convention](https://en.wikipedia.org/wiki/X86_calling_conventions#System_V_AMD64_ABI) and the [x86_64 Linux system call convention](https://x64.syscall.sh/).
 
-`syscall.h` contains the declaration of the two functions and it's included in `main.c`.
+`syscall.h` contains the declaration of the two functions and is included in `main.c`.
 This way, C programs can be written that make function calls that end up making system calls.
 
 Let's build, run and trace system calls for the program:

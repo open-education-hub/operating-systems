@@ -13,7 +13,7 @@ We create a program, we compile and then we link it against the library for all 
 The most important library in modern operating systems is the **standard C library**, also called **libc**.
 This is the library providing system call wrappers and basic functionality for input-output, string management, memory management.
 By default, a program is always linked with the standard C library.
-In the examples above we've explicitly disabled the use of the standard C library with the help of the `-nostdlib` linker option.
+In the examples above, we've explicitly disabled the use of the standard C library with the help of the `-nostdlib` linker option.
 
 By using the standard C library, it's much easier to create new programs.
 You call existing functionality in the library and implement only features particular to your program.
@@ -141,12 +141,12 @@ exit(0)                                 = ?
 ```
 
 The output is similar, with differences at the beginning and the end of the system call trace.
-In the case of the libc-built program a series of additional system calls (`brk`, `arch_prctl`, `uname` etc.) are made.
+In the case of the libc-built program, a series of additional system calls (`brk`, `arch_prctl`, `uname` etc.) are made.
 Also, there is an implicit call to `exit_group` instead of an explicit one to `exit` in the non-libc case.
 These are initialization and cleanup routines that are implicitly added when using the standard C library.
 They are generally used for setting and cleaning up the stack, environment variables and other pieces of information required by the program or the standard C library itself.
 
-We could argue that the initilization steps incur overhead and that's a downside of using the standard C library.
+We could argue that the initialization steps incur overhead, and that's a downside of using the standard C library.
 However, these initialization steps are required for almost all programs.
 And, given that almost all programs make use of the basic features of the standard C library, libc is almost always used.
 We can say the above were exceptions to the rule, where we didn't make use of the standard C library.

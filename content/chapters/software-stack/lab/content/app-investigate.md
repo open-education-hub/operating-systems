@@ -1,7 +1,7 @@
 # App Investigation
 
 Let's spend some time investigating actual applications residing on the local system.
-For now we know that applications are developed using high-level languages and then compiled or interpreted to use the lower-layer interfaces of the software stack, such as the system call API.
+For now, we know that applications are developed using high-level languages and then compiled or interpreted to use the lower-layer interfaces of the software stack, such as the system call API.
 
 Let's enter the `support/app-investigate/` folder and run the `get_app_types.sh` script:
 
