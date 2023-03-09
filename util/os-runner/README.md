@@ -4,7 +4,7 @@ This is an isolated environment to run the examples and tasks from laboratories 
 
 ## Windows Prerequisites
 
-1. wsl
+1. [WSL2](https://learn.microsoft.com/en-us/windows/wsl/about)
 
     ```shell
     # Enable the Windows Subsystem for Linux
@@ -24,7 +24,7 @@ This is an isolated environment to run the examples and tasks from laboratories 
 
 ## Setup
 
-1. Open wsl and clone the repository
+1. Open WSL and clone the repository inside it
 
     ```shell
     # Clone to homepath
