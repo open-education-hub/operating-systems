@@ -90,3 +90,31 @@ Notice how the array's memory  is automatically managed.
 1. Play with your reference counted array and create different scenarios to test its limits.
 
 ## Use-After-Free
+
+TODO
+
+## Code Injection
+
+TODO
+
+### Quiz
+
+TODO
+
+## DEP
+
+### Practice
+
+TODO
+
+## Code Reuse
+
+TODO
+
+### Quiz
+
+TODO
+
+### Practice
+
+TODO

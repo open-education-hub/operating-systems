@@ -1,0 +1,8 @@
+BINARY = aslr
+CFLAGS += -fno-stack-protector #-fno-PIC
+#LDFLAGS += -no-pie
+
+all: $(BINARY)
+
+clean:
+	rm -f $(BINARY) $(BINARY).o
