@@ -1,4 +1,5 @@
-IndentWidth: 4
-TabWidth: 4
+UseTab: Always
+IndentWidth: 8
+TabWidth: 8
 AlignConsecutiveMacros: true
 ReflowComments: false
