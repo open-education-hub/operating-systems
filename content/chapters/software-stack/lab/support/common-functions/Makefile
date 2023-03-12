@@ -15,7 +15,7 @@ main_printf: main_printf.o printf.o string.o syscall.o
 
 main_printf.o: main_printf.c printf.h syscall.h string.h
 
-printf.o: printf.c string.h
+printf.o: printf.c printf.h
 
 string.o: string.c string.h
 
@@ -23,6 +23,6 @@ syscall.o: syscall.s
 	$(NASM) -f elf64 -o $@ $<
 
 clean:
-	-rm -f main_string
-	-rm -f main_string.o printf.o string.o syscall.o
+	-rm -f main_string main_printf
+	-rm -f *.o
 	-rm -f *~
