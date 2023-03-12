@@ -16,13 +16,13 @@ Hello, world!
 We count the number of functions called from the standard C library and the number of system calls:
 
 ```console
-student@os:~/.../lab/support/high-level-lang$ ltrace -l 'libc*' python hello.py 2> libc.out
+student@os:~/.../lab/support/high-level-lang$ ltrace -l 'libc*' python hello.py 2> libc.out # use python3 if python2 is not installed
 Hello, world!
 
 student@os:~/.../lab/support/high-level-lang$ wc -l libc.out
 50469 out
 
-student@os:~/.../lab/support/high-level-lang$ strace python hello.py 2> syscall.out
+student@os:~/.../lab/support/high-level-lang$ strace python hello.py 2> syscall.out # use python3 if python2 is not installed
 Hello, world!
 
 student@os:~/.../lab/support/high-level-lang$ wc -l syscall.out
