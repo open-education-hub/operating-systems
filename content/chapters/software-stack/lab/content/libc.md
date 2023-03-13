@@ -175,7 +175,7 @@ Enter the `support/libc/` folder and go through the practice items below.
    Use `strace` to check the system calls invoked by `malloc()` and `free()`.
    You'll see that, depending on the size, the `brk` or `mmap` / `munmap` system calls are invoked.
    And for certain calls to `malloc()` / `free()` no syscall is happening.
-   You'll find more about them in the Data chapter (TODO: link when available).
+   You'll find more about them in the [Data chapter](../../../data/lab).
 
 1. Create your own C program with calls to the standard C library in `vendetta.c`.
    Be as creative as you can about the types of functions being made.
