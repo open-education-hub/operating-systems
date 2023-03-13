@@ -1,16 +1,12 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdio.h>
 #include <limits.h>
+#include <stdio.h>
 
-int foo(int x)
-{
-    return (x + 1) > x;
-}
+int foo(int x) { return (x + 1) > x; }
 
-int main(void)
-{
-    printf("%d\n" , (INT_MAX + 1) > INT_MAX);
-    printf("%d\n" , foo(INT_MAX));
-    return 0;
+int main(void) {
+	printf("%d\n", (INT_MAX + 1) > INT_MAX);
+	printf("%d\n", foo(INT_MAX));
+	return 0;
 }

@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <pthread.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <pthread.h>
 
 #include "utils/utils.h"
 
@@ -11,8 +11,7 @@
 /* TODO 1: Add the `__thread` keyword to the declaration below. */
 static int var;
 
-void *increment_var(void *arg)
-{
+void *increment_var(void *arg) {
 	(void)arg;
 
 	for (size_t i = 0; i < NUM_ITER; i++)
@@ -26,8 +25,7 @@ void *increment_var(void *arg)
 	return NULL;
 }
 
-void *decrement_var(void *arg)
-{
+void *decrement_var(void *arg) {
 	(void)arg;
 
 	for (size_t i = 0; i < NUM_ITER; i++)
@@ -41,8 +39,7 @@ void *decrement_var(void *arg)
 	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	pthread_t tids[2];
 

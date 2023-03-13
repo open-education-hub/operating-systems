@@ -1,21 +1,20 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
 
 #include "../utils/utils.h"
 
 #define BIND_ADDR "0.0.0.0"
-#define PORT 2000
+#define PORT	  2000
 
-int create_socket(char *addr, short port)
-{
+int create_socket(char *addr, short port) {
 	int sockfd;
 	struct sockaddr_in srv_addr;
 	int ret;
@@ -43,14 +42,13 @@ int create_socket(char *addr, short port)
 	return sockfd;
 }
 
-int xsend(int sockfd, const void *buf, size_t len, int flags)
-{
+int xsend(int sockfd, const void *buf, size_t len, int flags) {
 	int ret;
 	size_t i = 0;
 	const char *p = (const char *)buf;
 
 	while (i < len) {
-		ret = send(sockfd, &p[i], len-i, flags);
+		ret = send(sockfd, &p[i], len - i, flags);
 		if (ret < 0)
 			return ret;
 
@@ -63,8 +61,7 @@ int xsend(int sockfd, const void *buf, size_t len, int flags)
 	return i;
 }
 
-int handle_client(int sockfd)
-{
+int handle_client(int sockfd) {
 	int ret;
 	time_t current_time;
 	uint32_t size;
@@ -82,8 +79,7 @@ int handle_client(int sockfd)
 	return 1;
 }
 
-int main()
-{
+int main() {
 	int sockfd;
 
 	sockfd = create_socket(BIND_ADDR, PORT);

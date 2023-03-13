@@ -8,8 +8,7 @@
 #include "utils/log/log.h"
 #include "utils/utils.h"
 
-int main(void)
-{
+int main(void) {
 	FILE *f;
 	FILE *logf;
 

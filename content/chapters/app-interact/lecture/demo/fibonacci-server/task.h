@@ -1,11 +1,11 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
 #ifndef TASK_H_
-#define TASK_H_		1
+#define TASK_H_ 1
 
 #include <semaphore.h>
 
-#define MAX_CAPACITY	100
+#define MAX_CAPACITY 100
 
 struct task {
 	int fd;

@@ -1,16 +1,15 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <signal.h>
 
 #include "utils/log/log.h"
 
-#define LOG_LEVEL	LOG_INFO
+#define LOG_LEVEL LOG_INFO
 
-static void handler(int signal)
-{
+static void handler(int signal) {
 	log_debug("signal received: %d", signal);
 
 	switch (signal) {
@@ -41,8 +40,7 @@ static void handler(int signal)
 	}
 }
 
-int main(void)
-{
+int main(void) {
 	struct sigaction sa;
 
 	setvbuf(stdout, NULL, _IONBF, 0);

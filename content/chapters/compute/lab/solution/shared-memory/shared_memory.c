@@ -1,16 +1,15 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <semaphore.h>
 #include <stdio.h>
 #include <sys/mman.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <semaphore.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-int main(void)
-{
+int main(void) {
 	pid_t ret_pid;
 	pid_t pid;
 	int *p;
@@ -18,8 +17,7 @@ int main(void)
 	sem_t *sem;
 
 	/* TODO 1: Change the flags to disable copy-on-write. */
-	p = mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE,
-		MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	p = mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	DIE(p == MAP_FAILED, "mmap");
 
 	*p = 42;
@@ -70,8 +68,7 @@ int main(void)
 		 * TODO 2.4: Make sure the value read by the parent is still the
 		 * one written by the child.
 		 */
-		printf("[parent] Child process exited. Data at address %p = %d\n",
-			p, *p);
+		printf("[parent] Child process exited. Data at address %p = %d\n", p, *p);
 		break;
 	}
 

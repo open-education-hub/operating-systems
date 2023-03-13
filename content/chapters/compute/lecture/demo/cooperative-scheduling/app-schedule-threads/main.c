@@ -5,22 +5,21 @@
 /* Import user configuration: */
 #ifdef __Unikraft__
 #include <uk/config.h>
-#endif  /* __Unikraft__ */
+#endif /* __Unikraft__ */
 
 #include <uk/sched.h>
 #include <uk/schedcoop.h>
 
 #include "../../utils/utils.h"
 
-#define NUM_THREADS	2
-#define NUM_STEPS	4
+#define NUM_THREADS 2
+#define NUM_STEPS   4
 
 struct uk_sched *sched;
 
-static void thread_func(void *arg)
-{
+static void thread_func(void *arg) {
 	int i;
-	int tid = *(int*)arg;
+	int tid = *(int *)arg;
 
 	printf("Thread %d created!\n", tid);
 
@@ -35,12 +34,11 @@ static void thread_func(void *arg)
 	printf("Thread %d finished!\n", tid);
 
 #ifndef CONFIG_APPSCHEDULETHREADS_COOPERATE
-		uk_sched_yield();
+	uk_sched_yield();
 #endif
 }
 
-int main(void)
-{
+int main(void) {
 	struct uk_thread *threads[NUM_THREADS];
 	int tids[NUM_THREADS];
 	int i;

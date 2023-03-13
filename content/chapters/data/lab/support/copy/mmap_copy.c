@@ -1,25 +1,22 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-#define SRC_FILENAME	"in.dat"
-#define DST_FILENAME	"out.dat"
+#define SRC_FILENAME "in.dat"
+#define DST_FILENAME "out.dat"
 
-#define diff_us(ta, tb)		\
-	(((ta).tv_sec - (tb).tv_sec) * 1000 * 1000 + \
-	 ((ta).tv_nsec - (tb).tv_nsec) / 1000)
+#define diff_us(ta, tb) (((ta).tv_sec - (tb).tv_sec) * 1000 * 1000 + ((ta).tv_nsec - (tb).tv_nsec) / 1000)
 
-int main(void)
-{
+int main(void) {
 	int src_fd, dst_fd;
 	void *src_p, *dst_p;
 	struct stat statbuf;

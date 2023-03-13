@@ -9,16 +9,15 @@
 
 #include <fcntl.h>
 #include <linux/fs.h>
-#include <sys/ioctl.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 
 #include "utils/utils.h"
 
-#define SIZE_UNIT (1024UL * 1024 * 1024)  /* 1GB */
+#define SIZE_UNIT (1024UL * 1024 * 1024) /* 1GB */
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
 	int fd;
 	unsigned long long numblocks = 0;
 	int rc;
@@ -39,4 +38,3 @@ int main(int argc, const char *argv[])
 	close(fd);
 	return 0;
 }
-

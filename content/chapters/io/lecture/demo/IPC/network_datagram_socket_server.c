@@ -1,25 +1,24 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
-#define PORT 		1234
+#define PORT 1234
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_in addr, cli_addr;
@@ -36,13 +35,13 @@ int main(void)
 	addr.sin_port = htons(PORT);
 	addr.sin_addr.s_addr = INADDR_ANY;
 
-	rc = bind(fd, (struct sockaddr *) &addr, sizeof(addr));
+	rc = bind(fd, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "bind");
 
 	/* Make the server run indefinitely. */
-	while(1) {
+	while (1) {
 		/* Receive from client. */
-		rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &cli_addr, &addrlen);
+		rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *)&cli_addr, &addrlen);
 		DIE(rc < 0, "recvfrom");
 
 		printf("Received: %s\n", buffer);

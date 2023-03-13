@@ -9,25 +9,24 @@
  *      still valid
  */
 
+#include <arpa/inet.h>
+#include <assert.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/stat.h>
 #include <sys/epoll.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-#include "utils/utils.h"
+#include "./w_epoll.h"
 #include "utils/log/log.h"
 #include "utils/sock/sock_util.h"
-#include "./w_epoll.h"
+#include "utils/utils.h"
 
-#define ECHO_LISTEN_PORT		42424
-
+#define ECHO_LISTEN_PORT 42424
 
 /* server socket file descriptor */
 static int listenfd;
@@ -35,11 +34,7 @@ static int listenfd;
 /* epoll file descriptor */
 static int epollfd;
 
-enum connection_state {
-	STATE_DATA_RECEIVED,
-	STATE_DATA_SENT,
-	STATE_CONNECTION_CLOSED
-};
+enum connection_state { STATE_DATA_RECEIVED, STATE_DATA_SENT, STATE_CONNECTION_CLOSED };
 
 /* structure acting as a connection handler */
 struct connection {
@@ -56,8 +51,7 @@ struct connection {
  * Initialize connection structure on given socket.
  */
 
-static struct connection *connection_create(int sockfd)
-{
+static struct connection *connection_create(int sockfd) {
 	struct connection *conn = malloc(sizeof(*conn));
 
 	DIE(conn == NULL, "malloc");
@@ -73,8 +67,7 @@ static struct connection *connection_create(int sockfd)
  * Copy receive buffer to send buffer (echo).
  */
 
-static void connection_copy_buffers(struct connection *conn)
-{
+static void connection_copy_buffers(struct connection *conn) {
 	conn->send_len = conn->recv_len;
 	memcpy(conn->send_buffer, conn->recv_buffer, conn->send_len);
 }
@@ -83,8 +76,7 @@ static void connection_copy_buffers(struct connection *conn)
  * Remove connection handler.
  */
 
-static void connection_remove(struct connection *conn)
-{
+static void connection_remove(struct connection *conn) {
 	close(conn->sockfd);
 	conn->state = STATE_CONNECTION_CLOSED;
 	free(conn);
@@ -94,8 +86,7 @@ static void connection_remove(struct connection *conn)
  * Handle a new connection request on the server socket.
  */
 
-static void handle_new_connection(void)
-{
+static void handle_new_connection(void) {
 	static int sockfd;
 	socklen_t addrlen = sizeof(struct sockaddr_in);
 	struct sockaddr_in addr;
@@ -103,11 +94,10 @@ static void handle_new_connection(void)
 	int rc;
 
 	/* accept new connection */
-	sockfd = accept(listenfd, (SSA *) &addr, &addrlen);
+	sockfd = accept(listenfd, (SSA *)&addr, &addrlen);
 	DIE(sockfd < 0, "accept");
 
-	log_error("Accepted connection from: %s:%d",
-			inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
+	log_error("Accepted connection from: %s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
 
 	/* instantiate new connection handler */
 	conn = connection_create(sockfd);
@@ -122,8 +112,7 @@ static void handle_new_connection(void)
  * Store message in recv_buffer in struct connection.
  */
 
-static enum connection_state receive_message(struct connection *conn)
-{
+static enum connection_state receive_message(struct connection *conn) {
 	ssize_t bytes_recv;
 	int rc;
 	char abuffer[64];
@@ -135,11 +124,11 @@ static enum connection_state receive_message(struct connection *conn)
 	}
 
 	bytes_recv = recv(conn->sockfd, conn->recv_buffer, BUFSIZ, 0);
-	if (bytes_recv < 0) {		/* error in communication */
+	if (bytes_recv < 0) { /* error in communication */
 		log_error("Error in communication from: %s", abuffer);
 		goto remove_connection;
 	}
-	if (bytes_recv == 0) {		/* connection closed */
+	if (bytes_recv == 0) { /* connection closed */
 		log_info("Connection closed from: %s", abuffer);
 		goto remove_connection;
 	}
@@ -167,8 +156,7 @@ remove_connection:
  * Store message in send_buffer in struct connection.
  */
 
-static enum connection_state send_message(struct connection *conn)
-{
+static enum connection_state send_message(struct connection *conn) {
 	ssize_t bytes_sent;
 	int rc;
 	char abuffer[64];
@@ -180,11 +168,11 @@ static enum connection_state send_message(struct connection *conn)
 	}
 
 	bytes_sent = send(conn->sockfd, conn->send_buffer, conn->send_len, 0);
-	if (bytes_sent < 0) {		/* error in communication */
+	if (bytes_sent < 0) { /* error in communication */
 		log_error("Error in communication to %s", abuffer);
 		goto remove_connection;
 	}
-	if (bytes_sent == 0) {		/* connection closed */
+	if (bytes_sent == 0) { /* connection closed */
 		log_info("Connection closed to %s", abuffer);
 		goto remove_connection;
 	}
@@ -214,8 +202,7 @@ remove_connection:
  * Handle a client request on a client connection.
  */
 
-static void handle_client_request(struct connection *conn)
-{
+static void handle_client_request(struct connection *conn) {
 	int rc;
 	enum connection_state ret_state;
 
@@ -230,8 +217,7 @@ static void handle_client_request(struct connection *conn)
 	DIE(rc < 0, "w_epoll_add_ptr_inout");
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 
 	/* init multiplexing */
@@ -239,15 +225,13 @@ int main(void)
 	DIE(epollfd < 0, "w_epoll_create");
 
 	/* create server socket */
-	listenfd = tcp_create_listener(ECHO_LISTEN_PORT,
-		DEFAULT_LISTEN_BACKLOG);
+	listenfd = tcp_create_listener(ECHO_LISTEN_PORT, DEFAULT_LISTEN_BACKLOG);
 	DIE(listenfd < 0, "tcp_create_listener");
 
 	rc = w_epoll_add_fd_in(epollfd, listenfd);
 	DIE(rc < 0, "w_epoll_add_fd_in");
 
-	log_info("Server waiting for connections on port %d",
-			ECHO_LISTEN_PORT);
+	log_info("Server waiting for connections on port %d", ECHO_LISTEN_PORT);
 
 	/* server main loop */
 	while (1) {

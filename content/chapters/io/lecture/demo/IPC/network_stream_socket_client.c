@@ -1,28 +1,27 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
-#define IP_ADDR 	"127.0.0.1"
-#define PORT 		1234
+#define IP_ADDR "127.0.0.1"
+#define PORT	1234
 
 static const char message[] = "R2-D2 is underrated";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_in addr;
@@ -39,7 +38,7 @@ int main(void)
 	rc = inet_aton(IP_ADDR, &addr.sin_addr);
 	DIE(rc == 0, "inet_aton");
 
-	rc = connect(fd, (struct sockaddr *) &addr, sizeof(addr));
+	rc = connect(fd, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "connect");
 
 	/* Send to server. */

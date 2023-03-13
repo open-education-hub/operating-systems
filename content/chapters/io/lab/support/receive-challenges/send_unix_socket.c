@@ -1,20 +1,19 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 static const char socket_path[] = "golden_gate";
 static const char FLAG[] = "SO{cold_is_the_void}";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_un addr;
@@ -31,7 +30,7 @@ int main(void)
 	memset(&addr, 0, sizeof(addr));
 	addr.sun_family = AF_UNIX;
 	snprintf(addr.sun_path, sizeof(socket_path), "%s", socket_path);
-	rc = connect(fd, (struct sockaddr *) &addr, sizeof(addr));
+	rc = connect(fd, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "connect");
 
 	/* Write flag to socket. */

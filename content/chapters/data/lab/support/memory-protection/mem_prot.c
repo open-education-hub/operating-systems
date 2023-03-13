@@ -2,37 +2,32 @@
 
 #include <stdio.h>
 
-static int data[] = {10, 20, 30, 40};	/* stored in .data section (rw-) */
+static int data[] = {10, 20, 30, 40}; /* stored in .data section (rw-) */
 
-static void exec_do_nothing(void)	/* stored in .text section (r-x) */
-{
-}
+static void exec_do_nothing(void) /* stored in .text section (r-x) */
+{}
 
-static void do_write(const char *msg, void *address, int value)
-{
+static void do_write(const char *msg, void *address, int value) {
 	puts(msg);
-	* (int *) address = value;
+	*(int *)address = value;
 }
 
-static void do_read(const char *msg, void *address)
-{
+static void do_read(const char *msg, void *address) {
 	int p;
 
 	puts(msg);
-	p = * (int *) address;
-	(void) p;
+	p = *(int *)address;
+	(void)p;
 }
 
-static void do_exec(const char *msg, void *address)
-{
-	void (*f)(void) = (void (*)(void)) address;
+static void do_exec(const char *msg, void *address) {
+	void (*f)(void) = (void (*)(void))address;
 
 	puts(msg);
 	f();
 }
 
-int main(void)
-{
+int main(void) {
 	do_read("reading from .data section", &data[0]);
 	do_write("writing to .data section", &data[0], 77);
 

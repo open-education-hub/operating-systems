@@ -3,20 +3,18 @@
 #include <stdio.h>
 #include <sys/mman.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-int main(void)
-{
+int main(void) {
 	pid_t ret_pid;
 	pid_t pid;
 	int *p;
 
 	/* TODO 1: Change the flags to disable copy-on-write. */
-	p = mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE,
-		MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	p = mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 	DIE(p == MAP_FAILED, "mmap");
 
 	*p = 42;
@@ -59,8 +57,7 @@ int main(void)
 		 * TODO 2.4: Make sure the value read by the parent is still the
 		 * one written by the child.
 		 */
-		printf("[parent] Child process exited. Data at address %p = %d\n",
-			p, *p);
+		printf("[parent] Child process exited. Data at address %p = %d\n", p, *p);
 		break;
 	}
 

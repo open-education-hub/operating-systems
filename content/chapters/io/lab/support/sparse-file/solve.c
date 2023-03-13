@@ -1,22 +1,21 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-#define FILENAME "../../support/sparse-file/swiss_cheese.sparse"
+#define FILENAME   "../../support/sparse-file/swiss_cheese.sparse"
 #define NUM_SPACES 10
 
 #ifndef BUFSIZ
-#define BUFSIZ	256
+#define BUFSIZ 256
 #endif
 
-int main(void)
-{
+int main(void) {
 	int fd;
 	size_t i;
 	char buffer[BUFSIZ];
@@ -30,9 +29,7 @@ int main(void)
 
 		/* TODO: Read character. */
 
-
 		/* TODO: Stop if no more characters (read returns 0). */
-
 
 		/* TODO: Skep NUM_SPACES blank characters. */
 	}

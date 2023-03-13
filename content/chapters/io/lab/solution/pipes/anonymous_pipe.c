@@ -9,33 +9,28 @@
 
 #include "utils/utils.h"
 
-#define BUFSIZE 	128
-#define EXIT_STR	"exit"
-#define PIPE_READ	0
-#define PIPE_WRITE	1
+#define BUFSIZE	   128
+#define EXIT_STR   "exit"
+#define PIPE_READ  0
+#define PIPE_WRITE 1
 
-static bool check_for_exit(const char *input)
-{
-	if (strcmp(input, EXIT_STR) == 0 || strlen(input) == 0)
-	{
+static bool check_for_exit(const char *input) {
+	if (strcmp(input, EXIT_STR) == 0 || strlen(input) == 0) {
 		return true;
 	}
 
 	return false;
 }
 
-static void child_loop(int readfd)
-{
+static void child_loop(int readfd) {
 	char output[BUFSIZE];
 	int rc;
 
-	while (1)
-	{
+	while (1) {
 		rc = read(readfd, output, BUFSIZE);
 		DIE(rc < 0, "read");
 
-		if (rc == 0)
-		{
+		if (rc == 0) {
 			/* TODO: Close pipe head used for reading. */
 			close(readfd);
 			break;
@@ -48,21 +43,18 @@ static void child_loop(int readfd)
 	return;
 }
 
-static void parent_loop(int writefd)
-{
+static void parent_loop(int writefd) {
 	char input[BUFSIZE];
 	int rc;
 
-	while (1)
-	{
+	while (1) {
 		memset(input, 0, BUFSIZE);
 		fgets(input, BUFSIZE, stdin);
 		// Remove trailing newline
 		if (input[strlen(input) - 1] == '\n')
 			input[strlen(input) - 1] = '\0';
 
-		if (check_for_exit(input))
-		{
+		if (check_for_exit(input)) {
 			/* TODO: Close pipe head used for writing. */
 			close(writefd);
 			break;
@@ -75,8 +67,7 @@ static void parent_loop(int writefd)
 	return;
 }
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buf[32];
 
 	fprintf(stderr, " * %s\n", msg);
@@ -84,8 +75,7 @@ static void wait_for_input(const char *msg)
 	fgets(buf, 32, stdin);
 }
 
-int main(void)
-{
+int main(void) {
 	pid_t pid;
 	int rc;
 	int pipedes[2];
@@ -98,8 +88,7 @@ int main(void)
 	wait_for_input("pipe created");
 
 	pid = fork();
-	switch (pid)
-	{
+	switch (pid) {
 	case -1: /* Fork failed, cleaning up. */
 		/* TODO: Close both heads of the pipe. */
 		close(pipedes[PIPE_READ]);

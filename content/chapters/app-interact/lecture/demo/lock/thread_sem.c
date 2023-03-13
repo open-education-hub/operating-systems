@@ -1,25 +1,23 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdio.h>
-#include <semaphore.h>
 #include <pthread.h>
+#include <semaphore.h>
+#include <stdio.h>
 
 #include "utils/utils.h"
 
-#define NUM_STEPS	1000000
-#define NUM_THREADS	2
+#define NUM_STEPS   1000000
+#define NUM_THREADS 2
 
 static sem_t sem;
 
-static void acquire_lock(void)
-{
+static void acquire_lock(void) {
 	int rc = sem_wait(&sem);
 
 	DIE(rc, "sem_wait");
 }
 
-static void release_lock(void)
-{
+static void release_lock(void) {
 	int rc = sem_post(&sem);
 
 	DIE(rc, "sem_post");
@@ -27,23 +25,21 @@ static void release_lock(void)
 
 static unsigned long var = 0;
 
-static void *increase_var(void *arg)
-{
+static void *increase_var(void *arg) {
 	size_t i;
 
 	(void)arg;
 
 	for (i = 0; i < NUM_STEPS; i++) {
-		acquire_lock();	/* Begin critical section. */
+		acquire_lock(); /* Begin critical section. */
 		var++;
-		release_lock();	/* End critical section. */
+		release_lock(); /* End critical section. */
 	}
 
-	return  NULL;
+	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	size_t i;
 	pthread_t tids[NUM_THREADS];

@@ -1,19 +1,18 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 unsigned short remote_port = 4242;
 static const char FLAG[] = "SO{look_at_all_the_pretty_lights}";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_in raddr;
@@ -29,7 +28,7 @@ int main(void)
 	raddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	/* Write flag to socket. */
-	rc = sendto(fd, FLAG, sizeof(FLAG), 0, (struct sockaddr *) &raddr, sizeof(raddr));
+	rc = sendto(fd, FLAG, sizeof(FLAG), 0, (struct sockaddr *)&raddr, sizeof(raddr));
 	DIE(rc < 0, "sendto");
 
 	close(fd);

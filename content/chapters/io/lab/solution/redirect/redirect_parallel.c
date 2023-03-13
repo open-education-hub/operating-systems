@@ -3,8 +3,8 @@
 #include <fcntl.h>
 #include <pthread.h>
 #include <stddef.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -13,12 +13,10 @@
 
 #include "utils/utils.h"
 
-#define NUM_THREADS			2
+#define NUM_THREADS 2
 
-#define REDIRECT_STDOUT_FILE_NAME	\
-	"../../support/redirect/redirect_stdout_file.txt"
-#define REDIRECT_STDERR_FILE_NAME	\
-	"../../support/redirect/redirect_stderr_file.txt"
+#define REDIRECT_STDOUT_FILE_NAME "../../support/redirect/redirect_stdout_file.txt"
+#define REDIRECT_STDERR_FILE_NAME "../../support/redirect/redirect_stderr_file.txt"
 
 struct redirected_print_args {
 	int fd;
@@ -28,13 +26,11 @@ struct redirected_print_args {
 
 static pthread_barrier_t barrier;
 
-static void do_stdout_redirect()
-{
+static void do_stdout_redirect() {
 	int rc;
 	int fd;
 
-	fd = open(REDIRECT_STDOUT_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC,
-		0644);
+	fd = open(REDIRECT_STDOUT_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	DIE(fd < 0, "open");
 
 	/* Make sure both threads have opened their files. */
@@ -50,13 +46,11 @@ static void do_stdout_redirect()
 	DIE(rc < 0, "close");
 }
 
-static void do_stderr_redirect()
-{
+static void do_stderr_redirect() {
 	int rc;
 	int fd;
 
-	fd = open(REDIRECT_STDERR_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC,
-		0644);
+	fd = open(REDIRECT_STDERR_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	DIE(fd < 0, "open");
 
 	/* Make sure both threads have opened their files. */
@@ -72,8 +66,7 @@ static void do_stderr_redirect()
 	DIE(rc < 0, "close");
 }
 
-void *redirected_print(void *arg)
-{
+void *redirected_print(void *arg) {
 	struct redirected_print_args *args = arg;
 
 	args->redirect_func();
@@ -86,23 +79,13 @@ void *redirected_print(void *arg)
 	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	size_t i;
 	pthread_t tids[NUM_THREADS];
 	struct redirected_print_args args[NUM_THREADS] = {
-		{
-			.fd = STDOUT_FILENO,
-			.redirect_func = do_stdout_redirect,
-			.message = "Message for STDOUT\n"
-		},
-		{
-			.fd = STDERR_FILENO,
-			.redirect_func = do_stderr_redirect,
-			.message = "Message for STDERR\n"
-		}
-	};
+	    {.fd = STDOUT_FILENO, .redirect_func = do_stdout_redirect, .message = "Message for STDOUT\n"},
+	    {.fd = STDERR_FILENO, .redirect_func = do_stderr_redirect, .message = "Message for STDERR\n"}};
 
 	pthread_barrier_init(&barrier, NULL, NUM_THREADS);
 

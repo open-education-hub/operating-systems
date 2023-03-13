@@ -6,8 +6,7 @@
 
 static const char FLAG[] = "SO{in_the_pipe_five_by_five}\n";
 
-int main(void)
-{
+int main(void) {
 	write(4, FLAG, sizeof(FLAG));
 	return 0;
 }

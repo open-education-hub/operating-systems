@@ -6,8 +6,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-static unsigned long get_current_millis(void)
-{
+static unsigned long get_current_millis(void) {
 	struct timeval tv;
 	int rc = gettimeofday(&tv, NULL);
 
@@ -16,4 +15,4 @@ static unsigned long get_current_millis(void)
 	return tv.tv_sec * 1000LL + tv.tv_usec / 1000;
 }
 
-#endif  /* GET_TIME_H_ */
+#endif /* GET_TIME_H_ */

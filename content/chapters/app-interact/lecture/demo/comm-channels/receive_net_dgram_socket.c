@@ -1,22 +1,21 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
 unsigned short port = 4242;
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_in addr;
@@ -33,11 +32,11 @@ int main(void)
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	rc = bind(fd, (struct sockaddr *) &addr, sizeof(addr));
+	rc = bind(fd, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "bind");
 
 	/* Read flag from socket. */
-	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &addr, &addrlen);
+	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *)&addr, &addrlen);
 	DIE(rc < 0, "recvfrom");
 
 	printf("Message is: %s\n", buffer);

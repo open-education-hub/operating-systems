@@ -1,22 +1,21 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
 static const char socket_path[] = "socket_channel";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int listenfd, connectfd;
 	struct sockaddr_un addr, raddr;
@@ -34,7 +33,7 @@ int main(void)
 	memset(&addr, 0, sizeof(addr));
 	addr.sun_family = AF_UNIX;
 	strcpy(addr.sun_path, socket_path);
-	rc = bind(listenfd, (struct sockaddr *) &addr, sizeof(addr));
+	rc = bind(listenfd, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "bind");
 
 	/* Put in listen mode. */
@@ -42,7 +41,7 @@ int main(void)
 	DIE(rc < 0, "listen");
 
 	/* Accept connection. */
-	connectfd = accept(listenfd, (struct sockaddr *) &raddr, &raddrlen);
+	connectfd = accept(listenfd, (struct sockaddr *)&raddr, &raddrlen);
 	DIE(connectfd < 0, "accept");
 
 	/* Receive message from socket. */

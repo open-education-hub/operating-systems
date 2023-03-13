@@ -10,8 +10,7 @@
 
 #include "utils/utils.h"
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buf[32];
 
 	printf(" * %s\n", msg);
@@ -20,8 +19,7 @@ static void wait_for_input(const char *msg)
 	fgets(buf, 32, stdin);
 }
 
-int main(void)
-{
+int main(void) {
 	pid_t pid;
 	int rc;
 	int exit_code;
@@ -38,19 +36,18 @@ int main(void)
 	wait_for_input("third fork()");
 
 	switch (pid) {
-	case -1:	/* Error */
+	case -1: /* Error */
 		DIE(1, "fork");
 		break;
 
-	case 0: 	/* Child process */
+	case 0: /* Child process */
 		sleep(1);
 		printf("[child] PID = %d; PPID = %d\n", getpid(), getppid());
 
 		break;
 
-	default: 	/* Parent process */
-		printf("[parent] PID = %d; child PID = %d; Waiting...\n",
-			getpid(), pid);
+	default: /* Parent process */
+		printf("[parent] PID = %d; child PID = %d; Waiting...\n", getpid(), pid);
 
 		rc = waitpid(pid, &exit_code, 0);
 		DIE(rc < 0, "waitpid");

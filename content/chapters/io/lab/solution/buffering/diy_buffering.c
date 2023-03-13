@@ -10,25 +10,22 @@
 
 #include "utils/utils.h"
 
-#define USEC_PER_SEC	1000000
-#define MSEC_PER_SEC	1000
+#define USEC_PER_SEC 1000000
+#define MSEC_PER_SEC 1000
 
-#define BUFSIZE		4096
+#define BUFSIZE 4096
 
-#define MIN(a, b)	((a) < (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 static char buf[BUFSIZE];
 /* Starting and end offsets in `buf`. */
 static ssize_t buf_start, buf_end;
 
-static unsigned long diff_msec(struct timeval start, struct timeval end)
-{
-	return (USEC_PER_SEC * (end.tv_sec - start.tv_sec) + end.tv_usec -
-		start.tv_usec) / MSEC_PER_SEC;
+static unsigned long diff_msec(struct timeval start, struct timeval end) {
+	return (USEC_PER_SEC * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / MSEC_PER_SEC;
 }
 
-static size_t diy_fread(void *dst, size_t size, size_t nmemb, int fd)
-{
+static size_t diy_fread(void *dst, size_t size, size_t nmemb, int fd) {
 	ssize_t to_read = size * nmemb;
 	size_t dst_pos = 0;
 	size_t to_copy;
@@ -55,8 +52,7 @@ static size_t diy_fread(void *dst, size_t size, size_t nmemb, int fd)
 	return nmemb;
 }
 
-static size_t diy_fwrite(void *src, size_t size, size_t nmemb, int fd)
-{
+static size_t diy_fwrite(void *src, size_t size, size_t nmemb, int fd) {
 	ssize_t to_write = size * nmemb;
 	size_t src_pos = 0;
 	size_t to_copy;
@@ -85,8 +81,7 @@ static size_t diy_fwrite(void *src, size_t size, size_t nmemb, int fd)
 	return nmemb;
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	char c = 'x';
 	int fd;
 	int rc;
@@ -125,11 +120,9 @@ int main(int argc, char *argv[])
 	gettimeofday(&end, NULL);
 
 	if (mode == O_RDONLY)
-		printf("Read %zu bytes from %s in %lu ms\n", total_bytes,
-			argv[2], diff_msec(start, end));
+		printf("Read %zu bytes from %s in %lu ms\n", total_bytes, argv[2], diff_msec(start, end));
 	else
-		printf("Wrote %zu bytes to %s in %lu ms\n", total_bytes,
-			argv[2], diff_msec(start, end));
+		printf("Wrote %zu bytes to %s in %lu ms\n", total_bytes, argv[2], diff_msec(start, end));
 
 	rc = close(fd);
 	DIE(rc == -1, "close");

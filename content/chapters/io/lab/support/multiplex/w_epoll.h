@@ -5,23 +5,17 @@
  */
 
 #ifndef W_EPOLL_H_
-#define W_EPOLL_H_	1
+#define W_EPOLL_H_ 1
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#define EPOLL_TIMEOUT_INFINITE -1
 
-#define EPOLL_TIMEOUT_INFINITE		-1
+static inline int w_epoll_create(void) { return epoll_create(10); }
 
-
-static inline int w_epoll_create(void)
-{
-	return epoll_create(10);
-}
-
-static inline int w_epoll_add_fd_in(int epollfd, int fd)
-{
+static inline int w_epoll_add_fd_in(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN;
@@ -30,8 +24,7 @@ static inline int w_epoll_add_fd_in(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
 }
 
-static inline int w_epoll_add_fd_out(int epollfd, int fd)
-{
+static inline int w_epoll_add_fd_out(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLOUT;
@@ -40,8 +33,7 @@ static inline int w_epoll_add_fd_out(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
 }
 
-static inline int w_epoll_add_fd_inout(int epollfd, int fd)
-{
+static inline int w_epoll_add_fd_inout(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN | EPOLLOUT;
@@ -50,8 +42,7 @@ static inline int w_epoll_add_fd_inout(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
 }
 
-static inline int w_epoll_update_fd_in(int epollfd, int fd)
-{
+static inline int w_epoll_update_fd_in(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN;
@@ -60,8 +51,7 @@ static inline int w_epoll_update_fd_in(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-static inline int w_epoll_update_fd_out(int epollfd, int fd)
-{
+static inline int w_epoll_update_fd_out(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLOUT;
@@ -70,8 +60,7 @@ static inline int w_epoll_update_fd_out(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-static inline int w_epoll_update_fd_inout(int epollfd, int fd)
-{
+static inline int w_epoll_update_fd_inout(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN | EPOLLOUT;
@@ -80,8 +69,7 @@ static inline int w_epoll_update_fd_inout(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-static inline int w_epoll_remove_fd(int epollfd, int fd)
-{
+static inline int w_epoll_remove_fd(int epollfd, int fd) {
 	struct epoll_event ev;
 
 	/*
@@ -95,8 +83,7 @@ static inline int w_epoll_remove_fd(int epollfd, int fd)
 	return epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, &ev);
 }
 
-static inline int w_epoll_add_ptr_in(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_add_ptr_in(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN;
@@ -105,8 +92,7 @@ static inline int w_epoll_add_ptr_in(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
 }
 
-static inline int w_epoll_add_ptr_out(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_add_ptr_out(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLOUT;
@@ -115,8 +101,7 @@ static inline int w_epoll_add_ptr_out(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
 }
 
-static inline int w_epoll_add_ptr_inout(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_add_ptr_inout(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN | EPOLLOUT;
@@ -125,8 +110,7 @@ static inline int w_epoll_add_ptr_inout(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev);
 }
 
-static inline int w_epoll_update_ptr_in(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_update_ptr_in(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN;
@@ -135,8 +119,7 @@ static inline int w_epoll_update_ptr_in(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-static inline int w_epoll_update_ptr_out(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_update_ptr_out(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLOUT;
@@ -145,8 +128,7 @@ static inline int w_epoll_update_ptr_out(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-static inline int w_epoll_update_ptr_inout(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_update_ptr_inout(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	ev.events = EPOLLIN | EPOLLOUT;
@@ -155,8 +137,7 @@ static inline int w_epoll_update_ptr_inout(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-static inline int w_epoll_remove_ptr(int epollfd, int fd, void *ptr)
-{
+static inline int w_epoll_remove_ptr(int epollfd, int fd, void *ptr) {
 	struct epoll_event ev;
 
 	/*
@@ -170,8 +151,7 @@ static inline int w_epoll_remove_ptr(int epollfd, int fd, void *ptr)
 	return epoll_ctl(epollfd, EPOLL_CTL_DEL, fd, &ev);
 }
 
-static inline int w_epoll_wait_infinite(int epollfd, struct epoll_event *rev)
-{
+static inline int w_epoll_wait_infinite(int epollfd, struct epoll_event *rev) {
 	return epoll_wait(epollfd, rev, 1, EPOLL_TIMEOUT_INFINITE);
 }
 #ifdef __cplusplus

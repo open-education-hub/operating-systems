@@ -1,39 +1,38 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
 #include <semaphore.h>
+#include <stdio.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifdef SHMEM_FILE
-#define FILENAME		"shmem.dat"
+#define FILENAME "shmem.dat"
 #elif defined SHMEM_SHM
-#define FILENAME		"/shmem.dat"
+#define FILENAME "/shmem.dat"
 #else
 #error "Unknown shared memory method"
 #endif
-#define SEM_WRITER_WRITE_1	"/semaphore1"
-#define SEM_WRITER_WRITE_2	"/semaphore2"
-#define SEM_READER_READ_1	"/semaphore3"
-#define SEM_READER_READ_2	"/semaphore4"
+#define SEM_WRITER_WRITE_1 "/semaphore1"
+#define SEM_WRITER_WRITE_2 "/semaphore2"
+#define SEM_READER_READ_1  "/semaphore3"
+#define SEM_READER_READ_2  "/semaphore4"
 
-#define NUM_PAGES	1
-#define MAP_SIZE	(NUM_PAGES * sysconf(_SC_PAGE_SIZE))
+#define NUM_PAGES 1
+#define MAP_SIZE  (NUM_PAGES * sysconf(_SC_PAGE_SIZE))
 
-#define VALUE_1		100
-#define VALUE_2		200
+#define VALUE_1 100
+#define VALUE_2 200
 
 struct map {
 	int fd;
 	void *ptr;
 };
 
-static struct map *create_shared_file_mapping(const char *filename)
-{
+static struct map *create_shared_file_mapping(const char *filename) {
 	struct map *map;
 	int rc;
 
@@ -58,8 +57,7 @@ static struct map *create_shared_file_mapping(const char *filename)
 	return map;
 }
 
-static void delete_shared_file_mapping(struct map *map, const char *filename)
-{
+static void delete_shared_file_mapping(struct map *map, const char *filename) {
 	munmap(map->ptr, MAP_SIZE);
 	close(map->fd);
 	free(map);
@@ -72,8 +70,7 @@ static void delete_shared_file_mapping(struct map *map, const char *filename)
 #endif
 }
 
-static sem_t *create_semaphore(const char *semname)
-{
+static sem_t *create_semaphore(const char *semname) {
 	sem_t *sem;
 
 	sem = sem_open(semname, O_CREAT, 0644, 0);
@@ -82,14 +79,12 @@ static sem_t *create_semaphore(const char *semname)
 	return sem;
 }
 
-static void delete_semaphore(sem_t *sem, const char *semname)
-{
+static void delete_semaphore(sem_t *sem, const char *semname) {
 	sem_close(sem);
 	sem_unlink(semname);
 }
 
-int main(void)
-{
+int main(void) {
 	struct map *map;
 	sem_t *sem_writer_write_1;
 	sem_t *sem_writer_write_2;
@@ -102,11 +97,11 @@ int main(void)
 	sem_reader_read_1 = create_semaphore(SEM_READER_READ_1);
 	sem_reader_read_2 = create_semaphore(SEM_READER_READ_2);
 
-	* (int *) (map->ptr) = VALUE_1;
+	*(int *)(map->ptr) = VALUE_1;
 	sem_post(sem_writer_write_1);
 
 	sem_wait(sem_reader_read_1);
-	* (int *) (map->ptr) = VALUE_2;
+	*(int *)(map->ptr) = VALUE_2;
 	sem_post(sem_writer_write_2);
 
 	sem_wait(sem_reader_read_2);

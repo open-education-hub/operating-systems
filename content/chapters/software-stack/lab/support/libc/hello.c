@@ -2,8 +2,7 @@
 
 #include <unistd.h>
 
-int main(void)
-{
+int main(void) {
 	char buffer[128];
 	ssize_t nread;
 

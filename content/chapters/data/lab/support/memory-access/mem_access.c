@@ -2,8 +2,7 @@
 
 #include <stdio.h>
 
-int main(void )
-{
+int main(void) {
 	int a;
 	const int ca = 2;
 

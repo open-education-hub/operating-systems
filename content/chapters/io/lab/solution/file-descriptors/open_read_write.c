@@ -3,8 +3,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "utils/utils.h"
@@ -13,13 +13,12 @@
 #undef BUFSIZ
 #endif
 
-#define BUFSIZ			1024
+#define BUFSIZ 1024
 
-#define READ_FILE_NAME		"../../support/file-descriptors/read_file.txt"
-#define WRITE_FILE_NAME		"../../support/file-descriptors/write_file.txt"
+#define READ_FILE_NAME	"../../support/file-descriptors/read_file.txt"
+#define WRITE_FILE_NAME "../../support/file-descriptors/write_file.txt"
 
-static int open_file_for_reading(const char *file_name)
-{
+static int open_file_for_reading(const char *file_name) {
 	int fd;
 
 	fd = open(file_name, O_RDONLY);
@@ -30,8 +29,7 @@ static int open_file_for_reading(const char *file_name)
 	return fd;
 }
 
-static void read_from_file(char *buff, int fd, int bytes_to_read)
-{
+static void read_from_file(char *buff, int fd, int bytes_to_read) {
 	int bytes_read;
 	int total_read = 0;
 
@@ -46,8 +44,7 @@ static void read_from_file(char *buff, int fd, int bytes_to_read)
 		 *	read
 		 * `bytes_to_read - total_read` bytes need to be read
 		 */
-		bytes_read = read(fd, buff + total_read,
-			bytes_to_read - total_read);
+		bytes_read = read(fd, buff + total_read, bytes_to_read - total_read);
 		DIE(bytes_read < 0, "read");
 
 		/* 0 indicates the end of the file. */
@@ -57,12 +54,10 @@ static void read_from_file(char *buff, int fd, int bytes_to_read)
 		total_read += bytes_read;
 	}
 
-	printf("Read %d bytes from file descriptor %d. File content is: %s",
-		total_read, fd, buff);
+	printf("Read %d bytes from file descriptor %d. File content is: %s", total_read, fd, buff);
 }
 
-static int open_file_for_writing(const char *file_name)
-{
+static int open_file_for_writing(const char *file_name) {
 	int fd = 0;
 
 	/**
@@ -77,8 +72,7 @@ static int open_file_for_writing(const char *file_name)
 	return fd;
 }
 
-static void write_to_file(char *buff, int fd, int bytes_to_write)
-{
+static void write_to_file(char *buff, int fd, int bytes_to_write) {
 	int bytes_written;
 	int total_written = 0;
 
@@ -94,23 +88,20 @@ static void write_to_file(char *buff, int fd, int bytes_to_write)
 		 *	written
 		 * `bytes_to_write - total_written` bytes need to be written
 		 */
-		bytes_written = write(fd, buff + total_written,
-			bytes_to_write - total_written);
+		bytes_written = write(fd, buff + total_written, bytes_to_write - total_written);
 		DIE(bytes_written < 0, "write");
 
 		total_written += bytes_written;
 	}
 
-	printf("Wrote %d bytes to file descriptor %d\n", total_written,
-		fd);
+	printf("Wrote %d bytes to file descriptor %d\n", total_written, fd);
 }
 
-int main(void)
-{
+int main(void) {
 	int fd_read;
 	int fd_write;
 	int fd_write2;
-	char buff[BUFSIZ] = { 0 };
+	char buff[BUFSIZ] = {0};
 	char message[] = "Something short";
 	char message2[] = "";
 

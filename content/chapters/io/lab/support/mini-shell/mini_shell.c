@@ -1,23 +1,23 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdlib.h>
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 #include "utils/utils.h"
 
-#define MAX_LINE_SIZE		256
-#define MAX_ARGS		8
+#define MAX_LINE_SIZE 256
+#define MAX_ARGS      8
 
-#define ERROR			0
-#define SIMPLE			1
-#define REDIRECT		2
-#define PIPE			3
-#define SHELL_EXIT		4
+#define ERROR	   0
+#define SIMPLE	   1
+#define REDIRECT   2
+#define PIPE	   3
+#define SHELL_EXIT 4
 
 static char *verb;
 static char **args;
@@ -29,16 +29,14 @@ static int parse_line(char *line);
 static void alloc_mem(void);
 static void free_mem(void);
 
-static void do_redirect(int filedes, const char *filename)
-{
+static void do_redirect(int filedes, const char *filename) {
 	int rc;
 	int fd;
 
 	/* TODO: Redirect `filedes` into `fd` representing `filename`. */
 }
 
-static void simple_cmd(char **args)
-{
+static void simple_cmd(char **args) {
 	pid_t pid;
 	pid_t wait_ret;
 	int status;
@@ -65,7 +63,7 @@ static void simple_cmd(char **args)
 		if (stdout_file != NULL)
 			do_redirect(STDOUT_FILENO, stdout_file);
 
-		execvp(args[0], (char *const *) args);
+		execvp(args[0], (char *const *)args);
 		DIE(1, "execvp");
 		break;
 
@@ -76,13 +74,12 @@ static void simple_cmd(char **args)
 
 		if (WIFEXITED(status))
 			printf("Child process (pid %d) terminated normally, "
-					"with exit code %d\n",
-					pid, WEXITSTATUS(status));
+			       "with exit code %d\n",
+			       pid, WEXITSTATUS(status));
 	}
 }
 
-int main(void)
-{
+int main(void) {
 	int type;
 	char line[MAX_LINE_SIZE];
 
@@ -115,19 +112,14 @@ int main(void)
 	return 0;
 }
 
-static void alloc_mem(void)
-{
+static void alloc_mem(void) {
 	args = malloc(MAX_ARGS * sizeof(char *));
 	DIE(args == NULL, "malloc");
 }
 
-static void free_mem(void)
-{
-	free(args);
-}
+static void free_mem(void) { free(args); }
 
-static int parse_line(char *line)
-{
+static int parse_line(char *line) {
 	int ret = SIMPLE;
 	int idx = 0;
 	char *token;

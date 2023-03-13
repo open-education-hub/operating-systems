@@ -4,15 +4,14 @@
 #include <stdlib.h>
 
 #define ON_STACK 1
-#define N 10
+#define N	 10
 
 typedef struct AttackOnTitanCharacter {
 	size_t id;
 	char *name;
 } AttackOnTitanCharacter;
 
-static AttackOnTitanCharacter* createElem(size_t id, char *name)
-{
+static AttackOnTitanCharacter *createElem(size_t id, char *name) {
 	// allocation happens here
 	AttackOnTitanCharacter *p = malloc(sizeof(AttackOnTitanCharacter));
 	p->id = id;
@@ -20,8 +19,7 @@ static AttackOnTitanCharacter* createElem(size_t id, char *name)
 	return p;
 }
 
-static void freeList(AttackOnTitanCharacter **list, size_t length)
-{
+static void freeList(AttackOnTitanCharacter **list, size_t length) {
 	size_t i;
 
 	for (i = 0; i < length; i++)
@@ -32,23 +30,21 @@ static void freeList(AttackOnTitanCharacter **list, size_t length)
 #endif
 }
 
-static void printCharacterList(AttackOnTitanCharacter **list, size_t length)
-{
+static void printCharacterList(AttackOnTitanCharacter **list, size_t length) {
 	size_t i;
 
-	for(i = 0; i < length; i++)
+	for (i = 0; i < length; i++)
 		printf("id = %ld, name = %s\n", list[i]->id, list[i]->name);
 }
 
-int main(void)
-{
+int main(void) {
 #ifdef ON_STACK
 	// allocating the list on the stack
 	AttackOnTitanCharacter *list[N];
 #else
 	AttackOnTitanCharacter **list;
 	// dynamically allocating the list
-	list = malloc(N, sizeof(AttackOnTitanCharacter*));
+	list = malloc(N, sizeof(AttackOnTitanCharacter *));
 #endif
 
 	list[0] = createElem(1, "Eren");

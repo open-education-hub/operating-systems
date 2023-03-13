@@ -5,14 +5,13 @@
 
 #include "utils/utils.h"
 
-#define FILE_NAME	"file.txt"
-#define MAX_FILE_SIZE	1024
+#define FILE_NAME     "file.txt"
+#define MAX_FILE_SIZE 1024
 
-static void read_file(const char *file_name)
-{
+static void read_file(const char *file_name) {
 	int rc;
 	FILE *f;
-	char buf[MAX_FILE_SIZE] = { 0 };
+	char buf[MAX_FILE_SIZE] = {0};
 
 	/* `f` is a handler to the file. */
 	f = fopen(file_name, "r");
@@ -27,8 +26,7 @@ static void read_file(const char *file_name)
 	DIE(rc < 0, "fclose");
 }
 
-static void write_file(const char *file_name)
-{
+static void write_file(const char *file_name) {
 	int rc;
 	FILE *f;
 	char *msg = "C was here!";
@@ -46,8 +44,7 @@ static void write_file(const char *file_name)
 	DIE(rc < 0, "fclose");
 }
 
-int main(void)
-{
+int main(void) {
 	read_file(FILE_NAME);
 	write_file(FILE_NAME);
 	read_file(FILE_NAME);

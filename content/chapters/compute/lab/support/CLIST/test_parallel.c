@@ -1,22 +1,20 @@
 #include <assert.h>
+#include <pthread.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
-#include <stddef.h>
-#include <unistd.h>
 #include <sys/time.h>
-#include <pthread.h>
+#include <unistd.h>
 
 #include "clist.h"
 
-#define NUM_ELEMS	100000000
-#define INT_SIZE	sizeof(int)
+#define NUM_ELEMS 100000000
+#define INT_SIZE  sizeof(int)
 
-static size_t diff_usec(struct timeval start, struct timeval end)
-{ 
-	return (1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec -
-		start.tv_usec);
+static size_t diff_usec(struct timeval start, struct timeval end) {
+	return (1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec);
 }
 
 typedef struct {
@@ -25,8 +23,7 @@ typedef struct {
 	size_t n;
 } list_args_t;
 
-static void *add_to_list(void *arg)
-{
+static void *add_to_list(void *arg) {
 	list_args_t *args = (list_args_t *)arg;
 	size_t i;
 
@@ -36,8 +33,7 @@ static void *add_to_list(void *arg)
 	return NULL;
 }
 
-static void *remove_from_list(void *arg)
-{
+static void *remove_from_list(void *arg) {
 	list_args_t *args = (list_args_t *)arg;
 	size_t i;
 
@@ -47,8 +43,7 @@ static void *remove_from_list(void *arg)
 	return NULL;
 }
 
-static void *replace_even_from_list(void *arg)
-{
+static void *replace_even_from_list(void *arg) {
 	list_args_t *args = (list_args_t *)arg;
 	size_t i;
 
@@ -58,8 +53,7 @@ static void *replace_even_from_list(void *arg)
 	return NULL;
 }
 
-static void *replace_odd_from_list(void *arg)
-{
+static void *replace_odd_from_list(void *arg) {
 	list_args_t *args = (list_args_t *)arg;
 	size_t i;
 
@@ -69,8 +63,7 @@ static void *replace_odd_from_list(void *arg)
 	return NULL;
 }
 
-static void *replace_same_from_list(void *arg)
-{
+static void *replace_same_from_list(void *arg) {
 	list_args_t *args = (list_args_t *)arg;
 	size_t i;
 
@@ -80,24 +73,16 @@ static void *replace_same_from_list(void *arg)
 	return NULL;
 }
 
-static int init_even_elem(size_t idx)
-{
-	return idx * 2; 
-}
+static int init_even_elem(size_t idx) { return idx * 2; }
 
-static int init_odd_elem(size_t idx)
-{
-	return idx * 2 + 1; 
-}
+static int init_odd_elem(size_t idx) { return idx * 2 + 1; }
 
-static int init_remove_elem(size_t idx)
-{
+static int init_remove_elem(size_t idx) {
 	(void)idx;
 	return 0;
 }
 
-static void create_args(list_args_t *args, CList *l, int (*init_elem)(size_t))
-{
+static void create_args(list_args_t *args, CList *l, int (*init_elem)(size_t)) {
 	size_t i;
 
 	args->n = NUM_ELEMS / 2;
@@ -113,8 +98,7 @@ static void create_args(list_args_t *args, CList *l, int (*init_elem)(size_t))
 		args->elems[i] = init_elem(i);
 }
 
-static pthread_t spawn_thread(void *(*func)(void *), list_args_t *args)
-{
+static pthread_t spawn_thread(void *(*func)(void *), list_args_t *args) {
 	pthread_t tid;
 	int rc = pthread_create(&tid, NULL, func, args);
 
@@ -126,8 +110,7 @@ static pthread_t spawn_thread(void *(*func)(void *), list_args_t *args)
 	return tid;
 }
 
-static void test_parallel_add_add(void)
-{
+static void test_parallel_add_add(void) {
 	int i;
 	pthread_t tid1, tid2;
 	list_args_t args1, args2;
@@ -149,12 +132,10 @@ static void test_parallel_add_add(void)
 	for (i = 0; i < NUM_ELEMS; ++i)
 		assert(l->firstMatch(l, &i, INT_SIZE, INT_SIZE, 0));
 
-	printf("Add of %i `int`s on 2 threads takes  -  %zu microseconds\n",
-		NUM_ELEMS, diff_usec(start, end));
+	printf("Add of %i `int`s on 2 threads takes  -  %zu microseconds\n", NUM_ELEMS, diff_usec(start, end));
 }
 
-static void test_parallel_add_remove(void)
-{
+static void test_parallel_add_remove(void) {
 	pthread_t tid1, tid2;
 	list_args_t args1, args2;
 	struct timeval start, end;
@@ -171,12 +152,11 @@ static void test_parallel_add_remove(void)
 	pthread_join(tid2, NULL);
 	gettimeofday(&end, NULL);
 
-	printf("Add and Remove of %i `int`s on 2 threads takes  -  %zu microseconds\n",
-		NUM_ELEMS / 2, diff_usec(start, end));
+	printf("Add and Remove of %i `int`s on 2 threads takes  -  %zu microseconds\n", NUM_ELEMS / 2,
+	       diff_usec(start, end));
 }
 
-static void test_parallel_remove_remove(void)
-{
+static void test_parallel_remove_remove(void) {
 	pthread_t tid1, tid2;
 	list_args_t args1, args2;
 	struct timeval start, end;
@@ -201,12 +181,10 @@ static void test_parallel_remove_remove(void)
 
 	assert(l->count(l) == 0);
 
-	printf("Remove of %i `int`s on 2 threads takes  -  %zu microseconds\n",
-		NUM_ELEMS, diff_usec(start, end));
+	printf("Remove of %i `int`s on 2 threads takes  -  %zu microseconds\n", NUM_ELEMS, diff_usec(start, end));
 }
 
-static void test_parallel_replace_replace_different(void)
-{
+static void test_parallel_replace_replace_different(void) {
 	size_t i;
 	int j;
 	pthread_t tid1, tid2;
@@ -234,14 +212,12 @@ static void test_parallel_replace_replace_different(void)
 
 	assert(l->count(l) == NUM_ELEMS);
 	for (j = 0; j < NUM_ELEMS; ++j)
-		assert(*(int *) l->at(l, j) == -j);
+		assert(*(int *)l->at(l, j) == -j);
 
-	printf("Replacing %i `int`s on 2 threads takes  -  %zu microseconds\n",
-		NUM_ELEMS, diff_usec(start, end));
+	printf("Replacing %i `int`s on 2 threads takes  -  %zu microseconds\n", NUM_ELEMS, diff_usec(start, end));
 }
 
-static void test_parallel_replace_replace_same(void)
-{
+static void test_parallel_replace_replace_same(void) {
 	size_t i;
 	int first_elem;
 	pthread_t tid1, tid2;
@@ -268,15 +244,14 @@ static void test_parallel_replace_replace_same(void)
 	gettimeofday(&end, NULL);
 
 	assert(l->count(l) == NUM_ELEMS);
-	first_elem = *(int *) l->at(l, 0);
+	first_elem = *(int *)l->at(l, 0);
 	assert(first_elem == -NUM_ELEMS || first_elem == -NUM_ELEMS + 1);
 
-	printf("Replacing the first element %i timess on 2 threads takes  -  %zu microseconds\n",
-		NUM_ELEMS, diff_usec(start, end));
+	printf("Replacing the first element %i timess on 2 threads takes  -  %zu microseconds\n", NUM_ELEMS,
+	       diff_usec(start, end));
 }
 
-int main(void)
-{
+int main(void) {
 	test_parallel_add_add();
 	test_parallel_add_remove();
 	test_parallel_remove_remove();

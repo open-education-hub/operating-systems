@@ -6,8 +6,7 @@
 static const char src[] = "warhammer40k";
 static char dest[128];
 
-int main(void)
-{
+int main(void) {
 	printf("[before] src is at %p, len is %lu, content: \"%s\"\n", src, strlen(src), src);
 	printf("[before] dest is at %p, len is %lu, content: \"%s\"\n", dest, strlen(dest), dest);
 

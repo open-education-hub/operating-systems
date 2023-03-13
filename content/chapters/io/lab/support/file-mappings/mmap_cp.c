@@ -1,16 +1,15 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/mman.h>
 #include <fcntl.h>
 #include <string.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "utils/utils.h"
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buf[32];
 
 	printf(" * %s\n", msg);
@@ -19,8 +18,7 @@ static void wait_for_input(const char *msg)
 	fgets(buf, 32, stdin);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	int fdin;
 	int fdout;
 	int rc;

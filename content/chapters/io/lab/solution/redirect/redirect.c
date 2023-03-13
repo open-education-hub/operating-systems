@@ -1,19 +1,18 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdlib.h>
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 #include "utils/utils.h"
 
-#define REDIRECT_FILE_NAME		"../../support/redirect/redirect_file.txt"
+#define REDIRECT_FILE_NAME "../../support/redirect/redirect_file.txt"
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buf[32];
 
 	fprintf(stderr, " * %s\n", msg);
@@ -21,8 +20,7 @@ static void wait_for_input(const char *msg)
 	fgets(buf, 32, stdin);
 }
 
-static void do_redirect(int filedes, const char *filename)
-{
+static void do_redirect(int filedes, const char *filename) {
 	int rc;
 	int fd;
 
@@ -64,8 +62,7 @@ static void do_redirect(int filedes, const char *filename)
 	DIE(rc < 0, "close");
 }
 
-int main(void)
-{
+int main(void) {
 	do_redirect(STDOUT_FILENO, REDIRECT_FILE_NAME);
 
 	printf("Where did this messge disappear?\n");

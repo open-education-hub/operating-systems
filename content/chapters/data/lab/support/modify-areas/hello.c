@@ -6,20 +6,22 @@
 
 #define __unused __attribute__((unused))
 
-static const char __unused boring[8192] = { 69, };
-static char __unused dull[16384] = { 69, };
+static const char __unused boring[8192] = {
+    69,
+};
+static char __unused dull[16384] = {
+    69,
+};
 static char __unused nada[32768];
 
-static void alloc_heap(void)
-{
+static void alloc_heap(void) {
 	malloc(64 * 1024);
 	malloc(64 * 1024);
 	malloc(64 * 1024);
 	malloc(64 * 1024);
 }
 
-static void alloc_stack(size_t order)
-{
+static void alloc_stack(size_t order) {
 	char __unused fill[32768];
 
 	fill[0] = 'a';
@@ -28,11 +30,10 @@ static void alloc_stack(size_t order)
 	if (order == 0)
 		sleep(1000);
 	else
-		alloc_stack(order-1);
+		alloc_stack(order - 1);
 }
 
-int main(void)
-{
+int main(void) {
 	puts("Hello, world!");
 	alloc_heap();
 	alloc_stack(5);

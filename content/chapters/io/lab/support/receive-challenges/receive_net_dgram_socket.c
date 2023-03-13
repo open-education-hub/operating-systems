@@ -1,22 +1,21 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
 unsigned short port = 4242;
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_in addr, raddr;
@@ -29,9 +28,7 @@ int main(void)
 
 	/* TODO: Bind socket to address. */
 
-
 	/* TODO: Read flag from socket. */
-
 
 	printf("Flag is: %s\n", buffer);
 

@@ -7,8 +7,7 @@
 
 static const char message[] = "Hello, world!";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 
 	rc = write(1, message, sizeof(message));

@@ -1,20 +1,18 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <semaphore.h>
 #include <stdio.h>
 #include <sys/mman.h>
-#include <semaphore.h>
 
 #include "utils/log/log.h"
 #include "utils/utils.h"
 
 #include "./task.h"
 
-struct task *create_task(int fd)
-{
+struct task *create_task(int fd) {
 	struct task *t;
 
-	t = mmap(NULL, sizeof(*t), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	t = mmap(NULL, sizeof(*t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	if (t == MAP_FAILED)
 		return NULL;
 
@@ -23,21 +21,16 @@ struct task *create_task(int fd)
 	return t;
 }
 
-void destroy_task(struct task *t)
-{
-	munmap(t, sizeof(*t));
-}
+void destroy_task(struct task *t) { munmap(t, sizeof(*t)); }
 
-struct task_set *create_task_set(size_t capacity, int pshared)
-{
+struct task_set *create_task_set(size_t capacity, int pshared) {
 	struct task_set *ts;
 	int rc;
 
 	if (capacity > MAX_CAPACITY)
 		goto out_null;
 
-	ts = mmap(NULL, sizeof(*ts), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	ts = mmap(NULL, sizeof(*ts), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	if (ts == MAP_FAILED)
 		goto out_null;
 
@@ -46,23 +39,20 @@ struct task_set *create_task_set(size_t capacity, int pshared)
 	ts->read_index = 0;
 	ts->write_index = 0;
 
-	ts->empty = mmap(NULL, sizeof(*(ts->empty)), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	ts->empty = mmap(NULL, sizeof(*(ts->empty)), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	if (ts->empty == MAP_FAILED)
 		goto free_ts;
 
-	ts->filled = mmap(NULL, sizeof(*(ts->filled)), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	ts->filled = mmap(NULL, sizeof(*(ts->filled)), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	if (ts->filled == MAP_FAILED)
 		goto free_empty;
 
-	ts->lock = mmap(NULL, sizeof(*(ts->lock)), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	ts->lock = mmap(NULL, sizeof(*(ts->lock)), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	if (ts->lock == MAP_FAILED)
 		goto free_filled;
 
-	ts->tasks = mmap(NULL, ts->capacity * sizeof(*(ts->tasks)), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	ts->tasks =
+	    mmap(NULL, ts->capacity * sizeof(*(ts->tasks)), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 	if (ts->tasks == MAP_FAILED)
 		goto free_lock;
 
@@ -96,8 +86,7 @@ out_null:
 	return NULL;
 }
 
-void destroy_task_set(struct task_set *ts)
-{
+void destroy_task_set(struct task_set *ts) {
 	sem_destroy(ts->lock);
 	sem_destroy(ts->filled);
 	sem_destroy(ts->empty);
@@ -108,8 +97,7 @@ void destroy_task_set(struct task_set *ts)
 	munmap(ts, sizeof(*ts));
 }
 
-void put_task(struct task_set *ts, struct task *t)
-{
+void put_task(struct task_set *ts, struct task *t) {
 	sem_wait(ts->empty);
 
 	sem_wait(ts->lock);
@@ -121,8 +109,7 @@ void put_task(struct task_set *ts, struct task *t)
 	sem_post(ts->filled);
 }
 
-struct task *get_task(struct task_set *ts)
-{
+struct task *get_task(struct task_set *ts) {
 	struct task *t;
 
 	sem_wait(ts->filled);

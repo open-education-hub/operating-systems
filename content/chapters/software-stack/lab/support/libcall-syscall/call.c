@@ -5,8 +5,7 @@
 
 static char buf[128];
 
-int main(void)
-{
+int main(void) {
 	FILE *f;
 
 	f = fopen("a.txt", "wt");

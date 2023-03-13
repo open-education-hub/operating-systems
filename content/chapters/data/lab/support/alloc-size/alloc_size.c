@@ -5,20 +5,18 @@
 
 #include "utils/utils.h"
 
-#define NUM_STEPS	10
-#define ALLOC_SIZE_KB	256
-#define ALLOC_SIZE	(ALLOC_SIZE_KB * 1024)
+#define NUM_STEPS     10
+#define ALLOC_SIZE_KB 256
+#define ALLOC_SIZE    (ALLOC_SIZE_KB * 1024)
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buffer[128];
 
 	printf("%s ...", msg);
 	fgets(buffer, 128, stdin);
 }
 
-int main(void)
-{
+int main(void) {
 	size_t i;
 	void *p;
 

@@ -1,28 +1,27 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
-#define IP_ADDR 	"127.0.0.1"
-#define PORT 		1234
+#define IP_ADDR "127.0.0.1"
+#define PORT	1234
 
 static const char message[] = "R2-D2 is underrated";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	struct sockaddr_in addr;
@@ -41,11 +40,11 @@ int main(void)
 	DIE(rc == 0, "inet_aton");
 
 	/* Send to server. */
-	rc = sendto(fd, message, sizeof(message), 0, (struct sockaddr *) &addr, sizeof(addr));
+	rc = sendto(fd, message, sizeof(message), 0, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "sendto");
 
 	/* Wait reply. */
-	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *) &addr, &addrlen);
+	rc = recvfrom(fd, buffer, BUFSIZ, 0, (struct sockaddr *)&addr, &addrlen);
 	DIE(rc < 0, "recvfrom");
 
 	printf("Received: %s\n", buffer);

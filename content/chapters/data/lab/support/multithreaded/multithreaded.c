@@ -1,33 +1,30 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #define __unused __attribute__((unused))
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buffer[128];
 
 	printf("%s ...", msg);
 	fgets(buffer, 128, stdin);
 }
 
-static void *sleep_wrapper(void __unused *data)
-{
+static void *sleep_wrapper(void __unused *data) {
 	sleep(100);
 	return NULL;
 }
 
-#define NUM_THREADS	5
+#define NUM_THREADS 5
 
-int main(void)
-{
+int main(void) {
 	size_t i;
 	pthread_t tid[NUM_THREADS];
 	int rc;

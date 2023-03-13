@@ -1,22 +1,21 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
 static const char socket_path[] = "golden_gate";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int listenfd, connectfd;
 	struct sockaddr_un addr, raddr;
@@ -33,8 +32,8 @@ int main(void)
 	/* Bind socket to path. */
 	memset(&addr, 0, sizeof(addr));
 	addr.sun_family = AF_UNIX;
-	snprintf(addr.sun_path, strlen(socket_path)+1, "%s", socket_path);
-	rc = bind(listenfd, (struct sockaddr *) &addr, sizeof(addr));
+	snprintf(addr.sun_path, strlen(socket_path) + 1, "%s", socket_path);
+	rc = bind(listenfd, (struct sockaddr *)&addr, sizeof(addr));
 	DIE(rc < 0, "bind");
 
 	/* Put in listen mode. */
@@ -42,9 +41,9 @@ int main(void)
 	DIE(rc < 0, "listen");
 
 	/* Make server run indefinitely. */
-	while(1) {
+	while (1) {
 		/* Accept connection. */
-		connectfd = accept(listenfd, (struct sockaddr *) &raddr, &raddrlen);
+		connectfd = accept(listenfd, (struct sockaddr *)&raddr, &raddrlen);
 		DIE(connectfd < 0, "accept");
 
 		/* Receive from client. */

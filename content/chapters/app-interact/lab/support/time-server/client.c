@@ -1,22 +1,21 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <endian.h>
+#include <netinet/in.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
-#include <endian.h>
 
 #include "../utils/utils.h"
 
 #define MAX_SIZE 8
 
-int connect_to_server(char *ip, char *port_str)
-{
+int connect_to_server(char *ip, char *port_str) {
 	int sockfd;
 	int ret;
 	struct sockaddr_in addr;
@@ -42,14 +41,13 @@ int connect_to_server(char *ip, char *port_str)
 	return sockfd;
 }
 
-int xrecv(int sockfd, void *buf, size_t len, int flags)
-{
+int xrecv(int sockfd, void *buf, size_t len, int flags) {
 	int ret;
 	size_t i = 0;
 	char *p = (char *)buf;
 
 	while (i < len) {
-		ret = recv(sockfd, &p[i], len-i, flags);
+		ret = recv(sockfd, &p[i], len - i, flags);
 		if (ret < 0)
 			return ret;
 
@@ -62,8 +60,7 @@ int xrecv(int sockfd, void *buf, size_t len, int flags)
 	return i;
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	int sockfd;
 	int ret;
 
@@ -92,9 +89,9 @@ int main(int argc, char *argv[])
 	DIE(ret != size, "EOF");
 
 	if (size == 4) {
-	    current_time = ntohl(val);
+		current_time = ntohl(val);
 	} else if (size == 8) {
-	    current_time = be64toh(val);
+		current_time = be64toh(val);
 	}
 
 	printf("The time is %s", ctime(&current_time));

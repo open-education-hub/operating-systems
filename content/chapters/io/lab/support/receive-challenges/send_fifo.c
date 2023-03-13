@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 static const char fifo_path[] = "apollodorus";
 static const char FLAG[] = "SO{one_man_enter_two_men_leave}";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 

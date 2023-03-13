@@ -1,37 +1,36 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
 #include <semaphore.h>
+#include <stdio.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifdef SHMEM_FILE
-#define FILENAME		"shmem.dat"
+#define FILENAME "shmem.dat"
 #elif defined SHMEM_SHM
-#define FILENAME		"/shmem.dat"
+#define FILENAME "/shmem.dat"
 #else
 #error "Unknown shared memory method"
 #endif
 
-#define SEM_WRITER_WRITE_1	"/semaphore1"
-#define SEM_WRITER_WRITE_2	"/semaphore2"
-#define SEM_READER_READ_1	"/semaphore3"
-#define SEM_READER_READ_2	"/semaphore4"
+#define SEM_WRITER_WRITE_1 "/semaphore1"
+#define SEM_WRITER_WRITE_2 "/semaphore2"
+#define SEM_READER_READ_1  "/semaphore3"
+#define SEM_READER_READ_2  "/semaphore4"
 
-#define NUM_PAGES	1
-#define MAP_SIZE	(NUM_PAGES * sysconf(_SC_PAGE_SIZE))
+#define NUM_PAGES 1
+#define MAP_SIZE  (NUM_PAGES * sysconf(_SC_PAGE_SIZE))
 
 struct map {
 	int fd;
 	void *ptr;
 };
 
-static struct map *open_shared_file_mapping(const char *filename)
-{
+static struct map *open_shared_file_mapping(const char *filename) {
 	struct map *map;
 
 	map = malloc(sizeof(*map));
@@ -52,15 +51,13 @@ static struct map *open_shared_file_mapping(const char *filename)
 	return map;
 }
 
-static void close_shared_file_mapping(struct map *map)
-{
+static void close_shared_file_mapping(struct map *map) {
 	munmap(map->ptr, MAP_SIZE);
 	close(map->fd);
 	free(map);
 }
 
-static sem_t *open_semaphore(const char *semname)
-{
+static sem_t *open_semaphore(const char *semname) {
 	sem_t *sem;
 
 	sem = sem_open(semname, O_RDWR);
@@ -69,13 +66,9 @@ static sem_t *open_semaphore(const char *semname)
 	return sem;
 }
 
-static void close_semaphore(sem_t *sem)
-{
-	sem_close(sem);
-}
+static void close_semaphore(sem_t *sem) { sem_close(sem); }
 
-int main(void)
-{
+int main(void) {
 	struct map *map;
 	sem_t *sem_writer_write_1;
 	sem_t *sem_writer_write_2;
@@ -89,11 +82,11 @@ int main(void)
 	sem_reader_read_2 = open_semaphore(SEM_READER_READ_2);
 
 	sem_wait(sem_writer_write_1);
-	printf("value is %d\n", * (int *) (map->ptr));
+	printf("value is %d\n", *(int *)(map->ptr));
 	sem_post(sem_reader_read_1);
 
 	sem_wait(sem_writer_write_2);
-	printf("value is %d\n", * (int *) (map->ptr));
+	printf("value is %d\n", *(int *)(map->ptr));
 	sem_post(sem_reader_read_2);
 
 	close_shared_file_mapping(map);

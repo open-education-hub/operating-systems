@@ -8,41 +8,37 @@
  * interpretation is performed.
  */
 
+#include <arpa/inet.h>
+#include <assert.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 
-#include "utils/utils.h"
 #include "utils/log/log.h"
 #include "utils/sock/sock_util.h"
+#include "utils/utils.h"
 
-
-#define SIMPLE_WEB_LISTEN_PORT		28282
-
+#define SIMPLE_WEB_LISTEN_PORT 28282
 
 /*
  * Handle a new connection request on the server socket.
  */
 
-static int accept_connection(int listenfd)
-{
+static int accept_connection(int listenfd) {
 	int sockfd;
 	socklen_t addrlen = sizeof(struct sockaddr_in);
 	struct sockaddr_in addr;
 
 	/* accept new connection */
-	sockfd = accept(listenfd, (SSA *) &addr, &addrlen);
+	sockfd = accept(listenfd, (SSA *)&addr, &addrlen);
 	DIE(sockfd < 0, "accept");
 
-	log_info("Accepted connection from %s:%d\n",
-		inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
+	log_info("Accepted connection from %s:%d\n", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
 
 	return sockfd;
 }
@@ -52,8 +48,7 @@ static int accept_connection(int listenfd)
  * and print it.
  */
 
-static void receive_request(int sockfd)
-{
+static void receive_request(int sockfd) {
 	ssize_t bytes_recv;
 	char buffer[BUFSIZ];
 	char abuffer[64];
@@ -66,11 +61,11 @@ static void receive_request(int sockfd)
 	}
 
 	bytes_recv = recv(sockfd, buffer, BUFSIZ, 0);
-	if (bytes_recv < 0) {		/* error in communication */
+	if (bytes_recv < 0) { /* error in communication */
 		log_error("Error in communication from %s\n", abuffer);
 		goto remove_connection;
 	}
-	if (bytes_recv == 0) {		/* connection closed */
+	if (bytes_recv == 0) { /* connection closed */
 		log_info("Connection closed from %s\n", abuffer);
 		goto remove_connection;
 	}
@@ -92,24 +87,23 @@ remove_connection:
  * Socket is closed after HTTP reply.
  */
 
-static void send_reply(int sockfd)
-{
+static void send_reply(int sockfd) {
 	ssize_t bytes_sent;
 	char abuffer[64];
 	int rc;
 	char buffer[BUFSIZ] = "HTTP/1.1 200 OK\r\n"
-		"Date: Sun, 08 May 2011 09:26:16 GMT\r\n"
-		"Server: Apache/2.2.9\r\n"
-		"Last-Modified: Mon, 02 Aug 2010 17:55:28 GMT\r\n"
-		"Accept-Ranges: bytes\r\n"
-		"Content-Length: 152\r\n"
-		"Vary: Accept-Encoding\r\n"
-		"Connection: close\r\n"
-		"Content-Type: text/html\r\n"
-		"\r\n"
-		"<html><head><meta name=\"google-site-verification\""
-		"content=\"gTsIxyV43HSJraRPl6X1A5jzGFgQ3N__hKAcuL2QsO8\" />"
-		"</head><body><h1>It works!</h1></body></html>\r\n";
+			      "Date: Sun, 08 May 2011 09:26:16 GMT\r\n"
+			      "Server: Apache/2.2.9\r\n"
+			      "Last-Modified: Mon, 02 Aug 2010 17:55:28 GMT\r\n"
+			      "Accept-Ranges: bytes\r\n"
+			      "Content-Length: 152\r\n"
+			      "Vary: Accept-Encoding\r\n"
+			      "Connection: close\r\n"
+			      "Content-Type: text/html\r\n"
+			      "\r\n"
+			      "<html><head><meta name=\"google-site-verification\""
+			      "content=\"gTsIxyV43HSJraRPl6X1A5jzGFgQ3N__hKAcuL2QsO8\" />"
+			      "</head><body><h1>It works!</h1></body></html>\r\n";
 
 	rc = get_peer_address(sockfd, abuffer, 64);
 	if (rc < 0) {
@@ -118,17 +112,16 @@ static void send_reply(int sockfd)
 	}
 
 	bytes_sent = send(sockfd, buffer, strlen(buffer), 0);
-	if (bytes_sent < 0) {		/* error in communication */
+	if (bytes_sent < 0) { /* error in communication */
 		log_error("Error in communication to %s\n", abuffer);
 		goto remove_connection;
 	}
-	if (bytes_sent == 0) {		/* connection closed */
+	if (bytes_sent == 0) { /* connection closed */
 		log_info("Connection closed to %s\n", abuffer);
 		goto remove_connection;
 	}
 
-	log_debug("Sent message to %s (bytes: %ld)\n", abuffer,
-		bytes_sent);
+	log_debug("Sent message to %s (bytes: %ld)\n", abuffer, bytes_sent);
 
 	printf("--\n%s\n--\n", buffer);
 
@@ -141,14 +134,12 @@ remove_connection:
 	close(sockfd);
 }
 
-int main(void)
-{
-	int listenfd;	/* server socket */
-	int connectfd;		/* client communication socket */
+int main(void) {
+	int listenfd;  /* server socket */
+	int connectfd; /* client communication socket */
 
 	/* create server socket */
-	listenfd = tcp_create_listener(SIMPLE_WEB_LISTEN_PORT,
-		DEFAULT_LISTEN_BACKLOG);
+	listenfd = tcp_create_listener(SIMPLE_WEB_LISTEN_PORT, DEFAULT_LISTEN_BACKLOG);
 	DIE(listenfd < 0, "tcp_create_listener");
 
 	connectfd = accept_connection(listenfd);

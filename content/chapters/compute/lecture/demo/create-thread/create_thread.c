@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-void *thread_func(void *arg)
-{
+void *thread_func(void *arg) {
 	char *msg = arg;
 
 	printf("[thread] PID = %d; PPID = %d\n", getpid(), getppid());
@@ -21,8 +20,7 @@ void *thread_func(void *arg)
 	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	pthread_t tid;
 	int rc;
 	char *msg = "SO Rullz!";

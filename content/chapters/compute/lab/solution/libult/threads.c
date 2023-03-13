@@ -25,8 +25,8 @@
 /* Github link: https://github.com/kissen/threads */
 
 #include "threads.h"
-#include "tcb.h"
 #include "queue.h"
+#include "tcb.h"
 
 #include <errno.h>
 #include <signal.h>
@@ -38,10 +38,8 @@
 #include <sys/time.h>
 #include <ucontext.h>
 
-
 static QUEUE *ready, *completed;
 static TCB *running;
-
 
 static bool init_queues(void);
 static bool init_first_context(void);
@@ -55,28 +53,26 @@ static bool malloc_stack(TCB *);
 static void block_sigprof(void);
 static void unblock_sigprof(void);
 
-
-int threads_create(void *(*start_routine) (void *), void *arg)
-{
+int threads_create(void *(*start_routine)(void *), void *arg) {
 	block_sigprof();
 
 	// Init if necessary
 
 	static bool initialized;
 
-	if (! initialized) {
-		if (! init_queues()) {
+	if (!initialized) {
+		if (!init_queues()) {
 			abort();
 		}
 
-		if (! init_first_context()) {
+		if (!init_first_context()) {
 			abort();
 		}
 
-		if (! init_profiling_timer()) {
+		if (!init_profiling_timer()) {
 			abort();
 		}
-		
+
 		initialized = true;
 	}
 
@@ -93,7 +89,7 @@ int threads_create(void *(*start_routine) (void *), void *arg)
 		return -1;
 	}
 
-	if (! malloc_stack(new)) {
+	if (!malloc_stack(new)) {
 		tcb_destroy(new);
 		return -1;
 	}
@@ -114,9 +110,7 @@ int threads_create(void *(*start_routine) (void *), void *arg)
 	return new->id;
 }
 
-
-void threads_exit(void *result)
-{
+void threads_exit(void *result) {
 	if (running == NULL) {
 		exit(EXIT_SUCCESS);
 	}
@@ -132,12 +126,10 @@ void threads_exit(void *result)
 		exit(EXIT_SUCCESS);
 	}
 
-	setcontext(&running->context);  // also unblocks SIGPROF
+	setcontext(&running->context); // also unblocks SIGPROF
 }
 
-
-int threads_join(int id, void **result)
-{
+int threads_join(int id, void **result) {
 	if (id < 0) {
 		errno = EINVAL;
 		return -1;
@@ -156,9 +148,7 @@ int threads_join(int id, void **result)
 	}
 }
 
-
-static bool init_queues(void)
-{
+static bool init_queues(void) {
 	if ((ready = queue_new()) == NULL) {
 		return false;
 	}
@@ -171,8 +161,7 @@ static bool init_queues(void)
 	return true;
 }
 
-static bool init_first_context(void)
-{
+static bool init_first_context(void) {
 	TCB *block;
 
 	if ((block = tcb_new()) == NULL) {
@@ -188,19 +177,14 @@ static bool init_first_context(void)
 	return true;
 }
 
-
-static bool init_profiling_timer(void)
-{
+static bool init_profiling_timer(void) {
 	// Install signal handler
 
 	sigset_t all;
 	sigfillset(&all);
 
 	const struct sigaction alarm = {
-		.sa_sigaction = handle_sigprof,
-		.sa_mask = all,
-		.sa_flags = SA_SIGINFO | SA_RESTART
-	};
+	    .sa_sigaction = handle_sigprof, .sa_mask = all, .sa_flags = SA_SIGINFO | SA_RESTART};
 
 	struct sigaction old;
 
@@ -210,13 +194,12 @@ static bool init_profiling_timer(void)
 	}
 
 	const struct itimerval timer = {
-		{ 2, 0 },
-		{ 0, 1 }  // arms the timer as soon as possible
+	    {2, 0}, {0, 1} // arms the timer as soon as possible
 	};
 
 	// Enable timer
 
-	if (setitimer(ITIMER_PROF, &timer, NULL) == - 1) {
+	if (setitimer(ITIMER_PROF, &timer, NULL) == -1) {
 		if (sigaction(SIGPROF, &old, NULL) == -1) {
 			perror("sigaction");
 			abort();
@@ -228,9 +211,7 @@ static bool init_profiling_timer(void)
 	return true;
 }
 
-
-static void handle_sigprof(int signum, siginfo_t *nfo, void *context)
-{
+static void handle_sigprof(int signum, siginfo_t *nfo, void *context) {
 	int old_errno = errno;
 
 	(void)signum;
@@ -241,9 +222,9 @@ static void handle_sigprof(int signum, siginfo_t *nfo, void *context)
 	}
 
 	// Backup the current context
-	
+
 	ucontext_t *stored = &running->context;
-	ucontext_t *updated = (ucontext_t *) context;
+	ucontext_t *updated = (ucontext_t *)context;
 
 	stored->uc_flags = updated->uc_flags;
 	stored->uc_link = updated->uc_link;
@@ -272,9 +253,7 @@ static void handle_sigprof(int signum, siginfo_t *nfo, void *context)
 	}
 }
 
-
-static void handle_thread_start(void)
-{
+static void handle_thread_start(void) {
 	block_sigprof();
 	TCB *this = running;
 	unblock_sigprof();
@@ -283,9 +262,7 @@ static void handle_thread_start(void)
 	threads_exit(result);
 }
 
-	 
-static bool malloc_stack(TCB *thread)
-{
+static bool malloc_stack(TCB *thread) {
 	// Get the stack size
 
 	struct rlimit limit;
@@ -312,9 +289,7 @@ static bool malloc_stack(TCB *thread)
 	return true;
 }
 
-
-static void block_sigprof(void)
-{
+static void block_sigprof(void) {
 	sigset_t sigprof;
 	sigemptyset(&sigprof);
 	sigaddset(&sigprof, SIGPROF);
@@ -325,9 +300,7 @@ static void block_sigprof(void)
 	}
 }
 
-
-static void unblock_sigprof(void)
-{
+static void unblock_sigprof(void) {
 	sigset_t sigprof;
 	sigemptyset(&sigprof);
 	sigaddset(&sigprof, SIGPROF);

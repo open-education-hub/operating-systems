@@ -3,15 +3,14 @@
 #undef _UNICODE
 #undef UNICODE
 
-#include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 #include "utils/utils.h"
 
-int main(void)
-{
+int main(void) {
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
 	BOOL bRet;
@@ -21,12 +20,10 @@ int main(void)
 	ZeroMemory(&si, sizeof(si));
 	si.cb = sizeof(si);
 
-	bRet = CreateProcess(NULL, "cmd /c dir", NULL, NULL, FALSE, 0, NULL,
-		NULL, &si, &pi);
+	bRet = CreateProcess(NULL, "cmd /c dir", NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
 	DIE(bRet == FALSE, "CreateProcess");
 
-	printf("[parent] PID = %d; child PID = %d; Waiting...\n",
-		GetCurrentProcessId(), pi.dwProcessId);
+	printf("[parent] PID = %d; child PID = %d; Waiting...\n", GetCurrentProcessId(), pi.dwProcessId);
 
 	dwRet = WaitForSingleObject(pi.hProcess, INFINITE);
 	DIE(dwRet == WAIT_FAILED, "WaitForSingleObject");

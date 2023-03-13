@@ -1,24 +1,19 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <semaphore.h>
-#include <pthread.h>
 
 #include "utils/utils.h"
 
 #define __unused __attribute__((unused))
 
-static const char * const messages[] = {
-	"I",
-	" hate",
-	" bullshit\n"
-};
+static const char *const messages[] = {"I", " hate", " bullshit\n"};
 
 static sem_t sem_wait_first, sem_wait_second;
 
-static void *first(__unused void *arg)
-{
+static void *first(__unused void *arg) {
 	printf("%s", messages[0]);
 	sem_post(&sem_wait_first);
 
@@ -28,8 +23,7 @@ static void *first(__unused void *arg)
 	return NULL;
 }
 
-static void *second(__unused void *arg)
-{
+static void *second(__unused void *arg) {
 	sem_wait(&sem_wait_first);
 	printf("%s", messages[1]);
 	sem_post(&sem_wait_second);
@@ -37,8 +31,7 @@ static void *second(__unused void *arg)
 	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	pthread_t first_tid, second_tid;
 	int rc;
 

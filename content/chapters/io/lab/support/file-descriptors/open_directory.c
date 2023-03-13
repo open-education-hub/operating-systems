@@ -2,15 +2,14 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 #include "utils/utils.h"
 
-#define DIR_NAME	"../simple-file-operations/dir"
+#define DIR_NAME "../simple-file-operations/dir"
 
-static void open_directory(const char *dir_name)
-{
+static void open_directory(const char *dir_name) {
 	int fd;
 
 	fd = open(dir_name, O_DIRECTORY, 0755);
@@ -19,8 +18,7 @@ static void open_directory(const char *dir_name)
 	printf("Directory file descriptor is: %d\n", fd);
 }
 
-int main(void)
-{
+int main(void) {
 	open_directory(DIR_NAME);
 	return 0;
 }

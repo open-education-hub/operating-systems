@@ -1,9 +1,9 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <semaphore.h>
-#include <pthread.h>
 
 #include "utils/utils.h"
 
@@ -15,11 +15,10 @@ static sem_t reader_read_1;
 
 static int shared_value = 0;
 
-#define VALUE_1		100
-#define VALUE_2		200
+#define VALUE_1 100
+#define VALUE_2 200
 
-static void *writer(__unused void *arg)
-{
+static void *writer(__unused void *arg) {
 	shared_value = VALUE_1;
 	sem_post(&writer_write_1);
 
@@ -30,8 +29,7 @@ static void *writer(__unused void *arg)
 	return NULL;
 }
 
-static void *reader(__unused void *arg)
-{
+static void *reader(__unused void *arg) {
 	sem_wait(&writer_write_1);
 	printf("read %d\n", shared_value);
 	sem_post(&reader_read_1);
@@ -42,8 +40,7 @@ static void *reader(__unused void *arg)
 	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	pthread_t writer_tid;
 	pthread_t reader_tid;
 	int rc;

@@ -6,11 +6,10 @@
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	char buffer[BUFSIZ];
 

@@ -2,20 +2,18 @@
 
 #include "./syscall.h"
 
-static void reverse_string(char *a, unsigned int len)
-{
+static void reverse_string(char *a, unsigned int len) {
 	unsigned int i, j;
 	char aux;
 
-	for (i = 0, j = len-1; i < j; i++, j--) {
+	for (i = 0, j = len - 1; i < j; i++, j--) {
 		aux = a[i];
 		a[i] = a[j];
 		a[j] = aux;
 	}
 }
 
-static unsigned int itoa(int n, char *a)
-{
+static unsigned int itoa(int n, char *a) {
 	unsigned int num_digits = 0;
 	int digit;
 
@@ -37,8 +35,7 @@ static unsigned int itoa(int n, char *a)
 	return num_digits;
 }
 
-int main(void)
-{
+int main(void) {
 	char buffer[128];
 	int n;
 	int pid;

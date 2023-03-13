@@ -1,20 +1,19 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdio.h>
 #include <pthread.h>
-#include <sys/time.h>
 #include <stdatomic.h>
+#include <stdio.h>
+#include <sys/time.h>
 
-#include "utils/utils.h"
 #include "utils/get_time.h"
+#include "utils/utils.h"
 
-#define NUM_STEPS	1000000
-#define NUM_THREADS	2
+#define NUM_STEPS   1000000
+#define NUM_THREADS 2
 
 static int var;
 
-static void *increase_var(void *arg)
-{
+static void *increase_var(void *arg) {
 	size_t i;
 
 	(void)arg;
@@ -22,11 +21,10 @@ static void *increase_var(void *arg)
 	for (i = 0; i < NUM_STEPS; ++i)
 		atomic_fetch_add(&var, 1);
 
-	return  NULL;
+	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	void *retval;
 	size_t i;

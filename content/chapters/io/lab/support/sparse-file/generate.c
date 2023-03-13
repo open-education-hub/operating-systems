@@ -1,20 +1,19 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-#define FILENAME "swiss_cheese.sparse"
+#define FILENAME   "swiss_cheese.sparse"
 #define NUM_SPACES 10
 
 static const char FLAG[] = "SO{all_for_the_empire}";
 
-int main(void)
-{
+int main(void) {
 	int fd;
 	size_t i;
 
@@ -25,7 +24,7 @@ int main(void)
 		ssize_t n;
 		off_t pos;
 
-		n = write(fd, FLAG+i, 1);
+		n = write(fd, FLAG + i, 1);
 		DIE(n < 0, "write");
 
 		pos = lseek(fd, NUM_SPACES, SEEK_CUR);

@@ -1,25 +1,24 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/prctl.h>
+#include <sys/sysinfo.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/sysinfo.h>
-#include <sys/prctl.h>
-#include <signal.h>
 
-#include "utils/utils.h"
 #include "utils/log/log.h"
 #include "utils/sock/sock_util.h"
+#include "utils/utils.h"
 
-#include "./task.h"
 #include "./connection.h"
+#include "./task.h"
 
 static struct task_set *ts;
 
-static void handle(void)
-{
+static void handle(void) {
 	/* Get task and serve non-stop. */
 	while (1) {
 		struct task *t;
@@ -29,8 +28,7 @@ static void handle(void)
 	}
 }
 
-static void create_process_pool(size_t num_processes)
-{
+static void create_process_pool(size_t num_processes) {
 	pid_t pid, parent_pid;
 	size_t i;
 	int rc;
@@ -51,7 +49,7 @@ static void create_process_pool(size_t num_processes)
 			 * before the prctl() call.
 			 */
 			if (getppid() != parent_pid)
-				 exit(EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			handle();
 			break;
 		default:
@@ -60,9 +58,8 @@ static void create_process_pool(size_t num_processes)
 	}
 }
 
-static void run_server(int port)
-{
-	int listenfd;		/* server socket */
+static void run_server(int port) {
+	int listenfd; /* server socket */
 
 	/* create server socket */
 	listenfd = tcp_create_listener(port, DEFAULT_LISTEN_BACKLOG);
@@ -70,7 +67,7 @@ static void run_server(int port)
 
 	while (1) {
 		struct task *t;
-		int connectfd;	/* client communication socket */
+		int connectfd; /* client communication socket */
 
 		connectfd = accept_connection(listenfd);
 		DIE(connectfd < 0, "accept_connection");
@@ -83,8 +80,7 @@ static void run_server(int port)
 	}
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	int port;
 	long num_cores;
 
@@ -93,7 +89,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	port = (int) strtol(argv[1], NULL, 10);
+	port = (int)strtol(argv[1], NULL, 10);
 	DIE(errno == ERANGE, "strtol");
 
 	if (port < 0 || port > 65535) {

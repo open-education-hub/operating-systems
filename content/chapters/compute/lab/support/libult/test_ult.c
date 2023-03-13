@@ -5,11 +5,10 @@
 #include "./threads.h"
 #include "utils/utils.h"
 
-#define NUM_ITER		10000000
-#define NUM_THREADS		2
+#define NUM_ITER    10000000
+#define NUM_THREADS 2
 
-static void *printer_thread(void *arg)
-{
+static void *printer_thread(void *arg) {
 	size_t id = (size_t)arg;
 	int i;
 
@@ -20,8 +19,7 @@ static void *printer_thread(void *arg)
 	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	size_t i;
 	int threads[NUM_THREADS];
 	void *res;
@@ -30,7 +28,7 @@ int main(void)
 	puts("Hello, this is main().");
 
 	for (i = 0; i < NUM_THREADS; ++i) {
-		threads[i] = threads_create(printer_thread, (void*)i);
+		threads[i] = threads_create(printer_thread, (void *)i);
 		DIE(threads[i] < 0, "threads_create");
 	}
 
@@ -40,8 +38,7 @@ int main(void)
 			DIE(rc < 0, "threads_join");
 
 			if (rc) {
-				printf("Joined thread %d with result %p\n",
-					threads[i], res);
+				printf("Joined thread %d with result %p\n", threads[i], res);
 				break;
 			}
 		}

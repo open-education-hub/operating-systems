@@ -1,22 +1,21 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/un.h>
-#include <sys/socket.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
 static const char socket_path[] = "../../support/receive-challenges/golden_gate";
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int listenfd, connectfd;
 	struct sockaddr_un addr, raddr;
@@ -32,17 +31,15 @@ int main(void)
 
 	/* TODO: Bind socket to path. */
 
-
 	/* Put in listen mode. */
 	rc = listen(listenfd, 10);
 	DIE(rc < 0, "listen");
 
 	/* Accept connection. */
-	connectfd = accept(listenfd, (struct sockaddr *) &raddr, &raddrlen);
+	connectfd = accept(listenfd, (struct sockaddr *)&raddr, &raddrlen);
 	DIE(connectfd < 0, "accept");
 
 	/* TODO: Read flag from socket. */
-
 
 	printf("Flag is: %s\n", buffer);
 

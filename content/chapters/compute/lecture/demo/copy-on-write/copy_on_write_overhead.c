@@ -2,18 +2,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <sys/time.h>
+#include <unistd.h>
 
-#include "utils/utils.h"
 #include "utils/get_time.h"
+#include "utils/utils.h"
 
-#define NPAGES		(128 * 1024)
+#define NPAGES (128 * 1024)
 
-static void wait_for_input(const char *msg)
-{
+static void wait_for_input(const char *msg) {
 	char buf[32];
 
 	printf(" * %s\n", msg);
@@ -22,8 +21,7 @@ static void wait_for_input(const char *msg)
 	fgets(buf, 32, stdin);
 }
 
-int main(void)
-{
+int main(void) {
 	pid_t pid;
 	int rc;
 	size_t i;
@@ -41,11 +39,11 @@ int main(void)
 
 	pid = fork();
 	switch (pid) {
-	case -1:	/* Error */
+	case -1: /* Error */
 		DIE(1, "fork");
 		break;
 
-	case 0:		/* Child process */
+	case 0: /* Child process */
 		wait_for_input("Child process started");
 
 		/* Measure the time spent reading. No COW. */
@@ -56,8 +54,7 @@ int main(void)
 
 		millis_end = get_current_millis();
 
-		printf("Time for reading %d pages: %lu ms\n", NPAGES,
-			millis_end - millis_start);
+		printf("Time for reading %d pages: %lu ms\n", NPAGES, millis_end - millis_start);
 
 		wait_for_input("Child process read pages");
 
@@ -69,14 +66,13 @@ int main(void)
 
 		millis_end = get_current_millis();
 
-		printf("Time for writing to %d pages: %lu ms\n", NPAGES,
-			millis_end - millis_start);
+		printf("Time for writing to %d pages: %lu ms\n", NPAGES, millis_end - millis_start);
 
 		wait_for_input("Child process wrote pages");
 
 		exit(EXIT_SUCCESS);
 
-	default:	/* Parent process */
+	default: /* Parent process */
 		rc = waitpid(pid, NULL, 0);
 		DIE(rc < 0, "waitpid");
 		break;

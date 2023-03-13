@@ -1,25 +1,24 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/prctl.h>
+#include <sys/sysinfo.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/sysinfo.h>
-#include <sys/prctl.h>
-#include <signal.h>
 
-#include "utils/utils.h"
 #include "utils/log/log.h"
 #include "utils/sock/sock_util.h"
+#include "utils/utils.h"
 
 #include "./connection.h"
 
 int listenfd;
 
-static void handle(void)
-{
-	int connectfd;	/* client communication socket */
+static void handle(void) {
+	int connectfd; /* client communication socket */
 
 	/* Get task and serve non-stop. */
 	while (1) {
@@ -30,8 +29,7 @@ static void handle(void)
 	}
 }
 
-static void create_process_pool(size_t num_processes, int port)
-{
+static void create_process_pool(size_t num_processes, int port) {
 	pid_t pid, parent_pid;
 	size_t i;
 	int rc;
@@ -56,7 +54,7 @@ static void create_process_pool(size_t num_processes, int port)
 			 * before the prctl() call.
 			 */
 			if (getppid() != parent_pid)
-				 exit(EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			handle();
 			break;
 		default:
@@ -68,8 +66,7 @@ static void create_process_pool(size_t num_processes, int port)
 	handle();
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	int port;
 	long num_cores;
 
@@ -78,7 +75,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	port = (int) strtol(argv[1], NULL, 10);
+	port = (int)strtol(argv[1], NULL, 10);
 	DIE(errno == ERANGE, "strtol");
 
 	if (port < 0 || port > 65535) {

@@ -2,8 +2,7 @@
 
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
 	printf("Dovahkiin, Dovahkiin ");
 	printf("Naal ok zin los vahriin ");
 	printf("Wah dein vokul mahfaeraak ahst vaal! ");

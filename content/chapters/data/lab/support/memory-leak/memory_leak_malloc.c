@@ -1,9 +1,9 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <mcheck.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <mcheck.h>
 
 struct student {
 	char name[128];
@@ -11,21 +11,17 @@ struct student {
 	char favorite_os[16];
 };
 
-static void init_student(struct student *s, const char *name, unsigned int age, const char *os)
-{
+static void init_student(struct student *s, const char *name, unsigned int age, const char *os) {
 	strcpy(s->name, name);
 	s->age = age;
 	strcpy(s->favorite_os, os);
 }
 
-static void print_student(struct student *s)
-{
-	printf("%s is %u years old and likes %s\n",
-			s->name, s->age, s->favorite_os);
+static void print_student(struct student *s) {
+	printf("%s is %u years old and likes %s\n", s->name, s->age, s->favorite_os);
 }
 
-int main(void)
-{
+int main(void) {
 	struct student *s;
 
 	mtrace();
@@ -35,7 +31,7 @@ int main(void)
 	print_student(s);
 
 	s = malloc(sizeof(*s));
-        init_student(s, "Ioana David", 23, "macOS");
+	init_student(s, "Ioana David", 23, "macOS");
 	print_student(s);
 
 	free(s);

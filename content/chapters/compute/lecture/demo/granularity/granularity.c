@@ -1,42 +1,40 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdio.h>
 #include <pthread.h>
+#include <stdio.h>
 #include <sys/time.h>
 
-#include "utils/utils.h"
 #include "utils/get_time.h"
+#include "utils/utils.h"
 
-#define NUM_STEPS	2000000
-#define NUM_THREADS	10
+#define NUM_STEPS   2000000
+#define NUM_THREADS 10
 
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 static int var;
 
-static void *increase_var(void *arg)
-{
+static void *increase_var(void *arg) {
 	size_t i;
 
 	(void)arg;
 
 #ifdef FINE_GRAINED
 	for (i = 0; i < NUM_STEPS; ++i) {
-		pthread_mutex_lock(&lock);	/* Begin critical section. */
+		pthread_mutex_lock(&lock); /* Begin critical section. */
 		++var;
-		pthread_mutex_unlock(&lock);	/* End critical section. */
+		pthread_mutex_unlock(&lock); /* End critical section. */
 	}
 #elif COARSE_GRAINED
-	pthread_mutex_lock(&lock);		/* Begin critical section. */
+	pthread_mutex_lock(&lock); /* Begin critical section. */
 	for (i = 0; i < NUM_STEPS; ++i)
 		++var;
-	pthread_mutex_unlock(&lock);		/* End critical section. */
+	pthread_mutex_unlock(&lock); /* End critical section. */
 #endif
 
-	return  NULL;
+	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	void *retval;
 	size_t i;

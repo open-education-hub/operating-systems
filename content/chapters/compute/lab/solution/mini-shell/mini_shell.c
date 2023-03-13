@@ -1,23 +1,23 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdlib.h>
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 #include "utils/utils.h"
 
-#define MAX_LINE_SIZE		256
-#define MAX_ARGS		8
+#define MAX_LINE_SIZE 256
+#define MAX_ARGS      8
 
-#define ERROR			0
-#define SIMPLE			1
-#define REDIRECT		2
-#define PIPE			3
-#define EXIT_CMD		5
+#define ERROR	 0
+#define SIMPLE	 1
+#define REDIRECT 2
+#define PIPE	 3
+#define EXIT_CMD 5
 
 static char *verb;
 static char **args;
@@ -27,18 +27,14 @@ static char *stderr_file;
 
 static int type;
 
+static void alloc_mem(void) { args = malloc(MAX_ARGS * sizeof(char *)); }
 
-static void alloc_mem(void)
-{
-	args = malloc(MAX_ARGS * sizeof(char *));
-}
-
-static int parse_line(char *line)
-{
+static int parse_line(char *line) {
 	int ret = SIMPLE;
 	int idx = 0;
 	char *token;
-	char *delim = "=\n";;
+	char *delim = "=\n";
+	;
 	char *saveptr;
 
 	stdin_file = NULL;
@@ -77,8 +73,7 @@ static int parse_line(char *line)
 /**
  *  @args - array that contains a simple command with parameters
  */
-static void simple_cmd(char **args)
-{
+static void simple_cmd(char **args) {
 	pid_t pid;
 	pid_t wait_ret;
 	int status;
@@ -96,7 +91,7 @@ static void simple_cmd(char **args)
 
 	case 0:
 		/* Child process */
-		execvp(args[0], (char *const *) args);
+		execvp(args[0], (char *const *)args);
 		DIE(1, "execvp");
 		break;
 
@@ -107,13 +102,12 @@ static void simple_cmd(char **args)
 
 		if (WIFEXITED(status))
 			printf("Child process (pid %d) terminated normally, "
-					"with exit code %d\n",
-					pid, WEXITSTATUS(status));
+			       "with exit code %d\n",
+			       pid, WEXITSTATUS(status));
 	}
 }
 
-int main(void)
-{
+int main(void) {
 	char line[MAX_LINE_SIZE];
 
 	alloc_mem();

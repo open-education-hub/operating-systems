@@ -1,26 +1,24 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdio.h>
 #include <pthread.h>
+#include <stdio.h>
 #include <sys/time.h>
 
-#include "utils/utils.h"
 #include "utils/get_time.h"
+#include "utils/utils.h"
 
-#define NUM_STEPS	1000000
-#define NUM_THREADS	2
+#define NUM_STEPS   1000000
+#define NUM_THREADS 2
 
 static pthread_spinlock_t lock;
 
-static void acquire_lock(void)
-{
+static void acquire_lock(void) {
 	int rc = pthread_spin_lock(&lock);
 
 	DIE(rc, "pthread_spin_lock");
 }
 
-static void release_lock(void)
-{
+static void release_lock(void) {
 	int rc = pthread_spin_unlock(&lock);
 
 	DIE(rc, "pthread_spin_unlock");
@@ -28,23 +26,21 @@ static void release_lock(void)
 
 static int var;
 
-static void *increase_var(void *arg)
-{
+static void *increase_var(void *arg) {
 	size_t i;
 
 	(void)arg;
 
 	for (i = 0; i < NUM_STEPS; ++i) {
-		acquire_lock();	/* Begin critical section. */
+		acquire_lock(); /* Begin critical section. */
 		++var;
-		release_lock();	/* End critical section. */
+		release_lock(); /* End critical section. */
 	}
 
-	return  NULL;
+	return NULL;
 }
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	void *retval;
 	size_t i;

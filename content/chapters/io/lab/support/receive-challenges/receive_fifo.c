@@ -1,19 +1,18 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
 static const char fifo_path[] = "apollodorus";
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int fd;
 	char buffer[BUFSIZ];
@@ -32,9 +31,7 @@ int main(void)
 
 	/* TODO: Open FIFO for reading. */
 
-
 	/* TODO: Read flag from FIFO. */
-
 
 	printf("Flag is: %s\n", buffer);
 

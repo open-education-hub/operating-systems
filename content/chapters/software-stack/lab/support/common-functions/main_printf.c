@@ -1,21 +1,17 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include "./syscall.h"
-#include "./string.h"
 #include "./printf.h"
+#include "./string.h"
+#include "./syscall.h"
 
 static const char src[] = "warhammer40k";
 static char dest[128];
 static char out_buffer[256];
 
 /* _putchar implementation has to be provided. */
-void _putchar(char character)
-{
-	write(1, &character, 1);
-}
+void _putchar(char character) { write(1, &character, 1); }
 
-int main(void)
-{
+int main(void) {
 	printf("[before] src is at %p, len is %lu, content: \"%s\"\n", src, strlen(src), src);
 	printf("[before] dest is at %p, len is %lu, content: \"%s\"\n", dest, strlen(dest), dest);
 

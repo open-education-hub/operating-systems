@@ -1,29 +1,29 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <openssl/sha.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <openssl/sha.h>
+#include <unistd.h>
 
 #include "../utils/utils.h"
 
-#define NUM_WORKERS 26
+#define NUM_WORKERS  26
 #define PASSWORD_LEN 4
-#define PASSWORD_HASH "\x59\xa5\xab\xc2\xa9\x9b\x95\xbe"		\
-	"\x73\xc3\x1e\xa2\x72\xab\x0f\x2f"				\
-	"\x2f\xe4\x2f\xec\x30\x36\x71\x55"				\
-	"\xcb\x73\xf6\xf6\xce\xf1\xf4\xe6"				\
-	"\xee\x37\xf5\x86\xcb\xd0\x2c\xc7"				\
-	"\x38\xa8\x7a\x5d\x6a\xdd\x3b\xa3"				\
-	"\x1d\xbe\xaf\x39\xec\x77\xca\xd9"				\
+#define PASSWORD_HASH                                                                                                  \
+	"\x59\xa5\xab\xc2\xa9\x9b\x95\xbe"                                                                             \
+	"\x73\xc3\x1e\xa2\x72\xab\x0f\x2f"                                                                             \
+	"\x2f\xe4\x2f\xec\x30\x36\x71\x55"                                                                             \
+	"\xcb\x73\xf6\xf6\xce\xf1\xf4\xe6"                                                                             \
+	"\xee\x37\xf5\x86\xcb\xd0\x2c\xc7"                                                                             \
+	"\x38\xa8\x7a\x5d\x6a\xdd\x3b\xa3"                                                                             \
+	"\x1d\xbe\xaf\x39\xec\x77\xca\xd9"                                                                             \
 	"\x10\x83\x7c\x94\xc6\x58\x37\xfb"
 #define HASH_LEN 64
 
-int check_password(char *password, int len)
-{
+int check_password(char *password, int len) {
 	unsigned char hash[HASH_LEN];
 
 	SHA512((unsigned char *)password, len, hash);
@@ -31,11 +31,10 @@ int check_password(char *password, int len)
 	return memcmp(hash, PASSWORD_HASH, HASH_LEN) == 0;
 }
 
-void worker(int idx, int request_pipe_fd, int result_pipe_fd)
-{
+void worker(int idx, int request_pipe_fd, int result_pipe_fd) {
 	char first_char;
 	int ret;
-	char password[PASSWORD_LEN+1];
+	char password[PASSWORD_LEN + 1];
 	int i, k;
 	int found = 0;
 	int v;
@@ -50,8 +49,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	password[0] = first_char;
 
 	for (i = 1; i < PASSWORD_LEN; i++)
-		password[i] = 'a'-1;
-
+		password[i] = 'a' - 1;
 
 	/*
 	 * Generate all possible combinations.
@@ -64,7 +62,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 
 			if (k < PASSWORD_LEN) {
 				k++;
-				password[k] = 'a'-1;
+				password[k] = 'a' - 1;
 			}
 		}
 
@@ -104,8 +102,7 @@ void worker(int idx, int request_pipe_fd, int result_pipe_fd)
 	}
 }
 
-void create_workers(int *request_pipefd, int *result_pipefd)
-{
+void create_workers(int *request_pipefd, int *result_pipefd) {
 	int tmp_request_pipe[2];
 	int tmp_result_pipe[2];
 	int ret;
@@ -156,15 +153,14 @@ void create_workers(int *request_pipefd, int *result_pipefd)
 	}
 }
 
-int main()
-{
+int main() {
 	int i;
 	int request_pipefd[NUM_WORKERS];
 	int result_pipefd[NUM_WORKERS];
 	int len;
 	int ret;
 	char char_list[] = "abcdefghijklmnopqrstuvwxyz";
-	char password[PASSWORD_LEN+1];
+	char password[PASSWORD_LEN + 1];
 
 	create_workers(request_pipefd, result_pipefd);
 

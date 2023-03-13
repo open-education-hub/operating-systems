@@ -2,13 +2,12 @@
 
 #include <stdio.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 #include "utils/utils.h"
 
-int main(void)
-{
+int main(void) {
 	pid_t ret_pid;
 	pid_t pid;
 	int status;
@@ -22,8 +21,7 @@ int main(void)
 
 	case 0:
 		/* Child process */
-		printf("[child 1] current PID = %d; parent PID = %d\n",
-			getpid(), getppid());
+		printf("[child 1] current PID = %d; parent PID = %d\n", getpid(), getppid());
 
 		/**
 		 * TODO 2: Create another child process here and print its PID
@@ -37,20 +35,17 @@ int main(void)
 
 		case 0:
 			/* Child process */
-			printf("[child 2] current PID = %d; parent PID = %d\n",
-				getpid(), getppid());
+			printf("[child 2] current PID = %d; parent PID = %d\n", getpid(), getppid());
 			return 42;
 
 		default:
 			/* Parent process */
-			printf("[child 1] child 2 PID = %d; current PID = %d\n",
-				pid, getpid());
+			printf("[child 1] child 2 PID = %d; current PID = %d\n", pid, getpid());
 
 			ret_pid = waitpid(pid, &status, 0);
 			DIE(ret_pid < 0, "waitpid child");
 
-			printf("[child 1] Child 2 exited with status %d\n",
-				WEXITSTATUS(status));
+			printf("[child 1] Child 2 exited with status %d\n", WEXITSTATUS(status));
 			break;
 		}
 
@@ -62,15 +57,13 @@ int main(void)
 
 	default:
 		/* Parent process */
-		printf("[parent] child PID = %d; current PID = %d\n", pid,
-			getpid());
+		printf("[parent] child PID = %d; current PID = %d\n", pid, getpid());
 
 		ret_pid = waitpid(pid, &status, 0);
 		DIE(ret_pid < 0, "waitpid parent");
 
 		if (WIFEXITED(status))
-			printf("[parent] Child process exited with status %d\n",
-				WEXITSTATUS(status));
+			printf("[parent] Child process exited with status %d\n", WEXITSTATUS(status));
 		break;
 	}
 

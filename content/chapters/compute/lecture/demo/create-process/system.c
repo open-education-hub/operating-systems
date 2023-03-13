@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "utils/utils.h"
 
 extern char **environ;
 
-int main(void)
-{
+int main(void) {
 	int rc;
 
 	/* Spawn a new process that runs `ls -a`. */

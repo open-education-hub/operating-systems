@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "utils/utils.h"
 
 static char buff[BUFSIZ] = {'a'};
 
-int main(void)
-{
+int main(void) {
 	size_t i, j;
 	size_t val = 0x12345678;
 

@@ -1,26 +1,25 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/sysinfo.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/sysinfo.h>
-#include <pthread.h>
 
-#include "utils/utils.h"
 #include "utils/log/log.h"
 #include "utils/sock/sock_util.h"
+#include "utils/utils.h"
 
-#include "./task.h"
 #include "./connection.h"
+#include "./task.h"
 
 #define __unused __attribute__((unused))
 
 static struct task_set *ts;
 
-static void *handle(__unused void *arg)
-{
+static void *handle(__unused void *arg) {
 	/* Get task and serve non-stop. */
 	while (1) {
 		struct task *t;
@@ -32,8 +31,7 @@ static void *handle(__unused void *arg)
 	return NULL;
 }
 
-static void create_thread_pool(size_t num_threads)
-{
+static void create_thread_pool(size_t num_threads) {
 	pthread_t tid;
 	pthread_attr_t attr;
 	size_t i;
@@ -48,9 +46,8 @@ static void create_thread_pool(size_t num_threads)
 	}
 }
 
-static void run_server(int port)
-{
-	int listenfd;		/* server socket */
+static void run_server(int port) {
+	int listenfd; /* server socket */
 
 	/* create server socket */
 	listenfd = tcp_create_listener(port, DEFAULT_LISTEN_BACKLOG);
@@ -58,7 +55,7 @@ static void run_server(int port)
 
 	while (1) {
 		struct task *t;
-		int connectfd;	/* client communication socket */
+		int connectfd; /* client communication socket */
 
 		connectfd = accept_connection(listenfd);
 		DIE(connectfd < 0, "accept_connection");
@@ -71,8 +68,7 @@ static void run_server(int port)
 	}
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	int port;
 	long num_cores;
 
@@ -81,7 +77,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	port = (int) strtol(argv[1], NULL, 10);
+	port = (int)strtol(argv[1], NULL, 10);
 	DIE(errno == ERANGE, "strtol");
 
 	if (port < 0 || port > 65535) {

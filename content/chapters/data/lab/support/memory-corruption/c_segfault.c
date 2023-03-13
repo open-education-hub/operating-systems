@@ -4,17 +4,15 @@
 
 #define SIZE_INT 32
 
-static void printBitArray(unsigned int theBits[SIZE_INT])
-{
-	unsigned int i = SIZE_INT-1;
+static void printBitArray(unsigned int theBits[SIZE_INT]) {
+	unsigned int i = SIZE_INT - 1;
 	while (i >= 0) {
 		printf("%u\n", theBits[i]);
 		i--;
 	}
 }
 
-static void toBits(unsigned int value, unsigned int inBits[SIZE_INT])
-{
+static void toBits(unsigned int value, unsigned int inBits[SIZE_INT]) {
 	unsigned int shiftBit = 0x0001;
 
 	for (unsigned int i = 0; i < SIZE_INT; i++) {
@@ -26,19 +24,17 @@ static void toBits(unsigned int value, unsigned int inBits[SIZE_INT])
 	}
 }
 
-static unsigned int factorial(unsigned int num)
-{
+static unsigned int factorial(unsigned int num) {
 	unsigned int fact = 0;
 
 	if (num == 0)
 		return 1;
 
-	fact = factorial(num-1);
-	return fact*num;
+	fact = factorial(num - 1);
+	return fact * num;
 }
 
-int main(void)
-{
+int main(void) {
 	unsigned int number = 0;
 	unsigned int theBits[SIZE_INT];
 	unsigned int fact;

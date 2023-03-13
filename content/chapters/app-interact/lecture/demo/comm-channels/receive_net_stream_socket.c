@@ -1,25 +1,24 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-#include "utils/utils.h"
 #include "utils/sock/sock_util.h"
+#include "utils/utils.h"
 
 #ifndef BUFSIZ
-#define BUFSIZ		256
+#define BUFSIZ 256
 #endif
 
-#define LISTEN_BACKLOG	10
+#define LISTEN_BACKLOG 10
 
 unsigned short port = 4242;
 
-int main(void)
-{
+int main(void) {
 	int rc;
 	int listenfd, sockfd;
 	struct sockaddr_in raddr;
@@ -31,7 +30,7 @@ int main(void)
 	DIE(listenfd < 0, "tpc_create_listener");
 
 	/* Accept connection. */
-	sockfd = accept(listenfd, (SSA *) &raddr, &raddrlen);
+	sockfd = accept(listenfd, (SSA *)&raddr, &raddrlen);
 	DIE(sockfd < 0, "accept");
 
 	/* Read flag from socket. */

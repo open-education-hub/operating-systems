@@ -7,20 +7,17 @@
 
 #include "utils/utils.h"
 
-#define USEC_PER_SEC	1000000
-#define MSEC_PER_SEC	1000
+#define USEC_PER_SEC 1000000
+#define MSEC_PER_SEC 1000
 
-#define READ		0
-#define WRITE		1
+#define READ  0
+#define WRITE 1
 
-static unsigned long diff_msec(struct timeval start, struct timeval end)
-{
-	return (USEC_PER_SEC * (end.tv_sec - start.tv_sec) + end.tv_usec -
-		start.tv_usec) / MSEC_PER_SEC;
+static unsigned long diff_msec(struct timeval start, struct timeval end) {
+	return (USEC_PER_SEC * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / MSEC_PER_SEC;
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	char c = 'x';
 	int rc;
 	int mode;
@@ -66,11 +63,9 @@ int main(int argc, char *argv[])
 	gettimeofday(&end, NULL);
 
 	if (mode == READ)
-		printf("Read %zu bytes from %s in %lu ms\n", total_bytes,
-			argv[2], diff_msec(start, end));
+		printf("Read %zu bytes from %s in %lu ms\n", total_bytes, argv[2], diff_msec(start, end));
 	else
-		printf("Wrote %zu bytes to %s in %lu ms\n", total_bytes,
-			argv[2], diff_msec(start, end));
+		printf("Wrote %zu bytes to %s in %lu ms\n", total_bytes, argv[2], diff_msec(start, end));
 
 	rc = fclose(f);
 	DIE(rc == -1, "close");
