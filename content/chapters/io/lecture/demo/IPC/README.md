@@ -16,7 +16,7 @@ The parent will write at one end of the pipe and the child will read from the ot
 Expected output:
 
 ```console
-student@os:~/.../demo/IPC$ ./pipe 
+student@os:~/.../demo/IPC$ ./pipe
 I am the one who knocks!
 ```
 

@@ -99,7 +99,7 @@ But even for programming languages that don't offer pointers (such as Python) is
 In the `str.py` file, we look to modify `str[1]`, but this fails:
 
 ```console
-student@os:~/.../lab/support/memory-protection$ ./str.py 
+student@os:~/.../lab/support/memory-protection$ ./str.py
 n, 110, n
 Traceback (most recent call last):
   File "./str.py", line 5, in <module>

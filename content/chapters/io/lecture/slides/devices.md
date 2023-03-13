@@ -160,7 +160,7 @@ static ssize_t read_zero(struct file *file, char __user *buf,
 	while (count) {
 		size_t chunk = min_t(size_t, count, PAGE_SIZE);
 		size_t left = clear_user(buf + cleared, chunk);
-		
+
 		cleared += chunk;
 		count -= chunk;
 	}

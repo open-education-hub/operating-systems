@@ -170,7 +170,7 @@ Now let's move inside the `os-cloud` container:
 
 ```console
 student@os:~/.../support/os-cloud$ docker-compose exec os-cloud bash
-root@89a986d2526e:/app# 
+root@89a986d2526e:/app#
 ```
 
 Since the virtual machines run inside this container, we should expect to see the one that we created in the previous step.
@@ -195,13 +195,13 @@ ED25519 key fingerprint is SHA256:3Mfa1fB9y4knUDJWEmEOTz9dWOE7SVhnH/kCBJ15Y0E.
 This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '192.168.0.2' (ED25519) to the list of known hosts.
-root@192.168.0.2's password: 
+root@192.168.0.2's password:
 Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-40-generic x86_64)
 
 ...
 
 Last login: Thu Nov 17 07:49:55 2022
-root@ubuntu:~# 
+root@ubuntu:~#
 ```
 
 The vm is also accessible on the serial console (notice the `-serial telnet::10002,server,nowait` argument to qemu).
@@ -214,22 +214,22 @@ Connected to localhost.
 Escape character is '^]'.
 
 ubuntu login: root
-Password: 
+Password:
 Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-40-generic x86_64)
 
 ...
 
 Last login: Thu Nov 17 07:50:11 UTC 2022 from 192.168.0.1 on pts/0
-root@ubuntu:~# 
+root@ubuntu:~#
 ```
 
 To exit the serial console press `CTRL+]`, then type `quit`:
 
 ```console
-root@ubuntu:~# 
+root@ubuntu:~#
 telnet> quit
 Connection closed.
-root@adf6e0bf4e6e:/app# 
+root@adf6e0bf4e6e:/app#
 ```
 
 ## (Even) More Implementation Details
@@ -275,7 +275,7 @@ Let's check the database contents (take the password from the `setup_db.sh` file
 
 ```console
 student@os:~/.../support/os-cloud$ docker-compose exec db mysql -u os-cloud -p os-cloud
-Enter password: 
+Enter password:
 ...
 MariaDB [os-cloud]> select * from vm;
 +----+-------+---------+------------+------------+-------------------+------------+----------+-------------------+------------------+-------+
@@ -370,9 +370,9 @@ student@os:~/.../support/os-cloud$ qemu-system-x86_64 -enable-kvm -m 2G -hda my-
 Ubuntu 22.04 LTS ubuntu ttyS0
 
 ubuntu login: root
-Password: 
+Password:
 ...
-root@ubuntu:~# 
+root@ubuntu:~#
 ```
 
 Here we can further run customization commands, like the ones in the `ubuntu_22_04_vm_prepare` function, or any other things that we want.

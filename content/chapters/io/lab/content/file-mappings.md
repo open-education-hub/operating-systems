@@ -25,13 +25,13 @@ student@os:~$ cat /proc/$(pidof sleep)/maps
 7fe443937000-7fe443985000 r--p 0019a000 103:07 6432810                   /usr/lib/x86_64-linux-gnu/libc-2.31.so
 7fe443985000-7fe443989000 r--p 001e7000 103:07 6432810                   /usr/lib/x86_64-linux-gnu/libc-2.31.so
 7fe443989000-7fe44398b000 rw-p 001eb000 103:07 6432810                   /usr/lib/x86_64-linux-gnu/libc-2.31.so
-7fe44398b000-7fe443991000 rw-p 00000000 00:00 0 
+7fe44398b000-7fe443991000 rw-p 00000000 00:00 0
 7fe4439ad000-7fe4439ae000 r--p 00000000 103:07 6429709                   /usr/lib/x86_64-linux-gnu/ld-2.31.so
 7fe4439ae000-7fe4439d1000 r-xp 00001000 103:07 6429709                   /usr/lib/x86_64-linux-gnu/ld-2.31.so
 7fe4439d1000-7fe4439d9000 r--p 00024000 103:07 6429709                   /usr/lib/x86_64-linux-gnu/ld-2.31.so
 7fe4439da000-7fe4439db000 r--p 0002c000 103:07 6429709                   /usr/lib/x86_64-linux-gnu/ld-2.31.so
 7fe4439db000-7fe4439dc000 rw-p 0002d000 103:07 6429709                   /usr/lib/x86_64-linux-gnu/ld-2.31.so
-7fe4439dc000-7fe4439dd000 rw-p 00000000 00:00 0 
+7fe4439dc000-7fe4439dd000 rw-p 00000000 00:00 0
 7ffd07aeb000-7ffd07b0c000 rw-p 00000000 00:00 0                          [stack]
 7ffd07b8b000-7ffd07b8e000 r--p 00000000 00:00 0                          [vvar]
 7ffd07b8e000-7ffd07b8f000 r-xp 00000000 00:00 0                          [vdso]

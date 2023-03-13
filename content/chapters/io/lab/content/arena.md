@@ -101,7 +101,7 @@ Now run the script **a few times** and compare the results.
 You should see some drastic improvements in the running times, such as:
 
 ```console
-student@os:/.../support/file-mappings$ ./benchmark_cp.sh 
+student@os:/.../support/file-mappings$ ./benchmark_cp.sh
 make: Nothing to be done for 'all'.
 Benchmarking mmap_cp on a 1 GB file...
 
@@ -115,7 +115,7 @@ user    0m0,013s
 sys     0m1,301s
 
 
-student@os:/.../support/file-mappings$ ./benchmark_cp.sh 
+student@os:/.../support/file-mappings$ ./benchmark_cp.sh
 make: Nothing to be done for 'all'.
 Benchmarking mmap_cp on a 1 GB file...
 

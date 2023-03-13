@@ -19,7 +19,7 @@ Which end of a pipe created by `pipe()` is for reading and which one is for writ
 Running the binary first tells us which file descriptor is which:
 
 ```console
-student@os:~/.../lab/support/pipes$ ./anonymous_pipes 
+student@os:~/.../lab/support/pipes$ ./anonymous_pipes
 pipedes[0] = 3; pipedes[1] = 4
  * pipe created
  -- Press ENTER to continue ...

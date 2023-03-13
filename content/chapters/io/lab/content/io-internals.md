@@ -15,8 +15,8 @@ Here are the most important fields in `struct _IO_FILE`:
 
 ```c
 struct _IO_FILE {
-        int fd;         /* File descriptor */      
-        
+        int fd;         /* File descriptor */
+
         unsigned flags; /* Flags with which `open()` was called */
 
         int mode;       /* File permissions; passed to `open()` */
