@@ -29,7 +29,6 @@ COPY install-dmd.sh /init-scripts/install-dmd.sh
 RUN /init-scripts/install-dmd.sh
 
 # Use python3
-USER root
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
 # Create user student
