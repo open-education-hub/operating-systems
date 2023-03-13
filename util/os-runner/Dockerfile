@@ -28,6 +28,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY install-dmd.sh /init-scripts/install-dmd.sh
 RUN /init-scripts/install-dmd.sh
 
+# Use python3
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
 # Create user student
 RUN useradd -ms /bin/bash student && echo "student:student" | chpasswd && usermod -aG sudo student
 USER student
