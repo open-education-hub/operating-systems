@@ -16,7 +16,7 @@ If you haven't already cloned the repository, do it and enter the repository:
 
 ```console
 git clone https://github.com/open-education-hub/operating-systems
-cd operating-sytems
+cd operating-systems
 ```
 
 Navigate to the chapter lab directory:
