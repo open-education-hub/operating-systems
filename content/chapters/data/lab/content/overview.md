@@ -10,7 +10,7 @@ The programming language analyzes the use of these variables and outputs code th
 This interface offers the possibility to allocate/deallocate different variables in certain memory regions.
 Next, the operating system manages the execution of the program and provides the actual physical addresses that are used to interact with the data.
 
-Moreover, the operating system governs the competing access of multiple programs to memory ensuring that a program does not have access to a different programs memory.
+Moreover, the operating system governs the competing access of multiple programs to memory, ensuring that a program does not have access to a different program's memory.
 
 ## Setup
 
@@ -28,7 +28,7 @@ If you haven't already cloned the repository, do it and enter the repository:
 
 ```console
 git clone https://github.com/open-education-hub/operating-systems
-cd operating-sytems
+cd operating-systems
 ```
 
 Navigate to the chapter lab directory:

@@ -4,7 +4,7 @@
 Even experienced programmers make mistakes when tackling such a complicated endeavor.
 As a consequence, the programming world has been migrating towards languages that offer automatic memory management (AMM).
 AMM programming languages typically offer a garbage collector that tracks down the usage of objects and frees memory once no references exist to a given object.
-As a consequence garbage collected programming languages are easier to use and safer.
+As a consequence, garbage collected programming languages are easier to use and safer.
 However, this comes with a cost: the garbage collector, in most cases, requires a significant amount of resources to run.
 Therefore, for performance-critical systems, MMM is still the preferred solution.
 
@@ -31,7 +31,7 @@ The operations that trigger a reference decrement are:
 - the lifetime of an object expires
 
 Modern programming languages offer the possibility to specify what code should be run in each of these situations, therefore enabling the implementation of referenced counted data structures.
-As such, copy constructors may be used to automatically initialize an object from another object, assignment operators may be used to assign an object to another object an destructors may be used to destroy objects.
+As such, copy constructors may be used to automatically initialize an object from another object, assignment operators may be used to assign an object to another object and destructors may be used to destroy objects.
 
 ## Operator overloading
 
@@ -45,7 +45,7 @@ Each of these special functions may be called automatically by the compiler:
 - the assignment operator is called automatically when an object is assigned an object of the same type.
 - the destructor is called automatically whenever an object goes out of scope.
 
-**Note: the difference between initialization and assignment is that the initialization ocurrs when an object is being declared and occurs a single time (`Obj o1 = 1`), whereas assignemnt is decoupled from the declaration site and may occur multiple times (provided that the variable is mutable).**
+**Note: the difference between initialization and assignment is that the initialization occurs when an object is being declared and occurs a single time (`Obj o1 = 1`), whereas assignement is decoupled from the declaration site and may occur multiple times (provided that the variable is mutable).**
 
 Compile and run the program in `operators.d`.
 Notice how the different special functions are automatically called.
