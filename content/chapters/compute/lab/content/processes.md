@@ -228,7 +228,7 @@ Use `join()` to make the parent wait for its child before reading the file.
 
 Up to now we've been creating processes using various high-level APIs, such as `Popen()`, `Process()` and `system()`.
 Yes, despite being a C function, as you've seen from its man page, `system()` itself calls 2 other functions: `fork()` to create a process and `execve()` to execute the given command.
-As you already know from the [Software Stack](../../software-stack/) chapter, library functions may call one or more underlying system calls or other functions.
+As you already know from the [Software Stack](../../../software-stack/) chapter, library functions may call one or more underlying system calls or other functions.
 Now we will move one step lower on the call stack and call `fork()` ourselves.
 
 `fork()` creates one child process that is _almost_ identical to its parent.
