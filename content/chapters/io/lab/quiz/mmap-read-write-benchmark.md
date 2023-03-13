@@ -17,7 +17,7 @@ According to the times shown by `benchmark_cp.sh`, which of the two implementati
 In our case, running the script a few times results in the following running times:
 
 ```console
-student@os:/.../support/file-mappings$ ./benchmark_cp.sh 
+student@os:/.../support/file-mappings$ ./benchmark_cp.sh
 make: Nothing to be done for 'all'.
 Benchmarking mmap_cp on a 1GB file...
 
@@ -31,7 +31,7 @@ user    0m0,039s
 sys	0m2,469s
 
 
-student@os:/.../support/file-mappings$ ./benchmark_cp.sh 
+student@os:/.../support/file-mappings$ ./benchmark_cp.sh
 make: Nothing to be done for 'all'.
 Benchmarking mmap_cp on a 1 GB file...
 

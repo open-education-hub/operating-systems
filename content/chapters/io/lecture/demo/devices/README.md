@@ -59,7 +59,7 @@ Read 100 bytes from /dev/sda:
 0000030 f1e2 18cd 5688 5500 46c6 0511 46c6 0010
 0000040 41b4 aabb cd55 5d13 0f72 fb81 aa55 0975
 0000050 c1f7 0001 0374 46fe 6610 8000 0001 0000
-0000060 0000 0000                              
+0000060 0000 0000
 0000064
 
 student@os:~/.../demo/devices$ sudo ./read-from-device.sh /dev/sda
@@ -70,7 +70,7 @@ Read 100 bytes from /dev/sda:
 0000030 f1e2 18cd 5688 5500 46c6 0511 46c6 0010
 0000040 41b4 aabb cd55 5d13 0f72 fb81 aa55 0975
 0000050 c1f7 0001 0374 46fe 6610 8000 0001 0000
-0000060 0000 0000                              
+0000060 0000 0000
 0000064
 ```
 
@@ -78,7 +78,7 @@ Char devices provide information in real-time so we expect a different output if
 Data from char devices are also used by the OS to collect randomness.
 
 ```console
-student@os:~/.../demo/devices$ ./read-from-device.sh /dev/urandom 
+student@os:~/.../demo/devices$ ./read-from-device.sh /dev/urandom
 Read 100 bytes from /dev/urandom:
 0000000 9672 15fc 6631 e9f7 6c6f 99c7 5504 e748
 0000010 6a18 6fa0 ffc1 fded b468 b5e9 8121 1187
@@ -86,10 +86,10 @@ Read 100 bytes from /dev/urandom:
 0000030 6bb5 5c77 b763 153e 79d3 b2ca 0715 6fec
 0000040 dc27 4acd bf69 1cf8 695e 3c1d a1e2 8234
 0000050 de59 9535 c344 9caa 55e3 a104 6d17 7e47
-0000060 65f3 3ad8                              
+0000060 65f3 3ad8
 0000064
 
-student@os:~/.../demo/devices$ ./read-from-device.sh /dev/urandom 
+student@os:~/.../demo/devices$ ./read-from-device.sh /dev/urandom
 Read 100 bytes from /dev/urandom:
 0000000 773c e9ff ba84 b7e8 9f76 bba9 6394 4023
 0000010 ddc3 4bd5 8777 5a8e 53a5 6532 1fbd 772a
@@ -97,6 +97,6 @@ Read 100 bytes from /dev/urandom:
 0000030 a6f6 f92f a906 929d e51d 3b8d 5cbf 2101
 0000040 fe00 6b07 0d6e 5739 32c0 c586 c289 eb27
 0000050 2a4e c817 497a 88c2 d128 9256 8880 4200
-0000060 9e8e 8710                              
+0000060 9e8e 8710
 0000064
 ```

@@ -23,7 +23,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 1256 (1,2K) [text/html]
 Saving to: ‘index.html’
 
-index.html                                                           100%[====================================================================================================================================================================>]   1,23K  --.-KB/s    in 0s      
+index.html                                                           100%[====================================================================================================================================================================>]   1,23K  --.-KB/s    in 0s
 
 2022-12-02 15:53:31 (248 MB/s) - ‘index.html’ saved [1256/1256]
 ```
@@ -46,7 +46,7 @@ student@os:~$ cat index.html
         margin: 0;
         padding: 0;
         font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        
+
     }
     div {
         width: 600px;
@@ -66,7 +66,7 @@ student@os:~$ cat index.html
             width: auto;
         }
     }
-    </style>    
+    </style>
 </head>
 
 <body>

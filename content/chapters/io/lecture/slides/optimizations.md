@@ -15,7 +15,7 @@
 ### Investigate
 
 ```console
-student@os:~/.../demo/optimizations$ ./stdout-vs-stderr 
+student@os:~/.../demo/optimizations$ ./stdout-vs-stderr
 Join the dark side!
 Hello from the other side!
 ```
@@ -75,7 +75,7 @@ strace --trace=write ./stdout-vs-stderr
   - Enough time has passed since the last `write()`
 
 ```console
-student@os:~$ cat /proc/sys/vm/dirty_expire_centisecs 
+student@os:~$ cat /proc/sys/vm/dirty_expire_centisecs
 3000
 ```
 

@@ -60,7 +60,7 @@ write(3, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"..., 1808) = 1808
 ```
 
 ```console
-student@os:~/.../demo/optimizations$ time ./fwrite-10000 
+student@os:~/.../demo/optimizations$ time ./fwrite-10000
 real    0m0.001s
 user    0m0.001s
 sys     0m0.000s
@@ -81,7 +81,7 @@ student@os:~/.../demo/optimizations$ strace -c --trace=write ./write-10000
 ```
 
 ```console
-student@os:~/.../demo/optimizations$ time ./write-10000 
+student@os:~/.../demo/optimizations$ time ./write-10000
 real    0m0.011s
 user    0m0.001s
 sys     0m0.011s

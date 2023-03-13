@@ -158,7 +158,7 @@ Compile and run the code, then inspect the resulting files.
 You'll notice they contain opposing strings:
 
 ```console
-student@os:~/.../lab/support/redirect$ cat redirect_stderr_file.txt 
+student@os:~/.../lab/support/redirect$ cat redirect_stderr_file.txt
 Message for STDOUT
 
 student@os:~/.../lab/support/redirect$ cat redirect_stdout_file.txt

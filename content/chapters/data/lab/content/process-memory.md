@@ -473,7 +473,7 @@ brk(0x55ab98b08000)                     = 0x55ab98b08000
 write(1, "New allocation at 0x55ab98adfb10"..., 33New allocation at 0x55ab98adfb10
 ) = 33
 write(1, "Press key to deallocate ...", 27Press key to deallocate ...) = 27
-read(0, 
+read(0,
 "\n", 1024)                     = 1
 brk(0x55ab98b00000)                     = 0x55ab98b00000
 [...]
@@ -505,7 +505,7 @@ mmap(NULL, 266240, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7
 write(1, "New allocation at 0x7feee19b1010"..., 33New allocation at 0x7feee19b1010
 ) = 33
 write(1, "Press key to deallocate ...", 27Press key to deallocate ...) = 27
-read(0, 
+read(0,
 "\n", 1024)                     = 1
 munmap(0x7feee19b1000, 266240)          = 0
 [...]
