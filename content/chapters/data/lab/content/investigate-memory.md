@@ -263,7 +263,7 @@ Ioana David is 23 years old and likes macOS
 For example, by using `stats_print:true` we print out information regarding the use of the library functions:
 
 ```console
-razvan@yggdrasil:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 MALLOC_CONF="stats_print:true" ./memory_leak_malloc
+student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 MALLOC_CONF="stats_print:true" ./memory_leak_malloc
 Andrei Popescu is 22 years old and likes Linux
 Ioana David is 23 years old and likes macOS
 ___ Begin jemalloc statistics ___
