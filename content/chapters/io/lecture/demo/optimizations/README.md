@@ -153,7 +153,7 @@ See [server.py](#serverpy).
 
 ### client_bench.sh
 
-This is a simple bash script that receives the port of a running server as argument and proceeds to run multiple **client.py** instances.
+This is a simple bash script that receives the port of a running server as argument and proceeds to run multiple `client.py` instances.
 
 ```console
 student@os:~/.../demo/optimizations$ time ./client_bench.sh 1234
