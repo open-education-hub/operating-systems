@@ -4,7 +4,7 @@
 
 int main(void)
 {
-	char *p;
+	void *p;
 
 	p = malloc(1000);
 	free(p);
