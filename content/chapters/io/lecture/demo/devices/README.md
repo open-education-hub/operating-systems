@@ -21,8 +21,8 @@ We create a socket and call `ioctl()` using `SIOCGIFHWADDR` as argument to popul
 Expected output:
 
 ```console
-student@OS:~/.../demo/devices$ # interface name might be different according to personal systems
-student@OS:~/.../demo/devices$ ./hwaddr-ioctl eth0
+student@os:~/.../demo/devices$ # interface name might be different according to personal systems
+student@os:~/.../demo/devices$ ./hwaddr-ioctl eth0
 Hardware address for interface eth0 is 00:00:5e:00:53:af
 ```
 
@@ -38,8 +38,8 @@ We open the filesystem block file from `/dev` and call `ioctl()` using `BLKGETSI
 Expected output:
 
 ```console
-student@OS:~/.../demo/devices$ # partition name might be different according to personal systems
-student@OS:~/.../demo/devices$ ./filesystem-size /dev/sda2
+student@os:~/.../demo/devices$ # partition name might be different according to personal systems
+student@os:~/.../demo/devices$ ./filesystem-size /dev/sda2
 Total space 300.132 GB
 ```
 
@@ -51,7 +51,7 @@ We will be using `read-from-device.sh` bash script to read `100 bytes` from a gi
 Block devices guarantee persistance of data and therefore return the same bytes.
 
 ```console
-student@OS:~/.../demo/devices$ sudo ./read-from-device.sh /dev/sda
+student@os:~/.../demo/devices$ sudo ./read-from-device.sh /dev/sda
 Read 100 bytes from /dev/sda:
 0000000 63eb d090 00bc 8e7c 8ec0 bed8 7c00 00bf
 0000010 b906 0200 f3fc 50a4 1c68 cb06 b9fb 0004
@@ -62,7 +62,7 @@ Read 100 bytes from /dev/sda:
 0000060 0000 0000                              
 0000064
 
-student@OS:~/.../demo/devices$ sudo ./read-from-device.sh /dev/sda
+student@os:~/.../demo/devices$ sudo ./read-from-device.sh /dev/sda
 Read 100 bytes from /dev/sda:
 0000000 63eb d090 00bc 8e7c 8ec0 bed8 7c00 00bf
 0000010 b906 0200 f3fc 50a4 1c68 cb06 b9fb 0004
@@ -78,7 +78,7 @@ Char devices provide information in real-time so we expect a different output if
 Data from char devices are also used by the OS to collect randomness.
 
 ```console
-student@OS:~/.../demo/devices$ ./read-from-device.sh /dev/urandom 
+student@os:~/.../demo/devices$ ./read-from-device.sh /dev/urandom 
 Read 100 bytes from /dev/urandom:
 0000000 9672 15fc 6631 e9f7 6c6f 99c7 5504 e748
 0000010 6a18 6fa0 ffc1 fded b468 b5e9 8121 1187
@@ -89,7 +89,7 @@ Read 100 bytes from /dev/urandom:
 0000060 65f3 3ad8                              
 0000064
 
-student@OS:~/.../demo/devices$ ./read-from-device.sh /dev/urandom 
+student@os:~/.../demo/devices$ ./read-from-device.sh /dev/urandom 
 Read 100 bytes from /dev/urandom:
 0000000 773c e9ff ba84 b7e8 9f76 bba9 6394 4023
 0000010 ddc3 4bd5 8777 5a8e 53a5 6532 1fbd 772a

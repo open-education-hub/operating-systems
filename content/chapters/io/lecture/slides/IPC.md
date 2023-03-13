@@ -80,7 +80,7 @@
 - Stored on disk as a **special file**
 
 ```console
-student@OS:~$ ls -l my_fifo
+student@os:~$ ls -l my_fifo
 prw-r--r-- 1 student student 0 nov 22 18:38 my_fifo
 ```
 
@@ -241,7 +241,7 @@ prw-r--r-- 1 student student 0 nov 22 18:38 my_fifo
   - Client `connects` to the server using the file
 
 ```console
-student@OS:~/.../demo/IPC$ ls -l
+student@os:~/.../demo/IPC$ ls -l
 srwxrwxr-x 1 student student    0 dec  2 16:03 unix_socket
 ```
 

@@ -6,7 +6,7 @@ For now, we know that applications are developed using high-level languages and 
 Let's enter the `support/app-investigate/` folder and run the `get_app_types.sh` script:
 
 ```console
-student@so:~/.../lab/support/app-investigate$ ./get_app_types.sh
+student@os:~/.../lab/support/app-investigate$ ./get_app_types.sh
 binary apps: 2223
 Perl apps: 256
 Shell apps: 454
@@ -20,7 +20,7 @@ The output will differ between systems, given each has particular types of appli
 We list them by running the command inside the `get_app_types.sh` script:
 
 ```console
-student@so:~/.../lab/support/app-investigate$ find /usr/bin /bin /usr/sbin /sbin -type f -exec file {} \;
+student@os:~/.../lab/support/app-investigate$ find /usr/bin /bin /usr/sbin /sbin -type f -exec file {} \;
 [...]
 /usr/bin/qpdldecode: ELF 64-bit LSB shared object, x86-64 [...]
 /usr/bin/mimeopen: Perl script text executable

@@ -66,11 +66,11 @@ The file uses different access types for the `data` variable and the `do_nothing
 Build it:
 
 ```console
-student@so:~/.../lab/support/memory-protection$ make
+student@os:~/.../lab/support/memory-protection$ make
 gcc -g -Wall -Wextra -Werror -I../../../../../common/makefile/../utils -I../../../../../common/makefile/../utils/log  -c -o mem_prot.o mem_prot.c
 gcc mem_prot.o ../../../../../common/makefile/../utils/log/log.o  -o mem_prot
 
-razvan@yggdrasil:~/.../lab/support/memory-protection$ ./mem_prot
+student@os:~/.../lab/support/memory-protection$ ./mem_prot
 reading from .data section
 writing to .data section
 reading from .text section
@@ -82,7 +82,7 @@ All current actions in the program are valid.
 Let's uncomment each commented line in the program and try again:
 
 ```console
-student@so:~/.../lab/support/memory-protection$ ./mem_prot
+student@os:~/.../lab/support/memory-protection$ ./mem_prot
 reading from .data section
 writing to .data section
 reading from .text section
@@ -99,7 +99,7 @@ But even for programming languages that don't offer pointers (such as Python) is
 In the `str.py` file, we look to modify `str[1]`, but this fails:
 
 ```console
-student@so:~/.../lab/support/memory-protection$ ./str.py 
+student@os:~/.../lab/support/memory-protection$ ./str.py 
 n, 110, n
 Traceback (most recent call last):
   File "./str.py", line 5, in <module>
