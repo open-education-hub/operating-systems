@@ -168,7 +168,7 @@ main thread
 ```
 
 Compile and run the code in `support/libult/test_ult.c`.
-If you encounter the following error when running `test_ult`, remember what you learned about the loader and using custom shared libraries in the [Software Stack lab](../../software-stack/lab).
+If you encounter the following error when running `test_ult`, remember what you learned about the loader and using custom shared libraries in the [Software Stack lab](../../../software-stack/lab).
 
 ```console
 ./test_ult: error while loading shared libraries: libult.so: cannot open shared object file: No such file or directory
