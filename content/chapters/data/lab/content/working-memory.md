@@ -9,7 +9,7 @@ Nevertheless, the language compiler needs to handle this information and, based 
 ## Memory Access
 
 Accessing memory is defined by reading or writing values to or from a variable.
-From a programmer's perspective this looks pretty straightforward:
+From a programmer's perspective, this looks pretty straightforward:
 
 ```c
 int main(void)
@@ -32,7 +32,7 @@ In our example, `a` is defined as being plain mutable, however, it is possible t
 Using the above information, the compiler and the operating system co-work to allocate memory that can represent the contents of the variable.
 
 No matter what sort of language you are using, statically or dynamically typed, a variable is always described by the **(address, size, access rights)** triplet.
-By using this triplet the content of a variable is stored, retrieved or rewritten.
+By using this triplet, the content of a variable is stored, retrieved or rewritten.
 
 ### Practice
 
@@ -41,7 +41,7 @@ Inspect the `mem_access.c` source file.
 
 1. Describe each variable by completing its **(address, size, access rights)** tuple.
 
-1. Try to modify the `ca`,`cp` and `cp2` variables by assigning some other value to them.
+1. Try to modify the `ca`, `cp` and `cp2` variables by assigning some other value to them.
    Explain the behavior.
 
 ### Quiz
@@ -132,7 +132,7 @@ The purpose of this exercise is to present the different strategies that program
 The C implementation manages the memory manually.
 You can observe that all allocations are performed via `malloc` and the memory is freed using `free`.
 Arrays can be defined as static (on the stack) or dynamic (a pointer to some heap memory).
-Stack memory need not be freed, hence static arrays are automatically de-allocated.
+Stack memory need not be freed, hence static arrays are automatically deallocated.
 Heap memory, however, is managed by the user, therefore it is the burden of the programmer to find the optimal memory strategy.
 This offers the advantage that you can fine tune the memory usage depending on your application, but this comes with a cost: more often than not, managing memory is a highly complex error-prone task.
 
@@ -168,27 +168,27 @@ The C language does not implement any guards against such behavior, although dat
 
 The second example highlights the fact that C does not check any bounds when performing array operations.
 This leads to all sorts of undefined behavior.
-In this scenario some random memory is overwritten with `5`.
-The third example exhibits a manifestation of the previous design flaw where the return address of the `main` function is overwritten with `0`, thus leading to a segmentation fault.
+In this scenario, some random memory is overwritten with `5`.
+The third example exhibits a manifestation of the previous design flaw, where the return address of the `main` function is overwritten with `0`, thus leading to a segmentation fault.
 
-Although today it seems obvious that such behavior should not be accepted, we should take into account that the context in which the C language was created was entirely different than today.
+Although today it seems obvious that such behavior should not be accepted, we should take into account that the context in which the C language was created was entirely different from today.
 At that time the resource constraints - DRAM memory was around a few KBs, operating systems were in their infancy, branch predictors did not exist etc. - were overwhelming.
 Moreover, security was not a concern because the internet basically did not exist.
 As a consequence, the language was not developed with memory safety in mind.
 
 ### Python
 
-Technically, it is not possible to do any memory corruption in Python (that is if you avoid calling C functions from it).
-Pointers do not formally exist and any kind of array access is checked to be within its bounds.
-The example simply showcases what happens when an out of bounds access is performed - an `IndexError` is thrown and execution halts.
+Technically, it is not possible to do any memory corruption in Python (that is, if you avoid calling C functions from it).
+Pointers do not formally exist, and any kind of array access is checked to be within its bounds.
+The example simply showcases what happens when an out-of-bounds access is performed - an `IndexError` is thrown and execution halts.
 
 ### D
 
 The D implementation uses almost the same code as the C implementation, but suffers from minor syntax modifications.
 In essence, the two implement the same logic.
-When compiling this code, it can be observed that the D compiler notices at compile time that an out of bounds access is performed.
+When compiling this code, it can be observed that the D compiler notices at compile time that an out-of-bounds access is performed.
 This makes sense, since a static array cannot modify its length and therefore the compiler has all the information to spot the mistake.
-The only way to make the code compile is to comment the faulting lines or to replace the out of bounds index with a correct one.
+The only way to make the code compile is to comment the faulting lines or to replace the out-of-bounds index with a correct one.
 After doing so, the program compiles and we can see that memory corruption occurs.
 However, D also has safety checks, however, these are not performed by default.
 To enable such checks, the user must annotate a function with the `@safe` keyword:
@@ -200,11 +200,11 @@ int* bad() @safe
 By doing so, the mechanical checks are enabled and a new set of criteria needs to be followed for the code to be accepted.
 Taking the address of a local, doing pointer arithmetic, reinterpret casts, calling non-`@safe` functions etc. are not allowed in `@safe` code.
 If any of these unsafe features are manually proven to be safe, the `@trusted` keyword may be used to disable the checks but still consider the code `@safe`.
-This is to allow writing system code which by its nature is unsafe.
+This is to allow writing system code, which by its nature is unsafe.
 
 ## Memory Corruption
 
-For this practice item you will need to identify the programming mistake that makes it possible to corrupt memory.
+For this practice item, you will need to identify the programming mistake that makes it possible to corrupt memory.
 
 Navigate to the `support/memory-corruption` folder.
 Inspect the source file `segfault.c`.

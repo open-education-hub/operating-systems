@@ -109,7 +109,7 @@ Andrei Popescu is 22 years old and likes Linux
 Ioana David is 23 years old and likes macOS
 ```
 
-Subsequently we use the `mtrace` tool to show information about the leaked data:
+Subsequently, we use the `mtrace` tool to show information about the leaked data:
 
 ```console
 student@os:~/.../lab/support/memory-leak$ mtrace ./memory_leak_malloc mem.trace
@@ -218,7 +218,7 @@ We can see that `ls` and `ps` don't have memory leaks.
 However, the shell (Bash) shows a memory leak of 12 bytes (on the test system).
 This may be a false positive or the subject of an actual investigation.
 
-Note that the `still reachable` section of the output refers to memory that wasn't freed but still has pointers referring it.
+Note that the `still reachable` section of the output refers to memory that wasn't freed, but still has pointers referring to it.
 A true memory leak occurs when no pointers refer any memory area.
 
 ### Practice
@@ -241,9 +241,9 @@ TODO
 ## jemalloc
 
 [jemalloc](http://jemalloc.net/) is a featureful allocator that is intended to replace the standard allocator in the standard C library (libc).
-jemalloc provides replacements for the general `malloc()` and `free()` functions and also provides a custom API targeted for performance tuning.
+jemalloc provides replacements for the general `malloc()` and `free()` functions, and also provides a custom API targeted for performance tuning.
 
-As [documented](https://github.com/jemalloc/jemalloc/wiki/Getting-Started) there are multiple ways to use `jemalloc`, the easiest of which is to use the `LD_PRELOAD` environment variable and preload the library and hook into `malloc()` and `free()` function calls.
+As [documented](https://github.com/jemalloc/jemalloc/wiki/Getting-Started), there are multiple ways to use `jemalloc`, the easiest of which is to use the `LD_PRELOAD` environment variable and preload the library and hook into `malloc()` and `free()` function calls.
 
 First install `jemalloc` on our system.
 On your typical Ubuntu / Debian-based system, use `apt`:
@@ -254,7 +254,7 @@ student@os:~/.../data/lab/content$ sudo apt -y install libjemalloc-dev
 
 Note that this installs the distribution package, not the latest one (that may provide more features).
 
-With this in place we can use `jemalloc` against our pre-built executables or system executables (such as `ls`, `ps`).
+With this in place, we can use `jemalloc` against our pre-built executables or system executables (such as `ls`, `ps`).
 We can test it against the executable files from `support/memory-leak/`:
 
 ```console
@@ -294,7 +294,7 @@ mapped:       4194304
 [...]
 ```
 
-`jemalloc` doesn't work against system executables using pre-loading, likely because of security options disabling the use of the library:
+`jemalloc` doesn't work against system executables using preloading, likely because of security options disabling the use of the library:
 
 ```console
 student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 MALLOC_CONF="stats_print:true" /bin/ls
@@ -309,7 +309,7 @@ student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/l
 ## malloc in Musl
 
 Each libc (or memory allocator such as `jemalloc`) uses their own implementation of `malloc()`, `free()` and other functions.
-[Musl libc](https://musl.libc.org/) is a lightweight standard C library provide compatible features with the more heavyweights [GNU libc](https://www.gnu.org/software/libc/).
+[Musl libc](https://musl.libc.org/) is a lightweight standard C library that provides compatible features with the more heavyweights [GNU libc](https://www.gnu.org/software/libc/).
 
 Take a look through implementation of `malloc()` and `free()` in [Musl libc](https://elixir.bootlin.com/musl/v1.2.3/source/src/malloc).
 See all three implementations for `malloc()`:
@@ -379,7 +379,7 @@ This gives us an overview of when memory is allocated in Deluge / Python.
 
 [Servo](https://servo.org/) is a browser engine written in Rust that provides reusable components to implement web standards.
 
-We do not clone the repository since it's a very large one.
+We do not clone the repository, since it's very large.
 
 We find information about allocator used, by accessing the `components/allocator/` in [its source code](https://github.com/servo/servo/tree/master/components/allocator).
 In `Cargo.toml` we see that it requires `jemalloc` for non-Windows implementations and the standard Windows API (called `heapapi`) for Windows:
@@ -466,7 +466,7 @@ We look of uses of `malloc()`:
 student@os:~/.../lab/support/git$ grep -r 'malloc(' .
 ```
 
-We see there are multiple calls to the `xmalloc()` function which is likely a wrapper on to of `malloc()`.
+We see there are multiple calls to the `xmalloc()` function, which is likely a wrapper for `malloc()`.
 We search for the definition of `xmalloc()`:
 
 ```console
@@ -513,5 +513,5 @@ We can look into the [`merge-recursive.c` file](https://github.com/git/git/blob/
 
 1. Do the same actions as above for the `mmap()` and `xmmap()` function calls.
 
-   Note that these are not memory allocation calls since a valid `fd` file argument is passed.
+   Note that these are not memory allocation calls, since a valid `fd` file argument is passed.
    These are file mapping calls, that we will talk more as part of the I/O chapter.

@@ -8,7 +8,7 @@ Memory addresses use different permissions to decide what actions are allowed.
 
 Let's investigate the memory areas of a given process.
 We use `pmap` to see the memory layout of a running process.
-The command below shows the memory layour of the current shell process:
+The command below shows the memory layout of the current shell process:
 
 ```console
 student@os:~$ pmap -p $$
@@ -135,7 +135,7 @@ We investigate other programs.
    The output is similar, but with fewer dynamic libraries than `bash`, since they are not used by the program.
 
 1. Make a program in another language of your choice that prints `Hello, world!` and sleeps and investigate it with `pmap`.
-   Note that in the case of interpreted languages (Python, Lua, Perl, Ruby, PHP, JavaScript etc.) you have to investigate the interpretor process.
+   Note that in the case of interpreted languages (Python, Lua, Perl, Ruby, PHP, JavaScript etc.) you have to investigate the interpreter process.
 
 ### Quiz
 
@@ -189,8 +189,8 @@ ffffffffff600000      4K --x--   [ anon ]
  total             4520K
 ```
 
-For the static executable we can see there are not areas for dynamic libraries.
-And the `.rodata` section has been coallesced in the `.text` area.
+For the static executable, we can see there are no areas for dynamic libraries.
+And the `.rodata` section has been coalesced in the `.text` area.
 
 We can see the size of each section in the two executables by using the `size` command:
 
@@ -213,7 +213,7 @@ Based on the information above, answer [this quiz](../quiz/static-dynamic.md).
 1. Let's investigate another static executable / process.
 
    If not already installed, install the `busybox-static` package on your system.
-   On Debian/Ubuntu systems use:
+   On Debian/Ubuntu systems, use:
 
    ```console
    student@os:~$ sudo apt install busybox-static
@@ -337,7 +337,7 @@ We notice the size increase of text, data, bss, heap and stack sections.
 1. Use a different argument (`order`) for the call to the `alloc_stack()` function.
    See how it affects the stack size during runtime (investigate with `pmap`).
 
-1. Do a static build of `hello.c` and check the size of the memory areas both statically and dynamically.
+1. Do a static build of `hello.c` and check the size of the memory areas, both statically and dynamically.
 
 1. The `extend_mem_area.py` Python script allocates a new string at each step by merging the two previous versions.
    Start the program and investigate the resulting process at each allocation step.
@@ -350,16 +350,16 @@ TODO
 ## Allocating and Deallocating Memory
 
 Memory areas in a process address space are static or dynamic.
-Static memory areas are known at the beginning of process life time (i.e. at load-time), while dynamic memory areas are managed at runtime.
+Static memory areas are known at the beginning of process lifetime (i.e. at load-time), while dynamic memory areas are managed at runtime.
 
 `.text`, `.rodata`, `.data`, `.bss` are allocated at load-time and have a predefined size.
 The stack and the heap and memory mappings are allocated at runtime and have a variable size.
-For those, we say we use rutime allocation and deallocation.
+For those, we say we use runtime allocation and deallocation.
 
 Memory allocation is implicit for the stack and explicit for the heap.
 That is, we don't make a particular call to allocate data on the stack;
 the compiler generates the code that the operating system uses to increase the stack when required.
-For the heap we use the `malloc()` and `free()` calls to explicitly allocate and deallocate memory.
+For the heap, we use the `malloc()` and `free()` calls to explicitly allocate and deallocate memory.
 
 Omitting to deallocate memory results in memory leaks that hurt the resource use in the system.
 Because of this, some language runtimes employ a garbage collector that automatically frees unused memory areas.
@@ -546,9 +546,9 @@ Mapping of files is done by the loader for executables and libraries.
 That is why, in the output of `pmap`, there is a column with a filename.
 
 Mapping of a file results in getting a pointer to its contents and then using that pointer.
-This way, reading and writing to a file is an exercise or pointer copying, instead of the use of `read` / `write`-like system calls.
+This way, reading and writing to a file is an exercise of pointer copying, instead of the use of `read` / `write`-like system calls.
 
-In the `support/copy/` folder there are two source code files and a script:
+In the `support/copy/` folder, there are two source code files and a script:
 
 * `read_write_copy.c` implements copying with `read` / `write` syscalls
 * `mmap_copy.c` implements copying using `mmap`
@@ -599,8 +599,8 @@ TODO
 
 ### Practice
 
-1. Use a diffent value for `BUFSIZ` and see if that affects the comparison between the two executables.
+1. Use a different value for `BUFSIZ` and see if that affects the comparison between the two executables.
 
 1. Add a `sleep()` call to the `mmap_copy.c` file **after** the files were mapped.
    Rebuild the program and run it.
-   On a different console use `pmap` to view the two new memory regions that were added to the process, by mapping the `in.dat` and `out.dat` files.
+   On a different console, use `pmap` to view the two new memory regions that were added to the process, by mapping the `in.dat` and `out.dat` files.
