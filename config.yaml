@@ -43,7 +43,7 @@ docusaurus:
             name: README
             location: content/landing-page
       - Lecture:
-        - Software-Stack:
+        - Software Stack:
             name: Software-Stack
             location: /build/embed_reveal/Software-Stack
         - Data:
@@ -55,11 +55,11 @@ docusaurus:
         - IO:
             name: IO
             location: /build/embed_reveal/IO
-        - Application-Interaction:
+        - Application Interaction:
             name: Application-Interaction
             location: /build/embed_reveal/Application-Interaction
       - Lab:
-        - Software-Stack:
+        - Software Stack:
           - Overview:
               location: content/chapters/software-stack/lab
               name: content/overview
@@ -192,7 +192,7 @@ docusaurus:
           - Arena:
               location: content/chapters/io/lab
               name: content/arena
-        - Application-Interaction:
+        - Application Interaction:
           - Overview:
               location: content/chapters/app-interact/lab
               name: content/overview
