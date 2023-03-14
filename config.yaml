@@ -147,9 +147,6 @@ docusaurus:
           - Overview:
               location: content/chapters/io/lab
               name: content/overview
-          - Introduction:
-              location: content/chapters/io/lab
-              name: content/introduction
           - File Handlers:
               location: content/chapters/io/lab
               name: content/file-handlers
