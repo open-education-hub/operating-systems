@@ -29,7 +29,3 @@ main:
     mov rdi, 0
     mov rax, 60
     syscall
-
-    xor rax, rax
-    leave
-    ret
