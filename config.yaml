@@ -59,6 +59,9 @@ docusaurus:
             name: Application-Interaction
             location: /build/embed_reveal/Application-Interaction
       - Lab:
+        - Setting up the Lab Environment:
+            location: content/misc
+            name: lab-setup
         - Software Stack:
           - Overview:
               location: content/chapters/software-stack/lab
