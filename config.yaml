@@ -60,9 +60,6 @@ docusaurus:
             location: /build/embed_reveal/Application-Interaction
       - Lab:
         - Software-Stack:
-          - Introduction:
-              location: content/chapters/software-stack/lab
-              name: content/introduction
           - Overview:
               location: content/chapters/software-stack/lab
               name: content/overview
