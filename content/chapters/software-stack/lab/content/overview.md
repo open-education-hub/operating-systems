@@ -1,3 +1,5 @@
+# Software Stack
+
 Software comprises of code and data that is loaded in memory and used by the CPU.
 Code means instructions that are to be fetched by the CPU, decoded and executed.
 This is called **machine code**, i.e. binary instructions that are understood by the CPU.
@@ -38,3 +40,17 @@ The last two characteristics rely on two items:
 ![Software Stack](../media/software-stack.svg)
 
 [Quiz](../quiz/software.md)
+
+## Contents
+
+- [Overview](overview.md)
+- [Modern Software Stacks](modern-sw-stack.md)
+- [Basic System Calls](basic-syscall.md)
+- [System Call Wrapper](syscall-wrapper.md)
+- [Common Functions](common-functions.md)
+- [Libraries and libc](libc.md)
+- [Statically-linked and Dynamically-linked Libraries](static-dynamic.md)
+- [Library calls vs system calls](libcall-syscall.md)
+- [High-Level Languages](high-level-lang.md)
+- [App Investigation](app-investigate.md)
+- [Arena](arena.md)
