@@ -34,3 +34,11 @@ student@os:~/operating-systems$ cd content/chapters/<chapter-name>/lab/
 ```
 
 The possible options are: `software-stack`, `data`, `compute`, `io` and `app-interact`.
+
+If you're using the OS-runner Docker container, you can use the following shortcuts:
+
+`go-ss`       - changes directory to Software Stack lab
+`go-data`     - changes directory to Data lab
+`go-compute`  - changes directory to Compute lab
+`go-io`       - changes directory to IO lab
+`go-appInt`   - changes directory to App Interaction lab
