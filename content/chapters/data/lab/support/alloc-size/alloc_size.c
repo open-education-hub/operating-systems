@@ -6,7 +6,7 @@
 #include "utils/utils.h"
 
 #define NUM_STEPS	10
-#define ALLOC_SIZE_KB	256
+#define ALLOC_SIZE_KB	8
 #define ALLOC_SIZE	(ALLOC_SIZE_KB * 1024)
 
 static void wait_for_input(const char *msg)
