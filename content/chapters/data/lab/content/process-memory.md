@@ -548,11 +548,12 @@ That is why, in the output of `pmap`, there is a column with a filename.
 Mapping of a file results in getting a pointer to its contents and then using that pointer.
 This way, reading and writing to a file is an exercise of pointer copying, instead of the use of `read` / `write`-like system calls.
 
-In the `support/copy/` folder, there are two source code files and a script:
+In the `support/copy/` folder, there are two source code files and two scripts:
 
 * `read_write_copy.c` implements copying with `read` / `write` syscalls
 * `mmap_copy.c` implements copying using `mmap`
 * `generate.sh` script generates the input file `in.dat`
+* `benchmark_cp.sh` script runs the two executables `mmap_copy` and `read_write_copy`
 
 Let's generate the input file:
 
@@ -566,30 +567,23 @@ and let's build the two executable files:
 student@os:~/.../lab/support/copy$ make
 ```
 
-and run them:
+Run the `benchmark_cp.sh` script:
 
 ```console
-student@os:~/.../lab/support/copy$ ./mmap_copy
-time passed 22840 microseconds
+student@os:~/.../lab/support/copy$ ./benchmark_cp.sh
+Benchmarking mmap_copy on in.dat
+time passed 54015 microseconds
 
-student@os:~/.../lab/support/copy$ ./mmap_copy
-time passed 33942 microseconds
-
-student@os:~/.../lab/support/copy$ ./mmap_copy
-time passed 25213 microseconds
-
-student@os:~/.../lab/support/copy$ ./read_write_copy
-time passed 24824 microseconds
-
-student@os:~/.../lab/support/copy$ ./read_write_copy
-time passed 24232 microseconds
-
-student@os:~/.../lab/support/copy$ ./read_write_copy
-time passed 25131 microseconds
+Benchmarking read_write_copy on in.dat
+time passed 42011 microseconds
 ```
 
 As you can see, there isn't a difference between the two approaches.
 Although we would have expected the use of multiple system calls to cause overhead, it's too little compared to the memory copying overhead.
+
+If you inspect `benchmark_cp.sh`, you will notice a weird-looking command `sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"`.
+This is used to disable a memory optimization that the kernel does.
+You will get more detailed information about this in the I/O chapter.
 
 Browse the two source code files (`mmap_copy.c` and `read_write_copy.c`) for a glimpse on how the two types of copies are implemented.
 
