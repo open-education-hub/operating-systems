@@ -599,7 +599,7 @@ TODO
 
 ### Practice
 
-1. Use a different value for `BUFSIZ` and see if that affects the comparison between the two executables.
+1. Use a different value for `BUFSIZE` and see if that affects the comparison between the two executables.
 
 1. Add a `sleep()` call to the `mmap_copy.c` file **after** the files were mapped.
    Rebuild the program and run it.

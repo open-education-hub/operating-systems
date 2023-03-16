@@ -15,11 +15,9 @@
 	(((ta).tv_sec - (tb).tv_sec) * 1000 * 1000 + \
 	 ((ta).tv_nsec - (tb).tv_nsec) / 1000)
 
-#ifndef BUFSIZ
-#define BUFSIZ		8192
-#endif
+#define BUFSIZE		8192
 
-static unsigned char buffer[BUFSIZ];
+static unsigned char buffer[BUFSIZE];
 
 int main(void)
 {
@@ -35,7 +33,7 @@ int main(void)
 
 	clock_gettime(CLOCK_REALTIME, &time_before);
 	while (1) {
-		n = read(src_fd, buffer, BUFSIZ);
+		n = read(src_fd, buffer, BUFSIZE);
 		DIE(n < 0, "read");
 
 		if (n == 0)
