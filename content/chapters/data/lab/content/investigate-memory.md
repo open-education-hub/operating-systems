@@ -234,9 +234,7 @@ Fear not, you can always check the library calls with a more verbose and harder 
 student@os:~$ ltrace -x "*"
 ```
 
-### Quiz
-
-TODO
+[Quiz](../quiz/memory-leaks.md)
 
 ## jemalloc
 
