@@ -588,9 +588,7 @@ Although we would have expected the use of multiple system calls to cause overhe
 
 Browse the two source code files (`mmap_copy.c` and `read_write_copy.c`) for a glimpse on how the two types of copies are implemented.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/mmap-file.md)
 
 ### Practice
 
