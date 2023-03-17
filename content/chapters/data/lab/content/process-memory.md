@@ -270,9 +270,7 @@ For now, we want to point out how threads affect the process memory layout.**
 1. Make a program in another language of your choice that creates threads.
    Investigate it with `pmap`.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/thread-memory.md)
 
 ## Modifying Memory Region Size
 
