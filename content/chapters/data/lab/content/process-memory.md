@@ -342,9 +342,7 @@ We notice the size increase of text, data, bss, heap and stack sections.
    Start the program and investigate the resulting process at each allocation step.
    Notice which memory area is updated and explain why.
 
-### Quiz
-
-TODO
+[QUIZ](../quiz/page-allocation.md)
 
 ## Allocating and Deallocating Memory
 
