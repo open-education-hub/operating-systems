@@ -531,9 +531,7 @@ This is based on a heuristic of using the heap or some other area in the process
 
 1. Use `valgrind` on different executables in the system (in `/bin/`, `/usr/bin/`) and see if they have memory leaks.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/brk-mmap.md)
 
 ## Memory Mapping
 
