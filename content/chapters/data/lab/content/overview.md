@@ -17,5 +17,4 @@ Moreover, the operating system governs the competing access of multiple programs
 1. [Working with Memory](working-memory.md)
 1. [Process Memory](process-memory.md)
 1. [Investigate Memory](investigate-memory.md)
-1. [Memory Support](memory-support.md)
 1. [Memory Security](memory-security.md)
