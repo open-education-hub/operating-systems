@@ -18,7 +18,7 @@ How many bytes should we add to `.data` section to make its size `28 KB`, instea
 
 - 3232 bytes
 
-- 3581 bytes
++ 3581 bytes
 
 ## Feedback
 

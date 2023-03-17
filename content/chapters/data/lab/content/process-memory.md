@@ -87,6 +87,11 @@ student@os:~$ ps -o pid,rss,vsz -p $$
 
 The resident size is `1968K`, much smaller than the virtual size.
 
+Note how each region has a size multiple of `4K`, this has to do with the memory granularity.
+The operating system allocates memory in chunks of a predefined size (in our case `4K`) called pages.
+
+[Quiz](../quiz/half-page.md)
+
 ### Practice
 
 Enter the `support/memory-areas/` directory.
@@ -136,10 +141,6 @@ We investigate other programs.
 
 1. Make a program in another language of your choice that prints `Hello, world!` and sleeps and investigate it with `pmap`.
    Note that in the case of interpreted languages (Python, Lua, Perl, Ruby, PHP, JavaScript etc.) you have to investigate the interpreter process.
-
-### Quiz
-
-TODO
 
 ## Memory Layout of Statically-Linked and Dynamically-Linked Executables
 
