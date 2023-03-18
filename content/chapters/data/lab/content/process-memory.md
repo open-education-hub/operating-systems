@@ -342,7 +342,7 @@ We notice the size increase of text, data, bss, heap and stack sections.
    Start the program and investigate the resulting process at each allocation step.
    Notice which memory area is updated and explain why.
 
-[QUIZ](../quiz/page-allocation.md)
+[Quiz](../quiz/page-allocation.md)
 
 ## Allocating and Deallocating Memory
 
@@ -531,7 +531,9 @@ This is based on a heuristic of using the heap or some other area in the process
 
 1. Use `valgrind` on different executables in the system (in `/bin/`, `/usr/bin/`) and see if they have memory leaks.
 
-[Quiz](../quiz/brk-mmap.md)
+[Quiz](../quiz/malloc-brk.md)
+
+[Quiz](../quiz/malloc-mmap.md)
 
 ## Memory Mapping
 

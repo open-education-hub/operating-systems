@@ -16,5 +16,5 @@ What happens to the leaked memory when the process finishes execution?
 
 ## Feedback
 
-When a process ends, all its memory zones are returned to the OS to be reused.
-Leaking memory on a server is a major problem as it can lead to a memory outage.
+When a process ends, all its memory zones are freed by the OS to be reused.
+Leaking memory becomes a major problem in case of programs that run indefinitely, because the leaked memory will stack, causing a memory outage.

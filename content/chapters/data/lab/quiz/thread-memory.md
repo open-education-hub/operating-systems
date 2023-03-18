@@ -8,7 +8,7 @@ Is data used by a thread inaccessible from other threads?
 
 - Yes, each thread has its own stack
 
-- No, each thread can access every address from the virtual address space
++ No, each thread can access every address from the virtual address space
 
 - Only the heap is shared
 

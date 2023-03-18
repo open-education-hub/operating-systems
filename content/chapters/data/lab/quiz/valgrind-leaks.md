@@ -8,9 +8,9 @@ struct student {
     int age;
 }
 
-struct student *s = malloc(sizeof(struct student));
+struct student *s = malloc(sizeof(*s));
 s->name = strdup("Reginald");
-...
+// ...
 free(s);
 ```
 

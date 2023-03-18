@@ -28,10 +28,10 @@ void main()
 
 ## Feedback
 
-There are no constructor calls because there is no object construction when using `int`.
+- There are no constructor calls because there is no object construction when using `int`.
 
-There are 3 copy constructor calls: for passing `o1`, for passing `o2`, and for returning `o2`.
+- There are 3 copy constructor calls: for passing `o1`, for passing `o2`, and for returning `o2`.
 
-There is 1 assignment operator call for `o2 = o1`.
+- There is 1 assignment operator call for `o2 = o1`.
 
-There are 3 destructor calls, because each constructed object needs to be destroyed.
+- There are 3 destructor calls, because each constructed object needs to be destroyed.
