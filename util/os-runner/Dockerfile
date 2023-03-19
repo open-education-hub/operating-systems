@@ -2,16 +2,21 @@ FROM ubuntu:20.04 AS ltrace-builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get -y update && apt-get install -y build-essential git automake autoconf libtool libelf-dev
+# hadolint ignore=DL3008
+RUN apt-get -y update && apt-get install --no-install-recommends -y \
+    build-essential git automake autoconf libtool libelf-dev ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /build
-RUN git clone https://gitlab.com/cespedes/ltrace.git /build/ltrace
+RUN mkdir /build && \
+    git clone https://gitlab.com/cespedes/ltrace.git /build/ltrace
 
 WORKDIR /build/ltrace
 
-RUN git checkout 5cffc0d2134f697fbac8627ec5b5f0085cd47c8a
-
-RUN ./autogen.sh && ./configure --prefix=/usr --sysconfdir=/etc && make && make install
+RUN git checkout 5cffc0d2134f697fbac8627ec5b5f0085cd47c8a \
+    && ./autogen.sh \
+    && ./configure --prefix=/usr --sysconfdir=/etc \
+    && make \
+    && make install
 
 
 FROM ubuntu:20.04
