@@ -109,9 +109,6 @@ docusaurus:
           - Investigate Memory:
               location: content/chapters/data/lab
               name: content/investigate-memory
-          - Memory Support:
-              location: content/chapters/data/lab
-              name: content/memory-support
           - Memory Security:
               location: content/chapters/data/lab
               name: content/memory-security
