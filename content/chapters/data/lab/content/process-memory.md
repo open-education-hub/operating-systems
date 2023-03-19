@@ -578,7 +578,8 @@ Benchmarking read_write_copy on in.dat
 time passed 42011 microseconds
 ```
 
-As you can see, there isn't a difference between the two approaches.
+Run the script a few more times.
+As you can see, there isn't much of a difference between the two approaches.
 Although we would have expected the use of multiple system calls to cause overhead, it's too little compared to the memory copying overhead.
 
 If you inspect `benchmark_cp.sh`, you will notice a weird-looking command `sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"`.
