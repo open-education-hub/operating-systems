@@ -584,6 +584,7 @@ Although we would have expected the use of multiple system calls to cause overhe
 
 If you inspect `benchmark_cp.sh`, you will notice a weird-looking command `sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"`.
 This is used to disable a memory optimization that the kernel does.
+It's called "buffer cache" and it's a mechanism by which the kernel caches data blocks from recently accessed files in memory.
 You will get more detailed information about this in the I/O chapter.
 
 Browse the two source code files (`mmap_copy.c` and `read_write_copy.c`) for a glimpse on how the two types of copies are implemented.
