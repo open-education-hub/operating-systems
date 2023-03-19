@@ -555,6 +555,21 @@ In the `support/copy/` folder, there are two source code files and two scripts:
 * `generate.sh` script generates the input file `in.dat`
 * `benchmark_cp.sh` script runs the two executables `mmap_copy` and `read_write_copy`
 
+Open the two source code files and investigate them.
+You will notice that the `open()` system call has the following prototype `int open(const char *pathname, int flags)`.
+The argument `flags` must include one of the following access modes: `O_RDONLY`, `O_WRONLY`, or `O_RDWR` - indicating that the file is opened in read-only, write-only, or read/write mode.
+You can add an additional flag - `O_CREAT` - that will create a new file with `pathname` if the file does not already exist.
+This is only the case when opening the file for writing (`O_WRONLY` or `O_RDWR`).
+If `O_CREAT` is set, a third argument `mode_t mode` is required for the `open()` syscall.
+The `mode` argument specifies the permissions of the newly created file.
+For example:
+
+```c
+// If DST_FILENAME exists it will be open in read/write mode and truncated to length 0
+// If DST_FILENAME does not exist, a file at the path DST_FILENAME will be create with 644 permissions
+dst_fd = open(DST_FILENAME, O_RDWR | O_CREAT | O_TRUNC, 0644);
+```
+
 Let's generate the input file:
 
 ```console
