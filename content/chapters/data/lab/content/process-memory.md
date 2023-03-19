@@ -558,7 +558,7 @@ Open the two source code files and investigate them.
 You will notice that the `open()` system call has the following prototype `int open(const char *pathname, int flags)`.
 The argument `flags` must include one of the following access modes: `O_RDONLY`, `O_WRONLY`, or `O_RDWR` - indicating that the file is opened in read-only, write-only, or read/write mode.
 You can add an additional flag - `O_CREAT` - that will create a new file with `pathname` if the file does not already exist.
-If `O_CREAT` is set, a third argument `mode_t mode` is required for the `open` syscall.
+If `O_CREAT` is set, a third argument `mode_t mode` is required for the `open()` syscall.
 The `mode` argument specifies the permissions of the newly created file.
 For example:
 ```c
