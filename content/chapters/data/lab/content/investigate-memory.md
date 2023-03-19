@@ -132,9 +132,7 @@ Valgrind is however more powerful: it works on different types of memory (not on
 1. Solve the memory leaks in both programs.
    Validate with Valgrind.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/valgrind-leaks.md)
 
 ## Memory Actions (and Leaks) in Existing Programs
 
@@ -234,9 +232,7 @@ Fear not, you can always check the library calls with a more verbose and harder 
 student@os:~$ ltrace -x "*"
 ```
 
-### Quiz
-
-TODO
+[Quiz](../quiz/memory-leaks.md)
 
 ## jemalloc
 

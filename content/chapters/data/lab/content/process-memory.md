@@ -87,6 +87,11 @@ student@os:~$ ps -o pid,rss,vsz -p $$
 
 The resident size is `1968K`, much smaller than the virtual size.
 
+Note how each region has a size multiple of `4K`, this has to do with the memory granularity.
+The operating system allocates memory in chunks of a predefined size (in our case `4K`) called pages.
+
+[Quiz](../quiz/half-page.md)
+
 ### Practice
 
 Enter the `support/memory-areas/` directory.
@@ -136,10 +141,6 @@ We investigate other programs.
 
 1. Make a program in another language of your choice that prints `Hello, world!` and sleeps and investigate it with `pmap`.
    Note that in the case of interpreted languages (Python, Lua, Perl, Ruby, PHP, JavaScript etc.) you have to investigate the interpreter process.
-
-### Quiz
-
-TODO
 
 ## Memory Layout of Statically-Linked and Dynamically-Linked Executables
 
@@ -269,9 +270,7 @@ For now, we want to point out how threads affect the process memory layout.**
 1. Make a program in another language of your choice that creates threads.
    Investigate it with `pmap`.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/thread-memory.md)
 
 ## Modifying Memory Region Size
 
@@ -343,9 +342,7 @@ We notice the size increase of text, data, bss, heap and stack sections.
    Start the program and investigate the resulting process at each allocation step.
    Notice which memory area is updated and explain why.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/page-allocation.md)
 
 ## Allocating and Deallocating Memory
 
@@ -534,9 +531,9 @@ This is based on a heuristic of using the heap or some other area in the process
 
 1. Use `valgrind` on different executables in the system (in `/bin/`, `/usr/bin/`) and see if they have memory leaks.
 
-### Quiz
+[Quiz](../quiz/malloc-brk.md)
 
-TODO
+[Quiz](../quiz/malloc-mmap.md)
 
 ## Memory Mapping
 
@@ -604,9 +601,7 @@ You will get more detailed information about this in the I/O chapter.
 
 Browse the two source code files (`mmap_copy.c` and `read_write_copy.c`) for a glimpse on how the two types of copies are implemented.
 
-### Quiz
-
-TODO
+[Quiz](../quiz/mmap-file.md)
 
 ### Practice
 
