@@ -561,6 +561,7 @@ You can add an additional flag - `O_CREAT` - that will create a new file with `p
 If `O_CREAT` is set, a third argument `mode_t mode` is required for the `open()` syscall.
 The `mode` argument specifies the permissions of the newly created file.
 For example:
+
 ```c
 // If DST_FILENAME exists it will be open in read/write mode and truncated to length 0
 // If DST_FILENAME does not exist, a file at the path DST_FILENAME will be create with 644 permissions
