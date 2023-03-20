@@ -207,7 +207,7 @@ text    data     bss     dec     hex filename
 
 ### Quiz
 
-Based on the information above, answer [this quiz](../quiz/static-dynamic.md).
+Based on the information above, answer [this quiz](../quiz/memory-granularity.md).
 
 ### Practice
 
