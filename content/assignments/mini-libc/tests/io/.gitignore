@@ -1,0 +1,11 @@
+/fstat
+/ftruncate
+/lseek
+/open_close_create_file
+/open_close_existent_file
+/open_close_read_byte
+/open_invalid_access
+/open_non_existent_file
+/stat
+/truncate
+/puts
