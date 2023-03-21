@@ -27,4 +27,4 @@ area/infra:
   - '!content/chapters/**/*'
 
 area/assignment:
-  - assignments/**/*
+  - content/assignments/**/*
