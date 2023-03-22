@@ -1,8 +1,8 @@
 name: "Pull Request Labeler"
 
 on:
-  schedule:
-  - cron: "0 0 */1 * *"
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   add-topic-area-labels:
