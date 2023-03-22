@@ -12,6 +12,8 @@ So our goals fot this session are to learn how to use an IPC (inter-process comm
 
 Have you ever wondered how Bash handles redirecting the `stdout` of a command to the `stdin` of the next command in one-liners such as:
 
+tests
+
 ```bash
 cat 'log_*.csv' | tr -s ' ' | cut -d ',' -f 2 | sort -u | head -n 10
 ```
