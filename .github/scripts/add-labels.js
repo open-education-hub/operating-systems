@@ -1,5 +1,5 @@
 async function getPRFileData(github, context, pr) {
-    return github.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
+    return await github.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
         owner: context.repo.owner,
         repo: context.repo.repo,
         pull_number: pr
@@ -29,12 +29,12 @@ async function createLabelsForPR(github, context, pr) {
     return labels
 }
 
-function addLabelsToPR(github, context, pr, labels) {
+async function addLabelsToPR(github, context, pr, labels) {
     if (labels.length === 0) {
         return
     }
 
-    github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/labels', {
+    await github.request('POST /repos/{owner}/{repo}/issues/{issue_number}/labels', {
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: pr,
@@ -42,7 +42,8 @@ function addLabelsToPR(github, context, pr, labels) {
     })
 }
 
-export default async ({github, context}) => {
+export default async function assignLabelsToPRs({github, context})
+{
     await github.request('GET /repos/{owner}/{repo}/pulls', {
         owner: context.repo.owner,
         repo: context.repo.repo
@@ -50,8 +51,8 @@ export default async ({github, context}) => {
         if (pr.state == 'open') {
             const prNum = pr.number
             const labels = await createLabelsForPR(github, context, prNum)
-            if (!labels.length) {
-                addLabelsToPR(github, context, prNum, labels)
+            if (labels.length > 0) {
+                await addLabelsToPR(github, context, prNum, labels)
             }
         }
     })})
