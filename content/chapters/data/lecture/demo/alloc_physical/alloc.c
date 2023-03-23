@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define N 100000000
+#define N 1000000000
 
 void main()
 {
@@ -16,8 +16,8 @@ void main()
 
 
     start = clock();
-    for (i = 0; i < N; i++)
-        sum += a[i];
+    for (i = 0; i < N / 1024; i++)
+        sum += a[i * 1024];
     end = clock();
 
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
@@ -25,8 +25,8 @@ void main()
 
     sum = 0;
     start = clock();
-    for (i = 0; i < N; i++)
-        sum += a[i];
+    for (i = 0; i < N / 1024; i++)
+        sum += a[i * 1024];
     end = clock();
 
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
