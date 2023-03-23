@@ -16,16 +16,19 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: ${{ env.PR_FETCH_DEPTH }}
 
-    - name: Copy checkpatch script
-      run: cp ${{github.workspace}}/.github/checkpatch.conf ${{github.workspace}}/.checkpatch.conf
-
     - name: Info
       run: |
         echo "Repository: $GITHUB_REPOSITORY"
         echo "Workspace: $GITHUB_WORKSPACE"
         pwd
         ls -la `pwd`
+        ls -la `pwd`/.github
         git log --oneline --graph
+
+
+    - name: Copy checkpatch script
+      run: cp ${{github.workspace}}/.github/checkpatch.conf ${{github.workspace}}/.checkpatch.conf
+
 
     - name: Run checkpatch review
       uses: webispy/checkpatch-action@v9
