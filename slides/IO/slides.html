@@ -293,7 +293,7 @@ static ssize_t read_zero(struct file *file, char __user *buf,
 	while (count) {
 		size_t chunk = min_t(size_t, count, PAGE_SIZE);
 		size_t left = clear_user(buf + cleared, chunk);
-		
+
 		cleared += chunk;
 		count -= chunk;
 	}
@@ -371,7 +371,7 @@ static ssize_t write_zero(struct file *file,
 - Stored on disk as a **special file**
 
 ```console
-student@OS:~$ ls -l my_fifo
+student@os:~$ ls -l my_fifo
 prw-r--r-- 1 student student 0 nov 22 18:38 my_fifo
 ```
 </script></section><section data-markdown><script type="text/template">
@@ -492,7 +492,7 @@ prw-r--r-- 1 student student 0 nov 22 18:38 my_fifo
   - Client `connects` to the server using the file
 
 ```console
-student@OS:~/.../demo/IPC$ ls -l
+student@os:~/.../demo/IPC$ ls -l
 srwxrwxr-x 1 student student    0 dec  2 16:03 unix_socket
 ```
 </script></section><section data-markdown><script type="text/template">
@@ -535,7 +535,7 @@ srwxrwxr-x 1 student student    0 dec  2 16:03 unix_socket
 ### Investigate
 
 ```console
-student@OS:~/.../demo/optimizations$ ./stdout-vs-stderr 
+student@os:~/.../demo/optimizations$ ./stdout-vs-stderr
 Join the dark side!
 Hello from the other side!
 ```
@@ -581,7 +581,7 @@ strace --trace=write ./stdout-vs-stderr
   - Enough time has passed since the last `write()`
 
 ```console
-student@OS:~$ cat /proc/sys/vm/dirty_expire_centisecs 
+student@os:~$ cat /proc/sys/vm/dirty_expire_centisecs
 3000
 ```
 </script></section><section data-markdown><script type="text/template">
