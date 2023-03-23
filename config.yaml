@@ -216,19 +216,19 @@ docusaurus:
               name: content/arena
       - Assignments:
         - Mini Libc:
-            location: assignments/mini-libc
+            location: content/assignments/mini-libc
             name: README
         - Memory Allocator:
-            location: assignments/memory-allocator
+            location: content/assignments/memory-allocator
             name: README
         - Parallel Graph:
-            location: assignments/parallel-graph
+            location: content/assignments/parallel-graph
             name: README
         - Mini Shell:
-            location: assignments/minishell
+            location: content/assignments/minishell
             name: README
         - Asynchronous Web Server:
-            location: assignments/async-web-server
+            location: content/assignments/async-web-server
             name: README
     static_assets:
       - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
