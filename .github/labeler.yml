@@ -17,14 +17,20 @@ area/quiz:
   - '**/quiz/*'
 
 area/content:
-  - any: ['**/lab/content/*.md', '**/media/**/*', '**/lecture/slides/**/*',
-    '**/*.mdpp']
+  - '**/lab/content/*.md'
+  - '**/media/**/*'
+  - '**/lecture/slides/**/*'
+  - '**/*.mdpp'
 
 area/code:
-  - any: ['**/lab/support/**/*', '**/lab/solution/**/*', '**/lecture/demo/**/*']
+  - '**/lab/support/**/*'
+  - '**/lab/solution/**/*'
+  - '**/lecture/demo/**/*'
 
 area/infra:
-  - '!content/chapters/**/*'
+  - 'util/**/*'
+  - '.github/**/*'
+  - 'Dockerfile'
 
 area/assignment:
   - content/assignments/**/*
