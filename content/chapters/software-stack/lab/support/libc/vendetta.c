@@ -13,5 +13,12 @@ int main(void)
 	 * Be as creative as you can.
 	 */
 
+	char *string = malloc(30 * sizeof(*string));
+
+	scanf("%s", string);
+	printf("string length: %d\n", strlen(string));
+
+	free(string);
+
 	return 0;
 }

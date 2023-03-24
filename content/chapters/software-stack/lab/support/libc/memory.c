@@ -14,5 +14,22 @@ int main(void)
 	 * and system calls.
 	 */
 
+	p = malloc(10);
+	free(p);
+
+	p = malloc(100);
+	free(p);
+
+
+	p = malloc(1000);
+		free(p);
+
+
+	p = malloc(10000);
+		free(p);
+
+
+	//printf("p = %d\n", *p);
+
 	return 0;
 }
