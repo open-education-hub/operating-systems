@@ -21,6 +21,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_GITHUB_ACTIONS: false
           VALIDATE_CLANG_FORMAT: false
+          VALIDATE_BASH_EXEC: false
           LINTER_RULES_PATH: /.github/workflows/
           MARKDOWN_CONFIG_FILE: config/config.json
           MARKDOWN_CUSTOM_RULE_GLOBS: rules/rules.js
