@@ -9,13 +9,13 @@ HOSTNAME="os"
 pull:
 	docker pull $(OS_IMAGE)
 
-docker-image:
+docker-image: ## Build the docker image.
 ifeq ("$(shell docker images -q $(OS_LOCAL_IMAGE))", "")
 	docker buildx build --platform linux/amd64 -t $(OS_LOCAL_IMAGE) .
 endif
 
 
-start: pull
+start: pull ## Start the container in the background if it is not already running.
 ifneq ("$(shell docker container inspect -f '{{.State.Running}}' os-runner)", "true")
 	docker run	\
 		--detach	\
@@ -28,9 +28,24 @@ ifneq ("$(shell docker container inspect -f '{{.State.Running}}' os-runner)", "t
 endif
 
 
-attach: start
+attach: start ## Attach to the container.
 	docker exec -it $(OS_CONTAINER) bash
 
-clean:
+clean: ## Stop and remove the container.
 	docker container stop $(OS_CONTAINER)
 	docker container rm $(OS_CONTAINER)
+
+help: ## Show this help menu and exit.
+	@awk 'BEGIN {	\
+		FS = ":.*##";	\
+		printf "OS class container environment.\n\n";	\
+		printf "\033[1mUSAGE\033[0m\n";	\
+		printf "  make [VAR=... [VAR=...]] \033[36mTARGET\033[0m\n\n";	\
+		printf "\033[1mTARGETS\033[0m\n";	\
+	}	\
+	/^[a-zA-Z_-]+:.*?##/ {	\
+		printf "  \033[36m%-23s\033[0m %s\n", $$1, $$2	\
+	}	\
+	/^##@/ {	\
+		printf "\n\033[1m%s\033[0m\n", substr($$0, 5)	\
+	} ' $(MAKEFILE_LIST)

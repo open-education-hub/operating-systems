@@ -47,6 +47,8 @@ This is an isolated environment to run the examples and tasks from laboratories 
 
 - `make start` - Start `OS-runner` container
 
-- `make attach`   - Attach a new session to `OS-runner` container, this is useful for tasks requiring multiple terminals
+- `make attach` - Attach a new session to `OS-runner` container, this is useful for tasks requiring multiple terminals
 
 - `make clean` - Stop `OS-runner` container and delete it
+
+- `make help` - Print usable Makefile commands
