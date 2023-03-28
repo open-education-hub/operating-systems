@@ -60,7 +60,10 @@
 * threads
 
 ```console
-student@os:~/.../compute/lecture/demo/create-thread$ python3 create_process.py
-[main] PID = 16066; PPID = 7820
-[thread] PID = 16066; PPID = 7820
+student@os:~/.../compute/lecture/demo/create-process$ python3 create_process.py
+[parent] PID = 186411
+[parent] Before starting, child PID = None
+[parent] After starting, child PID = 186412
+[child] PID = 186412; PPID = 186411
+[child] Message from parent: OS Rullz!
 ```
