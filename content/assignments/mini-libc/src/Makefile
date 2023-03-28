@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -fno-PIC -fno-stack-protector -fno-builtin
 # Remove the line below to disable debugging support.
 CFLAGS += -g -O0
 
-.PHONY: all clean
+.PHONY: all clean pack
 
 SRCS = syscall.c \
        process/exit.c \
@@ -29,6 +29,9 @@ $(OBJS): %.o:%.c
 
 crt/start.o: crt/start.asm
 	$(NASM) -f elf64 -o $@ $<
+
+pack: clean
+	zip -r ../src.zip *
 
 clean:
 	-rm -f *~

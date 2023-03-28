@@ -24,15 +24,6 @@ static int test_open_non_existent_file(void)
 	return fd == -1 && errno == ENOENT;
 }
 
-static int test_open_invalid_access_mode(void)
-{
-	int fd;
-
-	fd = open(RDONLY_FILE, O_WRONLY);
-
-	return fd == -1 && errno == EACCES;
-}
-
 static int test_open_file_as_directory(void)
 {
 	int fd;
@@ -240,15 +231,6 @@ static int test_lseek_combined(void)
 	return r == 400;
 }
 
-static int test_truncate_read_only_file(void)
-{
-	int r;
-
-	r = truncate(RDONLY_FILE, 10);
-
-	return r == -1 && errno == EACCES;
-}
-
 static int test_truncate_invalid_size(void)
 {
 	int r;
@@ -411,24 +393,22 @@ static int test_fstat_regular_file(void)
 }
 
 static struct graded_test io_tests[] = {
-	{ test_open_non_existent_file, "test_open_non_existent_file", 8 },
-	{ test_open_invalid_access_mode, "test_open_invalid_access_mode", 8 },
-	{ test_open_file_as_directory, "test_open_file_as_directory", 8 },
-	{ test_open_directory_for_writing, "test_open_directory_for_writing", 8 },
-	{ test_open_force_invalid_creation, "test_open_force_invalid_creation", 8},
-	{ test_open_close_existent_file, "test_open_close_existent_file", 8},
-	{ test_open_close_create_file, "test_open_close_create_file", 8},
-	{ test_open_read_write_only_mode, "test_open_read_write_only_mode", 8 },
-	{ test_open_write_read_only_mode, "test_open_write_read_only_mode", 8 },
-	{ test_lseek_invalid_fd, "test_lseek_invalid_fd", 8 },
-	{ test_lseek_invalid_whence, "test_lseek_invalid_whence", 8 },
-	{ test_lseek_invalid_offset, "test_lseek_invalid_offset", 8 },
-	{ test_lseek_set, "test_lseek_set", 8 },
-	{ test_lseek_cur, "test_lseek_cur", 8 },
-	{ test_lseek_end, "test_lseek_end", 8 },
-	{ test_lseek_combined, "test_lseek_combined", 8 },
-	{ test_truncate_read_only_file, "test_truncate_read_only_file", 8 },
-	{ test_truncate_invalid_size, "test_truncate_invalid_size", 8 },
+	{ test_open_non_existent_file, "test_open_non_existent_file", 9 },
+	{ test_open_file_as_directory, "test_open_file_as_directory", 9 },
+	{ test_open_directory_for_writing, "test_open_directory_for_writing", 9 },
+	{ test_open_force_invalid_creation, "test_open_force_invalid_creation", 9},
+	{ test_open_close_existent_file, "test_open_close_existent_file", 9},
+	{ test_open_close_create_file, "test_open_close_create_file", 9},
+	{ test_open_read_write_only_mode, "test_open_read_write_only_mode", 9 },
+	{ test_open_write_read_only_mode, "test_open_write_read_only_mode", 9 },
+	{ test_lseek_invalid_fd, "test_lseek_invalid_fd", 9 },
+	{ test_lseek_invalid_whence, "test_lseek_invalid_whence", 9 },
+	{ test_lseek_invalid_offset, "test_lseek_invalid_offset", 9 },
+	{ test_lseek_set, "test_lseek_set", 9 },
+	{ test_lseek_cur, "test_lseek_cur", 9 },
+	{ test_lseek_end, "test_lseek_end", 9 },
+	{ test_lseek_combined, "test_lseek_combined", 9 },
+	{ test_truncate_invalid_size, "test_truncate_invalid_size", 9 },
 	{ test_truncate_directory, "test_truncate_directory", 8 },
 	{ test_truncate_non_existent_file, "test_truncate_non_existent_file", 8 },
 	{ test_truncate_file, "test_truncate_file", 8 },

@@ -116,16 +116,19 @@ test_mmap_perm_ok                ........................ failed ...  0
 test_mmap_perm_notok             ........................ failed ...  0
 test_mmap_perm_none              ........................ failed ...  0
 
-Grade                            .................................. 0.06
+Total:                                                             0/100
 ```
 
-For starters, tests will fail.
+Some files will fail to build, it's expected.
+This is because there are missing files or missing functions that cause build errors.
+You'll need to add those files and implement those functions for the build error to disappear.
+
+Obviously, most tests will fail, as there is no implementation.
 Some tests don't fail because the missing implementation equates to the bad behavior being tested not happening.
-That's why you get the `0.06` grade.
 
 Each test is worth a number of points.
 The total number of points is `900`.
-The maximum grade is obtained by dividing the number of points to `100`, for a maximum grade of `9.00`.
+The maximum grade is obtained by dividing the number of points to `10`, for a maximum grade of `90`.
 
 A successful run will show the output:
 
@@ -237,7 +240,7 @@ test_mmap_perm_ok                ........................ passed ...  10
 test_mmap_perm_notok             ........................ passed ...  10
 test_mmap_perm_none              ........................ passed ...  10
 
-Total                            .................................. 9.00
+Total:                                                            90/100
 ```
 
 ### Behind the Scenes

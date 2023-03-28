@@ -1,9 +1,9 @@
-LIBC_PATH ?= ../libc
-CPPFLAGS = -nostdinc -I. -I$(LIBC_PATH)/include
+SRC_PATH ?= ../src
+CPPFLAGS = -nostdinc -I. -I$(SRC_PATH)/include
 CFLAGS = -Wall -Wextra -fno-PIC -fno-stack-protector -fno-builtin
 # Remove the line below to disable debugging support.
 CFLAGS += -g -O0
-LDFLAGS = -nostdlib -no-pie -L$(LIBC_PATH)
+LDFLAGS = -nostdlib -no-pie -L$(SRC_PATH)
 LDLIBS = -lc
 
 SRCS = $(wildcard test_*.c)
@@ -11,11 +11,11 @@ OBJS = $(patsubst %.c,%.o,$(SRCS))
 EXECS = $(patsubst %.c,%,$(SRCS))
 
 
-.PHONY: all clean libc io memory process check
+.PHONY: all clean src io memory process check
 
-all: libc io memory process $(EXECS)
+all: src io memory process $(EXECS)
 
-$(EXECS): %:%.o graded_test.o | libc
+$(EXECS): %:%.o graded_test.o | src
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 $(OBJS): %.o:%.c graded_test.h
@@ -23,22 +23,28 @@ $(OBJS): %.o:%.c graded_test.h
 graded_test.o: graded_test.c graded_test.h
 
 io:
-	make -C io LIBC_PATH=../$(LIBC_PATH)
+	make -C io SRC_PATH=../$(SRC_PATH)
 
 memory:
-	make -C memory LIBC_PATH=../$(LIBC_PATH)
+	make -C memory SRC_PATH=../$(SRC_PATH)
 
 process:
-	make -C process LIBC_PATH=../$(LIBC_PATH)
+	make -C process SRC_PATH=../$(SRC_PATH)
 
-libc:
-	make -C $(LIBC_PATH)
+src:
+	make -C $(SRC_PATH)
 
 check:
-	make -C $(LIBC_PATH) clean
+	make -C $(SRC_PATH) clean
 	make clean
-	make -i LIBC_PATH=$(LIBC_PATH)
+	make -i SRC_PATH=$(SRC_PATH)
 	./run_all_tests.sh
+
+lint:
+	-cd .. && checkpatch.pl -f src/*.c tests/*.c tests/*/*.c
+	-cd .. && checkpatch.pl -f checker/*.sh tests/*.sh
+	-cd .. && cpplint --recursive src/ tests/ checker/
+	-cd .. && shellcheck checker/*.sh tests/*.sh
 
 clean:
 	make -C io clean
