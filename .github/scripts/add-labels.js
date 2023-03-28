@@ -21,7 +21,7 @@ async function createLabelsForPR(github, context, pr) {
                 addLabelToList(labels, 'kind/new')
             }
             else if (file.status === 'modified' && file.deletions === 0 && file.additions > 0) {
-                addLabelToList(labels, 'kind/improvement')
+                addLabelToList(labels, 'kind/improve')
             }
         })
     })
