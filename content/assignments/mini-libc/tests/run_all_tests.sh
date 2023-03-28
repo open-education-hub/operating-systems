@@ -34,10 +34,10 @@
 ) | tee results.txt
 
 total=$(grep '\( passed \| failed \)' results.txt | rev | cut -d ' ' -f 1 | rev | paste -s -d'+' | bc)
-total_grade=$( (echo "scale=2"; echo "$total / 100") | bc )
+total_grade=$( (echo "scale=0"; echo "$total / 10") | bc )
 echo ""
-echo -n "Grade                           "
-echo -n " .................................. "
-printf "%4.2f\n" "$total_grade"
+echo -n "Total:                           "
+echo -n "                                "
+LC_ALL=en_US.UTF-8 printf "%3d/100\n" "$total_grade"
 
 rm results.txt
