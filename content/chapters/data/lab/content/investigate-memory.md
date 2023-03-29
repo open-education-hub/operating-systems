@@ -254,7 +254,7 @@ With this in place, we can use `jemalloc` against our pre-built executables or s
 We can test it against the executable files from `support/memory-leak/`:
 
 ```console
-student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 ./memory_leak_malloc
+student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so ./memory_leak_malloc
 Andrei Popescu is 22 years old and likes Linux
 Ioana David is 23 years old and likes macOS
 ```
@@ -263,7 +263,7 @@ Ioana David is 23 years old and likes macOS
 For example, by using `stats_print:true` we print out information regarding the use of the library functions:
 
 ```console
-student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 MALLOC_CONF="stats_print:true" ./memory_leak_malloc
+student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so MALLOC_CONF="stats_print:true" ./memory_leak_malloc
 Andrei Popescu is 22 years old and likes Linux
 Ioana David is 23 years old and likes macOS
 ___ Begin jemalloc statistics ___
@@ -293,10 +293,10 @@ mapped:       4194304
 `jemalloc` doesn't work against system executables using preloading, likely because of security options disabling the use of the library:
 
 ```console
-student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 MALLOC_CONF="stats_print:true" /bin/ls
+student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so MALLOC_CONF="stats_print:true" /bin/ls
 Makefile  memory_leak  memory_leak.cpp  memory_leak_malloc  memory_leak_malloc.c  memory_leak_malloc.o  memory_leak.o
 
-student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1 MALLOC_CONF="stats_print:true" /bin/ps
+student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so MALLOC_CONF="stats_print:true" /bin/ps
   PID TTY          TIME CMD
  1581 pts/22   00:00:00 ps
 26732 pts/22   00:00:01 bash
