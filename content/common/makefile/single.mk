@@ -1,5 +1,3 @@
-LDFLAGS = -z lazy
-
 all: $(BINARY)
 
 # Get the relative path to the directory of the current makefile.
