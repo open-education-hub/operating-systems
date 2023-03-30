@@ -1,0 +1,6 @@
+os_realloc (['0', '0'])                                                                   = 0
+os_realloc (['0', '131072'])                                                              = <mapped-addr1> + 0x18
+  mmap (['0', '131096', 'PROT_READ | PROT_WRITE', 'MAP_PRIVATE | MAP_ANON', '-1', '0'])   = <mapped-addr1>
+os_free (['<mapped-addr1> + 0x18'])                                                       = <void>
+  munmap (['<mapped-addr1>', '131096'])                                                   = 0
++++ exited (status 0) +++

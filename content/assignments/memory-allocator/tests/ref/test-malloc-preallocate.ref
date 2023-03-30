@@ -1,0 +1,5 @@
+os_malloc (['1986'])                                                                      = HeapStart + 0x18
+  brk (['0'])                                                                             = HeapStart + 0x0
+  brk (['HeapStart + 0x20000'])                                                           = HeapStart + 0x20000
+os_free (['HeapStart + 0x18'])                                                            = <void>
++++ exited (status 0) +++

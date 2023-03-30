@@ -1,0 +1,24 @@
+os_malloc (['131040'])                                                                    = HeapStart + 0x18
+  brk (['0'])                                                                             = HeapStart + 0x0
+  brk (['HeapStart + 0x20000'])                                                           = HeapStart + 0x20000
+os_calloc (['1', '1000'])                                                                 = HeapStart + 0x20018
+  brk (['HeapStart + 0x20400'])                                                           = HeapStart + 0x20400
+os_calloc (['1', '2000'])                                                                 = HeapStart + 0x20418
+  brk (['HeapStart + 0x20be8'])                                                           = HeapStart + 0x20be8
+os_calloc (['1', '4000'])                                                                 = HeapStart + 0x20c00
+  brk (['HeapStart + 0x21ba0'])                                                           = HeapStart + 0x21ba0
+os_free (['HeapStart + 0x20c00'])                                                         = <void>
+os_calloc (['1', '2000'])                                                                 = HeapStart + 0x20c00
+os_calloc (['1', '1000'])                                                                 = HeapStart + 0x213e8
+os_calloc (['1', '500'])                                                                  = HeapStart + 0x217e8
+os_calloc (['1', '250'])                                                                  = HeapStart + 0x219f8
+os_calloc (['1', '125'])                                                                  = HeapStart + 0x21b10
+os_free (['HeapStart + 0x18'])                                                            = <void>
+os_free (['HeapStart + 0x20018'])                                                         = <void>
+os_free (['HeapStart + 0x20418'])                                                         = <void>
+os_free (['HeapStart + 0x20c00'])                                                         = <void>
+os_free (['HeapStart + 0x213e8'])                                                         = <void>
+os_free (['HeapStart + 0x217e8'])                                                         = <void>
+os_free (['HeapStart + 0x219f8'])                                                         = <void>
+os_free (['HeapStart + 0x21b10'])                                                         = <void>
++++ exited (status 0) +++

@@ -1,0 +1,13 @@
+os_calloc (['0', '100'])                                                                  = 0
+os_free (['0'])                                                                           = <void>
+os_calloc (['100', '0'])                                                                  = 0
+os_free (['0'])                                                                           = <void>
+os_calloc (['4080', '1'])                                                                 = <mapped-addr1> + 0x18
+  mmap (['0', '4104', 'PROT_READ | PROT_WRITE', 'MAP_PRIVATE | MAP_ANON', '-1', '0'])     = <mapped-addr1>
+os_free (['<mapped-addr1> + 0x18'])                                                       = <void>
+  munmap (['<mapped-addr1>', '4104'])                                                     = 0
+os_calloc (['1', '131072'])                                                               = <mapped-addr2> + 0x18
+  mmap (['0', '131096', 'PROT_READ | PROT_WRITE', 'MAP_PRIVATE | MAP_ANON', '-1', '0'])   = <mapped-addr2>
+os_free (['<mapped-addr2> + 0x18'])                                                       = <void>
+  munmap (['<mapped-addr2>', '131096'])                                                   = 0
++++ exited (status 0) +++
