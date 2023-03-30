@@ -1,0 +1,8 @@
+os_realloc (['0', '262144'])                                                              = <mapped-addr1> + 0x18
+  mmap (['0', '262168', 'PROT_READ | PROT_WRITE', 'MAP_PRIVATE | MAP_ANON', '-1', '0'])   = <mapped-addr1>
+os_realloc (['<mapped-addr1> + 0x18', '1986'])                                            = HeapStart + 0x18
+  brk (['0'])                                                                             = HeapStart + 0x0
+  brk (['HeapStart + 0x20000'])                                                           = HeapStart + 0x20000
+  munmap (['<mapped-addr1>', '262168'])                                                   = 0
+os_free (['HeapStart + 0x18'])                                                            = <void>
++++ exited (status 0) +++
