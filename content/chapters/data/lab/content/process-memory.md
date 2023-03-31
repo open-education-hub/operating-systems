@@ -263,8 +263,9 @@ For now, we want to point out how threads affect the process memory layout.**
 
 ### Practice
 
-1. Build the multithreaded program as a static executable.
+1. Build the multithreaded program as a static executable by adding `LDFLAGS = -static` to the Makefile:
    Run it.
+   You can check the executable is statically linked by executing the command `ldd multithreaded`.
    Notice the same effect of the thread creation on the process memory layout: the creation of a new stack of `8192 KB`.
 
 1. Make a program in another language of your choice that creates threads.

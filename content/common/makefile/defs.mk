@@ -8,5 +8,6 @@ LOGGER_DIR := $(UTILS_DIR)/log
 
 CPPFLAGS += -I$(INCLUDES_DIR)
 CFLAGS += -g -Wall -Wextra
+LDFLAGS += -z lazy
 LOGGER_OBJ = log.o
 LOGGER = $(LOGGER_DIR)/$(LOGGER_OBJ)
