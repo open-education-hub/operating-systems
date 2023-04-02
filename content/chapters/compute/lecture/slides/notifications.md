@@ -72,6 +72,8 @@ cond.wait()
 * `notify`: wake up **one** thread waiting on the condition
 * `notify_all`: wake up **all** threads waiting on the condition
 
+* If no thread is woken up (because none is waiting), the notification has no effect!
+
 ----
 
 #### Condition Variables - Demo
