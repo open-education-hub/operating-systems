@@ -1,0 +1,12 @@
+true | false || echo "test" > out_nzero1.txt
+false | true || echo "test" > out_nzero2.txt
+true | false && echo "test" > out_zero1.txt
+false | true && echo "test" > out_zero2.txt
+echo '#include <stdio.h>' | cat > src1.txt
+echo 'int main() { int i; scanf("%d", &i); fprintf(stdout, "%d", 2 * i); fprintf(stderr, "%d", 4 * i); return 0; }' | cat > src2.txt
+cat src1.txt src2.txt > src.c && rm -f src1.txt
+gcc src.c -o both.exe
+echo 22 > in.txt
+./both.exe 2> err.txt	>out.txt<	in.txt
+rm both.exe
+exit

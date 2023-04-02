@@ -1,0 +1,8 @@
+uname > out_seq_zero.txt ; echo "test" > /dev/null && echo "test_again" >> out_seq_zero.txt
+uname > out_seq_nzero.txt; echo "test" >> out_seq_nzero.txt || echo "test_again" > out_seq_nzero.txt
+true ; uname > out_nzero1.txt || echo "test" > out_nzero1.txt
+false ; uname > out_nzero1.txt || echo "test" > out_nzero2.txt
+true ; uname > /dev/null && echo "test" > out_zero1.txt
+false ; uname > /dev/null && echo "test" > out_zero2.txt
+echo "beta" > out_par1.txt ; true && uname >> out_par1.txt ; echo "alfa" > out_par2.txt && false || uname >> out_par2.txt
+exit

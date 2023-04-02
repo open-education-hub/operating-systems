@@ -1,0 +1,10 @@
+rm -fr _x_y_z_/
+mkdir -p _x_y_z_/_a_b_c_/_1_2_3_
+cd _x_y_z_/_a_b_c_/_1_2_3_
+cd /new/york/san/francisco > out-err.txt
+pwd > pwd.txt
+cd ..
+cd .. > out.txt
+pwd > pwd.txt
+cd
+exit

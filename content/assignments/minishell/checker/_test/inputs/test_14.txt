@@ -1,0 +1,6 @@
+true & false || echo "test" > out_nzero1.txt
+false & true || echo "test" > out_nzero2.txt
+true & false && echo "test" > out_zero1.txt
+false & true && echo "test" > out_zero2.txt
+mkdir subdir; echo gigi > subdir/gigi.txt ; true && cat <./subdir/gigi.txt | cat | cat | cat | cat > gogu.txt & false || cat < ./subdir/gigi.txt | cat >gugu.txt; sleep 1; cat <gogu.txt > out_1.txt & cat <gugu.txt > out_2.txt; sleep $UNU
+exit

@@ -1,0 +1,8 @@
+echo mumu > out_01.txt
+cat < out_01.txt > out_02.txt
+echo <out_01.txt> 	out_03.txt
+gcc 2> err1.txt
+gcc &>err2.txt
+uname -a > overwrite.txt
+uname > overwrite.txt
+exit

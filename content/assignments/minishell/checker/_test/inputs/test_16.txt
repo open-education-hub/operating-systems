@@ -1,0 +1,2 @@
+sleep 0.2 &&  echo 1 >> numbers & sleep 0.7 && echo '3' >> numbers & sleep 1.0 && false || echo '4' >> numbers & sleep 0.5 &&  echo '2' >> numbers ; sleep 0.5
+exit

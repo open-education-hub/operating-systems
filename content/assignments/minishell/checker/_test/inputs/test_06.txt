@@ -1,0 +1,11 @@
+uname > out_seq.txt ; echo "test" >> out_seq.txt
+true || echo "test" > out_nzero1.txt
+false || echo "test" > out_nzero2.txt
+true && echo "test" > out_zero1.txt
+false && echo "test" > out_zero2.txt
+echo "beta" > out_par1.txt && echo "alfa" > out_par2.txt
+rm -fr _x_y_z_
+mkdir -p _x_y_z_/_a_b_c_
+cd _x_y_z_/_a_b_c_ && echo "test" > out_zero3.txt
+cd _non_existent_ || echo "test" > out_nzero3.txt
+exit

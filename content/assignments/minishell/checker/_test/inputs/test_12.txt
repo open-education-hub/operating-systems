@@ -1,0 +1,5 @@
+MYVAR=3 && echo $MYVAR > out.txt
+MYVAR=5 && echo $MYVAR > out2.txt
+MYVAR=7 ; UNU=01 ; USER=caleb && echo $USER "%%" $MYVAR "%%" $UNU > out3.txt
+MYVAR=5 || echo $USER > out4.txt
+exit
