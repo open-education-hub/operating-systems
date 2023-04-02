@@ -1,4 +1,4 @@
-# Benchmarks
+# Hardware Perspective
 
 The main criterion we use to rank CPUs is their _computation power_, i.e. their ability to crunch numbers and do math.
 Numerous benchmarks exist out there and they are publicly displayed on sites such as [CPUBenchmark](https://www.cpubenchmark.net/).

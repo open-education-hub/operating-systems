@@ -119,9 +119,9 @@ docusaurus:
           - Overview:
               location: content/chapters/compute/lab
               name: content/overview
-          - Benchmarks:
+          - Hardware Perspective:
               location: content/chapters/compute/lab
-              name: content/benchmarks
+              name: content/hardware-perspective
           - Processes:
               location: content/chapters/compute/lab
               name: content/processes

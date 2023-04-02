@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [Benchmarks](./benchmarks.md)
+- [Hardware Perspective](./hardware-perspective.md)
 - [Processes](./processes.md)
 - [Threads](./threads.md)
 - [Processes and Threads in `apache2`](./processes-threads-apache2.md)
