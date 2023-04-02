@@ -34,6 +34,17 @@ You can find out what this is about [in the Arena section](./arena.md#the-gil), 
 ## Threads vs Processes
 
 So why use the implementation that spawns more processes if it's slower than the one using threads?
+The table below lists the differences between threads and processes.
+Generally, if we only want to do some computing, we use threads.
+If we need to drastically change the behaviour of the program, we need a new program altogether, or we need more than computing (eg. communication on the network to create a computing cluster), we use processes.
+
+| PROCESS                                              | THREAD                                                                  |
+| :--------------------------------------------------- | :---------------------------------------------------------------------- |
+| independent                                          | part of a process                                                       |
+| collection of threads                                | shares VAS with other threads                                           |
+| slower creation (new page table must be created)     | faster creation                                                         |
+| longer context switch duration (TLB must be flushed) | shorter context switch duration (part of the same process, so same TLB) |
+| ending means ending all threads                      | other threads continue when finished                                    |
 
 ### Safety
 
