@@ -228,51 +228,6 @@ Based on the information above, answer [this quiz](../quiz/memory-granularity.md
 
    Investigate the process using `pmap` and the executable using `size`.
 
-## Memory Layout of Multi-threaded Programs
-
-When a new thread is created, a new stack is allocated for a thread.
-The default stack size if `8 MB` / `8192 KB`:
-
-```console
-student@os:~$ ulimit -s
-8192
-```
-
-Enter the `support/multithreaded/` directory to observe the update of the memory layout when creating new threads.
-
-Build the `multithreaded` executable:
-
-```console
-student@os:~/.../lab/support/multithreaded$ make
-```
-
-Start the program:
-
-```console
-student@os:~/.../lab/support/multithreaded$ ./multithreaded
-Press key to start creating threads ...
-[...]
-```
-
-And investigate it with `pmap` on another console, while pressing a key to create new threads.
-
-As you can see, there is a new `8192 KB` area created for every thread, also increasing the total virtual size.
-
-**We will discuss more about threads in the future.
-For now, we want to point out how threads affect the process memory layout.**
-
-### Practice
-
-1. Build the multithreaded program as a static executable by adding `LDFLAGS = -static` to the Makefile:
-   Run it.
-   You can check the executable is statically linked by executing the command `ldd multithreaded`.
-   Notice the same effect of the thread creation on the process memory layout: the creation of a new stack of `8192 KB`.
-
-1. Make a program in another language of your choice that creates threads.
-   Investigate it with `pmap`.
-
-[Quiz](../quiz/thread-memory.md)
-
 ## Modifying Memory Region Size
 
 We want to observe the update in size of memory regions for different instructions used in a program.

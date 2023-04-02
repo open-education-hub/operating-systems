@@ -67,7 +67,7 @@ Thus, an application that uses processes can be more robust to errors than if it
 
 ### Memory Corruption
 
-Because they share the same address space,  threads run the risk of corrupting each other's data.
+Because they share the same address space, threads run the risk of corrupting each other's data.
 Take a look at the code in `support/sum-array-bugs/memory-corruption/python/`.
 The two programs only differ in how they spread their workload.
 One uses threads while the other uses processes.
@@ -95,3 +95,45 @@ At this point, this process receives its own separate copies of the previously s
 Note that in order for the processes to share the `sums` dictionary, it is not created as a regular dictionary, but using the `Manager` module.
 This module provides some special data structures that are allocated in **shared memory** so that all processes can access them.
 You can learn more about shared memory and its various implementations [in the Arena section](./arena.md#shared-memory).
+
+## Memory Layout of Multi-threaded Programs
+
+When a new thread is created, a new stack is allocated for a thread.
+The default stack size if `8 MB` / `8192 KB`:
+
+```console
+student@os:~$ ulimit -s
+8192
+```
+
+Enter the `support/multithreaded/` directory to observe the update of the memory layout when creating new threads.
+
+Build the `multithreaded` executable:
+
+```console
+student@os:~/.../lab/support/multithreaded$ make
+```
+
+Start the program:
+
+```console
+student@os:~/.../lab/support/multithreaded$ ./multithreaded
+Press key to start creating threads ...
+[...]
+```
+
+And investigate it with `pmap` on another console, while pressing a key to create new threads.
+
+As you can see, there is a new `8192 KB` area created for every thread, also increasing the total virtual size.
+
+### Practice
+
+1. Build the multithreaded program as a static executable by adding `LDFLAGS = -static` to the Makefile:
+   Run it.
+   You can check the executable is statically linked by executing the command `ldd multithreaded`.
+   Notice the same effect of the thread creation on the process memory layout: the creation of a new stack of `8192 KB`.
+
+1. Make a program in another language of your choice that creates threads.
+   Investigate it with `pmap`.
+
+[Quiz](../quiz/thread-memory.md)
