@@ -1,0 +1,13 @@
+echo '#include <stdio.h>' > main.c
+echo '#include <string.h>' >> main.c
+echo '#include <stdlib.h>' >> main.c
+echo 'int main(int argn, char *argv[]) {' >> main.c
+echo 'FILE *g=fopen(argv[1],"w");' >> main.c
+echo 'int i;' >> main.c
+echo 'for(i = 0 ; i< 10 * 1024 * 1024 && fprintf(g,"*");i++);' >> main.c
+echo 'return 0; }' >> main.c
+gcc -o main.exe main.c
+./main.exe big_file
+rm -fr main.exe
+cat < big_file | cat | cat | cat | cat | cat | cat > firstFIle & cat < big_file | cat | cat | cat | cat | cat | cat > secondFIle
+exit

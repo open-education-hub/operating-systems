@@ -1,0 +1,7 @@
+false; echo > gol.txt
+true ; echo > not_gol.txt; false; echo mumu > not_gol.txt
+gcc &> out_03.txt && echo cat > out_04_null.txt
+gcc &> out_03.txt || echo cat > out_04.txt
+cat /etc/services | grep telnet | cat | cat | cat | cat > out_01.txt || echo cat > out_02_null.txt
+cat /etc/services | grep telnet | cat | cat | cat | cat > out_01.txt && echo cat > out_02.txt
+exit

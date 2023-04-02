@@ -1,0 +1,5 @@
+myNew='SUCCESS'; echo $myVariable >> output0; echo $myNew >> output0
+cat output1 > final 2> err1; rm output1 &> err2
+cat output0 > final; rm output0 &> err3
+MYGROUP=$USER-group ; echo $MYGROUP > output2
+exit

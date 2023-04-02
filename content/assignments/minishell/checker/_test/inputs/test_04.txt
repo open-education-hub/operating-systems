@@ -1,0 +1,13 @@
+echo '#include <stdio.h>' > main.c
+echo 'int main(void) {' >> main.c
+echo 'fprintf(stderr, "test_err\n");' >> main.c
+echo 'fprintf(stdout, "test_out\n");' >> main.c
+echo 'return 0;' >> main.c
+echo '}' >> main.c
+gcc -o main main.c
+./main >> out.txt
+cp out.txt out2.txt
+./main &> out2.txt
+cp out2.txt out3.txt
+./main 2>> out3.txt
+exit

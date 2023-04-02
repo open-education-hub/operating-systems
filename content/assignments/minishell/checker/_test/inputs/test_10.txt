@@ -1,0 +1,5 @@
+ls -l .. | tr -s ' ' | cut -d ' ' -f 2 > out1.txt
+ls -l .. | tr -s ' ' | cut -d ' ' -f 2 | sort > out1.txt
+ls -l .. | tr -s ' ' | cut -d ' ' -f 2 | sort | uniq > out1.txt
+ls -l .. | tr -s ' ' | cut -d ' ' -f 2 | sort | uniq | wc -l > out1.txt
+exit

@@ -1,0 +1,14 @@
+echo '#include <stdio.h>' > main.c
+echo '#include <string.h>' >> main.c
+echo '#include <stdlib.h>' >> main.c
+echo 'int main(int argn, char *argv[]) {' >> main.c
+echo 'FILE *f=fopen(argv[1],"r"), *g=fopen(argv[2],"w");' >> main.c
+echo 'char *str = (char *) calloc(15,sizeof(char));' >> main.c
+echo 'fscanf(f,"%s",str);' >> main.c
+echo 'fprintf(g,"%s",str);' >> main.c
+echo 'free(str);return 0; }' >> main.c
+gcc -o main.exe main.c
+sleep 0.2 &&  echo 'MAYBE' > in & sleep 1.0 && ./main.exe in out & sleep 0.7 && false || echo 'SUCCESS' > in & sleep 1.7 &&  echo 'FAILED' > in
+sync
+rm -fr main.exe
+exit
