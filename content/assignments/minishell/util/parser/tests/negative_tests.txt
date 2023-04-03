@@ -1,0 +1,40 @@
+print_params '$m
+print_params "$m
+print_params $
+print_params $
+print_params $'m'
+print_params $"m"
+print_params $$
+print_params "$$"
+p "$5"
+p "$!"
+p $5
+p $!
+print_params $ m
+print_params >> f
+print_params << f
+print_params <> f
+print_params <2> f
+print_params <&> f
+print_params < $
+<
+>
+2>
+&>
+|
+||
+&&
+&
+>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<
+&&&&&&&&&&&&&&&&
+print_params > | err
+ls|
+| ls |
+p "
+p '
+p ^
+	p 		<	"<"	&
+p1 | > p2
+			> out
+p1 > r1 p1
