@@ -1,0 +1,43 @@
+mkdir tmp
+cd tmp
+ls
+ls -l -a
+cd .
+ls
+mkdir tmp
+ls
+cd tmp
+ls
+cd ..
+ls
+asdf
+test test_out > test.out
+ls test.out
+cat test.out
+cat < test.out
+gcc 2> test.err
+ls test.err
+cat test.err
+cat < test.err
+cat /etc/services | grep ftp
+cat /etc/service | grep ftp | grep udp
+sleep 1 && date ; date
+sleep 1 && date & date
+true && ls
+false && ls
+true || ls
+false || ls
+ls > asdf/asdf
+
+sleep 1 && date & echo aaa
+ls &> test.out
+cat test.out
+gcc &> test.out
+ls -ls | grep f
+sleep 1 && date & pwd
+gcc &> err; ls -l err
+
+echo $HOME
+echo $HOMER
+echo a/$HOME/b
+echo a/$HOMER/b

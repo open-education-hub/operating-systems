@@ -1,0 +1,17 @@
+exit 1
+cd cd
+cd exit
+print_params >out.txt>out.txt>out.txt<in.txt<in.txt<in1.txt>out1.txt&>err
+'mumu &' mumu
+'cd | cd' | cd | "cd | cd" & "&%%^@AFEAWFTGAGACQ~!~@!%^&^&%*&^&*()'''"
+
+export m=shot
+			          p
+p
+c1 & c2 | c3 && c4 ; c5 || c6 ; c7 | c8 & c9 | c10 && c11
+c1 p1 | c2  p2 | c3 p3 >r3 | c4 >r4 | c5
+c:\progra~1/\\\\\\\\\./\/\/
+%WINDIR% $HOME
+cd ~
+cd $m'aie'
+'m'====== $t =& x '?|$_' $_ && $_$_
