@@ -38,198 +38,106 @@ docusaurus:
     course_name: SO
     sidebar: js
     structure:
-      - Introduction:
-        - Intro:
-            name: README
-            location: content/landing-page
+      - Introduction: content/landing-page/README.md
       - Lecture:
-        - Software Stack:
-            name: Software-Stack
-            location: /build/embed_reveal/Software-Stack
-        - Data:
-            name: Data
-            location: /build/embed_reveal/Data
-        - Compute:
-            name: Compute
-            location: /build/embed_reveal/Compute
-        - IO:
-            name: IO
-            location: /build/embed_reveal/IO
-        - Application Interaction:
-            name: Application-Interaction
-            location: /build/embed_reveal/Application-Interaction
+          path: /build/embed_reveal
+          subsections:
+            - Software Stack: Software-Stack/Software-Stack.mdx
+            - Data: Data/Data.mdx
+            - Compute: Compute/Compute.mdx
+            - IO: IO/IO.mdx
+            - Application Interaction: Application-Interaction/Application-Interaction.mdx
       - Lab:
-        - Setting up the Lab Environment:
-            location: content/misc
-            name: lab-setup
+        - Setting up the Lab Environment: content/misc/lab-setup.md
         - Software Stack:
-          - Overview:
-              location: content/chapters/software-stack/lab
-              name: content/overview
-          - Modern Software Stacks:
-              location: content/chapters/software-stack/lab
-              name: content/modern-sw-stack
-          - Basic System Calls:
-              location: content/chapters/software-stack/lab
-              name: content/basic-syscall
-          - System Call Wrapper:
-              location: content/chapters/software-stack/lab
-              name: content/syscall-wrapper
-          - Common Functions:
-              location: content/chapters/software-stack/lab
-              name: content/common-functions
-          - Libc:
-              location: content/chapters/software-stack/lab
-              name: content/libc
-          - Static-dynamic:
-              location: content/chapters/software-stack/lab
-              name: content/static-dynamic
-          - Libcall-Syscall:
-              location: content/chapters/software-stack/lab
-              name: content/libcall-syscall
-          - High-Level Languages:
-              location: content/chapters/software-stack/lab
-              name: content/high-level-lang
-          - App Investigation:
-              location: content/chapters/software-stack/lab
-              name: content/app-investigate
-          - Arena:
-              location: content/chapters/software-stack/lab
-              name: content/arena
+            path: content/chapters/software-stack/lab/content
+            extra:
+              - ../media
+              - ../quiz
+            subsections:
+              - Overview: overview.md
+              - Modern Software Stacks: modern-sw-stack.md
+              - Basic System Calls: basic-syscall.md
+              - System Call Wrapper: syscall-wrapper.md
+              - Common Functions: common-functions.md
+              - Libc: libc.md
+              - Static-dynamic: static-dynamic.md
+              - Libcall-Syscall: libcall-syscall.md
+              - High-Level Languages: high-level-lang.md
+              - App Investigation: app-investigate.md
+              - Arena: arena.md
         - Data:
-          - Overview:
-              location: content/chapters/data/lab
-              name: content/overview
-          - Working with Memory:
-              location: content/chapters/data/lab
-              name: content/working-memory
-          - Process Memory:
-              location: content/chapters/data/lab
-              name: content/process-memory
-          - Investigate Memory:
-              location: content/chapters/data/lab
-              name: content/investigate-memory
-          - Memory Security:
-              location: content/chapters/data/lab
-              name: content/memory-security
-          - Arena:
-              location: content/chapters/data/lab
-              name: content/arena
+            path: content/chapters/data/lab/content
+            extra:
+              - ../quiz
+            subsections:
+              - Overview: overview.md
+              - Working with Memory: working-memory.md
+              - Process Memory: process-memory.md
+              - Investigate Memory: investigate-memory.md
+              - Memory Security: memory-security.md
+              - Arena: arena.md
         - Compute:
-          - Overview:
-              location: content/chapters/compute/lab
-              name: content/overview
-          - Hardware Perspective:
-              location: content/chapters/compute/lab
-              name: content/hardware-perspective
-          - Processes:
-              location: content/chapters/compute/lab
-              name: content/processes
-          - Threads:
-              location: content/chapters/compute/lab
-              name: content/threads
-          - Processes-threads-apache2:
-              location: content/chapters/compute/lab
-              name: content/processes-threads-apache2
-          - Copy-on-Write:
-              location: content/chapters/compute/lab
-              name: content/copy-on-write
-          - Synchronization:
-              location: content/chapters/compute/lab
-              name: content/synchronization
-          - Scheduling:
-              location: content/chapters/compute/lab
-              name: content/scheduling
-          - Arena:
-              location: content/chapters/compute/lab
-              name: content/arena
-        - I/O:
-          - Overview:
-              location: content/chapters/io/lab
-              name: content/overview
-          - File Handlers:
-              location: content/chapters/io/lab
-              name: content/file-handlers
-          - File Descriptors:
-              location: content/chapters/io/lab
-              name: content/file-descriptors
-          - Redirections:
-              location: content/chapters/io/lab
-              name: content/redirections
-          - Pipes:
-              location: content/chapters/io/lab
-              name: content/pipes
-          - Local I/O in Action:
-              location: content/chapters/io/lab
-              name: content/local-io-in-action
-          - Remote I/O:
-              location: content/chapters/io/lab
-              name: content/remote-io
-          - Networking 101:
-              location: content/chapters/io/lab
-              name: content/networking-101
-          - Client-Server Model:
-              location: content/chapters/io/lab
-              name: content/client-server-model
-          - Beyond Network Sockets:
-              location: content/chapters/io/lab
-              name: content/beyond-network-sockets
-          - File Mappings:
-              location: content/chapters/io/lab
-              name: content/file-mappings
-          - I/O Internals:
-              location: content/chapters/io/lab
-              name: content/io-internals
-          - Zero-Copy:
-              location: content/chapters/io/lab
-              name: content/zero-copy
-          - Asynchronous I/O:
-              location: content/chapters/io/lab
-              name: content/async-io
-          - I/O Multiplexing:
-              location: content/chapters/io/lab
-              name: content/io-multiplexing
-          - Arena:
-              location: content/chapters/io/lab
-              name: content/arena
+            path: content/chapters/compute/lab/content
+            extra:
+              - ../media
+              - ../quiz
+            subsections:
+              - Overview: overview.md
+              - Hardware Perspective: hardware-perspective.md
+              - Processes: processes.md
+              - Threads: threads.md
+              - Processes-threads-apache2: processes-threads-apache2.md
+              - Copy-on-Write: copy-on-write.md
+              - Synchronization: synchronization.md
+              - Scheduling: scheduling.md
+              - Arena: arena.md
+        - IO:
+            path: content/chapters/io/lab/content
+            extra:
+              - ../media
+              - ../quiz
+            subsections:
+              - Overview: overview.md
+              - File Handlers: file-handlers.md
+              - File Descriptors: file-descriptors.md
+              - Redirections: redirections.md
+              - Pipes: pipes.md
+              - Local IO in Action: local-io-in-action.md
+              - Remote IO: remote-io.md
+              - Networking 101: networking-101.md
+              - Client-Server Model: client-server-model.md
+              - Beyond Network Sockets: beyond-network-sockets.md
+              - File Mappings: file-mappings.md
+              - IO Internals: io-internals.md
+              - Zero-Copy: zero-copy.md
+              - Asynchronous IO: async-io.md
+              - IO Multiplexing: io-multiplexing.md
+              - Arena: arena.md
         - Application Interaction:
-          - Overview:
-              location: content/chapters/app-interact/lab
-              name: content/overview
-          - Time Server:
-              location: content/chapters/app-interact/lab
-              name: content/time-server
-          - Password Cracker:
-              location: content/chapters/app-interact/lab
-              name: content/password-cracker
-          - The X Window System:
-              location: content/chapters/app-interact/lab
-              name: content/x-window-system
-          - D-Bus:
-              location: content/chapters/app-interact/lab
-              name: content/dbus
-          - OS Cloud:
-              location: content/chapters/app-interact/lab
-              name: content/os-cloud
-          - Arena:
-              location: content/chapters/app-interact/lab
-              name: content/arena
+            path: content/chapters/app-interact/lab/content
+            extra:
+              - ../media
+              - ../quiz
+            subsections:
+              - Overview: overview.md
+              - Time Server: time-server.md
+              - Password Cracker: password-cracker.md
+              - The X Window System: x-window-system.md
+              - D-Bus: dbus.md
+              - OS Cloud: os-cloud.md
+              - Arena: arena.md
       - Assignments:
-        - Mini Libc:
-            location: content/assignments/mini-libc
-            name: README
-        - Memory Allocator:
-            location: content/assignments/memory-allocator
-            name: README
-        - Parallel Graph:
-            location: content/assignments/parallel-graph
-            name: README
-        - Mini Shell:
-            location: content/assignments/minishell
-            name: README
-        - Asynchronous Web Server:
-            location: content/assignments/async-web-server
-            name: README
+          path: content/assignments
+          # These all have the same filename so we need to create separate
+          # subdirectories for them, otherwise they will overwrite each other.
+          # (See the trailing slash in the path.)
+          subsections:
+            - Mini Libc/: mini-libc/README.md
+            - Memory Allocator/: memory-allocator/README.md
+            - Parallel Graph/: parallel-graph/README.md
+            - Mini Shell/: minishell/README.md
+            - Asynchronous Web Server/: async-web-server/README.md
     static_assets:
       - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
       - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
