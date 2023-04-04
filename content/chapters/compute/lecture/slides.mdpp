@@ -27,6 +27,10 @@ revealOptions:
 
 !INCLUDE "slides/copy-on-write.md"
 
+!INCLUDE "slides/scheduling.md"
+
+!INCLUDE "slides/scheduling-algorithms.md"
+
 !INCLUDE "slides/synchronization.md"
 
 !INCLUDE "slides/mutual-exclusion.md"
@@ -36,9 +40,5 @@ revealOptions:
 !INCLUDE "slides/barrier.md"
 
 !INCLUDE "slides/thread-safety.md"
-
-!INCLUDE "slides/scheduling.md"
-
-!INCLUDE "slides/scheduling-algorithms.md"
 
 !INCLUDE "slides/cool-extra-stuff.md"
