@@ -333,6 +333,267 @@ student@os:~$ cat /proc/`pidof copy_on_write_overhead`/stat | cut -d ' ' -f 10  
 131094
 ```
 </script></section></section><section  data-markdown><script type="text/template">
+## Scheduling
+</script></section><section ><section data-markdown><script type="text/template">
+### Scheduling - Why?
+
+* For multitasking: more threads than CPU cores
+* For responsiveness: small waiting time
+* For productivity: execute more threads
+</script></section><section data-markdown><script type="text/template">
+#### Typical Thread Execution
+
+![Thread Execution](media/thread-behaviour.svg)
+</script></section><section data-markdown><script type="text/template">
+#### Thread States
+
+* At most one RUNNING thread per core
+* Queues for BLOCKED and READY threads
+* [Quiz](../quiz/number-of-running-threads.md)
+
+<img src="media/thread-states.svg" alt="Thread State Diagram" style="width:700px;"/>
+
+A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Context Switch - When?
+
+* Voluntary - initiated by the running thread:
+  * RUNNING thread performs a blocking action (eg: I/O call)
+  * The thread calls `yield()` / `SwitchToThread()`
+* Involuntary - initiated by the OS:
+  * RUNNING thread ends
+  * RUNNING thread's time slice expires
+  * A thread with higher priority is READY
+</script></section><section data-markdown><script type="text/template">
+#### Context Switch - How?
+
+![Context Switch and TCBs](media/context-switch-tcb.svg)
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Types of Threads
+
+* CPU-intensive / CPU-bound = mostly CPU bursts:
+  * compute the digits of Pi
+  * compilers
+  * machine learning
+* I/O-intensive / I/O-bound = mostly I/O bursts:
+  * servers
+  * databases
+  * text editors
+</script></section><section data-markdown><script type="text/template">
+#### IO-bound vs CPU-bound
+
+* `demo/context-switch/cpu_bound.c`:
+
+```[1 - 4]
+student@os:~$ cat /proc/$(pidof cpu_bound)/status
+[...]
+voluntary_ctxt_switches:        13
+nonvoluntary_ctxt_switches:     7
+```
+</script></section><section data-markdown><script type="text/template">
+#### IO-bound vs CPU-bound
+
+* `demo/context-switch/io_bound.c`:
+
+```console
+student@os:~$ cat /proc/$(pidof io_bound)/status
+[...]
+voluntary_ctxt_switches:        3729
+nonvoluntary_ctxt_switches:     3
+```
+</script></section></section><section  data-markdown><script type="text/template">
+### Context Switch - Overhead
+
+* Causes of overhead:
+  * running the scheduler itself
+  * flushing the [TLB](../../data/lecture) of the evicted thread is required
+  * the new thread starts with an empty TLB
+* Faster context switches between threads of the same process because their TLB is not flushed
+</script></section><section  data-markdown><script type="text/template">
+## Scheduling Algorithms
+</script></section><section ><section data-markdown><script type="text/template">
+### Scheduling - Ideals
+
+* **Interactivity:** decrease time spent in READY
+  * low waiting time
+  * also known as **fairness**
+* **Throughput:** finish threads as quickly as possible
+  * low turnaround time
+</script></section><section data-markdown><script type="text/template">
+#### Scheduling - Reality
+
+* There is no free lunch
+* Trade-off between interactivity and throughput
+</script></section><section data-markdown><script type="text/template">
+#### Types of Schedulers
+
+* **Cooperative:** only allow voluntary context switches
+  * Advantage: Simple to implement
+  * Disadvantage: starvation - a thread might never yield its CPU core
+* **Preemptive:** also allows involuntary context switches
+  * Each process can run at most a certain _time slice_
+  * When it expires, a context switch is triggered
+</script></section><section data-markdown><script type="text/template">
+#### Scheduling Algorithms - The Bigger Picture
+
+* **Round-Robin**:
+  * Push each new thread to a queue
+  * Every time slice, dequeue one thread, run it, then reenqueue it
+  * Threads run in the order in which they're spawned
+</script></section><section data-markdown><script type="text/template">
+#### Scheduling Algorithms - The Bigger Picture
+
+* **Completely Fair Scheduler (CFS)**:
+  * Add new threads to a red-black tree sorted by total running time
+  * Every time slice, remove, run and add the thread that has run the least back to the tree
+  * Each thread runs approximately the same amount of time
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Scheduling Algorithms - Round-Robin
+
+1. Add each new thread to a queue
+1. Remove one thread from the queue and run it
+1. The thread runs until finished or until its time slice ends
+1. If the thread is not finished, add it back to the queue
+1. Repeat from step 2
+</script></section><section data-markdown><script type="text/template">
+#### Round-Robin - Example
+
+| Process | Running time |
+| :-----: | :----------: |
+| P1      | 4            |
+| P2      | 3            |
+| P3      | 5            |
+
+* Assume a time slice of 2
+</script></section><section data-markdown><script type="text/template">
+#### Round-Robin - Live Scheduling
+
+![Round-Robin Scheduling](./media/round-robin-generated.gif)
+</script></section><section data-markdown><script type="text/template">
+#### Round-Robin - Analysis
+
+* Large time slice:
+  * high throughput (fewer context switches)
+  * low fairness (threads at the back of the queue spend more time in READY)
+* Small time slice:
+  * low throughput
+  * high fairness
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Round-Robin - Real Life (Unikraft)
+
+* [Cooperative scheduler](https://github.com/unikraft/unikraft/blob/staging/lib/ukschedcoop/schedcoop.c)
+* Lists used as queues for READY and WAITING processes:
+
+```c
+struct schedcoop_private {
+	struct uk_thread_list thread_list;
+	struct uk_thread_list sleeping_threads;
+};
+```
+
+* `yield` means scheduling another thread:
+
+```c
+static void schedcoop_yield(struct uk_sched *s)
+{
+	schedcoop_schedule(s);
+}
+```
+</script></section><section data-markdown><script type="text/template">
+#### Cooperative Scheduler - Demo
+
+* First, run `setup.sh`
+* Without calling `uk_sched_yield`, Thread 1 runs until finished:
+
+```console [1 - 12 | 14 - 25]
+student@os:~/.../compute/lecture/demo/cooperative-scheduling$ ./run.sh
+[...]
+Thread 1 created!
+Thread 1: step 0
+Thread 1: step 1
+Thread 1: step 2
+Thread 1 finished!
+Thread 2 created!
+Thread 2: step 0
+Thread 2: step 1
+Thread 2: step 2
+Thread 2 finished!
+
+student@os:~/.../compute/lecture/demo/cooperative-scheduling$ ./run.sh --cooperate
+[...]
+Thread 1 created!
+Thread 1: step 0
+Thread 2 created!
+Thread 2: step 0
+Thread 1: step 1
+Thread 2: step 1
+Thread 1: step 2
+Thread 2: step 2
+Thread 1 finished!
+Thread 2 finished!
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Completely Fair Scheduler (CFS)
+
+* Schedule the thread that has run **the least amount of time (vruntime)**
+* Store READY threads in a **Red-Black Tree**, sorted by **vruntime**
+* Use time slices, like Round-Robin
+* During a context switch:
+  * If the currently RUNNING task is over, terminate it
+  * Otherwise, increase its vruntime and add it to RBTree
+  * Move the **leftmost** thread in RBTree to RUNNING
+</script></section><section data-markdown><script type="text/template">
+#### CFS - Analysis
+
+* Context switch complexity:
+  * Add thread to RBTree: `O(log(num_threads))`
+  * Extract leftmost thread in the RBTree: `O(1)` (keep a pointer to it)
+  * Overall complexity: `O(log(num_threads))`
+* Time slice size: same tradeoff as Round-Robin
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Fixed Priority Scheduling
+
+* Each thread has a priority
+* Threads with higher priority run more often
+* Threads with lower priority are starved
+* Easier to implement
+</script></section><section data-markdown><script type="text/template">
+#### Fixed Priority Scheduling - `nice`
+
+* Lower `nice`-ness = higher priority
+* Values in `[-20, 19]`
+
+```console [1 - 2 | 3 - 8 | 9 - 10 | 11 - 12]
+student@os:~$ nice -10 bash &
+[1] 5753
+student@os:~$ ps -e -o pid,ni,comm
+  PID  NI COMMAND
+    1   0 init
+ [...]
+ 5753  10 bash
+ 5752   0 ps
+student@os:~$ sudo renice -n -20 -p 5753
+5753 (process ID) old priority 10, new priority -20
+student@os:~$ ps -e -o pid,ni,comm | grep 5753
+ 5753 -20 bash
+```
+</script></section><section data-markdown><script type="text/template">
+#### Priority-Based Round-Robin
+
+* The scheduler keeps a list of queues, one for each priority
+* During a context switch, the new RUNNING thread is chosen from the highest priority non-empty queue
+
+![Priority-Based Round-Robin](media/priority-round-robin.svg)
+</script></section></section><section  data-markdown><script type="text/template">
+### Dynamic-Priority Scheduling
+
+* Problems with static priorities:
+  * Low-priority threads are starved
+  * Unfair for I/O bound threads
+* Solution:
+  * Decrease priority of RUNNING threads
+  * Increase priority of WAITING threads
+</script></section><section  data-markdown><script type="text/template">
 ## Synchronization
 </script></section><section ><section data-markdown><script type="text/template">
 #### Synchronization - Why?
@@ -676,267 +937,6 @@ int add2(int x)
 }
 ```
 </script></section></section><section  data-markdown><script type="text/template">
-## Scheduling
-</script></section><section ><section data-markdown><script type="text/template">
-### Scheduling - Why?
-
-* For multitasking: more threads than CPU cores
-* For responsiveness: small waiting time
-* For productivity: execute more threads
-</script></section><section data-markdown><script type="text/template">
-#### Typical Thread Execution
-
-![Thread Execution](media/thread-behaviour.svg)
-</script></section><section data-markdown><script type="text/template">
-#### Thread States
-
-* At most one RUNNING thread per core
-* Queues for BLOCKED and READY threads
-* [Quiz](../quiz/number-of-running-threads.md)
-
-<img src="media/thread-states.svg" alt="Thread State Diagram" style="width:700px;"/>
-
-A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
-</script></section></section><section ><section data-markdown><script type="text/template">
-### Context Switch - When?
-
-* Voluntary - initiated by the running thread:
-  * RUNNING thread performs a blocking action (eg: I/O call)
-  * The thread calls `yield()` / `SwitchToThread()`
-* Involuntary - initiated by the OS:
-  * RUNNING thread ends
-  * RUNNING thread's time slice expires
-  * A thread with higher priority is READY
-</script></section><section data-markdown><script type="text/template">
-#### Context Switch - How?
-
-![Context Switch and TCBs](media/context-switch-tcb.svg)
-</script></section></section><section ><section data-markdown><script type="text/template">
-### Types of Threads
-
-* CPU-intensive / CPU-bound = mostly CPU bursts:
-  * compute the digits of Pi
-  * compilers
-  * machine learning
-* I/O-intensive / I/O-bound = mostly I/O bursts:
-  * servers
-  * databases
-  * text editors
-</script></section><section data-markdown><script type="text/template">
-#### IO-bound vs CPU-bound
-
-* `demo/context-switch/cpu_bound.c`:
-
-```[1 - 4]
-student@os:~$ cat /proc/$(pidof cpu_bound)/status
-[...]
-voluntary_ctxt_switches:        13
-nonvoluntary_ctxt_switches:     7
-```
-</script></section><section data-markdown><script type="text/template">
-#### IO-bound vs CPU-bound
-
-* `demo/context-switch/io_bound.c`:
-
-```console
-student@os:~$ cat /proc/$(pidof io_bound)/status
-[...]
-voluntary_ctxt_switches:        3729
-nonvoluntary_ctxt_switches:     3
-```
-</script></section></section><section  data-markdown><script type="text/template">
-### Context Switch - Overhead
-
-* Causes of overhead:
-  * running the scheduler itself
-  * flushing the [TLB](../../data/lecture) of the evicted thread is required
-  * the new thread starts with an empty TLB
-* Faster context switches between threads of the same process because their TLB is not flushed
-</script></section><section  data-markdown><script type="text/template">
-## Scheduling Algorithms
-</script></section><section ><section data-markdown><script type="text/template">
-### Scheduling - Ideals
-
-* **Interactivity:** decrease time spent in READY
-  * low waiting time
-  * also known as **fairness**
-* **Throughput:** finish threads as quickly as possible
-  * low turnaround time
-</script></section><section data-markdown><script type="text/template">
-#### Scheduling - Reality
-
-* There is no free lunch
-* Trade-off between interactivity and throughput
-</script></section><section data-markdown><script type="text/template">
-#### Types of Schedulers
-
-* **Cooperative:** only allow voluntary context switches
-  * Advantage: Simple to implement
-  * Disadvantage: starvation - a thread might never yield its CPU core
-* **Preemptive:** also allows involuntary context switches
-  * Each process can run at most a certain _time slice_
-  * When it expires, a context switch is triggered
-</script></section><section data-markdown><script type="text/template">
-#### Scheduling Algorithms - The Bigger Picture
-
-* **Round-Robin**:
-  * Push each new thread to a queue
-  * Every time slice, dequeue one thread, run it, then reenqueue it
-  * Threads run in the order in which they're spawned
-</script></section><section data-markdown><script type="text/template">
-#### Scheduling Algorithms - The Bigger Picture
-
-* **Completely Fair Scheduler (CFS)**:
-  * Add new threads to a red-black tree sorted by total running time
-  * Every time slice, remove, run and add the thread that has run the least back to the tree
-  * Each thread runs approximately the same amount of time
-</script></section></section><section ><section data-markdown><script type="text/template">
-### Scheduling Algorithms - Round-Robin
-
-1. Add each new thread to a queue
-1. Remove one thread from the queue and run it
-1. The thread runs until finished or until its time slice ends
-1. If the thread is not finished, add it back to the queue
-1. Repeat from step 2
-</script></section><section data-markdown><script type="text/template">
-#### Round-Robin - Example
-
-| Process | Running time |
-| :-----: | :----------: |
-| P1      | 4            |
-| P2      | 3            |
-| P3      | 5            |
-
-* Assume a time slice of 2
-</script></section><section data-markdown><script type="text/template">
-#### Round-Robin - Live Scheduling
-
-![Round-Robin Scheduling](./media/round-robin-generated.gif)
-</script></section><section data-markdown><script type="text/template">
-#### Round-Robin - Analysis
-
-* Large time slice:
-  * high throughput (fewer context switches)
-  * low fairness (threads at the back of the queue spend more time in READY)
-* Small time slice:
-  * low throughput
-  * high fairness
-</script></section></section><section ><section data-markdown><script type="text/template">
-### Round-Robin - Real Life (Unikraft)
-
-* [Cooperative scheduler](https://github.com/unikraft/unikraft/blob/staging/lib/ukschedcoop/schedcoop.c)
-* Lists used as queues for READY and WAITING processes:
-
-```c
-struct schedcoop_private {
-	struct uk_thread_list thread_list;
-	struct uk_thread_list sleeping_threads;
-};
-```
-
-* `yield` means scheduling another thread:
-
-```c
-static void schedcoop_yield(struct uk_sched *s)
-{
-	schedcoop_schedule(s);
-}
-```
-</script></section><section data-markdown><script type="text/template">
-#### Cooperative Scheduler - Demo
-
-* First, run `setup.sh`
-* Without calling `uk_sched_yield`, Thread 1 runs until finished:
-
-```console [1 - 12 | 14 - 25]
-student@os:~/.../compute/lecture/demo/cooperative-scheduling$ ./run.sh
-[...]
-Thread 1 created!
-Thread 1: step 0
-Thread 1: step 1
-Thread 1: step 2
-Thread 1 finished!
-Thread 2 created!
-Thread 2: step 0
-Thread 2: step 1
-Thread 2: step 2
-Thread 2 finished!
-
-student@os:~/.../compute/lecture/demo/cooperative-scheduling$ ./run.sh --cooperate
-[...]
-Thread 1 created!
-Thread 1: step 0
-Thread 2 created!
-Thread 2: step 0
-Thread 1: step 1
-Thread 2: step 1
-Thread 1: step 2
-Thread 2: step 2
-Thread 1 finished!
-Thread 2 finished!
-```
-</script></section></section><section ><section data-markdown><script type="text/template">
-### Completely Fair Scheduler (CFS)
-
-* Schedule the thread that has run **the least amount of time (vruntime)**
-* Store READY threads in a **Red-Black Tree**, sorted by **vruntime**
-* Use time slices, like Round-Robin
-* During a context switch:
-  * If the currently RUNNING task is over, terminate it
-  * Otherwise, increase its vruntime and add it to RBTree
-  * Move the **leftmost** thread in RBTree to RUNNING
-</script></section><section data-markdown><script type="text/template">
-#### CFS - Analysis
-
-* Context switch complexity:
-  * Add thread to RBTree: `O(log(num_threads))`
-  * Extract leftmost thread in the RBTree: `O(1)` (keep a pointer to it)
-  * Overall complexity: `O(log(num_threads))`
-* Time slice size: same tradeoff as Round-Robin
-</script></section></section><section ><section data-markdown><script type="text/template">
-### Fixed Priority Scheduling
-
-* Each thread has a priority
-* Threads with higher priority run more often
-* Threads with lower priority are starved
-* Easier to implement
-</script></section><section data-markdown><script type="text/template">
-#### Fixed Priority Scheduling - `nice`
-
-* Lower `nice`-ness = higher priority
-* Values in `[-20, 19]`
-
-```console [1 - 2 | 3 - 8 | 9 - 10 | 11 - 12]
-student@os:~$ nice -10 bash &
-[1] 5753
-student@os:~$ ps -e -o pid,ni,comm
-  PID  NI COMMAND
-    1   0 init
- [...]
- 5753  10 bash
- 5752   0 ps
-student@os:~$ sudo renice -n -20 -p 5753
-5753 (process ID) old priority 10, new priority -20
-student@os:~$ ps -e -o pid,ni,comm | grep 5753
- 5753 -20 bash
-```
-</script></section><section data-markdown><script type="text/template">
-#### Priority-Based Round-Robin
-
-* The scheduler keeps a list of queues, one for each priority
-* During a context switch, the new RUNNING thread is chosen from the highest priority non-empty queue
-
-![Priority-Based Round-Robin](media/priority-round-robin.svg)
-</script></section></section><section  data-markdown><script type="text/template">
-### Dynamic-Priority Scheduling
-
-* Problems with static priorities:
-  * Low-priority threads are starved
-  * Unfair for I/O bound threads
-* Solution:
-  * Decrease priority of RUNNING threads
-  * Increase priority of WAITING threads
-</script></section><section  data-markdown><script type="text/template">
 ## Cool Extra Stuff
 </script></section><section ><section data-markdown><script type="text/template">
 ### Recap - `exec()`
