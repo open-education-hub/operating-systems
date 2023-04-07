@@ -1,5 +1,9 @@
 #! /bin/bash
 
+# [WARNING]
+# This script should be run from local environment
+# The Docker container does not have permission to write to `/proc/sys/vm/_drop_caches`
+
 # Drop all OS caches: buffer cache, dentry cache, inode cache, page cache.
 sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
 
