@@ -1,11 +1,13 @@
-DC = dmd
-DFLAGS = -unittest
-GEN_ARRAY = generate_random_array.d
+GEN_ARRAY = generate_random_array.c
+OMP = sum_array_threads_reduce
 
 all: $(BINARIES)
 
-%: %.d $(GEN_ARRAY)
-	$(DC) $(DFLAGS) $^ -of=$@
+%: %.c $(GEN_ARRAY)
+	$(CC) $(CFLAGS) $^ -o $@
+
+$(OMP): $(OMP).c $(GEN_ARRAY)
+	$(CC) $(CFLAGS) $^ -o $@ -fopenmp
 
 clean:
 	-rm -f *.o $(BINARIES)

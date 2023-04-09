@@ -2,7 +2,7 @@
 
 ## Spreading the Work Among Other Threads
 
-Compile the code in `support/sum-array/d/sum_array_threads.d` and run it using 1, 2, 4 and 8 threads as you did before.
+Compile the code in `support/sum-array/c/sum_array_threads.c` and run it using 1, 2, 4 and 8 threads as you did before.
 Each thread runs the `calculateArrayPartSum` function and then finishes.
 Running times should be _slightly_ smaller than the implementation using processes.
 This slight time difference is caused by process creation actions, which are costlier than thread creation actions.
