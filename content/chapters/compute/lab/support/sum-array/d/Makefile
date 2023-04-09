@@ -1,2 +1,12 @@
-BINARIES = sum_array_sequential sum_array_threads sum_array_processes sum_array_threads_reduce
-include ../../common/Makefile
+DC = dmd
+DFLAGS = -unittest
+GEN_ARRAY = generate_random_array.d
+REDUCE = sum_array_threads_reduce
+
+all: $(REDUCE)
+
+$(REDUCE): $(REDUCE).d $(GEN_ARRAY)
+	$(DC) $(DFLAGS) $^ -of=$@
+
+clean:
+	-rm -f *.o $(REDUCE)
