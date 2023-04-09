@@ -537,7 +537,7 @@ student@os:~/.../lab/support/copy$ make
 
 Run the `benchmark_cp.sh` script:
 
-Run the script on local environment, not on Docker container.
+Run the script in your local environment, not in the Docker container.
 Docker does not have permission to write to `/proc/sys/vm/drop_caches` file.
 
 ```console
