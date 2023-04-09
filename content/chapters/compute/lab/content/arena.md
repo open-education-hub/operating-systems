@@ -8,11 +8,11 @@ For this, we'll run both `sum_array_threads` and `sum_array_processes` under `st
 As we've already established, we're only interested in the `clone` syscall:
 
 ```console
-student@os:~/.../lab/support/sum-array/d$ strace -e clone ./sum_array_threads 2
+student@os:~/.../lab/support/sum-array/c$ strace -e clone ./sum_array_threads 2
 clone(child_stack=0x7f60b56482b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1819693], tls=0x7f60b5649640, child_tidptr=0x7f60b5649910) = 1819693
 clone(child_stack=0x7f60b4e472b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1819694], tls=0x7f60b4e48640, child_tidptr=0x7f60b4e48910) = 1819694
 
-student@os:~/.../lab/support/sum-array/d$ strace -e clone ./sum_array_processes 2
+student@os:~/.../lab/support/sum-array/c$ strace -e clone ./sum_array_processes 2
 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7a4e346650) = 1820599
 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7a4e346650) = 1820600
 ```
@@ -31,27 +31,38 @@ When creating a process, `clone` creates this new thread within a new separate a
 
 ## Libraries for Parallel Processing
 
-In `support/sum-array/d/sum_array_threads.d` we spawned threads "manually" by using the `spawn` function.
-This is **not** a syscall, but a wrapper over the most common thread-management API in POSIX-based operating systems (such as Linux, FreeBSD, macOS): POSIX Threads or `pthreads`.
-By inspecting the [implementation of `spawn`](https://github.com/dlang/phobos/blob/352258539ca54e640e862f79b2b8ec18aafa7d94/std/concurrency.d#L618-L622), we see that it creates a `Thread` object, on which it calls the `start()` method.
-In turn, [`start()` uses `pthread_create()`](https://github.com/dlang/dmd/blob/cc117cd45c7d72ce5a87b775e65a9d13fa4d4424/druntime/src/core/thread/osthread.d#L454-L486) on POSIX systems.
+In `support/sum-array/c/sum_array_threads.c` we spawned threads "manually" by using the `pthread_create()` function.
+This is **not** a syscall, but a wrapper over the common syscall used by both `fork()` (which is also not a syscall) and `pthread_create()`.
 
 Still, `pthread_create()` is not yet a syscall.
 In order to see what syscall `pthread_create()` uses, check out [this section at the end of the lab](#threads-and-processes-clone).
 
 Most programming languages provide a more advanced API for handling parallel computation.
-D makes no exception.
-Its standard library exposes the [`std.parallelism`](https://dlang.org/phobos/std_parallelism.html), which provides a series of parallel processing functions.
-One such function is `reduce` which splits an array between a given number of threads and applies a given operation to these chunks.
+
+### `std.parallelism` in D
+
+D language's standard library exposes the [`std.parallelism`](https://dlang.org/phobos/std_parallelism.html), which provides a series of parallel processing functions.
+One such function is `reduce()` which splits an array between a given number of threads and applies a given operation to these chunks.
 In our case, the operation simply adds the elements to an accumulator: `a + b`.
 Follow and run the code in `support/sum-array/d/sum_array_threads_reduce.d`.
 
 The number of threads is used within a [`TaskPool`](https://dlang.org/phobos/std_parallelism.html#.TaskPool).
 This structure is a thread manager (not scheduler).
-It silently creates the number of threads we request and then `reduce` spreads its workload between these threads.
+It silently creates the number of threads we request and then `reduce()` spreads its workload between these threads.
 
-Now run the `sum_array_threads_reduce` binary using 1, 2, 4, and 8 threads as before.
-You'll see lower running times than `sum_array_threads` due to the highly-optimised code of the `reduce` function.
+### OpenMP for C
+
+Unlike D, C does not support parallel computation by design.
+It needs a library to do advanced things, like `reduce()` from D.
+We have chosen to use the OpenMP library for this.
+Follow the code in `support/sum-array/c/sum_array_threads_openmp.c`.
+
+The `#pragma` used in the code instructs the compiler to enable the `omp` module, and to parallelise the code.
+In this case, we instruct the compiler to perform a reduce of the array, using the `+` operator, and to store the results in the `result` variable.
+This reduction uses threads to calculate the sum, similar to `summ_array_threads.c`, but in a much more optimised form.
+
+Now compile and run the `sum_array_threads_openmp` binary using 1, 2, 4, and 8 threads as before.
+You'll see lower running times than `sum_array_threads` due to the highly-optimised code emmited by the compiler.
 For this reason and because library functions are usually much better tested than your own code, it is always preferred to use a library function for a given task.
 
 ## Shared Memory
