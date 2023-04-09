@@ -12,8 +12,8 @@ Therefore, they are more lightweight than processes.
 
 ### Practice: Wait for Me Once More
 
-Go to `support/wait-for-me/wait_for_me_threads.d`.
-Spawn a thread that executes the `negateArray()` function.
+Go to `support/wait-for-me/wait_for_me_threads.c`.
+Spawn a thread that executes the `negate_array()` function.
 For now, do not wait for it to finish;
 simply start it.
 
