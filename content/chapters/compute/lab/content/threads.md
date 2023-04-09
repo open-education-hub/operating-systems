@@ -61,7 +61,7 @@ This is why we end up with a lower sum in the end: because one process died too 
 ### Practice: Wait for It
 
 The process that spawns all the others and subsequently calls `waitpid` to wait for them to finish can also get their return codes.
-Update the code in `support/sum-array-bugs/seg-fault/sum_array_processes.d` and modify the call to `waitpid` to obtain and investigate this return code.
+Update the code in `support/sum-array-bugs/seg-fault/sum_array_processes.c` and modify the call to `waitpid` to obtain and investigate this return code.
 Display an appropriate message if one of the child processes returns an error.
 
 Remember to use the appropriate [macros](https://linux.die.net/man/2/waitpid) for handling the `status` variable that is modified by `waitpid`, as it is a bitfield.
