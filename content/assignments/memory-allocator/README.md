@@ -110,6 +110,9 @@ typedef struct block_meta {
 
 _Note_: Both the `struct block_meta` and the payload of a block should be aligned to **8 bytes**.
 
+_Note_: The checker uses the `size` from `struct block_meta`.
+Use `size` to store the **aligned size of the payload**.
+
 _Note_: Most compilers will automatically pad the structure, but you should still align it for portability.
 
 ![memory-block](./assets/memory-block.svg)
