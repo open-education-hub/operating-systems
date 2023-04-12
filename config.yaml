@@ -133,11 +133,11 @@ docusaurus:
           # subdirectories for them, otherwise they will overwrite each other.
           # (See the trailing slash in the path.)
           subsections:
-            - Mini Libc/: mini-libc/README.md
-            - Memory Allocator/: memory-allocator/README.md
-            - Parallel Graph/: parallel-graph/README.md
-            - Mini Shell/: minishell/README.md
-            - Asynchronous Web Server/: async-web-server/README.md
+            - Mini Libc/: mini-libc/
+            - Memory Allocator/: memory-allocator/
+            - Parallel Graph/: parallel-graph/
+            - Mini Shell/: minishell/
+            - Asynchronous Web Server/: async-web-server/
     static_assets:
       - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
       - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
