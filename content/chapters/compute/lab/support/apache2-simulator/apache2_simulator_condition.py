@@ -13,15 +13,16 @@ def worker(event, id):
     msg = ""
 
     while True:
-        with event:
-            while len(messages) == 0:
-                event.wait()
+        event.acquire()
+        while len(messages) == 0:
+            event.wait()
 
-            print(f"Worker {id} started handling message...")
-            sleep(randint(1, 5))
+        print(f"Worker {id} started handling message...")
+        sleep(randint(1, 5))
 
-            msg = messages[0]
-            messages.pop(0)
+        msg = messages[0]
+        messages.pop(0)
+        event.release()
 
         print(f"Worker {id} handling message: {msg}")
         sleep(randint(1, 5))
@@ -48,13 +49,10 @@ def main():
         if msg == "exit":
             break
 
-        # Equivalent to:
-        #   event.acquire()
-        #   messages.append(msg)
-        #   event.release()
-        with event:
-            messages.append(msg)
-            event.notify()
+        event.acquire()
+        messages.append(msg)
+        event.notify()
+        event.release()
 
 
 if __name__ == "__main__":
