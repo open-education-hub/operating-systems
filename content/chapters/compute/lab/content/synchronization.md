@@ -189,7 +189,7 @@ If `notify()` is called before any thread has called `wait()`, the first thread 
 But this is not all, unfortunately.
 Look at the code in `support/apache2-simulator/apache2_simulator_condition.py`.
 See the main thread call `notify()` once it reads the message.
-Notice that this call is within a `with event`: so it acquires some mutex / semaphore.
+Notice that this call is preceded by an `acquire()` call, and succedeed by a `release()` call.
 
 `acquire()` and `release()` are commonly associated with mutexes or semaphores.
 What do they have to do with condition variables?
@@ -211,9 +211,9 @@ The mutex is used to access and modify the `messages` list atomically.
 Now you might be thinking that this code causes a deadlock:
 
 ```Python
-with event:
-    while len(messages) == 0:
-        event.wait()
+event.acquire()
+while len(messages) == 0:
+    event.wait()
 ```
 
 The thread gets the lock and then, if there are no messages, it switches its state to WAITING.
