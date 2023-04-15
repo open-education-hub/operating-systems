@@ -222,6 +222,9 @@ No.
 `wait()` also releases the inner lock of the `Condition` and being woken up reacquires it.
 Neat!
 And the `while` loop that checks if there are any new messages is necessary because `wait()` can return after an arbitrary long time.
+This is because the thread waiting for the event was notified to wake up, but another thread has woken up before it and started handling the event earlier by reacquiring the lock.
+All the other threads that woke up, but can't aquire the lock, must be put back to wait.
+This situation is called a **spurious wakeup**.
 Therefore, it's necessary to check for messages again when waking up.
 
 So now we have both synchronization **and** signalling.
