@@ -220,7 +220,7 @@ For example, we cannot place it before a `mov` instruction, as the action of a `
 Instead, we can place it in front of an `inc` instruction if its operand is memory.
 
 Look at the code in `support/race-condition/asm/race_condition_lock.S`.
-It's an Assembly equivalent of the code you've already seen many times so far (such as `support/race-condition/d/race_condition.d`).
+It's an Assembly equivalent of the code you've already seen many times so far (such as `support/race-condition/c/race_condition.c`).
 Assemble and run it a few times.
 Notice the different results you get.
 
