@@ -54,6 +54,27 @@ mmap(0x7fb313e84000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENY
 For a quick reminder about `mmap()`, its 5th argument is the file descriptor from where we want to copy the data to the RAM.
 The 6th argument is the offset within the file from where to start copying.
 
+### What About `read()`?
+
+Let's get the elephant out of the room: why use `mmap()` instead of `read()` for dynamic libraries?
+
+The short answer: for efficiency and convenience.
+
+`read()` is a rather blunt approach for loading libraries into memory, as it does not take advantage of their particularities.
+There are two main points to consider: how is memory accessed and when is it modified.
+Dynamic libraries are mostly **non-writable** (`.data` section being the exception) and **arbitrarily accessed**.
+Reading and storing a library whose content might end up mostly unused does not sound like the right thing to do.
+
+On the other hand, `mmap()` makes use of `demand paging`.
+As a reminder, `demand paging` is a technique where memory is allocated, but each memory page is loaded when needed.
+Furthermore, `mmap()` will check if the library was already loaded into memory, and if so, it will not use additional memory, thus reducing the startup time.
+As you remember from the Compute chapter, processes sharing memory will lead to [`copy-on-write`](https://open-education-hub.github.io/operating-systems/Lab/Compute/copy-on-write), but this is far better than creating copies of the non-writable sections as `read()` does.
+
+Even without considering any OS tweaks, using `read()` to load dynamic libraries would require extra work.
+This is because allocating memory at the correct address would still require the use of `mmap()`.
+Additionally, setting the appropriate permissions to avoid security issues would require the use of `mprotect()`.
+Therefore, using `mmap()` alone is a more convenient way for loading dynamic libraries.
+
 ### Practice: Copy a File
 
 If `mmap()` is good for copying files, let's use it like this.
