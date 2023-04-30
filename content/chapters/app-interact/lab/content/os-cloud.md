@@ -3,6 +3,36 @@
 In this section we are going to build a "toy cloud" called `OS Cloud`.
 Similar to a real cloud (like `aws`), `OS Cloud` will allow us to create and manage virtual machines, through an `http` API.
 
+## Containers vs VMs
+
+Containers are a lightweight virtualization technology that allows multiple isolated user-space instances to run on a single host operating system.
+They are often compared to [`chroot`](https://linux.die.net/man/1/chroot) because they both provide isolated environments for running applications.
+
+Cgroups limit, account for, and isolate the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes.
+They can be used to enforce resource limits, prioritization, accounting, and control.
+Namespaces isolate processes from each other by creating independent views of system resources.
+There are different types of namespaces, such as user, PID, network, mount, IPC, and UTS.
+You can read more about them [here](https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/), [here](https://www.baeldung.com/linux/cgroups-and-namespaces) and a particularly good read about namespaces can be found [here](https://blog.quarkslab.com/digging-into-linux-namespaces-part-1.html)
+
+[Quiz](../quiz/cgroups_vd_namespaces.md)
+
+However, containers take this isolation a step further by using kernel features such as namespaces and cgroups to provide a more complete and secure isolation of resources.
+
+Virtual machines, on the other hand, are a heavier form of virtualization that involves running a complete guest operating system on top of a host operating system using a hypervisor.
+This allows multiple guest operating systems to run on a single physical machine, each with its own set of virtualized hardware resources.
+
+![VMs vs Containers](../media/containers_vs_vms.svg)
+
+One key difference between containers and VMs is the level of abstraction.
+Containers virtualize the operating system, allowing multiple containers to share the same kernel while providing the illusion of running on separate machines.
+VMs virtualize the hardware, allowing multiple guest operating systems to run on the same physical machine while providing the illusion of running on separate physical hardware.
+
+Another difference is the resource overhead.
+Containers are generally more lightweight than VMs because they share the host kernel and do not require a separate guest operating system to be installed.
+This means that containers can start up faster and use less memory than VMs.
+
+[Quiz](../quiz/container-vs-vm.md)
+
 ## Containers
 
 Our app will make use of `docker` containers.
