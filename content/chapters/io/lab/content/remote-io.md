@@ -161,7 +161,7 @@ They may have any value higher than 1023.
 
 So it should be clear now that a connection is uniquely identified by **an IP and a port**.
 
-### API - Hail Berkeley Sockets
+## API - Hail Berkeley Sockets
 
 Up to now we've described how sites work in general.
 Before we can implement something of this sort ourserlves, we need to understand the API.
@@ -179,7 +179,7 @@ You should.
 File handlers are objects with which we can interact with files.
 In a similar way, sockets are handlers for that provide an abstraction for a connection to another process, running either on a remote machine or on the same host.
 
-#### Sender and Receiver
+### Sender and Receiver
 
 We'll start with 2 programs: a sender and a receiver.
 Navigate to `support/send-receive/` and take a look at both `sender.py` and `receiver.py`.
@@ -230,9 +230,17 @@ This is a very simple communication model where the receiver is like a "sink" th
 As you can see, it has no control over who sends data to it.
 To get a high-level understanding of how these messages are passed and what other models exist, head over to the [next section](./networking-101.md).
 
-#### Practice: Network Sockets Challenge
+### Practice
 
-Use the API you've just learned about to fill in the TODOs in `support/receive-challenges/receive_net_dgram_socket.c`.
-This is like `receiver.py`
-For it to run properly, you should compile it using `make`, then run it and after that run `send_net_dgram_socket`.
-If you solved the challenge correctly, `receive_net_dgram_socket` should display the flag.
+1. Use the C sockets API to replicate the behavior of `sender.py` and `receiver.py`.
+
+    Start from the skeleton in `support/send-receive`.
+    The workflow is the same: define the endpoint using IP (`localhost`) and port (`5000`), then communicate using `sendto()` and `recvfrom()`.
+    We recommend starting with `sender.c` and test it using `receiver.py`, then continue with `receiver.c` and test it using `sender.py`.
+    If everything is right, each sender should be able to communicate with each receiver.
+
+1. Use the API you've just learned about to fill in the `TODO`s in `support/receive-challenges/receive_net_dgram_socket.c`.
+
+    This is like `receiver.py`.
+    For it to run properly, you should compile it using `make`, then run it and after that run `send_net_dgram_socket`.
+    If you solved the challenge correctly, `receive_net_dgram_socket` should display the flag.
