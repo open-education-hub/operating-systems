@@ -1,6 +1,6 @@
 # Scheduling
 
-Up to now we know that the OS decides which **thread** (not process) runs on each CPU core at each time.
+Up to now, we know that the OS decides which **thread** (not process) runs on each CPU core at each time.
 Now we'll learn about the component that performs this task specifically: **the scheduler**.
 
 There are thousands of threads running at any time in a modern OS.
@@ -11,7 +11,7 @@ The job of the scheduler is to run and pause threads as well as allocate them to
 
 To do this, the scheduler must decide, at given times, to suspend a thread, save its current state and let another one run in its place.
 This event is called a **context switch**.
-A context switch means changing the state of one thread (the replaced thread) from RUNNING to WAITING and the state of the replacement thread from READY / WAITING to RUNNING.
+A context switch means changing the state of one thread (the replaced thread) from RUNNING to WAITING, and the state of the replacement thread from READY / WAITING to RUNNING.
 
 <!-- TODO -->
 - Quiz?
@@ -23,7 +23,7 @@ The threads you've used so far are **kernel-level threads (KLT)**.
 They are created and scheduled in the kernel of the OS.
 One of the most important of their features is that they offer true parallelism.
 With KLTs, we can truly run a program on all the cores of our CPU at once.
-But we must pay a price for this: scheduling them is very complex and context switches are costly (in terms of time), especially when switching threads belonging to different processes.
+But we must pay a price for this: scheduling them is very complex, and context switches are costly (in terms of time), especially when switching threads belonging to different processes.
 
 By contrast, **user-level threads (ULT)** are managed by the user space.
 More of the ULTs created by a program are generally mapped to the same kernel thread.
@@ -202,7 +202,7 @@ However, as we've already stated, they rely on the "good will" of threads to yie
 Preemptive scheduling solves the issue stated above by leaving the task of suspending the currently RUNNING thread and replacing it with another one from the READY queue up to the scheduler.
 This increases its complexity and the duration of context switches, but threads now are not required to worry about yielding themselves and can focus on running their code and performing the task for which they are created.
 
-Preemptive schedulers allow threads to run only for a maximum amount of time, called **time slice** (usually a few milliseconds).
+Preemptive schedulers allow threads to run only for a maximum amount of time, called a **time slice** (usually a few milliseconds).
 They use timers which fire when a new time slice passes.
 The firing of one such timer causes a context switch whereby the currently RUNNING thread is _preempted_ (i.e. suspended) and replaced with another one.
 
@@ -215,7 +215,7 @@ It creates a timer that generates a `SIGPROF` signal and then defines a handler 
 
 It is this handler that performs the context switch per se.
 Look at its code.
-It first saves the context of the currernt thread:
+It first saves the context of the current thread:
 
 ```C
 ucontext_t *stored = &running->context;
@@ -227,7 +227,7 @@ stored->uc_mcontext = updated->uc_mcontext;
 stored->uc_sigmask = updated->uc_sigmask;
 ```
 
-Then it places current thred in the `ready` queue and replaces it with the first thread in the same queue.
+Then it places the current thread in the `ready` queue and replaces it with the first thread in the same queue.
 This algorithm (that schedules the first thread in the READY queue) is called _Round-Robin_:
 
 ```C
