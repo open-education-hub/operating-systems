@@ -70,10 +70,10 @@ Here you will find a minimalistic server implementation in `server.py`.
 
 1. Read the code and identify the steps outlined above.
 
-1. Run the code then run `lsof` and `netstat` in other terminals to identify the file descriptor corresponding to the listening file descriptor
-
-1. Now fill in the code in `client.py` to be able to send messages to the server and receive responses from it.
+1. Now fill in the code in `client.c` or `client.py` to be able to send messages to the server and receive responses from it.
 Run multiple clients.
+
+1. Run the code then run `lsof` and `netstat` in other terminals to identify the file descriptor corresponding to the listening file descriptor
 
 ## Practice: Just a Little Bit More Deluge
 

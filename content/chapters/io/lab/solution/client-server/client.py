@@ -12,7 +12,7 @@ def main():
         # Get user input as a string.
         message = input("Message for receiver (type 'exit' to quit): ")
 
-        # TODO: create a socket. Do not mind the arguments for now.
+        # TODO: Create a TCP socket (SOCK_STREAM).
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         # TODO: connect to the server.
