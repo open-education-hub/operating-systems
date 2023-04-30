@@ -29,16 +29,16 @@ Then `lsof` gives us the complete answer:
 
 ```console
 student@os:~/.../lab/support/pipes$ lsof -w -p $(pidof anonymous_pipes)
-anonymous 22474  teo  cwd    DIR    8,1      504  296964 /media/teo/2TB/Chestii/Poli/Asistent/SO/operating-systems-oer/content/chapters/io/lab/support/pipes
-anonymous 22474  teo  rtd    DIR  259,6     4096       2 /
-anonymous 22474  teo  txt    REG    8,1    26712  296968 /media/teo/2TB/Chestii/Poli/Asistent/SO/operating-systems-oer/content/chapters/io/lab/support/pipes/anonymous_pipes
-anonymous 22474  teo  mem    REG  259,6  2029592 1857435 /usr/lib/x86_64-linux-gnu/libc-2.31.so
-anonymous 22474  teo  mem    REG  259,6   191504 1835092 /usr/lib/x86_64-linux-gnu/ld-2.31.so
-anonymous 22474  teo    0u   CHR  136,0      0t0       3 /dev/pts/0
-anonymous 22474  teo    1u   CHR  136,0      0t0       3 /dev/pts/0
-anonymous 22474  teo    2u   CHR  136,0      0t0       3 /dev/pts/0
-anonymous 22474  teo    3r  FIFO   0,13      0t0  252007 pipe
-anonymous 22474  teo    4w  FIFO   0,13      0t0  252007 pipe
+anonymous 22474  student  cwd    DIR    8,1      504  296964 /media/student/2TB/Chestii/Poli/Asistent/SO/operating-systems-oer/content/chapters/io/lab/support/pipes
+anonymous 22474  student  rtd    DIR  259,6     4096       2 /
+anonymous 22474  student  txt    REG    8,1    26712  296968 /media/student/2TB/Chestii/Poli/Asistent/SO/operating-systems-oer/content/chapters/io/lab/support/pipes/anonymous_pipes
+anonymous 22474  student  mem    REG  259,6  2029592 1857435 /usr/lib/x86_64-linux-gnu/libc-2.31.so
+anonymous 22474  student  mem    REG  259,6   191504 1835092 /usr/lib/x86_64-linux-gnu/ld-2.31.so
+anonymous 22474  student    0u   CHR  136,0      0t0       3 /dev/pts/0
+anonymous 22474  student    1u   CHR  136,0      0t0       3 /dev/pts/0
+anonymous 22474  student    2u   CHR  136,0      0t0       3 /dev/pts/0
+anonymous 22474  student    3r  FIFO   0,13      0t0  252007 pipe
+anonymous 22474  student    4w  FIFO   0,13      0t0  252007 pipe
 ```
 
 The last 2 lines are the 2 ends of the pipe:
