@@ -1,5 +1,31 @@
 # Arena
 
+## Oneko
+
+An alternative to `xeyes` which allows us to observe Unix sockets is `oneko`.
+Going through the same steps we see that the application also create a Unix socket, then connects to the path `@"/tmp/.X11-unix/X0"`.
+
+```console
+student@os:~$ strace -e trace=socket,connect oneko
+socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0) = 3
+connect(3, {sa_family=AF_UNIX, sun_path=@"/tmp/.X11-unix/X1"}, 20) = 0
+--- SIGALRM {si_signo=SIGALRM, si_code=SI_KERNEL} ---
+```
+
+When running `oneko`, what differs from `xeyes` is the `SIGALRM` signal.
+This means that `oneko` uses a timer, which is periodically set, and then it expires only to be reset again.
+The purpose of this timer is to slow down the cat.
+
+Verifying the communication between the X server and `oneko` is easy.
+We see that the cat follows our mouse cursor, behaving similarly to `xeyes`.
+After running `oneko` under `strace`, we see the communication uses the UNIX socket created at the beginning:
+
+```console
+strace -e 'trace=!poll' -e trace='socket,connect,recvmsg' oneko |& grep -v '\-1 EAGAIN'
+```
+
+[Quiz](../quiz/timer.md)
+
 ## D-Bus
 
 Use the `dbus` python bindings to get the computer's battery level using a python script.
