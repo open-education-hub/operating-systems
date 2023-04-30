@@ -107,6 +107,8 @@ student@os:~/.../support/os-cloud$ curl -H "Content-Type: application/json" \
 {"id":1,"status":"ok"}
 ```
 
+[Quiz](../quiz/vm-creation.md)
+
 Check the virtual machine list again:
 
 ```console
