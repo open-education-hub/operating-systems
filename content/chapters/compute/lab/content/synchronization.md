@@ -1,8 +1,8 @@
 # Synchronization
 
-So far we've used threads and processes without wondering how to "tell" them how to access shared data.
+So far, we've used threads and processes without wondering how to "tell" them how to access shared data.
 Moreover, in order to make threads wait for each other, we simply had the main thread wait for the others to finish all their work.
-But what if we want one thread to wait until another one simply performs some specific action after which it resumes its execution?
+But what if we want one thread to wait until another one simply performs some specific action, after which it resumes its execution?
 For this, we need to use some more complex synchronization mechanisms.
 
 ## Race Conditions
@@ -42,8 +42,8 @@ So we need some sort of _mutual exclusion mechanism_ so that when one thread run
 This mechanism is called a **mutex**, whose name comes from "mutual exclusion".
 
 Go to `support/race-condition/c/race_condition_mutex.c` and notice the differences between this code and the buggy one.
-We now use a `pthread_mutex_t` variable which we `lock` at the beginning of a critical section and we `unlock` at the end.
-Generally speaking `lock`-ing a mutex makes a thread enter a critical section, while calling `pthread_mutex_unlock()` makes the thread leave said critical section.
+We now use a `pthread_mutex_t` variable, which we `lock` at the beginning of a critical section, and we `unlock` at the end.
+Generally speaking, `lock`-ing a mutex makes a thread enter a critical section, while calling `pthread_mutex_unlock()` makes the thread leave said critical section.
 Therefore, as we said previously, the critical sections in our code are `var--` and `var++`.
 Run the code multiple times to convince yourself that in the end, the value of `var` will always be 0.
 
@@ -101,16 +101,16 @@ This way, one thread obtains **exclusive** access to the data bus while accessin
 As a side note, the critical sections in `support/race-condition/c/race_condition_mutex.c` are also atomic once they are wrapped between calls to `pthread_mutex_lock()` and `pthread_mutex_unlock()`.
 
 As with every hardware feature, the `x86` ISA exposes an instruction for atomic operations.
-In particular this instruction is a **prefix**, called `lock`.
+In particular, this instruction is a **prefix**, called `lock`.
 It makes the instruction that follows it run atomically.
-The `lock` prefix ensures that the core performing the instruction has exclusive ownership of the cache line from where the data is transfered for the entire operation.
+The `lock` prefix ensures that the core performing the instruction has exclusive ownership of the cache line from where the data is transferred for the entire operation.
 This is how the increment is made into an indivisible unit.
 
-For example, `inc dword [x]` can be made atomic like so: `lock inc dword [x]`.
+For example, `inc dword [x]` can be made atomic, like so: `lock inc dword [x]`.
 You can play with the `lock` prefix [in the Arena](./arena.md#atomic-assembly).
 
 Compilers provide support for such hardware-level atomic operations.
-GCC exposes [builtins](https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html) such as `__atomic_load()`, `__atomic_store()`, `__atomic_compare_exchange()` and many others.
+GCC exposes [built-ins](https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html) such as `__atomic_load()`, `__atomic_store()`, `__atomic_compare_exchange()` and many others.
 All of them rely on the mechanism described above.
 
 Go to `support/race-condition/c/race_condition_atomic.c` and complete the function `decrement_var()`.
@@ -129,7 +129,7 @@ And the fact that high-level languages also expose an API for atomic operations 
 
 ## Semaphores
 
-Up to know we've learned how to create critical sections that can be accessed by **only one thread** at a time.
+Up to now, we've learned how to create critical sections that can be accessed by **only one thread** at a time.
 These critical sections revolved around **data**.
 Whenever we define a critical section, there is some specific data to which we cannot allow parallel access.
 The reason why we can't allow it is, in general, data integrity, as we've seen in our examples in `support/race-condition/`
@@ -194,7 +194,7 @@ If `notify()` is called before any thread has called `wait()`, the first thread 
 But this is not all, unfortunately.
 Look at the code in `support/apache2-simulator/apache2_simulator_condition.py`.
 See the main thread call `notify()` once it reads the message.
-Notice that this call is preceded by an `acquire()` call, and succedeed by a `release()` call.
+Notice that this call is preceded by an `acquire()` call, and succeeded by a `release()` call.
 
 `acquire()` and `release()` are commonly associated with mutexes or semaphores.
 What do they have to do with condition variables?
@@ -213,7 +213,7 @@ Hence, the lock.
 
 So now we know we cannot only use a mutex.
 The mutex is used to access and modify the `messages` list atomically.
-Now you might be thinking that this code causes a deadlock:
+Now, you might be thinking that this code causes a deadlock:
 
 ```Python
 event.acquire()
@@ -228,7 +228,7 @@ No.
 Neat!
 And the `while` loop that checks if there are any new messages is necessary because `wait()` can return after an arbitrary long time.
 This is because the thread waiting for the event was notified to wake up, but another thread has woken up before it and started handling the event earlier by reacquiring the lock.
-All the other threads that woke up, but can't aquire the lock, must be put back to wait.
+All the other threads that woke up, but can't acquire the lock, must be put back to wait.
 This situation is called a **spurious wakeup**.
 Therefore, it's necessary to check for messages again when waking up.
 
@@ -236,7 +236,7 @@ So now we have both synchronization **and** signalling.
 This is what conditions are for, ultimately.
 
 Now that you understand the concept of synchronization, you should apply it in a broader context.
-[In the Arena](./arena.md#synchronization---thread-safe-data-structure), you'll find an exercise asking you to make an existing arraylist implementation thread-safe.
+[In the Arena](./arena.md#synchronization---thread-safe-data-structure), you'll find an exercise asking you to make an existing array list implementation thread-safe.
 Have fun!
 
 ## Thread-Local Storage (TLS)
@@ -248,14 +248,14 @@ Well, no.
 To protect data from race conditions "by design", we can place in what's called **Thread-Local Storage (TLS)**.
 As its name implies, this is a type of storage that is "owned" by individual threads, as opposed to being shared among all threads.
 **Do not confuse it with copy-on-write**.
-TLS pages are always duplicated when creating a new thread and their contents are re-initialised.
+TLS pages are always duplicated when creating a new thread and their contents are reinitialised.
 
 ### Practice: C - TLS on Demand
 
 The perspective of C towards TLS is the following: everything is shared by default.
 This makes multithreading easier and more lightweight to implement than in other languages, like D, because synchronization is left entirely up to the developer, at the cost of potential unsafety.
 
-Of course we can specify that some data belongs to the TLS, by preceding the declaration of a variable with `__thread` keyword.
+Of course, we can specify that some data belongs to the TLS, by preceding the declaration of a variable with `__thread` keyword.
 First, compile and run the code in `support/race-condition/c/race_condition_tls.c` a few times.
 As expected, the result is different each time.
 

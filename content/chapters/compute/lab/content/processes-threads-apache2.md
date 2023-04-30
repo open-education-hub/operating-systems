@@ -6,7 +6,7 @@ When a new client arrives, the server offloads the work of interacting with that
 
 The choice of whether to use multiple processes or threads is not baked into the code.
 Instead, `apache2` provides a couple of modules called MPMs (Multi-Processing Modules).
-Each module implements a different concurrency model and the users can pick whatever module best fits their needs by editing the server configuration files.
+Each module implements a different concurrency model, and the users can pick whatever module best fits their needs by editing the server configuration files.
 
 The most common MPMs are
 
@@ -16,7 +16,7 @@ The most common MPMs are
 
 In principle, `prefork` provides more stability and backwards compatibility, but it has a bigger overhead.
 On the other hand, `worker` and `event` are more scalable, and thus able to handle more simultaneous connections, due to the usage of threads.
-On modern systems `event` is almost always the default.
+On modern systems, `event` is almost always the default.
 
 ## `apache2` Live Action
 
@@ -57,7 +57,7 @@ LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
 LoadModule mpm_worker_module modules/mod_mpm_worker.so
 ```
 
-The `event` mpm is enabled, so we expect each worker to be multi-threaded.
+The `event` mpm is enabled, so we expect each worker to be multithreaded.
 Let's check:
 
 ```console
@@ -140,7 +140,7 @@ We see a much larger number of threads, as expected.
 Use `strace` to discover the server document root.
 The document root is the path in the filesystem from where `httpd` serves all the files requested by the clients.
 
-First you will have to stop the running container using `make stop`, then restart it with `make run-privileged`.
+First, you will have to stop the running container using `make stop`, then restart it with `make run-privileged`.
 
 Then you will use `strace` inside the container to attach to the worker processes (use the `-p` option for this).
 You will also have to use the `-f` flag with `strace`, so that it will follow all the threads inside the processes.
@@ -170,4 +170,4 @@ These rules are not set in stone, though.
 Like we saw in the `apache2` example, the server uses multiple threads as well as multiple processes.
 This provides a degree of stability - if one worker thread crashes, it will only crash the other threads belonging to the same process - while still taking advantage of the light resource usage inherent to threads.
 
-This kind of trade-offs are a normal part in the development of real-world applications.
+These kinds of trade-offs are a normal part of the development of real-world applications.

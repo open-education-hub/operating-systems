@@ -43,9 +43,9 @@ We will get into more details regarding `execve` [towards the end of this lab](.
 
 ## Sum of the Elements in an Array
 
-Let's assume we only have one process on our system and that process knows how to add the numbers in an array.
-It can use however many resources it wants since there is no other process to contest it.
-It would probabily look like the code in `support/sum-array/c/sum_array_sequential.c`.
+Let's assume we only have one process on our system, and that process knows how to add the numbers in an array.
+It can use however many resources it wants, since there is no other process to contest it.
+It would probably look like the code in `support/sum-array/c/sum_array_sequential.c`.
 The program also measures the time spent computing the sum.
 Let's compile and run it:
 
@@ -62,7 +62,7 @@ Use these examples qualitatively, not quantitatively.
 ## Spreading the Work Among Other Processes
 
 Due to how it's implemented so far, our program only uses one of our CPU's cores.
-We never tell it to distribute its workload on other cores.
+We never tell it to distribute its workload to other cores.
 This is wasteful as the rest of our cores remain unused:
 
 ```console
@@ -150,7 +150,7 @@ Use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
 
    Notice that the child processes do not have `sleepy_creator.py` as a parent.
    What's more, as you saw above, `sleepy_creator.py` doesn't even exist anymore.
-   The child processes have been adopted by an `init`-like process (in the output above that process has PID `1680` - `PPID` stands for _parent process ID_).
+   The child processes have been adopted by an `init`-like process (in the output above, that process has PID `1680` - `PPID` stands for _parent process ID_).
 
    [Quiz](../quiz/parent-of-sleep-processes.md)
 
@@ -188,7 +188,7 @@ Use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
    16117   16107           sleep 1000
    ```
 
-   Note that the parent process `sleepy_creator.py` (`PID 16107`) is still alive and its child processes (the 10 `sleep 1000`) have its ID as their `PPID`.
+   Note that the parent process `sleepy_creator.py` (`PID 16107`) is still alive, and its child processes (the 10 `sleep 1000`) have its ID as their `PPID`.
    You've successfully waited for the child processes to finish their execution.
 
 ### Practice: Lower level - C
@@ -250,11 +250,11 @@ Notice what each of the two processes prints:
 Unlike `system()`, who also waits for its child, when using `fork()` we must do the waiting ourselves.
 In order to wait for a process to end, we use the [`waitpid()`](https://linux.die.net/man/2/waitpid) syscall.
 It places the exit code of the child process in the `status` parameter.
-This argument is actually a bitfield containing more information than merely the exit code.
+This argument is actually a bit-field containing more information than merely the exit code.
 To retrieve the exit code, we use the `WEXITSTATUS` macro.
-Keep in mind that `WEXITSTATUS` only makes sens if `WIFEXITED` is true, i.e. if the child process finished on its own and wasn't killed by another one or by an illegal action (such as a seg fault or illegal instruction) for example.
+Keep in mind that `WEXITSTATUS` only makes sense if `WIFEXITED` is true, i.e. if the child process finished on its own and wasn't killed by another one or by an illegal action (such as a segfault or illegal instruction) for example.
 Otherwise, `WEXITSTATUS` will return something meaningless.
-You can view the rest of the information stored in the `status` bitfield [in the man page](https://linux.die.net/man/2/waitpid).
+You can view the rest of the information stored in the `status` bit-field [in the man page](https://linux.die.net/man/2/waitpid).
 
 Now modify the example to do the following:
 
