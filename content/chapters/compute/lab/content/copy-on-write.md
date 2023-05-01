@@ -48,6 +48,8 @@ student@os:~/.../lab/support/fork-faults$ ps -o min_flt,maj_flt -p $(pidof fork_
 
 It will show you the number of minor and major page faults performed by the `fork_faults` process and its child.
 
+To better understand minor and major page faults, go through the [Minor and Major Page Faults](arena.md#minor-and-major-page-faults) excercise in Arena.
+
 [Quiz 1](../quiz/parent-faults-before-fork.md)
 
 Note that after `fork()`-ing, there is a second row in the output of `ps`.
