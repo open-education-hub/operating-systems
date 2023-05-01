@@ -8,5 +8,5 @@
 - [Processes and Threads in `apache2`](./processes-threads-apache2.md)
 - [Copy-on-Write](./copy-on-write.md)
 - [Synchronization](./synchronization.md)
-- [Scheduling](./scheduling.md)
+- [User Level Threads](./user-level-threads.md)
 - [Arena](./arena.md)
