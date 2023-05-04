@@ -10,10 +10,12 @@ set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME    OFF)
 
 find_package(Boost REQUIRED COMPONENTS context fiber)
+find_package(Threads REQUIRED)
 
 include_directories(PUBLIC ${Boost_INCLUDE_DIRS})
 link_libraries(Boost::context)
 link_libraries(Boost::fiber)
+link_libraries(Threads::Threads)
 add_compile_definitions(PUBLIC BOOST_STACKTRACE_USE_ADDR2LINE)
 
 add_executable(simple simple.cc)
