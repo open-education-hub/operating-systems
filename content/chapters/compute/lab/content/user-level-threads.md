@@ -8,6 +8,15 @@ We will use the fiber implementation from libboost.
 This implementation uses a cooperative scheduler on each thread, meaning that each fiber has to yield, in order for other fiber to be executed.
 We will also use C++, and the standard `thread` implementation.
 
+## Prerequisites
+
+Unless you are using the OS docker image, you will need to install `cmake` and `libboost`.
+You can do this with the following command:
+
+```console
+student@os:~$ sudo apt-get install cmake libboost-context-dev libboost-fiber-dev
+```
+
 ## Creation
 
 Follow the `support/user-level-threads/simple.cc` implementation.
