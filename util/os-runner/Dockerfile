@@ -42,7 +42,10 @@ RUN apt-get update &&   \
     bind9-host  \
     net-tools   \
     netcat  \
-    libssl-dev
+    libssl-dev \
+    cmake \
+    libboost-context-dev \
+    libboost-fiber-dev
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
