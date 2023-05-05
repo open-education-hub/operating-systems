@@ -8,8 +8,8 @@
 
 /* Useful macro for handling error codes. */
 #define DIE(assertion, call_description)			\
-	do							\
-		if (assertion) 					\
+	do {							\
+		if (assertion) {				\
 			fprintf(stderr, "(%s, %s, %d): ",	\
 				__FILE__, __func__, __LINE__);	\
 			perror(call_description);		\
