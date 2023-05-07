@@ -16,7 +16,6 @@ The most simplistic representation of a compute system is a black box that recei
 
 In this session we will look into how a compute system interacts with the outside world to get and produce these inputs and outputs.
 
-1. [Introduction](./introduction.md)
 1. [File Handlers](./file-handlers.md)
 1. [File Descriptors](./file-descriptors.md)
 1. [Redirections](./redirections.md)
