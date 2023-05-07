@@ -86,12 +86,12 @@ int main(void)
 {
 	pid_t pid;
 	int rc;
-	int pipedes[2];
+	int pipe_des[2];
 
-	rc = pipe(pipedes);
+	rc = pipe(pipe_des);
 	DIE(rc < 0, "pipe");
 
-	printf("pipedes[0] = %d; pipedes[1] = %d\n", pipedes[PIPE_READ], pipedes[PIPE_WRITE]);
+	printf("pipe_des[0] = %d; pipe_des[1] = %d\n", pipe_des[PIPE_READ], pipe_des[PIPE_WRITE]);
 
 	wait_for_input("pipe created");
 
