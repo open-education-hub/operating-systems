@@ -121,8 +121,8 @@ Each of them uses the other's IP address to locate their peer and communicate wi
 But what if we shift our example to another site: <https://open-education-hub.github.io/operating-systems/>?
 Let's say we open 2 tabs:
 
-- one to the [File Descriptors section](https://open-education-hub.github.io/operating-systems/Lab/I/O/File%20Descriptors/content/file-descriptors/) of this lab
-- another one to the [File Handling section](https://open-education-hub.github.io/operating-systems/Lab/I/O/File%20Handlers/content/file-handlers/)
+- one to the [File Descriptors section](https://open-education-hub.github.io/operating-systems/Lab/IO/file-descriptors) of this lab
+- another one to the [File Handling section](https://open-education-hub.github.io/operating-systems/Lab/IO/file-handlers)
 
 Now our browser needs to **know** what to with data coming from two sources.
 In addition, the server also needs to maintain information about our 2 tabs so it can send the correct data to each of them.
