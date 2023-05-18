@@ -1,0 +1,4 @@
+Just compile using make and run the test_get_request_path executable.
+
+$ make
+$ ./test_get_request_path
