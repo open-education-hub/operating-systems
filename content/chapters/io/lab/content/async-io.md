@@ -16,7 +16,7 @@ In the case of an asynchronous operation, the given function returns immediately
 Once the operation succeeds, a notification may be sent out to the program.
 Or the program can periodically check the state of the operation.
 
-Apart from these operating types, there is option to do I/O multiplexing, meaning being able to tackle multiple channels simultaneously.
+Apart from these operating types, there is the option to do I/O multiplexing, i.e. the ability to tackle multiple channels simultaneously.
 This is useful in case of servers, that get a large number of requests and have to iterate through them.
 
 In case of asynchronous I/O, the "backend" used to implement the operations may differ:
@@ -35,7 +35,7 @@ The server gets requests and serves them in different ways: synchronous, multi-p
 We use two implementations, in Python and in C.
 
 1. For the Python implementation, enter the `python/` subdirectory.
-   Take a look in the implementation of different servers:
+   Take a look at the implementation of different servers:
 
    * synchronous server: `server.py`
    * multi-process backend: `mp_server.py`
@@ -78,7 +78,7 @@ We use two implementations, in Python and in C.
    But not on threading, because threading suffers from the use of [GIL (_Global Interpreter Lock_)](https://realpython.com/python-gil/), that prevents multithreaded programs from running Python code simultaneously.
 
 1. For the C implementation, enter the `c/` subdirectory.
-   Take a look in the implementation of different servers:
+   Take a look at the implementation of different servers:
 
    * synchronous server: `server.c`
    * multi-process backend: `mp_server.c`

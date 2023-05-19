@@ -42,7 +42,7 @@ However, with TCP sockets, `bind()` doesn't automatically make them listen for c
 
 1. Call [`accept()`](https://man7.org/linux/man-pages/man2/accept.2.html) to set up one connection initiated by a client.
 From now, the connection is established.
-`accept()` returns a new socket which is will be further used for communication between the server and the client.
+`accept()` returns a new socket which will be further used for communication between the server and the client.
 
 1. Exchange messages with the client.
 The server can both read messages from the client and send responses back using the same socket returned by `accept()`.
@@ -73,7 +73,7 @@ Here you will find a minimalistic server implementation in `server.py`.
 1. Now fill in the code in `client.c` or `client.py` to be able to send messages to the server and receive responses from it.
 Run multiple clients.
 
-1. Run the code then run `lsof` and `netstat` in other terminals to identify the file descriptor corresponding to the listening file descriptor
+1. Run the code, then run `lsof` and `netstat` in other terminals to identify the file descriptor corresponding to the listening file descriptor.
 
 ## Practice: Just a Little Bit More Deluge
 
