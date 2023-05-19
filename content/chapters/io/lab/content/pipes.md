@@ -47,7 +47,7 @@ In another terminal, use `lsof` to see:
 
 [Quiz](../quiz/pipe-ends.md)
 
-A simple way to memorise which pipe end is which is to thing about `stdin` and `stdout`, respectively.
+A simple way to memorise which pipe end is which is to think about `stdin` and `stdout`, respectively.
 `stdin` is file descriptor 0 and is mostly for reading and `pipedes[0]` is also for reading.
 Conversely, `stdout` is file descriptor 1 and is meant for writing, just like `pipedes[1]`.
 Now you won't confuse them.
@@ -87,11 +87,11 @@ to pipe, or not to pipe
 
 ### Practice: Receive Pipes
 
-Use your knowledge of pipes to solve the a CTF challenge.
+Use your knowledge of pipes to solve a CTF challenge.
 Navigate to `support/receive-challenges` and look into the files `receive_pipe.c` and `send_fd_4.c`.
 Modify `receive_pipe.c` so that it creates a pipe, then spawns a child process.
 The child will redirect file descriptor 4 to `stdout` and then `execlp()` `send_fd_4`.
-`send_fd_4` wries the flag to  file descriptor 4 (`pipefd[1]`), so the parent process needs to read it from from `pipedefd[0]`.
+`send_fd_4` writes the flag to file descriptor 4 (`pipefd[1]`), so the parent process needs to read it from `pipedefd[0]`.
 
 Once you do this, note that file descriptors are also maintained after calling `exec()` to run a completely new program.
 

@@ -49,7 +49,7 @@ As you might have imagined, this structure contains the underlying file descript
 
 Libc also defines its own wrappers over commonly-used syscalls, such as `read()`, `write()`, `close()` and `lseek()`.
 These syscalls themselves need to be implemented by the driver for each file system.
-This is done by writing the the required functions for each syscall and then populating [this structure](https://elixir.bootlin.com/linux/v6.0.9/source/include/linux/fs.h#L2093) with pointers to them.
+This is done by writing the required functions for each syscall and then populating [this structure](https://elixir.bootlin.com/linux/v6.0.9/source/include/linux/fs.h#L2093) with pointers to them.
 You will recognise quite a few syscalls: `open()`, `close()` `read()`, `write()`, `mmap()` etc.
 
 ## IO Optimisations
@@ -61,7 +61,7 @@ You saw this hierarchy during the Data lecture:
 It says that while the disk can store lots of data, it does so at the cost of speed.
 When we say speed, we mean the rate at which we can read/write data from/to the disk, i.e. the maximum number of bytes transferred per unit of time.
 This means that `read()` and `write()` syscalls (or their various corresponding library calls) are slow and cause performance bottlenecks.
-More often than not it is the I/O component that drags down the performance of an otherwise fast application.
+More often than not, it is the I/O component that drags down the performance of an otherwise fast application.
 And what's worse, the further the "destination" of the I/O operation (file on the disk or host on the Web) is, the more time it takes to transfer data to and form it.
 
 On the other hand, as we've already established, the I/O component defines how we interact with an app.

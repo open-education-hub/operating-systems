@@ -19,7 +19,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 The `socket.SOCK_DGRAM` argument stands for "datagram" and specifies UDP.
 
-It doesnt' care whether the receiver has got all the data, whether it was corrupted or dropped altogether by some router along the way.
+It doesn't care whether the receiver has got all the data, whether it was corrupted or dropped altogether by some router along the way.
 
 To prove this, rerun `support/send-receive/receiver.py`, then run `support/send-receive/sender.py`, type `"exit"` and then run `sender.py` again.
 You'll see no error from the sender because whether the message reaches its destination or not is not important for UDP.
@@ -102,16 +102,16 @@ Moving on to some user programs, Firefox runs multiple connections using both IP
 
 [Quiz](../quiz/firefox-tcp-udp.md)
 
-Discord is does the same things as Firefox.
+Discord does the same things as Firefox.
 It uses TCP to send text messages, memes, videos and static content in general.
 And at the same time it uses UDP to exchange voice and video data during calls.
 
 ### Practice: Run `netstat` Yourself
 
 1. Run `netstat` on your own host machine.
-Identify processes that use TCP and UDP and try to figure out what they might they be using these protocols for.
+Identify processes that use TCP and UDP and try to figure out what they might be using these protocols for.
 Look for browsers (different sites and types of content), servers such as Apache2 or Nginx, online games etc.
-Discuss your findings with your class mates and teacher(s).
+Discuss your findings with your classmates and teacher(s).
 
 1. Now run `receiver.py` and then run `netstat` in another terminal to see your receiver process.
 What arguments do you need to pass to `netstat` to see `receiver.py`?

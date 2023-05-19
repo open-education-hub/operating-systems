@@ -124,7 +124,7 @@ Let's say we open 2 tabs:
 - one to the [File Descriptors section](https://open-education-hub.github.io/operating-systems/Lab/IO/file-descriptors) of this lab
 - another one to the [File Handling section](https://open-education-hub.github.io/operating-systems/Lab/IO/file-handlers)
 
-Now our browser needs to **know** what to with data coming from two sources.
+Now our browser needs to **know** what to do with data coming from two sources.
 In addition, the server also needs to maintain information about our 2 tabs so it can send the correct data to each of them.
 Therefore, each tab establishes a different **connection** to the server.
 All communication between the tab and the site occurs within this connection.
@@ -154,7 +154,7 @@ So the correct way of saying it isn't that the SSH process / service runs on por
 Our browser also uses ports to distinguish between different connections.
 And so does the `github.io` server: it uses one port for sending the "File Descriptors" page and another for the "File Handling" page.
 The image below shows how multiple tabs to the same site can be handled.
-The prot numbers are chosen randomly.
+The port numbers are chosen randomly.
 They may have any value higher than 1023.
 
 ![Browser Tabs and Ports](../media/browser-tabs.svg)
@@ -177,7 +177,7 @@ Just like wall sockets allow us to plug into the electric grid, network sockets 
 Remember [file handlers](./file-handlers.md)?
 You should.
 File handlers are objects with which we can interact with files.
-In a similar way, sockets are handlers for that provide an abstraction for a connection to another process, running either on a remote machine or on the same host.
+In a similar way, sockets are handlers that provide an abstraction for a connection to another process, running either on a remote machine or on the same host.
 
 ### Sender and Receiver
 
@@ -200,7 +200,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ```
 
 We'll explain at the arguments in the [next section](./networking-101.md#udp).
-One thing to note here is that **sockets are file descriptors too**
+One thing to note here is that **sockets are file descriptors too.**
 
 The server displays its PID.
 Give it as an argument to `lsof`, like you did in [the section on Redirections](./redirections.md), to visualise the file descriptors opened by `receiver.py`.

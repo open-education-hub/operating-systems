@@ -40,5 +40,5 @@ Everything else is the same.
 
 Now fill in the `TODO`s in `receive_unix_socket.c`.
 Use the example at the bottom of [the UNIX socket man page](https://man7.org/linux/man-pages/man7/unix.7.html) if you get stuck at `bind()`.
-When you're done, run compile and it first and then `send_unix_socket`.
+When you're done, compile the code and then run `send_unix_socket`.
 If you did this task correctly, `receive_unix_socket` should display the flag.

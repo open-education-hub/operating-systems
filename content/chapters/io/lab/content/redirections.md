@@ -61,7 +61,7 @@ It pauses after each file descriptor operation.
 In another terminal (or in another `tmux` window), run the following each time you press Enter in the first terminal/window: `lsof -p $(pidof redirect)` or try [`watch`](https://man7.org/linux/man-pages/man1/watch.1.html)-ing it.
 
 `lsof` displays the files opened by the given process.
-From the output below we see that these files are mainly files (opened as file descriptors) and libraries, which are memory mapped (`mem`).
+From the output below, we see that these files are mainly files (opened as file descriptors) and libraries, which are memory mapped (`mem`).
 On the third column, you can see the file descriptor corresponding to each file.
 
 ```console

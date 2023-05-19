@@ -31,7 +31,7 @@ If you haven't done so in the Data lab, clone the [Deluge repository](https://gi
 Now find the `write_torrentfile()` function in the repository.
 
 It defines an inner function called `write_file()`, which does the actual writing.
-Notice that is's very similar to the example we saw in `support/simple-file-operations/file_operations.py`:
+Notice that it's very similar to the example we saw in `support/simple-file-operations/file_operations.py`:
 
 ```Python
 with open(filepath, 'wb') as save_file:
