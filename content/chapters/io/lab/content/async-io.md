@@ -21,16 +21,16 @@ This is useful in case of servers, that get a large number of requests and have 
 
 In case of asynchronous I/O, the "backend" used to implement the operations may differ:
 
-1. It can be a multi-process backend, where each action / request is passed to a given process.
+1. It can be a multiprocess backend, where each action / request is passed to a given process.
 
-1. It can be a multi-threaded backend, where each action / request is passed to a given thread.
+1. It can be a multithreaded backend, where each action / request is passed to a given thread.
 
-1. It cane be an event-based backend, where an action is scheduled together with a callback that is invoked when an action ends.
+1. It can be an event-based backend, where an action is scheduled together with a callback that is invoked when an action ends.
 
 ## Practice
 
 Enter the `support/async/` folder for some implementations of a simple request-reply server in Python or in C.
-The server gets requests and serves them in different ways: synchronous, multi-process-based, multi-threading-based, asynchronous.
+The server gets requests and serves them in different ways: synchronous, multiprocess-based, multi-threading-based, asynchronous.
 
 We use two implementations, in Python and in C.
 
@@ -38,8 +38,8 @@ We use two implementations, in Python and in C.
    Take a look at the implementation of different servers:
 
    * synchronous server: `server.py`
-   * multi-process backend: `mp_server.py`
-   * multi-threaded backend: `mt_server.py`
+   * multiprocess backend: `mp_server.py`
+   * multithreaded backend: `mt_server.py`
    * asynchronous API backend: `async_server.py` (requires Python >= 3.7) and `async_server_3.6.py` (works for Python 3.6)
 
    Let's do a benchmarking session of each server type.
@@ -52,7 +52,7 @@ We use two implementations, in Python and in C.
       It runs `NUM_CLIENT` instances of `client.py` to trigger actions in the remote server.
 
       **Note** that you may be required to run servers on different ports in case of an `Address already in use error`.
-      If that is the case you will also need to run the `client_bench.sh` script.
+      If that is the case, you will also need to run the `client_bench.sh` script.
 
    To start the server, run each of these commands (one at a time to test the respective server type):
 
@@ -73,7 +73,7 @@ We use two implementations, in Python and in C.
    ```
 
    You will see a time duration difference between `mp_server.py` and the others, `mp_server.py` runs requests faster.
-   This is because the multi-process model works OK for a CPU-intensive server such as this.
+   This is because the multiprocess model works OK for a CPU-intensive server such as this.
 
    But not on threading, because threading suffers from the use of [GIL (_Global Interpreter Lock_)](https://realpython.com/python-gil/), that prevents multithreaded programs from running Python code simultaneously.
 
@@ -81,8 +81,8 @@ We use two implementations, in Python and in C.
    Take a look at the implementation of different servers:
 
    * synchronous server: `server.c`
-   * multi-process backend: `mp_server.c`
-   * multi-threaded backend: `mt_server.c`
+   * multiprocess backend: `mp_server.c`
+   * multithreaded backend: `mt_server.c`
 
    There is no asynchronous C variant, because of the unstable API of [`libaio`](https://pagure.io/libaio) and [`io_uring`](https://unixism.net/loti/what_is_io_uring.html).
 
@@ -117,7 +117,7 @@ We use two implementations, in Python and in C.
 ## Remarks
 
 Asynchronous operations, as with others, provide an API, as is the case with the Python API or the [`libaio`](https://pagure.io/libaio) and [`io_uring`](https://unixism.net/loti/what_is_io_uring.html).
-The backend of these operations may be a thread-based one in the library providing the API or it may rely on support from the operating system.
+The backend of these operations may be a thread-based one in the library providing the API, or it may rely on support from the operating system.
 When aiming for performance, asynchronous I/O operations are part of the game.
 And it's very useful having a good understanding of what's happening behind the scenes.
 

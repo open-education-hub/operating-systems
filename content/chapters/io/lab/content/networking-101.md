@@ -1,7 +1,7 @@
 # Networking 101
 
-In this section we will **briefly** explore how networking works in general, from the perspective of the application.
-Understanding the detalis of it, however, is beyond the scope of this course.
+In this section, we will **briefly** explore how networking works in general, from the perspective of the application.
+Understanding the details of it, however, is beyond the scope of this course.
 
 The main **protocols** used by applications are **User Datagram Protocol (UDP)** and **Transmission Control Protocol (TCP)**.
 We can specify this protocol when creating a socket.
@@ -17,6 +17,7 @@ You can tell by the fact they both created their sockets like so:
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ```
 
+<!-- markdownlint-disable-next-line MD101 -->
 The `socket.SOCK_DGRAM` argument stands for "datagram" and specifies UDP.
 
 It doesn't care whether the receiver has got all the data, whether it was corrupted or dropped altogether by some router along the way.
@@ -26,8 +27,8 @@ You'll see no error from the sender because whether the message reaches its dest
 
 So far UDP might seem rather useless.
 It doesn't confirm whether a message was received correctly or not, so why use it?
-Well, exectly because its mechanism is so simple, UDP is **fast**.
-Therefore, it is used by many **real-time services**, such as for streaming or video calls where if a frame drops or is incorrect, it doesnt't really matter that much since it will immediately be replaced with the next frame, thus masking the error.
+Well, exactly because its mechanism is so simple, UDP is **fast**.
+Therefore, it is used by many **real-time services**, such as for streaming or video calls where if a frame drops or is incorrect, it doesn't really matter that much since it will immediately be replaced with the next frame, thus masking the error.
 
 ## TCP
 
@@ -42,7 +43,7 @@ The cost of correctness, however, is transmission speed.
 
 You haven't forgotten about our favourite Bittorrent clint, [Deluge](https://deluge-torrent.org/), have you?
 It implements its own protocol for transferring data.
-It is built on top of TCP ussing the [`ITCPTransport` interface](https://twisted.org/documents/18.7.0/api/twisted.internet.interfaces.ITCPTransport.html).
+It is built on top of TCP using the [`ITCPTransport` interface](https://twisted.org/documents/18.7.0/api/twisted.internet.interfaces.ITCPTransport.html).
 
 1. In the Deluge codebase, find the class `DelugeTransferProtocol` and read the docstring comment about the format of its messages.
 
@@ -54,7 +55,7 @@ We'll discuss it in the [next section](./client-server-model.md#establishing-the
 This is what protocols are mostly about.
 They describe which fields go where within a message and how they should be interpreted.
 For example, this protocol says that the `body` (the data itself) should be compressed before being sent.
-This makes a lot of sense as sending less data over the network results in lower latencies.
+This makes a lot of sense, as sending less data over the network results in lower latencies.
 However, if encryption is too time-consuming, it may not be worth it.
 There are compromises to be made everywhere.
 
@@ -104,7 +105,7 @@ Moving on to some user programs, Firefox runs multiple connections using both IP
 
 Discord does the same things as Firefox.
 It uses TCP to send text messages, memes, videos and static content in general.
-And at the same time it uses UDP to exchange voice and video data during calls.
+And at the same time, it uses UDP to exchange voice and video data during calls.
 
 ### Practice: Run `netstat` Yourself
 

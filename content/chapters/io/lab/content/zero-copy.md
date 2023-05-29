@@ -9,7 +9,7 @@ Its actions would be those highlighted in the image below:
 
 ![Client-Server Steps](../media/client-server-file.svg)
 
-**The quiz below is tricky, yet very imporant.**
+**The quiz below is tricky, yet very important.**
 **Do NOT skip it in order for this section to make sense!**
 
 [Quiz](../quiz/server-copies.md)
@@ -43,7 +43,7 @@ First generate the test file using the Makefile.
 Then start the server in one terminal.
 Now, in another one, use `benchmark_client.py` to benchmark both implementations.
 Below are some generic results.
-Yours migh differ by quite a lot as they depend on your disk, your NIC, your kernel, your Python version, the load on your system etc.
+Yours might differ by quite a lot, as they depend on your disk, your NIC, your kernel, your Python version, the load on your system etc.
 
 ```console
 student@os:/.../support/zero-copy$ python3 benchmark_client.py read-send
@@ -59,4 +59,4 @@ Thus, it makes sense for the running time to _roughly_ halve as well.
 
 [Quiz](../quiz/fewer-than-2-copies.md)
 
-You can read a slightlty more detailed article about zero-copy [here](https://developer.ibm.com/articles/j-zerocopy/).
+You can read a slightly more detailed article about zero-copy [here](https://developer.ibm.com/articles/j-zerocopy/).

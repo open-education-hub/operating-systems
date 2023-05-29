@@ -9,7 +9,7 @@ student@os:~/.../lab/support/simple-file-operations$ cat file.txt
 OS Rullz!
 ```
 
-But how does `cat` actually "reach" to the file, then read its contents, then print them to standard output?
+But how does `cat` actually "reach" the file, then read its contents, then print them to standard output?
 This is part of what we're going to learn.
 
 ## Reaching the File
@@ -18,8 +18,8 @@ To manipulate the file (read its contents, modify them, change its size etc.), e
 Think of this handler as an object by which the process can identify and refer to the file.
 
 Now take a look at the code examples in `support/simple-file-operations`.
-Each of them reads the contents of `file.txt`, modifies them and then reads the previously modified file again.
-Use `make` to compile the C code and `make java-file-operations` to compile the Java code.
+Each of them reads the contents of `file.txt`, modifies them, and then reads the previously modified file again.
+Use `make` to compile the C code, and `make java-file-operations` to compile the Java code.
 
 Now run the programs repeatedly in whatever order you wish:
 
@@ -40,7 +40,7 @@ Wrote new data to file
 File contents are: Java was here!
 ```
 
-Note that each piece of code creates a variable which is then used as a handler.
+Note that each piece of code creates a variable, which is then used as a handler.
 
 [Quiz](../quiz/file-handler-c.md)
 
@@ -82,7 +82,7 @@ student@os:~/.../lab/support/file-descriptors$ ./open_directory
 Directory file descriptor is: 3
 ```
 
-We can now see that the `open()` syscall is capable of also handling directories, so its closer to what we want.
+We can now see that the `open()` syscall is capable of also handling directories, so it's closer to what we want.
 Note that it is rather uncommon to use `open()` for directories.
 Most of the time, [`opendir()`](https://man7.org/linux/man-pages/man3/opendir.3.html) is used instead.
 But what does it return?

@@ -104,7 +104,7 @@ While the program is waiting, open another terminal and run `cat /proc/$(pidof m
 
 Now we can copy files using `mmap()`.
 The code is rather short and convenient to write.
-It's disadvantage is that we have to `mmap()` the 2 files entirely of the VAS of the process.
+Its disadvantage is that we have to `mmap()` the 2 files entirely of the VAS of the process.
 While this may be alright for small files, for larger ones we simply may not have enough RAM.
 What if we had to copy a 500GB file?
 

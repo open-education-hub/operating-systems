@@ -80,7 +80,7 @@ student@os:~$ cat index.html
 </html>
 ```
 
-And, finally we can render the `index.html` file in the browser like so:
+And, finally, we can render the `index.html` file in the browser like so:
 
 ```console
 student@os:~$ xdg-open index.html  # xdg-open invokes the OS's default program for opening HTML files
@@ -137,7 +137,7 @@ We need something more: **ports**
 ### Further than IPs: Ports
 
 A port is simply a **number** assigned to uniquely identify a connection from a host to another and to direct the data that's transferred between them.
-This way we can create multiple connections between the same 2 hosts.
+This way, we can create multiple connections between the same 2 hosts.
 Port numbers are encoded on 16 bits and thus range from $0$ to $2^{16} - 1$, i.e. from $0$ to $65535$.
 
 The first 1024 ports are reserved for well-known system services, such as SSH (which uses port 22).
@@ -164,7 +164,7 @@ So it should be clear now that a connection is uniquely identified by **an IP an
 ## API - Hail Berkeley Sockets
 
 Up to now we've described how sites work in general.
-Before we can implement something of this sort ourserlves, we need to understand the API.
+Before we can implement something of this sort ourselves, we need to understand the API.
 Unlike other APIs such as syscalls, which differ between OSs (Unix vs Windows for example), the one we're about to learn is almost universally adopted across OSs and programming languages.
 It's called the [Berkeley Sockets API](https://en.wikipedia.org/wiki/Berkeley_sockets).
 And with this, we've just introduced a new word: **socket**.
@@ -177,7 +177,7 @@ Just like wall sockets allow us to plug into the electric grid, network sockets 
 Remember [file handlers](./file-handlers.md)?
 You should.
 File handlers are objects with which we can interact with files.
-In a similar way, sockets are handlers that provide an abstraction for a connection to another process, running either on a remote machine or on the same host.
+Similarly, sockets are handlers that provide an abstraction for a connection to another process, running either on a remote machine or on the same host.
 
 ### Sender and Receiver
 
@@ -188,7 +188,7 @@ The sender reads data from the keyboard and sends it to the receiver.
 The receiver reads data continuously.
 Upon receiving the message `"exit"`, it closes.
 Otherwise, it prints whatever it receives to `stdout`.
-This detail about how to handle a mesage containing `"exit"` may be regarded as a [communication protocol](#further-than-ips-ports) established between the sender and the receiver.
+This detail about how to handle a message containing `"exit"` may be regarded as a [communication protocol](#further-than-ips-ports) established between the sender and the receiver.
 
 Now open 2 terminals (or use [tmux](https://tmuxcheatsheet.com/)).
 First run `receiver.py` in one terminal.
@@ -199,7 +199,7 @@ It creates a socket:
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ```
 
-We'll explain at the arguments in the [next section](./networking-101.md#udp).
+We'll explain the arguments in the [next section](./networking-101.md#udp).
 One thing to note here is that **sockets are file descriptors too.**
 
 The server displays its PID.

@@ -1,8 +1,8 @@
 # Pipes
 
 When it comes to inter-process communication, so far we know that 2 different processes can `mmap()` the same file and use that as some sort of shared memory, but this requires writing data to the disk which is slow.
-Then we know they can `wait()`/`waitpid()` for each other to finish, or better yet, use shared semaphores or mutexes, but these mechanisms aren't good at at passing data between processes.
-So our goals fot this session are to learn how to use an IPC (inter-process communication) mechanism that:
+Then we know they can `wait()`/`waitpid()` for each other to finish, or better yet, use shared semaphores or mutexes, but these mechanisms aren't good at passing data between processes.
+So our goals for this session are to learn how to use an IPC (inter-process communication) mechanism that:
 
 - allows transfers between processes, not notifications
 
@@ -21,14 +21,14 @@ This "chain" of commands looks like this:
 
 ![Piped Commands](../media/piped-commands.svg)
 
-So here we have a **unidirectional** stream of data that starts from `cat`, is modified by each new command and then it's passed to the next one.
+So here we have a **unidirectional** stream of data that starts from `cat`, is modified by each new command, and then is passed to the next one.
 We can tell from the image above that the communication channel between any 2 adjacent commands allows one process to write to it while the other reads from it.
-For example, there is no need for `cat` to read any of `tr`'s output, only vice-versa.
+For example, there is no need for `cat` to read any of `tr`'s output, only vice versa.
 
 Therefore, this communication channel needs 2 ends:
 one for reading (from which commands get their input) and another for writing (to which commands write their output).
 In UNIX, the need for such a channel is fulfilled by the [`pipe()` syscall](https://man7.org/linux/man-pages/man2/pipe.2.html).
-Imagine there's a literal pipe between any 2 adjacent commands in the image above where data is what flows through this pipe **in only a single way**.
+Imagine there's a literal pipe between any 2 adjacent commands in the image above, where data is what flows through this pipe **in only a single way**.
 This is why the `|` operator in Bash is called pipe and why the syscall is also named `pipe()`.
 
 This type of pipe is also called an **anonymous pipe**, because it cannot be identified using a name (i.e. it is not backed by any file).
@@ -95,7 +95,7 @@ The child will redirect file descriptor 4 to `stdout` and then `execlp()` `send_
 
 Once you do this, note that file descriptors are also maintained after calling `exec()` to run a completely new program.
 
-Now if you want to use pipes even more, go over to [the Arena](./arena.md#mini-shell-with-blackjack-and-pipes) and add support for pipes to the mini-shell you've previously worked on.
+Now, if you want to use pipes even more, go over to [the Arena](./arena.md#mini-shell-with-blackjack-and-pipes) and add support for pipes to the mini-shell you've previously worked on.
 
 ### Anonymous Pipes: Conclusion
 
@@ -144,14 +144,14 @@ Now let's use it.
 Open 2 terminals.
 
 1. In the first one, use `cat` to read from `fifo`.
-Note that the command is blocked because the pipe is empty so `cat` has nothing to read.
+Note that the command is blocked because the pipe is empty, so `cat` has nothing to read.
 Then, in the second terminal, write some message to `fifo` using `echo`.
-In the first terminal, you should see that `cat` has finished and the message has appeared there.
+In the first terminal, you should see that `cat` has finished, and the message has appeared there.
 
 1. Now do it the other way around:
 first `echo` some string into the pipe and **then** read it with `cat`.
 Note that now the `echo` command is blocked.
-Now `cat` should end immediately and the string should appear because we have already placed some data in the pipe.
+Now `cat` should end immediately, and the string should appear because we have already placed some data in the pipe.
 Also, the previous `echo` should finish now.
 
 **Remember:**

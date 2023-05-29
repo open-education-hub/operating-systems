@@ -3,7 +3,7 @@
 Up until this point, we first learned how to use the [Berkeley Sockets API](./remote-io.md#api---hail-berkeley-sockets), then we learned about the [client-server model](./client-server-model.md), based on this API.
 So now we know that sockets offer a ubiquitous interface for inter-process communication, which is great.
 A program written in Python can easily send data to another one written in C, D, Java, Haskell, you name it.
-However, in the [section dedicated to networking](./networking-101.md) we saw that it takes a whole stack of protocols to send this message from one process to the other.
+However, in the [section dedicated to networking](./networking-101.md), we saw that it takes a whole stack of protocols to send this message from one process to the other.
 As you might imagine, this is **much slower even than local I/O using files**.
 
 So far we've only used sockets for local communication, but in practice it is a bit counterproductive to use network sockets for local IPC due to their high latency.

@@ -14,7 +14,7 @@ The most simplistic representation of a compute system is a black box that recei
 
 ![Compute System - Oversimplified](../media/compute-system-oversimplified.svg)
 
-In this session we will look into how a compute system interacts with the outside world to get and produce these inputs and outputs.
+In this session, we will look into how a compute system interacts with the outside world to get and produce these inputs and outputs.
 
 1. [File Handlers](./file-handlers.md)
 1. [File Descriptors](./file-descriptors.md)
