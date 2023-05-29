@@ -48,8 +48,8 @@ save_file.close()
 
 The `with` keyword is just a _context manager_ that makes sure `save_file` is also closed when its "body" finished.
 Writing the data is done simply by calling the `write()` function.
-As you've probably figured out, there's an entire **sofware stack** beneath this `write()` function that sends the data first to libc and then to the kernel.
-Furthemore, the kernel itself has its own separate stack for handling I/O requests.
+As you've probably figured out, there's an entire **software stack** beneath this `write()` function that sends the data first to libc and then to the kernel.
+Furthermore, the kernel itself has its own separate stack for handling I/O requests.
 
 ![Software Stacks Everywhere](../media/software-stacks-everywhere.jpeg)
 
@@ -73,7 +73,7 @@ What is important is that errors are somehow accounted for and not ignored.
 This is especially true for I/O-related errors.
 Because I/O handling means dealing with peripherals or devices outside the typical CPU-RAM interaction.
 The more devices, the higher the complexity.
-The higher the complexity, the higher the likelyhood of errors.
+The higher the complexity, the higher the likelihood of errors.
 
 [Quiz](../quiz/local-io-errors.md)
 

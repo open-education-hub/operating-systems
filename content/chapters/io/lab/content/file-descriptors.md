@@ -28,7 +28,7 @@ The code in `support/file-descriptors/open_directory.c` opened the directory as 
 So what are file descriptors 0 and 1?
 They are `stdin` and `stdout`, respectively.
 
-Now we know that the basic I/O streams of a process are correspond to specific file decriptors.
+Now we know that the basic I/O streams of a process correspond to specific file descriptors.
 But what is a file descriptor exactly?
 From the application's point of view, it is a positive integer acting as a unique identifier for an I/O channel, such as a file.
 To the operating system, a file descriptor is an index.
@@ -38,7 +38,7 @@ Each element in this array points towards a structure in the kernel's memory tha
 This structure is called the **open file structure**.
 
 To illustrate all this information, look at the image below.
-All data structures shown below are stored in the Kernel's memory area and are transparent for the user space.
+All data structures shown below are stored in the Kernel's memory area and are transparent to the user space.
 And remember that the file descriptor table is bound to the process, so all its threads share the same file descriptors.
 
 ![File Descriptors](../media/file-descriptors.svg)
@@ -76,7 +76,7 @@ A return value between **0** and `bytes_to_read` is not enough to decide whether
 To determine this, we make another `read()` call, which will return **0** if the cursor is already at **EOF** (end of file).
 
 The same goes for `write()`: its return value may differ from the intended number of bytes to write.
-Partial writes should also be handled at the application level and the way to do this is by using loops.
+Partial writes should also be handled at the application level, and the way to do this is by using loops.
 
 **Remember:**
 **It is mandatory that we always use `read()` and `write()` inside `while` loops.**
@@ -137,7 +137,7 @@ Remember to use a loop to make sure your data is fully written to the file.
 
 Change the message written to `write_file.txt` by `support/file-descriptors/open_read_write.c` **to a shorter one**.
 It is important that the new message be shorter than the first one.
-Now recompile the code and then run it and then inspect the contents of the `write_file.txt` file.
+Now recompile the code, then run it, and then inspect the contents of the `write_file.txt` file.
 
 If the new message were `"Something short"`, the contents of `write_file.txt` should be:
 
@@ -194,15 +194,15 @@ Use `close()` on the file descriptors you've opened so far in `support/file-desc
 
 Note that you don't have to close file descriptors 0, 1 and 2 manually.
 The standard streams are meant to stay alive throughout the lifetime of the process.
-Just like calling `free()` on a `malloc()`-ed pointer, callig `close()` is not really necessary.
+Just like calling `free()` on a `malloc()`-ed pointer, calling `close()` is not really necessary.
 When a process terminates, the OS closes all its file descriptors the same way it frees all its memory.
 
 And keeping this comparison with `malloc()` and `free()`, closing file descriptors is important when they are created inside a loop, as the file descriptor table's size is limited.
 
 ## File Handling Conclusion: libc vs syscalls
 
-Up to now we can draw some parallels between `fopen()` and `open()`.
-While `fopen()` alows the usage of high-level functions such as `fread()` and `fwrite()`, which, among other things, use `while` loops to ensure they always read the required number of bytes, the libc-specific API is not generic enough.
+Up to now, we can draw some parallels between `fopen()` and `open()`.
+While `fopen()` allows the usage of high-level functions such as `fread()` and `fwrite()`, which, among other things, use `while` loops to ensure they always read the required number of bytes, the libc-specific API is not generic enough.
 
 In the following sections, we'll use file descriptors and `read()` and `write()` to interact with some inter-process-communication mechanisms, such as pipes.
 
@@ -217,7 +217,7 @@ As usual, use the `man` pages when in doubt about either of them.
 | `fseek()`  | `lseek()` |
 | `fclose()` | `close()` |
 
-So for most equivalents, just remove the leading `f` when moving fron the libc function to the underlying syscall.
+So for most equivalents, just remove the leading `f` when moving from the libc function to the underlying syscall.
 
 For a quick recap of the flags we've discussed so far, take a look at the following table.
 But don't bother memorising it.

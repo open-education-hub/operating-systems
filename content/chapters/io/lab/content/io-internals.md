@@ -1,6 +1,6 @@
 # I/O Internals
 
-Now we will take a short look at how the file descriptors you've just learnt about are handled in libc.
+Now, we will take a short look at how the file descriptors you've just learnt about are handled in libc.
 The Software Stack chapter has taught us that applications generally interact with libraries which expose wrappers on top of syscalls.
 The most important library in a POSIX system (such as Linux) is libc.
 Among many others, it provides higher-level abstractions over I/O-related syscalls.
@@ -62,7 +62,7 @@ It says that while the disk can store lots of data, it does so at the cost of sp
 When we say speed, we mean the rate at which we can read/write data from/to the disk, i.e. the maximum number of bytes transferred per unit of time.
 This means that `read()` and `write()` syscalls (or their various corresponding library calls) are slow and cause performance bottlenecks.
 More often than not, it is the I/O component that drags down the performance of an otherwise fast application.
-And what's worse, the further the "destination" of the I/O operation (file on the disk or host on the Web) is, the more time it takes to transfer data to and form it.
+And what's worse, the further the "destination" of the I/O operation (file on the disk or host on the Web) is, the more time it takes to transfer data to and from it.
 
 On the other hand, as we've already established, the I/O component defines how we interact with an app.
 If we want it to be responsive and to do something useful, most likely, the I/O is the key.
@@ -76,7 +76,7 @@ There are countless optimisations out there aimed precisely at bridging the spee
 
 ### I/O Buffering
 
-Going back to our initial example with [`struct _IO_FILE`](https://elixir.bootlin.com/musl/v1.2.3/source/src/internal/stdio_impl.h#L21) from Musl, we can see some more fileds:
+Going back to our initial example with [`struct _IO_FILE`](https://elixir.bootlin.com/musl/v1.2.3/source/src/internal/stdio_impl.h#L21) from Musl, we can see some more fields:
 
 ```c
 unsigned char *buf;
@@ -98,14 +98,14 @@ Run the code under `strace`.
 
 Since there is only one `write()` syscall despite multiple calls to `printf()`, it means that the strings given to `printf()` as arguments are kept _somewhere_ until the syscall is made.
 That _somewhere_ is precisely that buffer inside `struct _IO_FILE` that we highlighted above.
-Remember that syscalls cause the system to change from user mode to kernel mode, which is time consuming.
+Remember that syscalls cause the system to change from user mode to kernel mode, which is time-consuming.
 Instead of performing one `write()` syscall per call to `printf()`, it is more efficient to copy the string passed to `printf()` to an **internal buffer** inside libc (the `unsigned char *buf` from above) and then at a given time (like when the buffer is full for example) `write()` the whole buffer.
 This results in far fewer `write()` syscalls.
 
 <!-- markdownlint-disable MD029 -->
 
-2. Now it is interesting to see how we can force libc to dump that internal buffer.
-The most direct way is by using the `fflush()` library call which is made for this exact purpose.
+2. Now, it is interesting to see how we can force libc to dump that internal buffer.
+The most direct way is by using the `fflush()` library call, which is made for this exact purpose.
 But we can be more subtle.
 Add a `\n` in some of the strings printed in `support/buffering/printf_buffering.c`.
 Place them wherever you want (at the beginning, at the end, in the middle).
@@ -135,7 +135,7 @@ This wrapper also places the data inside the destination buffer.
 
 #### Practice: Buffering Performance
 
-Up to know it's pretty clear what I/O buffering is about.
+Up to now, it's pretty clear what I/O buffering is about.
 Let's see what kind of a performance increase it brings.
 We'll look at an extreme example.
 Navigate to `support/buffering/no_buffering.c`.
@@ -164,7 +164,7 @@ Wrote 1048576 bytes to test-file.txt in 38 ms
 So buffering brings a **98%** improvement for reading and a **99.8%** improvement for writing!
 This is massive!
 Yes, this is an extreme example, but it goes a long way to show how powerful I/O buffering can be.
-Now the question is "Can YOU do better?"
+Now, the question is, "Can YOU do better?"
 
 <!-- markdownlint-enable MD104 -->
 
@@ -174,7 +174,7 @@ Now the question is "Can YOU do better?"
 `diy_fread()` already defines a minimalistic implementation of `fread()`.
 Use it as a starting point to implement `diy_write()` as an implementation of `fwrite()`.
 
-1. Run `benchmark_buffering.sh` to comapre the performance of your implementation with that of libc.
+1. Run `benchmark_buffering.sh` to compare the performance of your implementation with that of libc.
 Did you beat it?
 
 ## Conclusion
@@ -182,8 +182,8 @@ Did you beat it?
 I/O Buffering is a ubiquitous optimisation in all libc implementations.
 It is so powerful that the kernel uses it as well.
 This means that the kernel also reads more bytes than it's requested and stores the remainder in an internal buffer, just like libc.
-This concept is know as **double buffering**.
-In the [following section](./zero-copy.md) we will see how to make use of this internal buffering to optimise network requests.
+This concept is known as **double buffering**.
+In the [following section](./zero-copy.md), we will see how to make use of this internal buffering to optimise network requests.
 
 Notice that the script in `support/buffering/benchmark_buffering.sh` also uses `echo 3 > /proc/sys/vm/drop_caches`.
 That section [in the Arena](./arena.md#to-drop-or-not-to-drop) that we mentioned earlier is becoming even more interesting.

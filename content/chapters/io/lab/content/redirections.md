@@ -3,7 +3,7 @@
 In the [File Descriptors section](./file-descriptors.md), we mentioned redirections such as `ls > file.txt`.
 We said `file.txt` has to be opened at some point.
 Let's check that.
-We'll use `strace`, obviously, to look for for `open()` and `openat()` syscalls.
+We'll use `strace`, obviously, to look for `open()` and `openat()` syscalls.
 
 ```console
 student@os:~/.../lab/support/simple-file-handling$ strace -e open,openat ls > file.txt
@@ -20,7 +20,7 @@ openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
 
 This looks strange.
 Where is the call to `openat(AT_FDCWD, "file.txt", ...)`?
-Well if we look at the full `strace` output, the first call is `execve()`:
+Well, if we look at the full `strace` output, the first call is `execve()`:
 
 ```console
 student@os:~/.../lab/support/simple-file-handling$ strace ls > file.txt
@@ -30,8 +30,8 @@ execve("/usr/bin/ls", ["ls"], 0x7ffe550d59e0 /* 60 vars */) = 0
 
 [Quiz](../quiz/execve.md)
 
-So the `openat()` syscalls we saw earlier come fom the `ls` process.
-Remeber how launching a command works in Bash:
+So the `openat()` syscalls we saw earlier come from the `ls` process.
+Remember how launching a command works in Bash:
 
 1. The Bash process `fork()`s itself
 1. The child (still a Bash process) then calls `execve()`
@@ -179,14 +179,14 @@ close(dst_fd);
 dup(src_fd);  // This places `src_fd` into the previous `dst_fd`
 ```
 
-1. Modify `support/redirect/redirect_parallel.c` and change the calls to `close()` and `dup()` to calls to `dup2()` and check the contens of the resulting files to see they're correct.
+1. Modify `support/redirect/redirect_parallel.c` and change the calls to `close()` and `dup()` to calls to `dup2()` and check the contents of the resulting files to see they're correct.
 
 1. Now go back to `support/redirect/redirect.c` and refactor the code in `do_redirect()` to use `dup2()` as well.
 
 ## Practice: Mini-shell Reloaded
 
 Remember the mini-shell you implemented in the Arena of the previous lab.
-It is capable of `fork()`-ing itself and `execvp()`-ing commands just like Bash.
+It is capable of `fork()`-ing itself and `execvp()`-ing commands, just like Bash.
 We can now extend it to allow redirecting `stdout` to a file.
 
 Use what you've learnt so far in this section to allow this mini-shell to redirect the output of its commands to files.
