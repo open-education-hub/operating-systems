@@ -1,6 +1,6 @@
 # OS Cloud
 
-In this section we are going to build a "toy cloud" called `OS Cloud`.
+In this section, we are going to build a "toy cloud" called `OS Cloud`.
 Similar to a real cloud (like `aws`), `OS Cloud` will allow us to create and manage virtual machines, through an `http` API.
 
 ## Containers vs VMs
@@ -40,13 +40,13 @@ A container is an OS-level virtualization method in which a group of userspace p
 
 Take for example a database server.
 Instead of running it directly on the host system, we'll run it in its own container.
-This way the server process will be isolated from other processes on the system.
+This way, the server process will be isolated from other processes on the system.
 It will also have its own filesystem.
 
 Besides isolation, containers are also useful for portability.
 Since a container comes with its own filesystem image, we can pack it together will all the dependencies, so that the app will run correctly no matter what packages are installed on the host system.
 
-Finally, since our application will consist of more than 1 container, we'll also use `docker-compose`, which is a tool that helps us with running multi-container applications
+Finally, since our application will consist of more than 1 container, we'll also use `docker-compose`, which is a tool that helps us with running multi-container applications.
 
 ## Prerequisites
 
@@ -216,7 +216,7 @@ root          35      27  0 09:13 pts/3    00:00:00 ps -ef
 ```
 
 Indeed, a `qemu-system-x86_64` process is there.
-The vm should be accessible via `ssh` on the IP `192.168.0.2` with password `123456` (if you get `connection refused` here you need to wait a bit more for the machine to boot):
+The vm should be accessible via `ssh` on the IP `192.168.0.2` with password `123456` (if you get `connection refused` here, you need to wait a bit more for the machine to boot):
 
 ```console
 root@adf6e0bf4e6e:/app# ssh root@192.168.0.2
@@ -253,7 +253,7 @@ Last login: Thu Nov 17 07:50:11 UTC 2022 from 192.168.0.1 on pts/0
 root@ubuntu:~#
 ```
 
-To exit the serial console press `CTRL+]`, then type `quit`:
+To exit the serial console, press `CTRL+]`, then type `quit`:
 
 ```console
 root@ubuntu:~#
@@ -280,7 +280,7 @@ curl -H "Content-Type: application/json" \
 	localhost:5000/vm_create
 ```
 
-it will do an `HTTP POST` request (because of the `-d` parameter) to `/vm_create`.
+It will do an `HTTP POST` request (because of the `-d` parameter) to `/vm_create`.
 The request will be handled by the `api_vm_create` function in `app.py` (because of the `@app.route("/vm_create", methods=["POST"])` line).
 
 Inside this function, we also have access to the request payload (the string that comes after `-d` in our `curl` call).
@@ -332,7 +332,7 @@ MariaDB [os-cloud]> select * from network;
 1 row in set (0.000 sec)
 ```
 
-`Note: in real life DON'T store passwords in text files inside a repository`.
+`Note: in real life, DON'T store passwords in text files inside a repository`.
 
 Some observations:
 
@@ -378,7 +378,7 @@ Then it will use a series of `expect_exact` + `sendline` pairs to interact with 
 
 ## Practice: Create a New Disk by Hand
 
-Let's replicate the above mentioned steps and create a new disk ourselves.
+Let's replicate the above-mentioned steps and create a new disk ourselves.
 
 First, we have to call the 2 scripts from the `create_disk_from_template` function:
 
@@ -441,7 +441,7 @@ In `vm.vm_stop`:
 
 - change the vm state in the database to `VM_STATE_STOPPED`
 
-After modifying the code you should run `docker-compose up --build` again.
+After modifying the code, you should run `docker-compose up --build` again.
 Also, if your database became inconsistent, you can clean it up by re-running the `setup_db.sh` script.
 Then delete all vm disks with `sudo rm -rf vm-disks/*`.
 

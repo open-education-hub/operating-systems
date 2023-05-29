@@ -9,7 +9,7 @@ The bus itself is implemented by the dbus-daemon, and there are in fact multiple
 Every process that connects to D-Bus receives a unique connection name.
 This name can be something human-readable, like `org.freedesktop.Notifications`, or some generated ID, like `:1.63`.
 Once a process is connected, it can expose one or multiple `objects`.
-An object has a path-like name, consisting of strings separated by a slash character (for example `/org/freedesktop/Notifications`).
+An object has a path-like name, consisting of strings separated by a slash character (for example, `/org/freedesktop/Notifications`).
 Each object contains one or more `interfaces`, which have the methods that can be called on that object.
 
 ## D-Bus Inspection with D-Feet
@@ -20,9 +20,9 @@ Run D-Feet and select `Session Bus` from the top button:
 
 ![dfeet-session-bus](../media/dfeet_session_bus.png)
 
-On the left panel we can see all the processes connected to D-Bus with their associated `connection names`.
+On the left panel, we can see all the processes connected to D-Bus with their associated `connection names`.
 Scroll down and find `org.freedesktop.Notifications`.
-On the right side expand `/org/freedesktop/Notifications` and then expand the `org.freedesktop.Notifications` interface.
+On the right side, expand `/org/freedesktop/Notifications` and then expand the `org.freedesktop.Notifications` interface.
 The window should look like this:
 
 ![dfeet-notifications](../media/dfeet_notifications.png)
@@ -51,14 +51,14 @@ Note that the last one (`org.freedesktop.Notifications`) is the same as the conn
 The application behind `org.freedesktop.Notifications` is responsible with desktop notifications (the small bubbles of text that appear at the top of the screen when some event happens).
 When an application wants to send a notification it needs to connect to D-Bus and call the `Notify` method from the `org.freedesktop.Notifications` interface.
 
-In this example we want to call the `Notify` method ourselves.
+In this example, we want to call the `Notify` method ourselves.
 To do this, we must first understand the signature of this method:
 
 `Notify (String arg_0, UInt32 arg_1, String arg_2, String arg_3, String arg_4, Array of [String] arg_5, Dict of {String, Variant} arg_6, Int32 arg_7) ↦ (UInt32 arg_8)`
 
 This doesn't tell us much, but we can find more documentation [here](https://specifications.freedesktop.org/notification-spec/notification-spec-latest.html#basic-design), since `freedesktop` is an open standard.
 
-We'll set the arguments to the following (for our simple case most of them will be unused):
+We'll set the arguments to the following (for our simple case, most of them will be unused):
 
 * `app_name`: `""`
 
@@ -77,7 +77,7 @@ We'll set the arguments to the following (for our simple case most of them will 
 * `expire_timeout`: `-1`
 
 Now the question is how to actually call the method.
-Normally we would have to write an application that connects to D-Bus and executes the call.
+Normally, we would have to write an application that connects to D-Bus and executes the call.
 But for demonstrative purposes there are easier ways.
 
 One way is directly from d-feet.
@@ -200,7 +200,7 @@ Without any precise knowledge about Firefox internals, we can guess that somethi
 - The newly started Firefox process sent a message to the existing running process, requesting it to open a URL in a new tab
 
 Since we're talking about message passing between 2 processes, there's a chance that maybe D-Bus was involved.
-Let's check: we'll use a tool called `dbus-monitor` that will print all messsages passed through D-Bus.
+Let's check: we'll use a tool called `dbus-monitor` that will print all messages passed through D-Bus.
 
 ```console
 student@os:~$ dbus-monitor
@@ -208,7 +208,7 @@ student@os:~$ dbus-monitor
 
 Then, in another terminal, we'll run `firefox www.google.com` again.
 
-Going back to the `dbus-monitor` output we find the following:
+Going back to the `dbus-monitor` output, we find the following:
 
 ```console
 ...

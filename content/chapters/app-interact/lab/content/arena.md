@@ -3,7 +3,7 @@
 ## Oneko
 
 An alternative to `xeyes` which allows us to observe Unix sockets is `oneko`.
-Going through the same steps we see that the application also create a Unix socket, then connects to the path `@"/tmp/.X11-unix/X0"`.
+Going through the same steps, we see that the application also create a Unix socket, then connects to the path `@"/tmp/.X11-unix/X0"`.
 
 ```console
 student@os:~$ strace -e trace=socket,connect oneko
@@ -36,7 +36,7 @@ There's also a skeleton you can use in `support/dbus/get_battery_level.py`.
 
 In summary, your script will start by connecting to the `System Bus`.
 Then you'll use the `get_object` method to obtain a proxy object.
-On this proxy object you can actually do the method call as explained [here](https://dbus.freedesktop.org/doc/dbus-python/tutorial.html#interfaces-and-methods):
+On this proxy object, you can actually do the method call as explained [here](https://dbus.freedesktop.org/doc/dbus-python/tutorial.html#interfaces-and-methods):
 
 ```text
 To call a method, call the method of the same name on the proxy object, passing in the interface name via the dbus_interface keyword argument
@@ -69,7 +69,7 @@ In `disk-templates/ubuntu_22.04/files` there is a file called `99-os-cloud-welco
 We want to copy this file to `/etc/update-motd.d` in our newly created disk, so that it will run whenever a user logs in.
 
 To do this, you will create a script called `copy_files.sh` in `disk-templates/ubuntu_22.04`.
-This script will receive a path to a `qcow2` disk file as an argument, it will mount the disk, and then copy the file in the necessary location.
+This script will receive a path to a `qcow2` disk file as an argument, it will mount the disk, and then copy the file to the necessary location.
 Then, in the `create_disk_from_template` function in `disk.py` you will call this script, similar with how the other scripts are called.
 
 You can use `disk-templates/ubuntu_22.04/setup_root_password.sh` as an example.
@@ -78,7 +78,7 @@ You can use `disk-templates/ubuntu_22.04/setup_root_password.sh` as an example.
 
 We want to be able to log into the virtual machine using an ssh key, instead of the password `123456`.
 Notice that the `vm_create` API also accepts an `ssh_key` parameter.
-Here the user can provide an ssh public key, which the system will install in `/root/.ssh/authorized_keys` in the newly created virtual machine.
+Here, the user can provide an ssh public key, which the system will install in `/root/.ssh/authorized_keys` in the newly created virtual machine.
 
 Your task is to implement this feature, as a customization from the second category (that is, implemented in the `ubuntu_22_04_vm_prepare` function).
 The key will be accessible to the function as the `ssh_pub_key` parameter.
@@ -142,7 +142,7 @@ root@ubuntu:~# curl google.com
 curl: (6) Could not resolve host: google.com
 ```
 
-In this task we want to fix this problem.
+In this task, we want to fix this problem.
 To do this, we must first understand how the networking for the virtual machines is done.
 
 First, there is the concept of a `network`, which you saw in the previous section.
@@ -187,13 +187,13 @@ In summary, it looks something like this:
 ![os-cloud](../media/os_cloud_networking.svg)
 
 All the traffic coming from the virtual machines passes through the `br0` interface.
-So, in order to make the internet work, al we have to do is a simple `NAT`, with a command like:
+So, in order to make the internet work, all we have to do is a simple `NAT`, with a command like:
 
 ```console
 root@8333e5cefb0d:/app# iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j MASQUERADE
 ```
 
-Now the virtual machines should have internet access:
+Now, the virtual machines should have internet access:
 
 ```console
 root@8333e5cefb0d:/app# ssh root@192.168.0.2
