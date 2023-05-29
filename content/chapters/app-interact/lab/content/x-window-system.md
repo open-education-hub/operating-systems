@@ -32,7 +32,7 @@ connect(3, {sa_family=AF_UNIX, sun_path=@"/tmp/.X11-unix/X0"}, 20) = 0
 As expected, the application creates a Unix socket, then connects to the path `@"/tmp/.X11-unix/X0"`.
 
 Furthermore, let's confirm that there is actual communication taking place between `xeyes` and the X server.
-We'll run `xeyes` again and then we'll keep moving the mouse cursor around.
+We'll run `xeyes` again, and then we'll keep moving the mouse cursor around.
 When the mouse is moved, the following events are taking place:
 
 - The X server captures the mouse movements (since the server is the one that controls the mouse)

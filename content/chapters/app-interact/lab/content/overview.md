@@ -1,6 +1,6 @@
 # Application Interaction
 
-In this chapter you will discover various mechanisms through which applications on a system can interact.
+In this chapter, you will discover various mechanisms through which applications on a system can interact.
 You will see these mechanisms in action in existing applications, but also use them in some code of your own.
 
 ## Setup

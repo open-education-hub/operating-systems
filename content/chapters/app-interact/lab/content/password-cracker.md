@@ -1,6 +1,6 @@
 # Password Cracker
 
-In this example we will solve the following problem: given the sha512 hash of a password, we want to obtain the password that generated the hash.
+In this example, we will solve the following problem: given the sha512 hash of a password, we want to obtain the password that generated the hash.
 
 Since a hash function is not reversible, one way to solve this problem is by brute-force: generate all possible word combinations, compute the hash for each word, and compare it with our desired hash value.
 This is not feasible for long passwords, so for our example we will consider only passwords containing lowercase letters and having the length of 4.
@@ -12,7 +12,7 @@ Instead of one process checking all combinations, we'll split the work among mul
 
 The code for this version is in `support/password-cracker/password-cracker-multiprocess.c`.
 
-The idea is the following: we create 26 worker processes, where each process will consider passwords that start with one particular letter (the first process will brute-force passwords starting with `a`, second with `b`, and so on).
+The idea is the following: we create 26 worker processes, where each process will consider passwords that start with one particular letter (the first process will brute-force passwords starting with `a`, the second with `b`, and so on).
 
 Since we are using processes, which are naturally isolated, we need a method of communication.
 The main process should be able to send data to the workers and read back results from them.
@@ -99,7 +99,7 @@ Now we are taking advantage of some Python constructs, namely `process pools`, w
 
 A `Pool` object has, among others, a function called `map`.
 `map` takes a function, together with an array of values, and applies this function on each value from the array.
-At the first glance it might look like the usual `map` function, but with the key difference that the function application is done by the processes from the pool.
+At first glance, it might look like the usual `map` function, but with the key difference that the function application is done by the processes from the pool.
 
 In other words, the work is distributed to the worker processes from the pool, and all the communication that we had to handle in the previous examples is done behind the scenes, greatly simplifying the code.
 
