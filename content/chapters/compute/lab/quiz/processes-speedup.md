@@ -2,7 +2,7 @@
 
 ## Question Text
 
-Why is the speedup from running the program in `support/sum-array/d/sum_array_processes.d` with 1, 2, 4 and 8 processes less than expected?
+Why is the speedup from running the program in `support/sum-array/d/sum_array_processes.d` with N processes less than N (for any N)?
 
 ## Question Answers
 

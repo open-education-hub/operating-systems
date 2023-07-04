@@ -1,100 +1,58 @@
 # Processes
 
+## Hardware Perspective
+
+Look at the [graph on this site](https://www.pcbenchmarks.net/number-of-cpu-cores.html) regarding the evolution of the number of cores in modern processors.
+Notice they contain more and more of these cores.
+You can think of a core as a unit of computation.
+The more the CPU has, the more it can compute **at the same time**.
+
+The hardware is just the "muscle" doing the work.
+We need a "brain" to control it, which is the operating system.
+It needs to separate its tasks into smaller chunks and run each of them on one of the CPU cores.
+The coarsest level of separation is to split tasks into independent **processes**,
+
+## Process Model
+
 A process is simply a running program.
-Let's take the `ls` command as a trivial example.
-`ls` is a **program** on your system.
-It has a binary file which you can find and inspect with the help of the `which` command:
-
-```console
-student@os:~$ which ls
-/usr/bin/ls
-
-student@os:~$ file /usr/bin/ls
-/usr/bin/ls: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=6e3da6f0bc36b6398b8651bbc2e08831a21a90da, for GNU/Linux 3.2.0, stripped
-```
-
-When you run it, the `ls` binary stored **on the disk** at `/usr/bin/ls` is read by another application called the **loader**.
-The loader spawns a **process** by copying some of the contents `/usr/bin/ls` in memory (such as the `.text`, `.rodata` and `.data` sections).
-Using `strace`, we can see the [`execve`](https://man7.org/linux/man-pages/man2/execve.2.html) system call:
-
-```console
-student@os:~$ strace -s 100 ls -a  # -s 100 limits strings to 100 bytes instead of the default 32
-execve("/usr/bin/ls", ["ls", "-a"], 0x7fffa7e0d008 /* 61 vars */) = 0
-[...]
-write(1, ".  ..  content\tCONTRIBUTING.md  COPYING.md  .git  .gitignore  README.md  REVIEWING.md\n", 86.  ..  content	CONTRIBUTING.md  COPYING.md  .git  .gitignore  README.md  REVIEWING.md
-) = 86
-close(1)                                = 0
-close(2)                                = 0
-exit_group(0)                           = ?
-+++ exited with 0 +++
-```
-
-Look at its parameters:
-
-- the path to the **program**: `/usr/bin/ls`
-- the list of arguments: `"ls", "-a"`
-- the environment variables: the rest of the syscall's arguments
-
-`execve` invokes the loader to load the VAS of the `ls` process **by replacing that of the existing process**.
-All subsequent syscalls are performed by the newly spawned `ls` process.
-We will get into more details regarding `execve` [towards the end of this lab](./arena.md#first-step-system-dissected).
-
-![Loading of `ls` Process](../media/loading-of-ls-process.svg)
+It exists asa a binary executable file on the disk.
+When we run the file (for example via `./file` from the terminal), a new process is created and its address space is initially **populated with the contents of the executable file**.
+Another program, called the _loader_ handles initializing the address space of the new process.
+We'll go into it [later in the lab](./arena.md#first-step-system-dissected).
 
 ## Sum of the Elements in an Array
 
-Let's assume we only have one process on our system, and that process knows how to add the numbers in an array.
-It can use however many resources it wants, since there is no other process to contest it.
-It would probably look like the code in `support/sum-array/c/sum_array_sequential.c`.
-The program also measures the time spent computing the sum.
-Let's compile and run it:
-
-```console
-student@os:~/.../lab/support/sum-array/c$ ./sum_array_sequential
-Array sum is: 49945994146
-Time spent: 127 ms
-```
-
-You will most likely get a different sum (because the array is made up of random numbers) and a different time than the ones shown above.
-This is perfectly fine.
-Use these examples qualitatively, not quantitatively.
+Navigate to the code in `support/sum-array/c/sum_array_sequential.c`.
+The program measures the time spent computing the sum of the elements in an array.
+Compile and run it.
+Note the running time.
 
 ## Spreading the Work Among Other Processes
 
+Run the following command to find the number of cores in your CPU: `lscpu | grep ^CPU\(s\)`.
 Due to how it's implemented so far, our program only uses one of our CPU's cores.
-We never tell it to distribute its workload to other cores.
-This is wasteful as the rest of our cores remain unused:
 
-```console
-student@os:~$ lscpu | grep ^CPU\(s\):
-CPU(s):                          8
-```
+To make our code run faster, we can split the array into smaller chunks and have separate processes compute partial sums of their specific chunks as shown in the image below.
+The sum of the whole array is obviously the sum of the partial sums.
 
-We have 7 more cores waiting to add numbers in our array.
+![Splitting the Array](../media/splitting-array.svg)
 
-![What if we used 100% of the CPU?](../media/100-percent-cpu.jpeg)
+### Practice
 
-What if we use 7 more processes and spread the task of adding the numbers in this array between them?
-If we split the array into several equal parts and designate a separate process to calculate the sum of each part, we should get a speedup because now the work performed by each individual process is reduced.
+Compile and run `sum_array_processes.c`.
+First use 1 process then keep increasing the number until you reach the number of cores in you CPU (that you determined earlier).
+Note the running times and compare them to the running time of `sum_array_sequential.c`.
 
-Let's take it methodically.
-Compile and run `sum_array_processes.c` using 1, 2, 4 and 8 processes respectively.
-If your system only has 4 cores ([hyperthreading](https://www.intel.com/content/www/us/en/gaming/resources/hyper-threading.html) included), limit your runs to 4 processes.
-Note the running times for each number of processes.
-We expect the speedups compared to our reference run to be 1, 2, 4 and 8 respectively, right?
+[Answer this quiz](../quiz/processes-speedup.md)
 
-[Quiz](../quiz/processes-speedup.md)
+Notice that we're not using hundreds or thousands of processes.
+Assuming the CPU has 8 cores, it can only run 8 tasks at the same time (we'll see this [in another section](./scheduling.md) how the OS can support thousands of processes).
 
-You most likely did get some speedup, especially when using 8 processes.
-Now we will try to improve this speedup by using **threads** instead.
+## Creating Processes
 
-Also notice that we're not using hundreds or thousands of processes.
-Assuming our system has 8 cores, only 8 _threads_ (we'll see this later in the lab) can run at the same time.
-In general, **the maximum number of threads that can run at the same time is equal to the number of cores**.
-In our example, each process only has one thread: its main thread.
-So by consequence and by forcing the terminology (because it's the main thread of these processes that is running, not the processes themselves), we can only run in parallel a number of processes equal to at most the number of cores.
-
-### Practice: Baby steps - Python
+Remember that the simplest way to create a new process is to just run their executable file.
+We can also create processes from code.
+It's equivalent to running the program associated with a given process.
 
 Run the code in `support/create-process/popen.py`.
 It simply spawns a new process running the `ls` command using [`subprocess.Popen()`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen).
@@ -102,17 +60,11 @@ Do not worry about the huge list of arguments that `Popen()` takes.
 They are used for **inter-process-communication**.
 You'll learn more about this in the [Application Interaction chapter](../../../app-interact/).
 
-Note that this usage of `Popen()` is not entirely correct.
-You'll discover why in the next exercise, but for now focus on simply understanding how to use `Popen()` on its own.
-
-Now change the command to anything you want.
-Also give it some arguments.
-From the outside, it's as if you were running these commands from the terminal.
-
-### Practice: High level - Python
+### Practice
 
 Head over to `support/sleepy/sleepy_creator.py`.
 Use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
+Draw inspiration from `support/create-process/popen.py`.
 
 1. Solve `TODO 1`: use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
 
@@ -128,68 +80,18 @@ Use `subprocess.Popen()` to spawn 10 `sleep 1000` processes.
    student@os:~$ ps -e -H -o pid,ppid,cmd | (head -1; grep "python3 sleepy_creator.py")
    ```
 
-   It is a `python3` process, as this is the interpreter that runs the script, but we call it the `sleepy_creator.py` process for simplicity.
-   No output will be provided by the above command, as the parent process (`sleepy_creator.py`) dies before its child processes (the 10 `sleep 1000` subprocesses) finish their execution.
-   The parent process of the newly created child processes is an `init`-like process: either `systemd`/`init` or another system process that adopts orphan processes.
-   Look for the `sleep` child processes using:
+   The parent is `python3`, as this is the interpreter that runs the script, but we call it the `sleepy_creator.py` process for simplicity.
 
-   ```console
-   student@os:~$ ps -e -H -o pid,ppid,cmd | (head -1; grep sleep)
-    PID    PPID         CMD
-   4164    1680     sleep 1000
-   4165    1680     sleep 1000
-   4166    1680     sleep 1000
-   4167    1680     sleep 1000
-   4168    1680     sleep 1000
-   4169    1680     sleep 1000
-   4170    1680     sleep 1000
-   4171    1680     sleep 1000
-   4172    1680     sleep 1000
-   4173    1680     sleep 1000
-   ```
+   [Answer this Quiz](../quiz/python3-process.md)
 
-   Notice that the child processes do not have `sleepy_creator.py` as a parent.
-   What's more, as you saw above, `sleepy_creator.py` doesn't even exist anymore.
-   The child processes have been adopted by an `init`-like process (in the output above, that process has PID `1680` - `PPID` stands for _parent process ID_).
+1. Use a similar command to look for the `sleep` processes created by running the script.
 
-   [Quiz](../quiz/parent-of-sleep-processes.md)
+   [Answer this Quiz](../quiz/parent-of-sleep-processes.md)
 
 1. Solve `TODO 2`: change the code in `sleepy_creator.py` so that the `sleep 1000` processes remain the children of `sleepy_creator.py`.
-   This means that the parent / creator process must **not** exit until its children have finished their execution.
-   In other words, the parent / creator process must **wait** for the termination of its children.
-   Check out [`Popen.wait()`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen.wait) and add the code that makes the parent / creator process wait for its children.
-   Before anything, terminate the `sleep` processes created above:
-
-   ```console
-   student@os:~$ pkill sleep
-   ```
-
-   Start the program, again, as you did before:
-
-   ```console
-   student@os:~/.../lab/support/sleepy$ python3 sleepy_creator.py
-   ```
-
-   On another terminal, verify that `sleepy_creator.py` remains the parent of the `sleep` processes it creates:
-
-   ```console
-   student@os:~$ ps -e -H -o pid,ppid,cmd | (head -1; grep sleep)
-    PID    PPID                CMD
-   16107   9855         python3 sleepy_creator.py
-   16108   16107           sleep 1000
-   16109   16107           sleep 1000
-   16110   16107           sleep 1000
-   16111   16107           sleep 1000
-   16112   16107           sleep 1000
-   16113   16107           sleep 1000
-   16114   16107           sleep 1000
-   16115   16107           sleep 1000
-   16116   16107           sleep 1000
-   16117   16107           sleep 1000
-   ```
-
-   Note that the parent process `sleepy_creator.py` (`PID 16107`) is still alive, and its child processes (the 10 `sleep 1000`) have its ID as their `PPID`.
-   You've successfully waited for the child processes to finish their execution.
+   For this to be correct, `sleepy_creator.py` must be visible when running `ps -e -H -o pid,ppid,cmd | (head -1; grep "sleep")`.
+   In addition the `PPID`s of the `sleep` processes must be the same as the `PID` of `sleepy_creator`.
+   TODO: add checker.
 
 ### Practice: Lower level - C
 
@@ -273,4 +175,4 @@ Make sure the PPID of the "grandchild" is the PID of the child, whose PPID is, i
 
 1. `exit()`, called by the child.
 
-The order of last 2 steps may be swapped.
+The order of the last 2 steps may be reversed.
