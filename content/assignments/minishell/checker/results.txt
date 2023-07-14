@@ -1,0 +1,11 @@
+'checkpatch.pl' tool not found on your system. Skipping source check...
+Please download 'checkpatch.pl' from 'https://raw.githubusercontent.com/torvalds/linux/master/scripts/checkpatch.pl' and install it in your $PATH.
+
+00) Sources check...........................................failed  [ 0/100]
+01) Testing commands without arguments......................passed  [03/100]
+02) Testing commands with arguments.........................failed  [ 0/100]
+03) Testing simple redirect operators.......................passed  [05/100]
+04) Testing append redirect operators.......................passed  [05/100]
+05) Testing current directory...............................failed  [ 0/100]
+06) Testing conditional operators...........................passed  [05/100]
+07) Testing sequential commands.............................passed  [03/100]
