@@ -1,11 +1,11 @@
-# `write_file.txt` Permissions
+# `file.txt` Permissions
 
 <!-- markdownlint-disable-file MD004 -->
 
 ## Question Text
 
-Assume `write_file.txt` is opened like this:
-`open("write_file.txt", O_WRONLY | O_CREAT)`.
+Assume `file.txt` is opened like this:
+`open("file.txt", O_WRONLY | O_CREAT)`.
 What might cause it to have different permissions that `read_file.txt`?
 
 ## Question Answers
@@ -33,7 +33,7 @@ In fact, `libc` defines wrapper functions on top of all system calls and our cod
 To call `open()` correctly, the coulde would look something like this:
 
 ```c
-open("write_file.txt", O_WRONLY | O_CREAT, 0644).
+open("file.txt", O_WRONLY | O_CREAT, 0644).
 ```
 
 `0644` is the octal representation of `rw-r--r--`.

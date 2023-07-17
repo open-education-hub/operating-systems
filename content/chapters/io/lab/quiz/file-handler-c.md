@@ -4,7 +4,7 @@
 
 ## Question Text
 
-What is the type of the file handler in the C code located in `support/simple-file-operations/file_operations.c`?
+What is the type of the file handler in the C code located in `support/file-descriptors/file_operations.c`?
 
 ## Question Answers
 

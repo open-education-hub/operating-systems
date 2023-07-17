@@ -7,7 +7,7 @@
 
 #include "utils/utils.h"
 
-#define DIR_NAME	"../simple-file-operations/dir"
+#define DIR_NAME	"../file-descriptors/dir"
 
 static void open_directory(const char *dir_name)
 {

@@ -13,10 +13,10 @@
 #undef BUFSIZ
 #endif
 
-#define BUFSIZ			1024
+#define BUFSIZ 1024
 
-#define READ_FILE_NAME		"read_file.txt"
-#define WRITE_FILE_NAME		"write_file.txt"
+#define READ_FILE_NAME "read_file.txt"
+#define WRITE_FILE_NAME "write_file.txt"
 
 static int open_file_for_reading(const char *file_name)
 {
@@ -25,7 +25,7 @@ static int open_file_for_reading(const char *file_name)
 	fd = open(file_name, O_RDONLY);
 	DIE(fd < 0, "open");
 
-	printf("Opened file descriptor is for reading: %d\n", fd);
+	printf("Opened file descriptor for reading: %d\n", fd);
 
 	return fd;
 }
@@ -39,7 +39,8 @@ static void read_from_file(char *buff, int fd, int bytes_to_read)
 	 * ALWAYS use `read()` in a loop because it might not read all the
 	 * required bytes.
 	 */
-	while (total_read < bytes_to_read) {
+	while (total_read < bytes_to_read)
+	{
 		/**
 		 * `total_read` bytes have been read so far
 		 * `buff + total_read` is the address of the first byte to be
@@ -47,7 +48,7 @@ static void read_from_file(char *buff, int fd, int bytes_to_read)
 		 * `bytes_to_read - total_read` bytes need to be read
 		 */
 		bytes_read = read(fd, buff + total_read,
-			bytes_to_read - total_read);
+						  bytes_to_read - total_read);
 		DIE(bytes_read < 0, "read");
 
 		/* 0 indicates the end of the file. */
@@ -58,7 +59,7 @@ static void read_from_file(char *buff, int fd, int bytes_to_read)
 	}
 
 	printf("Read %d bytes from file descriptor %d:\n%s", total_read,
-		fd, buff);
+		   fd, buff);
 }
 
 static int open_file_for_writing(const char *file_name)
@@ -70,7 +71,7 @@ static int open_file_for_writing(const char *file_name)
 	 * for errors.
 	 */
 
-	printf("Opened file descriptor is for writing: %d\n", fd);
+	printf("Opened file descriptor for writing: %d\n", fd);
 
 	return fd;
 }
@@ -87,14 +88,14 @@ static void write_to_file(char *buff, int fd, int bytes_to_write)
 	 */
 
 	printf("Wrote %d bytes to file descriptor %d\n", total_written,
-		fd);
+		   fd);
 }
 
 int main(void)
 {
 	int fd_read;
 	int fd_write;
-	char buff[BUFSIZ] = { 0 };
+	char buff[BUFSIZ] = {0};
 	char message[] = "Message for file2.txt: What's up, Doc?\n";
 
 	fd_read = open_file_for_reading(READ_FILE_NAME);

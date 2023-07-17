@@ -16,7 +16,7 @@ How does the `O_TRUNC` flag change the behaviour of `open()`?
 
 ## Feedback
 
-The man page provides us with unlimited wisdon:
+The man page provides us with unlimited wisdom:
 
 > If the file already exists and is a regular file and the access mode allows writing (i.e., is `O_RDWR` or `O_WRONLY`) it will be truncated to length 0.
 

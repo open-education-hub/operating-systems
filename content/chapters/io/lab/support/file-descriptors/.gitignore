@@ -1,3 +1,5 @@
 open_directory
 open_read_write
 write_file.txt
+file_operations
+print_errors

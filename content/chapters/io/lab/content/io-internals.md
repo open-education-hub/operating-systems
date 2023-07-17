@@ -9,7 +9,7 @@ Among many others, it provides higher-level abstractions over I/O-related syscal
 For example, [Unikraft](https://unikraft.org/) [unikernels](https://unikraft.org/docs/concepts/) may [use musl](https://github.com/unikraft/lib-musl).
 
 First, it provides a `struct` that groups together multiple data that is necessary when handling files.
-We know from the example in `support/simple-file-operations/file_operations.c` that the file handler employed by libc is `FILE *`.
+We know from the example in `support/file-descriptors/file_operations.c` that the file handler employed by libc is `FILE *`.
 `FILE` is just a `typedef` for [`struct _IO_FILE`](https://elixir.bootlin.com/musl/v1.2.3/source/src/internal/stdio_impl.h#L21).
 Here are the most important fields in `struct _IO_FILE`:
 
