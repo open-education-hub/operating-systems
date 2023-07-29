@@ -1,26 +1,17 @@
-name: "Pull Request Labeler"
+name: Labeler Actions Workflow
 
 on:
   schedule:
   - cron: "0 */12 * * *"
   workflow_dispatch:
 
-jobs:
-  add-topic-area-labels:
-    name: Add topic and area labels
-    runs-on: ubuntu-latest
-    steps:
-    - uses: fjeremic/cron-labeler@0.2.0
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
-  add-kind-labels:
-    name: Add kind labels
+jobs:
+  labeler:
+    name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/github-script@v6
+      - name: Labeler
+        uses: security-summer-school/actions/cron-labeler@main
         with:
-          script: |
-            const { default: assignLabelsToPRs } = await import('${{ github.workspace }}/.github/scripts/add-labels.js') ;
-            await assignLabelsToPRs({github, context})
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

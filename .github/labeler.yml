@@ -1,17 +1,17 @@
 topic/software-stack:
-  - content/chapters/software-stack/**/*
+  - 'content/chapters/software-stack/**/*'
 
 topic/data:
-  - content/chapters/data/**/*
+  - 'content/chapters/data/**/*'
 
 topic/compute:
-  - content/chapters/compute/**/*
+  - 'content/chapters/compute/**/*'
 
 topic/io:
-  - content/chapters/io/**/*
+  - 'content/chapters/io/**/*'
 
 topic/app-interact:
-  - content/chapters/app-interact/**/*
+  - 'content/chapters/app-interact/**/*'
 
 area/quiz:
   - '**/quiz/*'
@@ -33,4 +33,4 @@ area/infra:
   - 'Dockerfile'
 
 area/assignment:
-  - content/assignments/**/*
+  - 'content/assignments/**/*'

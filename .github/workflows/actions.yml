@@ -1,0 +1,34 @@
+name: Linter Actions Workflow
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  checkpatch:
+    name: Checkpatch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkpatch
+        uses: security-summer-school/actions/checkpatch@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  super-linter:
+    name: Super Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Super Linter
+        uses: security-summer-school/actions/super-linter@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  spellcheck:
+    name: Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Spellcheck
+        uses: security-summer-school/actions/spellcheck@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
