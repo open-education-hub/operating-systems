@@ -1,0 +1,62 @@
+name: OpenEduHub - PR Deployment
+
+on:
+  pull_request:
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: ./repo
+      - run: |
+          cd repo
+          REF=$(echo "refs/pull/8/merge" | sed 's/\//\\\//g')
+          sed -i "s/baseUrl: \/operating-systems\//baseUrl: \/operating-systems\/$REF\//" config.yaml
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./repo
+          file: ./repo/Dockerfile
+          push: false
+          load: true
+          tags: operating-systems/docusaurus:latest
+          cache-from: type=gha
+          cache-to: type=gha
+
+      - name: Load Image
+        run: |
+          mkdir -p ${{ github.ref }}
+          docker image list
+          docker run -v $GITHUB_WORKSPACE/repo:/content -v $GITHUB_WORKSPACE/${{ github.ref }}:/output operating-systems/docusaurus:latest
+
+      - name: Push to Upstream Repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: ${{ github.ref }}
+          target-directory: ${{ github.ref }}
+          destination-github-username: 'open-education-hub'
+          destination-repository-name: 'operating-systems'
+          user-email: 'github-actions[bot]@users.noreply.github.com'
+          target-branch: gh-pages
+
+      - name: Add Comment to PR
+        if: github.event_name == 'pull_request'
+        env:
+          URL: ${{ github.event.pull_request.comments_url }}
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        run: |
+          curl \
+            -X POST \
+            -u $GITHUB_TOKEN \
+            $URL \
+            -H "Content-Type: application/json" \
+            --data '{ "body": "Published at http://open-education-hub.github.io/operating-systems/${{ github.ref }}" }'
