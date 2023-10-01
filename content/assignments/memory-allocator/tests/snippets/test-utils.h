@@ -7,19 +7,19 @@
 #include <string.h>
 #include <sys/param.h>
 #include "osmem.h"
-#include "helpers.h"
+#include "block_meta.h"
 
-#define FAIL(assertion, feedback)							\
-	do {										\
-		if (assertion) {							\
-			fprintf(stderr, "(%s, %d): %s", __FILE__, __LINE__, feedback);	\
-			exit(SIGABRT);							\
-		}									\
+#define FAIL(assertion, feedback)										\
+	do {													\
+		if (assertion) {										\
+			fprintf(stderr, "(%s, %d): %s", __FILE__, __LINE__, feedback);				\
+			exit(SIGABRT);										\
+		}												\
 	} while (0)
 
-#define METADATA_SIZE	(sizeof(struct block_meta))
-#define MOCK_PREALLOC	(128 * 1024 - 32)
-#define MMAP_THRESHOLD	(128 * 1024)
+#define METADATA_SIZE		(sizeof(struct block_meta))
+#define MOCK_PREALLOC		(128 * 1024 - METADATA_SIZE - 8)
+#define MMAP_THRESHOLD		(128 * 1024)
 #define NUM_SZ_SM		11
 #define NUM_SZ_MD		6
 #define NUM_SZ_LG		4

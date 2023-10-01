@@ -1,41 +1,44 @@
-SRC_PATH ?= ../src
+export SRC_PATH ?= $(realpath ../src)
+export UTILS_PATH ?= $(realpath ../utils)
+
 CC = gcc
-CPPFLAGS = -I../utils -I $(SRC_PATH)
+CPPFLAGS = -I$(UTILS_PATH)
 CFLAGS = -fPIC -Wall -Wextra -g
 LDFLAGS = -L$(SRC_PATH)
 LDLIBS = -losmem
 
-SOURCEDIR = src
-BUILDDIR = bin
-SRCS = $(sort $(wildcard $(SOURCEDIR)/*.c))
-BINS = $(patsubst $(SOURCEDIR)/%.c, $(BUILDDIR)/%, $(SRCS))
+SNIPPETS_SRC = $(sort $(wildcard snippets/*.c))
+SNIPPETS = $(patsubst %.c,%,$(SNIPPETS_SRC))
 
-.PHONY: all clean src check lint
+.PHONY: all src snippets clean_src clean_snippets check lint
 
-all: src $(BUILDDIR) $(BINS)
-
-$(BUILDDIR):
-	mkdir -p $(BUILDDIR)
-
-$(BUILDDIR)/%: $(SOURCEDIR)/%.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+all: src snippets
 
 src:
-	make -C $(SRC_PATH)
+	$(MAKE) -C $(SRC_PATH)
+
+snippets: $(SNIPPETS)
+
+clean_snippets:
+	rm -rf $(SNIPPETS)
+
+clean_src:
+	$(MAKE) -C $(SRC_PATH) clean
 
 check:
-	make -C $(SRC_PATH) clean
-	make clean
-	make -i SRC_PATH=$(SRC_PATH)
-	SRC_PATH=$(SRC_PATH) python checker.py
+	$(MAKE) clean_src clean_snippets src snippets
+	python run_tests.py
+
+check-fast:
+	$(MAKE) clean_src clean_snippets src snippets
+	python run-tests.py -d
 
 lint:
 	-cd .. && checkpatch.pl -f src/*.c tests/src/*.c
 	-cd .. && checkpatch.pl -f checker/*.sh
 	-cd .. && cpplint --recursive src/ tests/ checker/
 	-cd .. && shellcheck checker/*.sh
-	-cd .. && pylint tests/*.py
+#	-cd .. && pylint tests/*.py
 
-clean:
-	-rm -f *~
-	-rm -f $(BINS)
+snippets/%: snippets/%.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
