@@ -1,10 +1,12 @@
+UTILS_PATH ?= ../utils
+
 CC = gcc
-CPPFLAGS = -I../utils
+CPPFLAGS = -I$(UTILS_PATH)
 CFLAGS = -fPIC -Wall -Wextra -g
 LDFLAGS = -shared
 
 # TODO: Add additional sources
-SRCS = osmem.c ../utils/printf.c
+SRCS = osmem.c $(UTILS_PATH)/printf.c
 OBJS = $(SRCS:.c=.o)
 TARGET = libosmem.so
 
@@ -17,7 +19,7 @@ $(TARGET): $(OBJS)
 
 pack: clean
 	-rm -f ../src.zip
-	zip -r ../src.zip *
+	-zip -r ../src.zip *
 
 clean:
 	-rm -f ../src.zip

@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 #include "osmem.h"
-#include "helpers.h"
 
 void *os_malloc(size_t size)
 {
