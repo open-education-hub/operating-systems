@@ -43,10 +43,6 @@ no such file or directory
 
 > **_NOTE:_** Using the `cd` command without any arguments or with more than one argument doesn't affect the current directory path.
 > Make sure this edge case is handled in a way that prevents crashes.
->
-> **_BONUS 1:_** You can implement `cd` (without parameters) which will change the current directory to `$HOME` variable, if defined.
->
-> **_BONUS 2:_** You can implement `cd -` which will change the current directory to `$OLDPWD` variable, if defined.
 
 #### Closing the Shell
 
