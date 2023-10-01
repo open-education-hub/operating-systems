@@ -38,6 +38,6 @@ total_grade=$( (echo "scale=0"; echo "$total / 10") | bc )
 echo ""
 echo -n "Total:                           "
 echo -n "                                "
-LC_ALL=en_US.UTF-8 printf "%3d/100\n" "$total_grade"
+LC_ALL=C printf "%3d/100\n" "$total_grade"
 
 rm results.txt
