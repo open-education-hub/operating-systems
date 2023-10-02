@@ -1,9 +1,10 @@
 SRC_PATH ?= ../src
-CPPFLAGS = -nostdinc -I. -I$(SRC_PATH)/include
+FULL_SRC_PATH = $(realpath $(SRC_PATH))
+CPPFLAGS = -nostdinc -I. -I$(FULL_SRC_PATH)/include
 CFLAGS = -Wall -Wextra -fno-PIC -fno-stack-protector -fno-builtin
 # Remove the line below to disable debugging support.
 CFLAGS += -g -O0
-LDFLAGS = -nostdlib -no-pie -L$(SRC_PATH)
+LDFLAGS = -nostdlib -no-pie -L$(FULL_SRC_PATH)
 LDLIBS = -lc
 
 SRCS = $(wildcard test_*.c)
@@ -23,21 +24,21 @@ $(OBJS): %.o:%.c graded_test.h
 graded_test.o: graded_test.c graded_test.h
 
 io:
-	make -C io SRC_PATH=../$(SRC_PATH)
+	make -C io SRC_PATH=$(FULL_SRC_PATH)
 
 memory:
-	make -C memory SRC_PATH=../$(SRC_PATH)
+	make -C memory SRC_PATH=$(FULL_SRC_PATH)
 
 process:
-	make -C process SRC_PATH=../$(SRC_PATH)
+	make -C process SRC_PATH=$(FULL_SRC_PATH)
 
 src:
-	make -C $(SRC_PATH)
+	make -C $(FULL_SRC_PATH)
 
 check:
-	make -C $(SRC_PATH) clean
+	make -C $(FULL_SRC_PATH) clean
 	make clean
-	make -i SRC_PATH=$(SRC_PATH)
+	make -i SRC_PATH=$(FULL_SRC_PATH)
 	./run_all_tests.sh
 
 lint:
