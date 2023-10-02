@@ -502,11 +502,11 @@ static void schedcoop_yield(struct uk_sched *s)
 </script></section><section data-markdown><script type="text/template">
 #### Cooperative Scheduler - Demo
 
-* First, run `setup.sh`
+* First, run `./do.sh setup && ./do.sh build`
 * Without calling `uk_sched_yield`, Thread 1 runs until finished:
 
 ```console [1 - 12 | 14 - 25]
-student@os:~/.../compute/lecture/demo/cooperative-scheduling$ ./run.sh
+student@os:~/.../demo/cooperative-scheduling$ ./do.sh run_nocoop
 [...]
 Thread 1 created!
 Thread 1: step 0
@@ -519,7 +519,7 @@ Thread 2: step 1
 Thread 2: step 2
 Thread 2 finished!
 
-student@os:~/.../compute/lecture/demo/cooperative-scheduling$ ./run.sh --cooperate
+student@os:~/.../demo/cooperative-scheduling$ ./do.sh run_coop
 [...]
 Thread 1 created!
 Thread 1: step 0
