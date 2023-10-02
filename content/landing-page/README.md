@@ -2,7 +2,7 @@
 slug: /
 ---
 
-# Intro
+# Intro 2
 
 This is a landing page for your course.
 
