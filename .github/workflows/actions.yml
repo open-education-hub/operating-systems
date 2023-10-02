@@ -3,7 +3,7 @@ name: Linter Actions Workflow
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   checkpatch:
