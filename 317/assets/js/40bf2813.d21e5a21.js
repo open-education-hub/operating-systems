@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkso=self.webpackChunkso||[]).push([[5057],{3861:a=>{a.exports=JSON.parse('{"title":"Data","slug":"/Lab/Data/","permalink":"/operating-systems/317/Lab/Data/","navigation":{"previous":{"title":"Arena","permalink":"/operating-systems/317/Lab/Software Stack/arena"},"next":{"title":"Data","permalink":"/operating-systems/317/Lab/Data/overview"}}}')}}]);
