@@ -16,6 +16,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: ./repo
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+
       - run: |
           cd repo
           REF=$(echo ${{ github.event.number }} | sed 's/\//\\\//g')
