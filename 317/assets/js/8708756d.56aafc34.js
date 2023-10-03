@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkso=self.webpackChunkso||[]).push([[578],{6396:e=>{e.exports=JSON.parse('{"title":"Lecture","slug":"/Lecture/","permalink":"/operating-systems/317/Lecture/","navigation":{"previous":{"title":"Intro","permalink":"/operating-systems/317/"},"next":{"title":"Software-Stack","permalink":"/operating-systems/317/Lecture/Software-Stack"}}}')}}]);
