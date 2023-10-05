@@ -10,10 +10,10 @@
 #include <signal.h>
 
 #include "utils/utils.h"
-#include "utils/log/log.h"
-#include "utils/sock/sock_util.h"
+#include "log/log.h"
+#include "sock/sock_util.h"
 
-#include "./connection.h"
+#include "connection.h"
 
 int listenfd;
 

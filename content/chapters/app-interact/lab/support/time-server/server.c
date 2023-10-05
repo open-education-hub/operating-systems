@@ -9,7 +9,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "../utils/utils.h"
+#include "utils/utils.h"
 
 #define BIND_ADDR "0.0.0.0"
 #define PORT 2000

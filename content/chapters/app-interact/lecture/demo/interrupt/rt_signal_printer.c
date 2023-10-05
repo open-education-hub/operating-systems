@@ -5,7 +5,7 @@
 #include <string.h>
 #include <signal.h>
 
-#include "utils/log/log.h"
+#include "log/log.h"
 
 #define LOG_LEVEL	LOG_INFO
 
