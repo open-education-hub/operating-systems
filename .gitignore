@@ -176,3 +176,6 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# OpenEdu Builder files
+/.output

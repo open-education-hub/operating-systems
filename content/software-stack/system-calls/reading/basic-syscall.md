@@ -104,4 +104,4 @@ In order to use C, we need function wrappers around system calls.
 Update the `hello.asm` and / or `hello.s` files to print both `Hello, world!` and `Bye, world!`.
 This means adding another `write` system call.
 
-[Quiz](../quiz/syscalls.md)
+[Quiz](../drills/questions/syscalls.md)

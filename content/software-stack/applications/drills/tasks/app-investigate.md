@@ -1,4 +1,4 @@
-## App Investigation
+# App Investigation
 
 Enter the `support/app-investigation/` folder and go through the practice items below.
 

@@ -180,4 +180,4 @@ Enter the `support/libc/` folder and go through the practice items below.
 1. Create your own C program with calls to the standard C library in `vendetta.c`.
    Be as creative as you can about the types of functions being made.
 
-[Quiz](../quiz/libc.md)
+[Quiz](../drills/questions/libc.md)
