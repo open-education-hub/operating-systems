@@ -12,11 +12,11 @@ make_assets:
   options:
     command: make
     locations:
-      - content/chapters/software-stack/lecture
-      - content/chapters/data/lecture
-      - content/chapters/compute/lecture
-      - content/chapters/io/lecture
-      - content/chapters/app-interact/lecture
+      - content/software-stack
+      - content/data/lecture
+      - content/compute/lecture
+      - content/io/lecture
+      - content/app-interact/lecture
     args:
       - all
 
@@ -35,39 +35,147 @@ embed_reveal:
 docusaurus:
   plugin: docusaurus
   options:
-    course_name: SO
+    course_name: OS
     sidebar: js
     structure:
-      - Introduction: content/landing-page/README.md
+      - Introduction: landing-page/README.md
+      - Software Stack:
+        - Slides: /build/embed_reveal/Software-Stack/Software-Stack.mdx
+        - Overview:
+            path: content/software-stack/overview/
+            extra:
+              - media/
+              - drills/
+            subsections:
+              - Reading: reading/overview.md
+              - Drills: drills/questions/software.md
+        - Modern Software Stacks:
+            path: content/software-stack/modern-software-stacks
+            extra:
+              - media/
+            subsections:
+              - Reading: reading/modern-sw-stack.md
+        - System Calls:
+            path: content/software-stack/system-calls
+            extra:
+              - media/
+              - drills/questions/
+              - drills/tasks/
+            subsections:
+              - Reading:
+                  path: reading/
+                  subsections:
+                    - Basic System Calls: basic-syscall.md
+                    - System Call Wrapper: syscall-wrapper.md
+                    - Libcall-Syscall: libcall-syscall.md
+              - Drills:
+                  path: drills/
+                  subsections:
+                    - Tasks:
+                        path: tasks/
+                        subsections:
+                          - Basic Syscall: basic-syscall.md
+                          - System Call Wrapper: syscall-wrapper.md
+                    - Questions:
+                        path: questions/
+                        subsections:
+                          - Libcall with Syscall: libcall-syscall.md
+                          - Syscall Wrappers: syscall-wrapper.md
+                          - Syscalls: syscalls.md
+        - Libraries:
+            path: content/software-stack/libraries
+            extra:
+              - media/
+              - drills/questions/
+            subsections:
+              - Reading:
+                  path: reading/
+                  subsections:
+                    - Static-Dynamic: static-dynamic.md
+              - Drills:
+                  path: drills/
+                  subsections:
+                    - Questions:
+                        path: questions/
+                        subsections:
+                          - Static-Dynamic: libs.md
+        - Libc:
+            path: content/software-stack/libc
+            extra:
+              - media/
+              - drills/questions/
+              - drills/tasks/
+            subsections:
+              - Reading:
+                  path: reading/
+                  subsections:
+                    - Common Functions: common-functions.md
+                    - Libc: libc.md
+              - Drills:
+                  path: drills/
+                  subsections:
+                    - Tasks:
+                        path: tasks/
+                        subsections:
+                          - Common Functions: common-functions.md
+                          - Libc: libc.md
+                    - Questions:
+                        path: questions/
+                        subsections:
+                          - Common Functions: common-functions.md
+                          - Libc: libc.md
+              - Projects:
+                  path: projects/
+                  subsections:
+                    - Mini-Libc: mini-libc/README.md
+        - High-Level Languages:
+            path: content/software-stack/high-level-languages
+            extra:
+              - drills/questions/
+            subsections:
+              - Reading:
+                  path: reading/
+                  subsections:
+                    - High-Level Languages: high-level-lang.md
+              - Drills:
+                  path: drills/
+                  subsections:
+                    - Tasks:
+                        path: tasks/
+                        subsections:
+                          - High-Level Languages: high-level-lang.md
+                    - Questions:
+                        path: questions/
+                        subsections:
+                          - High-Level Languages: high-level-lang.md
+        - Applications:
+            path: content/software-stack/applications
+            extra:
+              - media/
+            subsections:
+              - Reading:
+                  path: reading/
+                  subsections:
+                    - Applications: app-investigate.md
+              - Drills:
+                  path: drills/
+                  subsections:
+                    - Tasks:
+                        path: tasks/
+                        subsections:
+                          - Applications: app-investigate.md
       - Lecture:
           path: /build/embed_reveal
           subsections:
-            - Software Stack: Software-Stack/Software-Stack.mdx
+            # - Software Stack: Software-Stack/Software-Stack.mdx
             - Data: Data/Data.mdx
             - Compute: Compute/Compute.mdx
             - IO: IO/IO.mdx
             - Application Interaction: Application-Interaction/Application-Interaction.mdx
       - Lab:
-        - Setting up the Lab Environment: content/misc/lab-setup.md
-        - Software Stack:
-            path: content/chapters/software-stack/lab/content
-            extra:
-              - ../media
-              - ../quiz
-            subsections:
-              - Overview: overview.md
-              - Modern Software Stacks: modern-sw-stack.md
-              - Basic System Calls: basic-syscall.md
-              - System Call Wrapper: syscall-wrapper.md
-              - Common Functions: common-functions.md
-              - Libc: libc.md
-              - Static-dynamic: static-dynamic.md
-              - Libcall-Syscall: libcall-syscall.md
-              - High-Level Languages: high-level-lang.md
-              - App Investigation: app-investigate.md
-              - Arena: arena.md
+        - Setting up the Lab Environment: misc/lab-setup.md
         - Data:
-            path: content/chapters/data/lab/content
+            path: content/data/lab/content
             extra:
               - ../quiz
             subsections:
@@ -78,7 +186,7 @@ docusaurus:
               - Memory Security: memory-security.md
               - Arena: arena.md
         - Compute:
-            path: content/chapters/compute/lab/content
+            path: content/compute/lab/content
             extra:
               - ../media
               - ../quiz
@@ -93,7 +201,7 @@ docusaurus:
               - User-Level Threads: user-level-threads.md
               - Arena: arena.md
         - IO:
-            path: content/chapters/io/lab/content
+            path: content/io/lab/content
             extra:
               - ../media
               - ../quiz
@@ -115,7 +223,7 @@ docusaurus:
               - IO Multiplexing: io-multiplexing.md
               - Arena: arena.md
         - Application Interaction:
-            path: content/chapters/app-interact/lab/content
+            path: content/app-interact/lab/content
             extra:
               - ../media
               - ../quiz
@@ -133,17 +241,16 @@ docusaurus:
           # subdirectories for them, otherwise they will overwrite each other.
           # (See the trailing slash in the path.)
           subsections:
-            - Mini Libc/: mini-libc/
             - Memory Allocator/: memory-allocator/
             - Parallel Graph/: parallel-graph/
             - Mini Shell/: minishell/
             - Asynchronous Web Server/: async-web-server/
     static_assets:
-      - slides/Compute: /build/make_assets/content/chapters/compute/lecture/_site
-      - slides/Software-Stack: /build/make_assets/content/chapters/software-stack/lecture/_site
-      - slides/Data: /build/make_assets/content/chapters/data/lecture/_site
-      - slides/IO: /build/make_assets/content/chapters/io/lecture/_site
-      - slides/Application-Interaction: /build/make_assets/content/chapters/app-interact/lecture/_site
+      - slides/Compute: /build/make_assets/content/compute/lecture/_site
+      - slides/Software-Stack: /build/make_assets/content/software-stack/_site
+      - slides/Data: /build/make_assets/content/data/lecture/_site
+      - slides/IO: /build/make_assets/content/io/lecture/_site
+      - slides/Application-Interaction: /build/make_assets/content/app-interact/lecture/_site
     config_meta:
       title: Operating Systems
       url: http://localhost/
@@ -154,4 +261,4 @@ docusaurus:
       Main site: https://curs.upb.ro
       OCW: https://ocw.cs.pub.ro/courses/so
       Facebook: https://www.facebook.com/sisteme.de.operare/
-    copyright_string: SO Team
+    copyright_string: OS Team

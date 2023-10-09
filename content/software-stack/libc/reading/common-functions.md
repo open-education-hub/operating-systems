@@ -94,4 +94,4 @@ Enter the `support/common-functions/` folder and go through the practice items b
 Using previously implemented functions allows us to more efficiently write new programs.
 These functions provide us with extensive features that we use in our programs.
 
-[Quiz](../quiz/common-functions.md)
+[Quiz](../drills/questions/common-functions.md)

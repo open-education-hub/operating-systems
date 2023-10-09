@@ -39,18 +39,16 @@ The last two characteristics rely on two items:
 
 ![Software Stack](../media/software-stack.svg)
 
-[Quiz](../quiz/software.md)
+[Quiz](../drills/software.md)
 
 ## Contents
 
-- [Overview](overview.md)
-- [Modern Software Stacks](modern-sw-stack.md)
-- [Basic System Calls](basic-syscall.md)
-- [System Call Wrapper](syscall-wrapper.md)
-- [Common Functions](common-functions.md)
-- [Libraries and libc](libc.md)
-- [Statically-linked and Dynamically-linked Libraries](static-dynamic.md)
-- [Library calls vs system calls](libcall-syscall.md)
-- [High-Level Languages](high-level-lang.md)
-- [App Investigation](app-investigate.md)
-- [Arena](arena.md)
+- [Modern Software Stacks](../../modern-software-stacks/reading/modern-sw-stack.md)
+- [Basic System Calls](../../system-calls/reading/basic-syscall.md)
+- [System Call Wrapper](../../system-calls/reading/syscall-wrapper.md)
+- [Common Functions](../../libc/reading/common-functions.md)
+- [Libraries and libc](../../system-calls/reading/libc.md)
+- [Statically-linked and Dynamically-linked Libraries](../../libraries/reading/static-dynamic.md)
+- [Library calls vs system calls](../../system-calls/reading/libcall-syscall.md)
+- [High-Level Languages](../../high-level-languages/reading/high-level-lang.md)
+- [App Investigation](../../applications/reading/app-investigate.md)

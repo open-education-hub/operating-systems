@@ -1,4 +1,4 @@
-# Library calls vs system calls
+# Library calls vs System Calls
 
 The standard C library has primarily two uses:
 
@@ -87,4 +87,4 @@ Enter the `support/libcall-syscall/` folder and go through the practice items be
 
    Find explanations for the calls being made and the library call to system call mapping.
 
-[Quiz](../quiz/libcall-syscall.md)
+[Quiz](../drills/questions/libcall-syscall.md)

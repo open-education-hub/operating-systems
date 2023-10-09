@@ -1,4 +1,4 @@
-## Libraries and libc
+# Libraries and libc
 
 Enter the `support/libc/` folder and go through the practice items below.
 If you get stuck, take a sneak peek at the solutions in the `solution/libc/` folder.

@@ -1,4 +1,4 @@
-## High-Level Languages
+# High-Level Languages
 
 Enter the `support/high-level-lang/` folder and go through the practice items below.
 If you get stuck, take a sneak peek at the solutions in the `solution/high-level-lang/` folder.

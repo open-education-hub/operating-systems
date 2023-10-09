@@ -132,4 +132,4 @@ community  docs  _index.html  search.md
 +++ exited with 0 +++
 ```
 
-[Quiz](../quiz/libs.md)
+[Quiz](../drills/questions/libs.md)

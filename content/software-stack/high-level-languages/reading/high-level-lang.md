@@ -105,4 +105,4 @@ Enter the `support/high-level-lang/` folder and go through the practice items be
 1. Create a "Hello, World!"-printing program in a programming language of your choice (other than C, Python and Go).
    Find the values above (library calls, system calls and running time).
 
-[Quiz](../quiz/high-level-lang.md)
+[Quiz](../drills/questions/high-level-lang.md)
