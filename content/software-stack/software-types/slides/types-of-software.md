@@ -19,26 +19,26 @@
 
 ### Applications
 
-![Applications](media/applications.svg)
+![Applications](../media/applications.svg)
 
 ----
 
 ### Libraries
 
-![Libraries](media/libraries.svg)
+![Libraries](../media/libraries.svg)
 
 ----
 
 ### Application Software and System Software
 
-![Application and System Software](media/application-system-software.png)
+![Application and System Software](../media/application-system-software.png)
 <!-- https://www.webopedia.com/definitions/systems-software/ -->
 
 ----
 
 ### Libraries and Frameworks
 
-![Libraries and Frameworks](media/libraries-frameworks.png)
+![Libraries and Frameworks](../media/libraries-frameworks.png)
 <!-- https://medium.com/@MarcStevenCoder/build-reusable-frameworks-809438ef46e7 -->
 
 ----
