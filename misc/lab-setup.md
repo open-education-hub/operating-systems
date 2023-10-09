@@ -22,7 +22,7 @@ student@os:~/operating-systems$ git stash pop
 If you haven't already cloned the repository, do so and then enter the repository:
 
 ```console
-student@os:~$ git clone https://github.com/open-education-hub/operating-systems
+student@os:~$ git clone https://github.com/cs-pub-ro/operating-systems
 
 student@os:~$ cd operating-systems
 ```
