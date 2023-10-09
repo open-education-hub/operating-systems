@@ -1,5 +1,6 @@
 RVMD = reveal-md
-MDPP = markdown-pp
+MAKEFILE_DIR = $(dir $(lastword $(MAKEFILE_LIST)))
+MDPP = $(MAKEFILE_DIR)../utils/preprocessor/slides_preprocessor.py
 FFMPEG = ffmpeg
 
 SLIDES ?= slides.mdpp
@@ -15,7 +16,7 @@ all: videos html
 html: $(SITE)
 
 $(SITE): $(SLIDES)
-	$(MDPP) $< -o $(SLIDES_OUT)
+	$(MDPP) --input $< --output $(SLIDES_OUT)
 	$(RVMD) $(SLIDES_OUT) --static $@
 
 videos:
