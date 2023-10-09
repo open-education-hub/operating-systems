@@ -60,7 +60,7 @@
 
 ### Unikraft
 
-![Unikraft](media/unikraft.png)
+![Unikraft](../media/unikraft.png)
 <!-- https://www.usenix.org/publications/loginonline/unikraft-and-coming-age-unikernels -->
 
 ----
@@ -75,7 +75,7 @@
 
 ### The L4 Microkernel
 
-![L4](media/l4.png)
+![L4](../media/l4.png)
 <!-- https://www.researchgate.net/figure/Nizza-Security-Architecture-The-picture-illustrates-the-overall-architecture-of-Nizza_fig1_233765184 -->
 
 ----
@@ -92,7 +92,7 @@
 
 ### The Linux Kernel
 
-![Linux](media/linux-kernel.png)
+![Linux](../media/linux-kernel.png)
 <!-- https://linux-kernel-labs.github.io/refs/heads/master/lectures/arch.html -->
 
 ----
@@ -107,5 +107,5 @@
 
 ### Xen and KVM
 
-![Xen](media/xen-kvm.jpeg)
+![Xen](../media/xen-kvm.jpeg)
 <!-- https://medium.com/@saisarathchandrap/virtualisation-at-alibaba-cloud-b20dea72efa1 -->

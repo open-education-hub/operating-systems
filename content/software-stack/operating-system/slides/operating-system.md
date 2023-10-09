@@ -28,14 +28,14 @@
 
 ### OS: Library-like Component
 
-![OS Components](media/os-components.jpg)
+![OS Components](../media/os-components.jpg)
 <!-- https://technologyrediscovery.net/compFund/obcat.comp.os.html -->
 
 ----
 
 ### System Call Interface
 
-![OS Layers](media/os-layers.png)
+![OS Layers](../media/os-layers.png)
 <!-- https://cse.buffalo.edu/~bina/cse321/fall2017/Lectures/Sept6System.html -->
 
 ----
@@ -74,13 +74,13 @@
 
 Security role: _Reference Monitor_
 
-![OS as Reference Monitor](media/os-reference-monitor.svg)
+![OS as Reference Monitor](../media/os-reference-monitor.svg)
 
 ----
 
 ### User Mode, Kernel Mode
 
-![User Mode / Kernel Mode](media/user-kernel-mode.png)
+![User Mode / Kernel Mode](../media/user-kernel-mode.png)
 
 ----
 
@@ -144,13 +144,13 @@ Security role: _Reference Monitor_
 
 Also called **supervisor mode**
 
-![Dual Mode](media/dual-mode.jpeg)
+![Dual Mode](../media/dual-mode.jpeg)
 
 ----
 
 ### Standard C Library
 
-![libc](media/libc.svg)
+![libc](../media/libc.svg)
 
 ----
 
