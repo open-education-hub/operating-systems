@@ -8,7 +8,7 @@
 #include <netinet/in.h>
 
 #include "utils/utils.h"
-#include "utils/sock/sock_util.h"
+#include "sock/sock_util.h"
 
 #ifndef BUFSIZ
 #define BUFSIZ		256

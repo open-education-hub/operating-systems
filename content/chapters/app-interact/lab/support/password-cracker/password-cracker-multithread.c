@@ -9,7 +9,7 @@
 #include <openssl/sha.h>
 #include <pthread.h>
 
-#include "../utils/utils.h"
+#include "utils/utils.h"
 
 #define NUM_WORKERS 26
 #define PASSWORD_LEN 4

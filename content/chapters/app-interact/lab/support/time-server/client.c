@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <endian.h>
 
-#include "../utils/utils.h"
+#include "utils/utils.h"
 
 #define MAX_SIZE 8
 

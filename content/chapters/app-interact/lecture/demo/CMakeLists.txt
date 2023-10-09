@@ -1,0 +1,6 @@
+add_subdirectory(comm-channels)
+add_subdirectory(fibonacci-server)
+add_subdirectory(interrupt)
+add_subdirectory(lock)
+add_subdirectory(shared-mem)
+add_subdirectory(sync)

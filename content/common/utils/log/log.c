@@ -22,7 +22,7 @@
 
 /* Github link: https://github.com/rxi/log.c */
 
-#include "log.h"
+#include "log/log.h"
 
 #define MAX_CALLBACKS 32
 

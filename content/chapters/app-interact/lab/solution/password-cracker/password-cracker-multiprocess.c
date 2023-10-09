@@ -8,7 +8,7 @@
 #include <sys/wait.h>
 #include <openssl/sha.h>
 
-#include "../utils/utils.h"
+#include "utils/utils.h"
 
 #define NUM_WORKERS 4
 #define PASSWORD_LEN 4

@@ -4,7 +4,7 @@
 #include <sys/mman.h>
 #include <semaphore.h>
 
-#include "utils/log/log.h"
+#include "log/log.h"
 #include "utils/utils.h"
 
 #include "./task.h"
