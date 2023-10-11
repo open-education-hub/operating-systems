@@ -251,6 +251,7 @@ docusaurus:
             - Parallel Graph/: parallel-graph/
             - Mini Shell/: minishell/
             - Asynchronous Web Server/: async-web-server/
+      - Rules and Grading: content/misc/rules-and-grading.md
     static_assets:
       - slides/Compute: /build/make_assets/content/compute/lecture/_site
       - slides/Software-Stack: /build/make_assets/content/software-stack/_site
