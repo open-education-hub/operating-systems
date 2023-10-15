@@ -132,4 +132,6 @@ community  docs  _index.html  search.md
 +++ exited with 0 +++
 ```
 
-[Quiz](../drills/questions/libs.md)
+[Quiz 1](../drills/questions/dynamic-libraries.md)
+
+[Quiz 2](../drills/questions/static-executables.md)

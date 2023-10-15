@@ -81,7 +81,9 @@ docusaurus:
                         subsections:
                           - Libcall with Syscall: libcall-syscall.md
                           - Syscall Wrappers: syscall-wrapper.md
-                          - Syscalls: syscalls.md
+                          - Syscall ID: syscall-id.md
+                          - Syscall Tool: syscall-tool.md
+                          - Syscall Numbers: syscall-numbers.md
         - Libraries:
             path: content/software-stack/libraries
             extra:
@@ -98,7 +100,8 @@ docusaurus:
                     - Questions:
                         path: questions/
                         subsections:
-                          - Static-Dynamic: libs.md
+                          - Dynamic Libraries: dynamic-libraries.md
+                          - Static Executables: static-executables.md
         - Libc:
             path: content/software-stack/libc
             extra:
@@ -122,8 +125,11 @@ docusaurus:
                     - Questions:
                         path: questions/
                         subsections:
-                          - Common Functions: common-functions.md
-                          - Libc: libc.md
+                          - printf System Call: printf-syscall.md
+                          - strcpy System Call: strcpy-syscall.md
+                          - printf vs write: printf-vs-write.md
+                          - malloc: malloc.md
+                          - Syscall Tool: syscall-tool.md
               - Projects:
                   path: projects/
                   subsections:
@@ -147,7 +153,7 @@ docusaurus:
                     - Questions:
                         path: questions/
                         subsections:
-                          - High-Level Languages: high-level-lang.md
+                          - Python Tools: python-tools.md
         - Applications:
             path: content/software-stack/applications
             extra:

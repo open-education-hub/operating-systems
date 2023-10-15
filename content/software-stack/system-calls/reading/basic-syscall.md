@@ -88,10 +88,10 @@ exit(0)                                 = ?
 
 There are three system calls captured by `strace`:
 
-* `execve`: this is issued by the shell to create the new process;
+- `execve()`: this is issued by the shell to create the new process;
   you'll find out more about `execve` in the "Compute" chapter
-* `write`: called by the program to print `Hello, world!` to standard output
-* `exit`: to exit the program
+- `write()`: called by the program to print `Hello, world!` to standard output
+- `exit()`: to exit the program
 
 This is the most basic program for doing system calls.
 Given that system calls require a specific calling convention, their invocation can only be done in assembly language.
@@ -104,4 +104,8 @@ In order to use C, we need function wrappers around system calls.
 Update the `hello.asm` and / or `hello.s` files to print both `Hello, world!` and `Bye, world!`.
 This means adding another `write` system call.
 
-[Quiz](../drills/questions/syscalls.md)
+[Quiz 1](../drills/questions/syscall-id.md)
+
+[Quiz 2](../drills/questions/syscall-tool.md)
+
+[Quiz 3](../drills/questions/syscall-numbers.md)

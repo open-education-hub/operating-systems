@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+# SPDX-License-Identifier: BSD-3-Clause
 
 from argparse import ArgumentParser
 from os import path
@@ -57,7 +57,7 @@ def main():
         filename = path.join(path.dirname(args.input), filename)
 
         include_file = open(filename, 'r')
-        for inc_line in include_file.readlines():    
+        for inc_line in include_file.readlines():
             f.write(expand_if_media_link(inc_line, filename))
 
 

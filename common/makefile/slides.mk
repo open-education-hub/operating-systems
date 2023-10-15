@@ -1,6 +1,6 @@
 RVMD = reveal-md
 MAKEFILE_DIR = $(dir $(lastword $(MAKEFILE_LIST)))
-MDPP = $(MAKEFILE_DIR)../utils/preprocessor/slides_preprocessor.py
+MDPP = python3 $(MAKEFILE_DIR)../utils/preprocessor/slides_preprocessor.py
 FFMPEG = ffmpeg
 
 SLIDES ?= slides.mdpp
