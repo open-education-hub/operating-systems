@@ -94,4 +94,8 @@ Enter the `support/common-functions/` folder and go through the practice items b
 Using previously implemented functions allows us to more efficiently write new programs.
 These functions provide us with extensive features that we use in our programs.
 
-[Quiz](../drills/questions/common-functions.md)
+[Quiz 1](../drills/questions/printf-syscall.md)
+
+[Quiz 2](../drills/questions/strcpy-syscall.md)
+
+[Quiz 3](../drills/questions/printf-vs-write.md)
