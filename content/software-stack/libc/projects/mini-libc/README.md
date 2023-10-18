@@ -23,15 +23,15 @@ In case you are using a macOS device with ARM64 / Aarch64, you will have to inst
 
 The support code consists of three directories:
 
-- `libc/` is the skeleton mini-libc implementation.
+- `src/` is the skeleton mini-libc implementation.
   You will have to implement missing parts marked as `TODO` items.
 
 - `samples/` stores use cases and tests of mini-libc.
 
-- `tests/` are states used to validate (and grade) the assignment.
+- `tests/` are tests used to validate (and grade) the assignment.
 
-System call invocation is done via the `syscall()` function defined in `libc/syscall.c`.
-That itself makes a call to the architecture-specific call in `libc/internal/arch/x86_64/syscall_arch.h`;
+System call invocation is done via the `syscall()` function defined in `src/syscall.c`.
+That itself makes a call to the architecture-specific call in `src/internal/arch/x86_64/syscall_arch.h`;
 hence the dependency on the `x86_64` architecture.
 
 ### API and Implementation Tasks
@@ -75,12 +75,12 @@ You will have to add the missing features to make those tests compile, that is
 
 ### Building mini-libc
 
-To build mini-libc, run `make` in the `libc/` directory:
+To build mini-libc, run `make` in the `src/` directory:
 
 ```console
-student@so:~/.../content/assignments/mini-libc$ cd libc/
+student@so:~/.../content/assignments/mini-libc$ cd src/
 
-student@so:~/.../assignments/mini-libc/libc$ make
+student@so:~/.../assignments/mini-libc/src$ make
 ```
 
 To build samples, enter the `samples` directory and run `make`:
@@ -98,14 +98,35 @@ Tests are located in the `tests/` directory.
 
 ```console
 student@so:~/.../assignments/mini-libc/tests$ ls -F
-graded_test.c       memory/             test_io.c                      test_malloc_free.sh*        test_mmap_munmap.sh*      test_multiple_malloc_free.sh*  test_sleep.sh*
-graded_test.h       process/            test_io_file_create.sh*        test_malloc_perm_notok.sh*  test_mmap_perm_none.sh*   test_multiple_malloc.sh*       test_stat.sh*
-graded_test.inc.sh  run_all_tests.sh*   test_io_file_delete.sh*        test_malloc_perm_ok.sh*     test_mmap_perm_notok.sh*  test_nanosleep.sh*             test_string.c
-io/                 test_fstat.sh*      test_lseek.sh*                 test_malloc.sh*             test_mmap_perm_ok.sh*     test_open_close.sh*            test_truncate.sh*
-Makefile            test_ftruncate.sh*  test_malloc_free_sequence.sh*  test_memory.c               test_mmap.sh*             test_puts.sh*
+Makefile       graded_test.inc.sh  run_all_tests.sh*   test_io_file_create.sh*  test_malloc_free.sh*           test_memory.c            test_mmap_perm_notok.sh*       test_nanosleep.sh*   test_stat.sh*
+grade.sh*      io/                 test_fstat.sh*      test_io_file_delete.sh*  test_malloc_free_sequence.sh*  test_mmap.sh*            test_mmap_perm_ok.sh*          test_open_close.sh*  test_string.c
+graded_test.c  memory/             test_ftruncate.sh*  test_lseek.sh*           test_malloc_perm_notok.sh*     test_mmap_munmap.sh*     test_multiple_malloc.sh*       test_puts.sh*        test_truncate.sh*
+graded_test.h  process/            test_io.c           test_malloc.sh*          test_malloc_perm_ok.sh*        test_mmap_perm_none.sh*  test_multiple_malloc_free.sh*  test_sleep.sh*
 ```
 
-To run the checker and everything else required, use the `make check` command in the `tests/` directory:
+To test and grade your assignment solution, enter the `tests/` directory and run `grade.sh`.
+Note that this requires linters being available.
+The easiest is to use a Docker-based setup with everything installed, as shown in the section ["Running the Linters"](#running-the-linters).
+When using `grade.sh` you will get grades for checking correctness (maximum `90` points) and for coding style (maxim `10` points).
+A successful run will provide you an output ending with:
+
+```console
+### GRADE
+
+
+Checker:                                                         90/ 90
+Style:                                                           10/ 10
+Total:                                                          100/100
+
+
+### STYLE SUMMARY
+
+
+```
+
+### Running the Checker
+
+To run only the checker, use the `make check` command in the `tests/` directory:
 
 ```console
 student@so:~/.../assignments/mini-libc/tests$ make check
@@ -241,6 +262,22 @@ test_mmap_perm_notok             ........................ passed ...  10
 test_mmap_perm_none              ........................ passed ...  10
 
 Total:                                                            90/100
+```
+
+### Running the Linters
+
+To run the linters, use the `make linter` command in the `tests/` directory.
+Note that the linters have to be installed on your system: [`checkpatch.pl`](https://.com/torvalds/linux/blob/master/scripts/checkpatch.pl), [`cpplint`](https://github.com/cpplint/cpplint), [`shellcheck`](https://www.shellcheck.net/) with certain configuration options.
+It's easiest to run them in a Docker-based setup with everything configured:
+
+```console
+student@so:~/.../assignments/mini-libc/tests$ make lint
+[...]
+cd .. && checkpatch.pl -f checker/*.sh tests/*.sh
+[...]
+cd .. && cpplint --recursive src/ tests/ checker/
+[...]
+cd .. && shellcheck checker/*.sh tests/*.sh
 ```
 
 ### Behind the Scenes
