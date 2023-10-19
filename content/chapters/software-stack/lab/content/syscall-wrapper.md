@@ -47,7 +47,7 @@ Update the files in the `support/syscall-wrapper/` folder to make `read` system 
 Make a call to the `read` system call to read data from standard input in a buffer.
 Then call `write()` to print data from that buffer.
 
-Note that the `read` system call returns the number of bytes `read`.
+Note that the `read` system call returns the number of bytes read.
 Use that as the argument to the subsequent `write` call that prints read data.
 
 We can see that it's easier to have wrapper calls and write most of the code in C than in assembly language.
