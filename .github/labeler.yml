@@ -1,17 +1,17 @@
 topic/software-stack:
-  - 'content/chapters/software-stack/**/*'
+  - 'content/software-stack/**/*'
 
 topic/data:
-  - 'content/chapters/data/**/*'
+  - 'content/data/**/*'
 
 topic/compute:
-  - 'content/chapters/compute/**/*'
+  - 'content/compute/**/*'
 
 topic/io:
-  - 'content/chapters/io/**/*'
+  - 'content/io/**/*'
 
 topic/app-interact:
-  - 'content/chapters/app-interact/**/*'
+  - 'content/app-interact/**/*'
 
 area/quiz:
   - '**/quiz/*'

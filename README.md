@@ -16,11 +16,11 @@ They are to be used by teachers, trainers, students and hobbyists who want to le
 Content is located in the `content/` folder.
 It currently consists of 5 chapters:
 
-* [Software Stack](content/chapters/software-stack/)
-* [Data](content/chapters/data/)
-* [Compute](content/chapters/compute/)
-* [Input/Output](content/chapters/io/)
-* [Application Interaction](content/chapters/app-interact/)
+* [Software Stack](content/software-stack/)
+* [Data](content/data/)
+* [Compute](content/compute/)
+* [Input/Output](content/io/)
+* [Application Interaction](content/app-interact/)
 
 Each chapter has its own folder.
 Content for each chapter is split in two subfolders:
