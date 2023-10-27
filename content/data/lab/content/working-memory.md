@@ -132,7 +132,7 @@ The purpose of this exercise is to present the different strategies that program
 The C implementation manages the memory manually.
 You can observe that all allocations are performed via `malloc` and the memory is freed using `free`.
 Arrays can be defined as static (on the stack) or dynamic (a pointer to some heap memory).
-Stack memory need not be freed, hence static arrays are automatically deallocated.
+Stack memory doesn't need to be freed, hence static arrays are automatically deallocated.
 Heap memory, however, is managed by the user, therefore it is the burden of the programmer to find the optimal memory strategy.
 This offers the advantage that you can fine tune the memory usage depending on your application, but this comes with a cost: more often than not, managing memory is a highly complex error-prone task.
 
@@ -149,7 +149,7 @@ That is because the GC usually stops the application to free dead objects.
 
 The previous 2 examples have showcased extreme situations: fully manual vs fully automatic memory management.
 In D, both worlds are combined: variables may be allocated manually on the stack/heap or allocated via the garbage collector (for brevity, `malloc`-based allocation is not presented in this example).
-Arrays that are allocated on the stack behave the same as in C, whereas array allocated with the garbage collector mimic Python lists.
+Arrays that are allocated on the stack behave the same as in C, whereas arrays allocated with the garbage collector mimic Python lists.
 Classes are also garbage collected.
 
 ## Memory Vulnerabilities
