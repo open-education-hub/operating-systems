@@ -15,7 +15,7 @@ From a programmer's perspective, this looks pretty straightforward:
 int main(void)
 {
 	int a;               // declare variable
-	a = 42;              // write 7 to variable a
+	a = 42;              // write 42 to variable a
 	printf("%d\n", a);   // read variable a and print its contents
 
 	return 0;
