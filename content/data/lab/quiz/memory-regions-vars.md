@@ -2,7 +2,7 @@
 
 ## Question Text
 
-In what memory regions are the `a`, `b`, `c`, `k` varaables from `support/memory-security/buff_leak.c` stored?
+In what memory regions are the `a`, `b`, `c`, `k` variables from `support/memory-security/buff_leak.c` stored?
 
 ## Question Answers
 
