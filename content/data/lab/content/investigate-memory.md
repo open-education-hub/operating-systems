@@ -412,7 +412,7 @@ Search for the _alloc_ string.
 Let's clone the source code:
 
 ```console
-student@os:~/.../std/experimental/allocator$ git clone https://github.com/dlang/phobos
+student@os:~/.../data/lab/support$ git clone https://github.com/dlang/phobos
 [...]
 
 student@os:~/.../data/lab/support$ cd phobos/
