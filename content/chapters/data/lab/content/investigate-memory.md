@@ -101,10 +101,12 @@ As we are doing allocations that are not freed, this results in memory leaks.
 For `malloc()`-based programs, we can use [`mtrace()` feature](https://man7.org/linux/man-pages/man3/mtrace.3.html) and [`mtrace` command](https://man7.org/linux/man-pages/man1/mtrace.1.html) to verify proper allocations with `malloc()` and deallocations with `free()`.
 We call `mtrace()` in the program (in `memory_leak_malloc.c`) to enable `malloc()` and `free()` checking.
 
-To use `mtrace()` we define the `MALLOC_TRACE` environment variable:
+To use `mtrace()` we define the `MALLOC_TRACE` environment variable.
+We probably also require to preload the libc malloc debugging library, so we use `LD_PRELOAD` for that.
+Note that the file path used for `LD_PRELOAD` may need to be updated, depending on your distribution:
 
 ```console
-student@os:~/.../lab/support/memory-leak$ MALLOC_TRACE=mem.trace ./memory_leak_malloc
+student@os:~/.../lab/support/memory-leak$ LD_PRELOAD=/lib/x86_64-linux-gnu/libc_malloc_debug.so.0 MALLOC_TRACE=mem.trace ./memory_leak_malloc
 Andrei Popescu is 22 years old and likes Linux
 Ioana David is 23 years old and likes macOS
 ```
