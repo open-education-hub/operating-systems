@@ -64,4 +64,4 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Published at http://open-education-hub.github.io/operating-systems/${{ github.event.number }}/
+            Published at https://${{ github.repository_owner }}.github.io/operating-systems/${{ github.event.number }}/
