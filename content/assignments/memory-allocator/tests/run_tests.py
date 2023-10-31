@@ -458,8 +458,6 @@ def parse_args():
 
 
 def main():
-    os.makedirs("out", exist_ok=True)
-
     total = 0
     test_name, verbose, diff, memcheck = parse_args()
 
