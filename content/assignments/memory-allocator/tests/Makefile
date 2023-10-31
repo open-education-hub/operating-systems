@@ -31,7 +31,7 @@ check:
 
 check-fast:
 	$(MAKE) clean_src clean_snippets src snippets
-	python run-tests.py -d
+	python run_tests.py -d
 
 lint:
 	-cd .. && checkpatch.pl -f src/*.c tests/src/*.c
