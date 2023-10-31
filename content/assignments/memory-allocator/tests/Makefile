@@ -34,10 +34,10 @@ check-fast:
 	python run_tests.py -d
 
 lint:
-	-cd .. && checkpatch.pl -f src/*.c tests/src/*.c
-	-cd .. && checkpatch.pl -f checker/*.sh
-	-cd .. && cpplint --recursive src/ tests/ checker/
-	-cd .. && shellcheck checker/*.sh
+	-cd .. && checkpatch.pl -f src/*.c tests/snippets/*.c
+	-cd .. && checkpatch.pl -f checker/*.sh tests/*.sh
+	-cd .. && cpplint --recursive src/ tests/
+	-cd .. && shellcheck checker/*.sh tests/*.sh
 #	-cd .. && pylint tests/*.py
 
 snippets/%: snippets/%.c
