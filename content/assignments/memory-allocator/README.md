@@ -309,9 +309,9 @@ Every other address is displayed as `<label> + offset`, where the label is the c
 If you want to run a single test, you give its name or its path as arguments to `run_tests.py`:
 
 ```console
-student@os:~/.../mem-alloc/tests$ python run_tests.py test-all
+student@os:~/.../mem-alloc/tests$ python3 run_tests.py test-all
 OR
-student@os:~/.../mem-alloc/tests$ python run_tests.py snippets/test-all
+student@os:~/.../mem-alloc/tests$ python3 run_tests.py snippets/test-all
 ```
 
 ### Debugging in VSCode
