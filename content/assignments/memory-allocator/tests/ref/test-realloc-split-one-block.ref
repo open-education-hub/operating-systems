@@ -10,8 +10,6 @@ os_realloc (['0', '4096'])                                                      
 os_realloc (['0', '2048'])                                                                = HeapStart + 0x1f0c0
 os_realloc (['0', '1024'])                                                                = HeapStart + 0x1f8e0
 os_realloc (['0', '512'])                                                                 = HeapStart + 0x1fd00
-os_realloc (['0', '256'])                                                                 = HeapStart + 0x1ff20
-  brk (['HeapStart + 0x20020'])                                                           = HeapStart + 0x20020
 os_realloc (['HeapStart + 0x20', '0'])                                                    = 0
 os_realloc (['HeapStart + 0x18060', '32798'])                                             = HeapStart + 0x20
 os_realloc (['HeapStart + 0x1c080', '16414'])                                             = HeapStart + 0x8060
@@ -27,5 +25,4 @@ os_free (['HeapStart + 0xc0a0'])                                                
 os_free (['HeapStart + 0xe0e0'])                                                          = <void>
 os_free (['HeapStart + 0xf120'])                                                          = <void>
 os_free (['HeapStart + 0xf960'])                                                          = <void>
-os_free (['HeapStart + 0x1ff20'])                                                         = <void>
 +++ exited (status 0) +++
