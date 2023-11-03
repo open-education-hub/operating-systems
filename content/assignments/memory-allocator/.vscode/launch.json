@@ -1,0 +1,69 @@
+{
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/tests/snippets/${input:testName}",
+            "cwd": "${fileDirname}",
+            "environment": [
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "${workspaceFolder}/src"
+                },
+            ],
+            "MIMode": "gdb"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "testName",
+            "description": "Select test to run",
+            "type": "pickString",
+            "options": [
+                "test-all",
+                "test-calloc-arrays",
+                "test-calloc-block-reuse",
+                "test-calloc-coalesce",
+                "test-calloc-coalesce-big",
+                "test-calloc-expand-block",
+                "test-calloc-no-preallocate",
+                "test-calloc-no-split",
+                "test-calloc-preallocate",
+                "test-calloc-split-first",
+                "test-calloc-split-last",
+                "test-calloc-split-middle",
+                "test-calloc-split-one-block",
+                "test-calloc-split-vector",
+                "test-malloc-arrays",
+                "test-malloc-block-reuse",
+                "test-malloc-coalesce",
+                "test-malloc-coalesce-big",
+                "test-malloc-expand-block",
+                "test-malloc-no-preallocate",
+                "test-malloc-no-split",
+                "test-malloc-preallocate",
+                "test-malloc-split-first",
+                "test-malloc-split-last",
+                "test-malloc-split-middle",
+                "test-malloc-split-one-block",
+                "test-malloc-split-vector",
+                "test-realloc-arrays",
+                "test-realloc-block-reuse",
+                "test-realloc-coalesce",
+                "test-realloc-coalesce-big",
+                "test-realloc-expand-block",
+                "test-realloc-no-preallocate",
+                "test-realloc-no-split",
+                "test-realloc-preallocate",
+                "test-realloc-split-first",
+                "test-realloc-split-last",
+                "test-realloc-split-middle",
+                "test-realloc-split-one-block",
+                "test-realloc-split-vector"
+            ],
+        }
+    ]
+}
