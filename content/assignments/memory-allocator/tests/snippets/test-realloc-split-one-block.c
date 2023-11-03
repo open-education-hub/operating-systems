@@ -2,13 +2,15 @@
 
 #include "test-utils.h"
 
+#define NUM_SIZES 8
+
 int main(void)
 {
-	int sizes[9];
-	void *prealloc_ptr, *ptrs[9];
+	int sizes[NUM_SIZES];
+	void *prealloc_ptr, *ptrs[NUM_SIZES];
 
 	/* Init sizes */
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < NUM_SIZES; i++)
 		sizes[i] = MMAP_THRESHOLD / (1 << (i + 1));
 
 	/* Create a free block */
@@ -17,7 +19,7 @@ int main(void)
 	os_free(prealloc_ptr);
 
 	/* Split the chunk multiple times */
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < NUM_SIZES; i++)
 		ptrs[i] = os_realloc_checked(NULL, sizes[i]);
 
 	/* Free the first ptr and reallocate the others */
@@ -28,7 +30,7 @@ int main(void)
 		ptrs[i] = os_realloc_checked(ptrs[i], sizes[i-1] + 30);
 
 	/* Cleanup */
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < NUM_SIZES; i++)
 		os_free(ptrs[i]);
 
 	return 0;
