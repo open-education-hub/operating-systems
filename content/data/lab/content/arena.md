@@ -157,7 +157,7 @@ Each of these special functions may be called automatically by the compiler:
 - the assignment operator is called automatically when an object is assigned an object of the same type.
 - the destructor is called automatically whenever an object goes out of scope.
 
-**Note: the difference between initialization and assignment is that the initialization occurs when an object is being declared and occurs a single time (`Obj o1 = 1`), whereas assignement is decoupled from the declaration site and may occur multiple times (provided that the variable is mutable).**
+**Note: the difference between initialization and assignment is that the initialization occurs when an object is being declared and occurs a single time (`Obj o1 = 1`), whereas assignment is decoupled from the declaration site and may occur multiple times (provided that the variable is mutable).**
 
 Compile and run the program in `operators.d`.
 Notice how the different special functions are automatically called.
