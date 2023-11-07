@@ -27,7 +27,7 @@ static void do_nothing(void)
 }
 
 /*
- * The actual SIGSEVG handler.
+ * The actual SIGSEGV handler.
  */
 static void access_handler(int signum, siginfo_t *si, void *arg)
 {
@@ -45,7 +45,7 @@ static void access_handler(int signum, siginfo_t *si, void *arg)
 		return;
 	}
 
-	/* TODO: Obtain page strart address in start variable. */
+	/* TODO: Obtain page start address in start variable. */
 
 	for (i = 0; i < num_pages; i++)
 		if (pages[i].start == start)
@@ -59,7 +59,7 @@ static void access_handler(int signum, siginfo_t *si, void *arg)
 
 	log_debug("i = %u", i);
 
-	/* TODO: Update page proctections with mprotect(). */
+	/* TODO: Update page protections with mprotect(). */
 }
 
 void register_sigsegv_handler(void)
