@@ -279,7 +279,7 @@ To speed up testing, use the `-d` flag or `make check-fast` to skip memory leak 
 ### Running the Linters
 
 To run the linters, use the `make lint` command in the `tests/` directory.
-Note that the linters have to be installed on your system: [`checkpatch.pl`](https://.com/torvalds/linux/blob/master/scripts/checkpatch.pl), [`cpplint`](https://github.com/cpplint/cpplint), [`shellcheck`](https://www.shellcheck.net/) with certain configuration options.
+Note that the linters have to be installed on your system: [`checkpatch.pl`](https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl), [`cpplint`](https://github.com/cpplint/cpplint), [`shellcheck`](https://www.shellcheck.net/) with certain configuration options.
 It's easiest to run them in a Docker-based setup with everything configured:
 
 ```console
