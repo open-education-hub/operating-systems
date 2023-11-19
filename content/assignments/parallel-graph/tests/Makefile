@@ -1,40 +1,22 @@
 SRC_PATH ?= ../src
-CC = gcc
-CPPFLAGS = -I../utils
-CFLAGS = -fPIC -Wall -Wextra -g
-LDFLAGS = -L$(SRC_PATH)
-LDLIBS = -losmem
 
-SOURCEDIR = src
-BUILDDIR = bin
-SRCS = $(sort $(wildcard $(SOURCEDIR)/*.c))
-BINS = $(patsubst $(SOURCEDIR)/%.c, $(BUILDDIR)/%, $(SRCS))
+.PHONY: all src check lint clean
 
-.PHONY: all clean src check lint
-
-all: src $(BUILDDIR) $(BINS)
-
-$(BUILDDIR):
-	mkdir -p $(BUILDDIR)
-
-$(BUILDDIR)/%: $(SOURCEDIR)/%.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+all: src
 
 src:
 	make -C $(SRC_PATH)
 
-check:
-	make -C $(SRC_PATH) clean
-	make clean
+check: clean
 	make -i SRC_PATH=$(SRC_PATH)
 	SRC_PATH=$(SRC_PATH) python checker.py
 
 lint:
-	-cd .. && checkpatch.pl -f src/*.c
-	-cd .. && cpplint --recursive src/
-	-cd .. && shellcheck checker/*.sh
-	-cd .. && pylint tests/*.py
+	-cd $(SRC_PATH)/.. && checkpatch.pl -f src/*.c
+	-cd $(SRC_PATH)/.. && cpplint --recursive src/
+	-cd $(SRC_PATH)/.. && shellcheck tests/*.sh
+	-cd $(SRC_PATH)/.. && pylint tests/*.py
 
 clean:
+	make -C $(SRC_PATH) clean
 	-rm -f *~
-	-rm -f $(BINS)
