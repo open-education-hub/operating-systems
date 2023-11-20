@@ -1,36 +1,34 @@
 BUILD_DIR := build
-CC := gcc
-CFLAGS := -c -Wall -g
-LD := ld
-LDFLAGS :=
-LDLIBS := -lpthread
+UTILS_PATH ?= ../utils
+CPPFLAGS := -I$(UTILS_PATH)
+CFLAGS := -Wall -Wextra
+# Remove the line below to disable debugging support.
+CFLAGS += -g -O0
+PARALLEL_LDLIBS := -lpthread
 
-SERIAL_SRCS := serial.c os_graph.c
-PARALLEL_SRCS:= parallel.c os_graph.c os_list.c os_threadpool.c
-SERIAL_OBJS := $(patsubst $(SRC)/%.c,$(BUILD_DIR)/%.o,$(SERIAL_SRCS))
-PARALLEL_OBJS := $(patsubst $(SRC)/%.c,$(BUILD_DIR)/%.o,$(PARALLEL_SRCS))
+SERIAL_SRCS := serial.c os_graph.c $(UTILS_PATH)/log/log.c
+PARALLEL_SRCS:= parallel.c os_graph.c os_threadpool.c $(UTILS_PATH)/log/log.c
+SERIAL_OBJS := $(patsubst %.c,%.o,$(SERIAL_SRCS))
+PARALLEL_OBJS := $(patsubst %.c,%.o,$(PARALLEL_SRCS))
 
 .PHONY: all pack clean always
 
 all: serial parallel
 
-always:
-	mkdir -p build
+serial: $(SERIAL_OBJS)
+	$(CC) -o $@ $^
 
-serial: always $(SERIAL_OBJS)
-	$(CC) $(LDFLAGS) -o serial $(SERIAL_OBJS)
+parallel: $(PARALLEL_OBJS)
+	$(CC) -o $@ $^ $(PARALLEL_LDLIBS)
 
-parallel: always $(PARALLEL_OBJS)
-	$(CC) $(LDFLAGS) -o parallel $(PARALLEL_OBJS) $(LDLIBS)
-
-$(BUILD_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) -o $@ $<
+$(UTILS_PATH)/log/log.o: $(UTILS_PATH)/log/log.c $(UTILS_PATH)/log/log.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 pack: clean
 	-rm -f ../src.zip
 	zip -r ../src.zip *
 
 clean:
-	-rm -f ../src.zip
-	-rm -rf build
+	-rm -f $(SERIAL_OBJS) $(PARALLEL_OBJS)
 	-rm -f serial parallel
+	-rm -f *~

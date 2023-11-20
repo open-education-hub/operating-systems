@@ -7,7 +7,7 @@
 
 typedef struct os_node_t {
 	unsigned int id;
-	signed int info;
+	int info;
 
 	unsigned int num_neighbours;
 	unsigned int *neighbours;
@@ -18,11 +18,15 @@ typedef struct os_graph_t {
 	unsigned int num_edges;
 
 	os_node_t **nodes;
-	unsigned int *visited;
+	enum {
+		NOT_VISITED = 0,
+		PROCESSING = 1,
+		DONE = 2
+	} *visited;
 } os_graph_t;
 
 typedef struct os_edge_t {
-	int src, dst;
+	unsigned int src, dst;
 } os_edge_t;
 
 os_node_t *os_create_node(unsigned int id, int info);
