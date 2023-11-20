@@ -1,11 +1,12 @@
 SRC_PATH ?= ../src
+UTILS_PATH = $(realpath ../utils)
 
 .PHONY: all src check lint clean
 
 all: src
 
 src:
-	make -C $(SRC_PATH)
+	make -C $(SRC_PATH) UTILS_PATH=$(UTILS_PATH)
 
 check: clean
 	make -i SRC_PATH=$(SRC_PATH)
