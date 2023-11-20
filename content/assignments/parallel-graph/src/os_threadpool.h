@@ -1,35 +1,42 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
 
-#ifndef __SO_THREADPOOL_H__
-#define __SO_THREADPOOL_H__	1
+#ifndef __OS_THREADPOOL_H__
+#define __OS_THREADPOOL_H__	1
 
 #include <pthread.h>
+#include "os_list.h"
 
 typedef struct {
 	void *argument;
-	void (*task)(void *args);
+	void (*action)(void *arg);
+	void (*destroy_arg)(void *arg);
+	os_list_node_t list;
 } os_task_t;
 
-typedef struct _node {
-	os_task_t *task;
-	struct _node *next;
-} os_task_queue_t;
-
-typedef struct {
-	unsigned int should_stop;
-
+typedef struct os_threadpool {
 	unsigned int num_threads;
 	pthread_t *threads;
 
-	os_task_queue_t *tasks;
-	pthread_mutex_t lock;
+	/*
+	 * Head of queue used to store tasks.
+	 * First item is head.next, if head.next != head (i.e. if queue
+	 * is not empty).
+	 * Last item is head.prev, if head.prev != head (i.e. if queue
+	 * is not empty).
+	 */
+	os_list_node_t head;
+
+	/* TODO: Define threapool / queue synchronization data. */
 } os_threadpool_t;
 
-os_task_t *task_create(void *arg, void (*f)(void *));
-void add_task_in_queue(os_threadpool_t *tp, os_task_t *t);
-os_task_t *get_task(os_threadpool_t *tp);
-os_threadpool_t *threadpool_create(unsigned int num_tasks, unsigned int num_threads);
-void *thread_loop_function(void *args);
-void threadpool_stop(os_threadpool_t *tp, int (*processing_is_complete)(os_threadpool_t *));
+os_task_t *create_task(void (*f)(void *), void *arg, void (*destroy_arg)(void *));
+void destroy_task(os_task_t *t);
+
+os_threadpool_t *create_threadpool(unsigned int num_threads);
+void destroy_threadpool(os_threadpool_t *tp);
+
+void enqueue_task(os_threadpool_t *q, os_task_t *t);
+os_task_t *dequeue_task(os_threadpool_t *tp);
+void wait_for_completion(os_threadpool_t *tp);
 
 #endif
