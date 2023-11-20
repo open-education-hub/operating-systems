@@ -15,10 +15,12 @@ Your job is to write the thread pool routines and then use the thread pool to tr
 
 ## Support Code
 
-The support code consists of two directories:
+The support code consists of the directories:
 
 - `src/` is the skeleton parallel graph implementation.
   You will have to implement missing parts marked as `TODO` items.
+
+- `utils/` utility files (used for debugging & logging)
 
 - `tests/` are tests used to validate (and grade) the assignment.
 
@@ -27,36 +29,45 @@ The support code consists of two directories:
 ### Thread Pool Description
 
 A thread pool contains a given number of active threads that simply wait to be given specific tasks.
-The threads are created when the thread pool is created they poll a task queue until a task is available.
-Once tasks are put in the task queue, the threads start running the task.
-A thread pool creates N threads when the thread pool is created and does not destroy (join) them throughout the lifetime of the thread pool.
+The threads are created when the thread pool is created.
+Each thread continuously polls the task queue for available tasks.
+Once tasks are put in the task queue, the threads poll tasks, and start running them.
+A thread pool creates **N** threads upon its creation and does not destroy (join) them throughout its lifetime.
 That way, the penalty of creating and destroying threads ad-hoc is avoided.
-As such, you must implement the following functions (marked with `TODO` in the provided skeleton):
+As such, you must implement the following functions (marked with `TODO` in the provided skeleton, in `src/os_threadpool.c`):
 
-- `task_create()`: Creates an `os_task_t` that will be put in the task queue - a task consists of a function pointer and an argument.
-- `add_task_in_queue()`: Adds a given task in the thread pool's task queue.
-- `get_task()`: Gets a task from the thread pool's task queue.
-- `threadpool_create()`: Allocates and initializes a new thread pool.
-- `thread_loop_function()`: All the threads in the thread pool will execute this function.
-   They all wait until a task is available in the task queue; once they grab a task they simply invoke the function that was provided to `task_create`.
-- `threadpool_stop()`: Stop all the threads from execution.
+- `enqueue_task()`: Enqueue task to the shared task queue.
+  Use synchronization.
+- `dequeue_task()`: Dequeue task from the shared task queue.
+  Use synchronization.
+- `wait_for_completion()`: Wait for all worker threads.
+  Use synchronization.
+- `create_threadpool()`: Create a new thread pool.
+- `destroy_threadpool()`: Destroy a thread pool.
+  Assume all threads have been joined.
+
+You must also update the `os_threadpool_t` structure in `src/os_threadpool.h` with the required bits for synchronizing the parallel implementation.
 
 Notice that the thread pool is completely independent of any given application.
 Any function can be registered in the task queue.
 
+Since the threads are polling the task queue indefinitely, you need to define a condition for them to stop once the graph has been traversed completely.
+That is, the condition used by the `wait_for_completion()` function.
+The recommended way is to note when no threads have any more work to do.
+Since no thread is doing any work, no other task will be created.
+
 ### Graph Traversal
 
-Once you have implemented the thread pool, you need to test it by using it for computing the sum of all the nodes of a graph.
-A serial implementation for this algorithm is provided in `skep/serial.c`
+Once you have implemented the thread pool, you need to test it by doing a parallel traversal of all connected nodes in a graph.
+A serial implementation for this algorithm is provided in `src/serial.c`.
 To make use of the thread pool, you will need to create tasks that will be put in the task queue.
 A task consists of 2 steps:
 
 1. Add the current node value to the overall sum.
 1. Create tasks and add them to the task queue for the neighbouring nodes.
 
-Since the threads are polling the task queue indefinitely, you need to find a condition for the threads to stop once the graph has been traversed completely.
-This condition should be implemented in a function that is passed to `threadpool_stop()`.
-`threadpool_stop()` then needs to wait for the condition to be satisfied and then joins all the threads.
+Implement this in the `src/parallel.c` (see the `TODO` items).
+You must implement the parallel and synchronized version of the `process_node()` function, also used in the serial implementation.
 
 ### Synchronization
 
@@ -88,12 +99,9 @@ You will use this list to implement the task queue.
 A thread pool is represented internally by the `os_threadpool_t` structure (see `src/os_threadpool.h`).
 The thread pool contains information about the task queue and the threads.
 
-You are not allowed to modify these data structures.
-However, you can create other data structures that leverage these ones.
-
 ### Requirements
 
-Your implementation needs to be contained in the `src/os_threadpool.c` and `src/os_parallel.c` files.
+Your implementation needs to be contained in the `src/os_threadpool.c`, `src/os_threadpool.h` and `src/parallel.c` files.
 Any other files that you are using will not be taken into account.
 Any modifications that you are doing to the other files in the `src/` directory will not be taken into account.
 
@@ -153,19 +161,15 @@ make[1]: Entering directory '...'
 rm -f *~
 [...]
 TODO
-test_mmap_perm_ok                ........................ failed ...  0
-test_mmap_perm_notok             ........................ failed ...  0
-test_mmap_perm_none              ........................ failed ...  0
+test1.in                         ....................... failed ...   0.0
+test2.in                         ....................... failed ...   0.0
+test3.in                         ....................... failed ...   0.0
+[...]
 
 Total:                                                             0/100
 ```
 
-Some files will fail to build, it's expected.
-This is because there are missing files or missing functions that cause build errors.
-You'll need to add those files and implement those functions for the build error to disappear.
-
-Obviously, most tests will fail, as there is no implementation.
-Some tests don't fail because the missing implementation equates to the bad behavior being tested not happening.
+Obviously, all tests will fail, as there is no implementation.
 
 Each test is worth a number of points.
 The maximum grade is `90`.
@@ -216,29 +220,19 @@ cd .. && shellcheck checker/*.sh tests/*.sh
 
 Note that the linters have to be installed on your system: [`checkpatch.pl`](https://.com/torvalds/linux/blob/master/scripts/checkpatch.pl), [`cpplint`](https://github.com/cpplint/cpplint), [`shellcheck`](https://www.shellcheck.net/).
 They also need to have certain configuration options.
-It's easiest to run them in a Docker-based setup with everything configured:
+It's easiest to run them in a Docker-based setup with everything configured.
 
 ### Fine-Grained Testing
 
 Input tests cases are located in `tests/in/`.
-If you want manually run a single test, use commands such as below while in the `src/` directory:
+If you want to run a single test, use commands such as below while in the `src/` directory:
 
 ```console
 $./parallel ../tests/in/test5.in
--11
+-38
 
 $ ./serial ../tests/in/test5.in
--11
+-38
 ```
 
 Results provided by the serial and parallel implementation must be the same for the test to successfully pass.
-
-## Grading
-
-The grade that the checker outputs is not the final grade.
-Your homework will be manually inspected and may suffer from penalties ranging from 1 to 100 points depending on the severity of the hack, including, but not limited to:
-
-- using a single mutex at the beginning of the traversal
-- not using the thread pool to solve the homework
-- inefficient usage of synchronization
-- incorrect graph traversal
