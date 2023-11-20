@@ -1,5 +1,6 @@
 BINARIES = sum_array_threads sum_array_processes
 include ../../../../../../common/makefile/multiple.mk
+LDLIBS += -lpthread
 
 sum_array_threads: sum_array_threads.o generate_random_array.o
 
