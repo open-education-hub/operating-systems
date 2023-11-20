@@ -65,8 +65,47 @@ If there are multiple commits belonging to a given change, please squash the com
 
 Also make sure one pull request covers only **one** topic.
 
-Use commit messages with verbs at imperative mood: "Add README", "Update contents", "Introduce feature".
-Prefix each commit message with the chapter it belongs to: `software-stack`, `data`, `compute`, `io`, `app-interact`.
-How a good commit message should look like: <https://cbea.ms/git-commit/>
+### Commits
 
-The use of `-s` / `--signoff` when creating a commit is optional, but strongly recommended.
+Before making a commit, configure your name and email locally using:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+Then make sure the email you've just configured corresponds to the one you have [set on GitHub](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/adding-an-email-address-to-your-github-account).
+
+After this, make your changes, `git add` them and then commit them using `git commit -s`.
+Always sign your commits using the `-s` / `--signoff` arguments to `git commit`.
+This will add the following line at the end of the commit message:
+
+```text
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+Notice that the details above are the name and email that you configured earlier.
+
+Now the `git commit` command will open your default editor and ask you to write a commit message.
+Prefix each commit message title with the chapter it belongs to: `software-stack`, `data`, `compute`, `io`, `app-interact` and the component: `lecture` / `lab`.
+An example of a prefix is `compute/lab:`.
+Following the prefix, write a short and expressive title on the first line.
+Use commit messages with verbs at imperative mood: "Add README", "Update contents", "Introduce feature".
+
+Leave an empty line, then add a relevant description of the changes made in that commit.
+This description should include why that change is needed (fixes a bug, improves something that was inefficient, etc.).
+Wrap the lines of this description to 75 characters.
+How a good commit message should look like: <https://cbea.ms/git-commit/>
+Below is an example of a good commit message:
+
+```text
+data/lab: Fix Makefile `CFLAGS` error
+
+`CFLAGS` was incorrectly set to optimise the code to the `-O3` level. This
+caused the function `vulnerable_func()` to be inlined into the caller
+`main()`, making it impossible to overwrite `main()`'s return address with
+that of `vulnerable_func()`. This commit fixes the issue by forcing the
+compiler to not optimise the code by replacing `-O3` with `-O0` in `CFLAGS`
+
+Signed-off-by: Your Name <your.name@example.com>
+```
