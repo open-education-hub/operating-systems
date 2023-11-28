@@ -36,7 +36,7 @@ The exam consists of two components:
 1. Relevance quiz
    - It lasts **20 minutes**.
    - This part is also **open-book**, meaning you can use written materials and offline resources.
-     However, Internet access will not be allowed.
+     However, internet access will not be allowed.
    - All students scheduled for the exam in the same day will take this component at the same time, usually 11:00-11:30.
    - It will be conducted on [Moodle](https://curs.upb.ro/2023/course/view.php?id=7774).
    - You will receive **11 True/False questions** that require explanations.
@@ -155,6 +155,76 @@ If you miss a lab or do not receive the maximum score on other labs, the lab bon
 **You can recover up to 2 missed labs with the agreement of the lab assistant.**
 
 **Collaboration during lab sessions is strongly encouraged.**
+
+### Hackathon
+
+The hackathon involves solving an exercise proposed by the Operating Systems team, focusing on material covered in the OS course and labs.
+The exercise is to be solved by a team of 2 students enrolled in the Operating Systems course.
+The top 3 best implementations will receive awards.
+During the hackathon, teams will receive assistance from OS teaching assistants.
+
+#### Objectives
+
+- Collaboration and teamwork
+- Development with support from the OS team
+- Development of a portable application
+
+#### Date
+
+Saturday, December 16, 2023, within the interval 10:00-18:00.
+
+#### Location
+
+The hackathon takes place physically in rooms TODO-rooms.
+
+#### Prerequisites
+
+1. Students enrolled in the OS course in the academic year 2023-2024 can participate.
+1. Participants will form teams of two.
+1. Participants will work on their own systems.
+
+#### Registration
+
+Participating teams can register for the hackathon by completing the form [here]([https://forms.gle/qs5wKBwCe86RdQPGA\](https://forms.gle/qs5wKBwCe86RdQPGA/)) until December 10, 2023, at 23:55.
+Up to 30 teams will be selected.
+
+#### Regulations
+
+1. Versioned code must be added to a **private** repository using GitHub.
+Create a private repository, add the supervising assistants, and include a README with the team composition.
+Follow [these steps](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository#inviting-a-collaborator-to-a-personal-repository) to add your teammate and teaching assistants as collaborators to the repository.
+The supervising assistants and their GitLab accounts are:
+    - TODO-assistant
+
+1. The code must pass a set of tests provided by the OS team.
+
+##### Submission
+
+Submissions will be uploaded on [Moodle](https://curs.upb.ro/2023/mod/assign/view.php?id=80182).
+
+- A submission consists of a `.zip` archive containing the directory `operating-systems/content/assignments/lambda-function-loader/` (with directories `tests` and `src`).
+- The archive is uploaded by one team member only.
+- In `operating-systems/content/assignments/lambda-function-loader/`, there must be a `README.md` file containing:
+  - team composition
+  - GitHub link
+  - implementation details;
+  each extra functionality requires a description, approach, and testing method.
+
+#### Awards
+
+Each member of the winning teams will receive a prize based on their ranking:
+
+1. First place: 900 RON gift card
+1. Second place: 800 RON gift card
+1. Third place: 700 RON gift card
+
+#### Equivalence
+
+All participating teams are **eligible** for one point equivalence in the OS subject (depending on **implementation complexity and project stage developed during the hackathon**).
+
+#### Winners Announcement
+
+Winning teams will be announced by December 20, 2023.
 
 ### Lecture Quizzes (1 point)
 
