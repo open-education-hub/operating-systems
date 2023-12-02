@@ -52,7 +52,7 @@ When a thread calls `pthread_mutex_lock()`, it attempts to set that variable to 
 If it was 0, the thread sets it to 1 and proceeds to execute the critical section.
 Otherwise, it **suspends its execution** and waits until that variable is set to 0 again.
 
-When calling `pthread_mute_unlock()`, the internal variable is set to 0 and all waiting threads are woken up to try to acquire the mutex again.
+When calling `pthread_mutex_unlock()`, the internal variable is set to 0 and all waiting threads are woken up to try to acquire the mutex again.
 **Be careful:** It is generally considered unsafe and [in many cases undefined behaviour](https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_lock.html) to call `pthread_mutex_unlock()` from a different thread than the one that acquired the lock.
 So the general workflow should look something like this:
 
