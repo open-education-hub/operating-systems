@@ -95,7 +95,7 @@ But now we need a critical section to implement a critical section...
 To solve this circular problem, we make use of a very common _Deus ex Machina_: **hardware support**.
 
 Modern processors are capable of _atomically_ accessing data, either for reads or writes.
-An atomic action is and indivisible sequence of operations that a thread runs without interference from others.
+An atomic action is an indivisible sequence of operations that a thread runs without interference from others.
 Concretely, before initiating an atomic transfer on one of its data buses, the CPU first makes sure all other transfers have ended, then **locks** the data bus by stalling all cores attempting to transfer data on it.
 This way, one thread obtains **exclusive** access to the data bus while accessing data.
 As a side note, the critical sections in `support/race-condition/c/race_condition_mutex.c` are also atomic once they are wrapped between calls to `pthread_mutex_lock()` and `pthread_mutex_unlock()`.
