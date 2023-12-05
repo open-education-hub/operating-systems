@@ -8,11 +8,11 @@ For this, we'll run both `sum_array_threads` and `sum_array_processes` under `st
 As we've already established, we're only interested in the `clone` syscall:
 
 ```console
-student@os:~/.../lab/support/sum-array/c$ strace -e clone,clone3 rray_threads 2
+student@os:~/.../lab/support/sum-array/c$ strace -e clone,clone3 ./sum_array_threads 2
 clone(child_stack=0x7f60b56482b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1819693], tls=0x7f60b5649640, child_tidptr=0x7f60b5649910) = 1819693
 clone(child_stack=0x7f60b4e472b0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[1819694], tls=0x7f60b4e48640, child_tidptr=0x7f60b4e48910) = 1819694
 
-student@os:~/.../lab/support/sum-array/c$ strace -e clone,clone3array_processes 2
+student@os:~/.../lab/support/sum-array/c$ strace -e clone,clone3 ./sum_array_processes 2
 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7a4e346650) = 1820599
 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f7a4e346650) = 1820600
 ```
