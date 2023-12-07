@@ -181,46 +181,141 @@ The shell must support the following redirection options:
 
 Hint: Look into [open](https://man7.org/linux/man-pages/man2/open.2.html), [dup2](https://man7.org/linux/man-pages/man2/dup.2.html) and [close](https://man7.org/linux/man-pages/man2/close.2.html).
 
-## Testing
+## Support Code
 
-The testing is automated.
-Tests are located in the `inputs/` directory.
+The support code consists of three directories:
+
+- `src/` is the skeleton mini-shell implementation.
+  You will have to implement missing parts marked as `TODO` items.
+
+- `util/` stores a parser to be used as support code for implementing the assignment.
+  For more information, you can check the `util/parser/README.md` file.
+  You can use this parser or write your own.
+
+- `tests/` are tests used to validate (and grade) the assignment.
+
+### Building mini-shell
+
+To build mini-shell, run `make` in the `src/` directory:
 
 ```console
-student@os:~/.../assignments/minishell/checker/_test/inputs$ ls -F
+student@so:~/.../assignment-mini-shell$ cd src/
+
+student@so:~/.../assignment-mini-shell/src$ make
+```
+
+## Testing and Grading
+
+The testing is automated.
+Tests are located in the `tests/` directory.
+
+```console
+student@so:~/.../assignment-mini-shell/tests$ ls -F
+Makefile  grade.sh*  run_all.sh*  _test/
+```
+
+To test and grade your assignment solution, enter the `tests/` directory and run `grade.sh`.
+Note that this requires linters being available.
+The easiest is to use a Docker-based setup with everything installed, as shown in the section ["Running the Linters"](#running-the-linters).
+When using `grade.sh` you will get grades for correctness (maximum `90` points) and for coding style (maximum `10` points).
+A successful run will provide you an output ending with:
+
+```console
+### GRADE
+
+
+Checker:                                                         90/ 90
+Style:                                                           10/ 10
+Total:                                                          100/100
+
+
+### STYLE SUMMARY
+
+
+```
+
+### Running the Checker
+
+To run the checker and everything else required, use the `make check` command in the `tests/` directory:
+
+```console
+student@so:~/.../assignment-mini-shell/tests$ make check
+make[1]: Entering directory '...'
+rm -f *~
+[...]
+16) Testing sleep command...................................failed  [ 0/100]
+17) Testing fscanf function.................................failed  [ 0/100]
+18) Testing unknown command.................................failed  [ 0/100]
+
+                                                            Total:    0/100
+```
+
+For starters, tests will fail.
+
+Each test is worth a number of points.
+The total number of points is `90`.
+The maximum grade is obtained by dividing the number of points to `10`, for a maximum grade of `9.00`.
+
+A successful test run will show the output:
+
+```console
+student@so:~/.../assignment-mini-shell/tests$ make check
+make[1]: Entering directory '...'
+rm -f *~
+[...]
+01) Testing commands without arguments......................passed  [03/100]
+02) Testing commands with arguments.........................passed  [02/100]
+03) Testing simple redirect operators.......................passed  [05/100]
+04) Testing append redirect operators.......................passed  [05/100]
+05) Testing current directory...............................passed  [05/100]
+06) Testing conditional operators...........................passed  [05/100]
+07) Testing sequential commands.............................passed  [03/100]
+08) Testing environment variables...........................passed  [05/100]
+09) Testing single pipe.....................................passed  [05/100]
+10) Testing multiple pipes..................................passed  [10/100]
+11) Testing variables and redirect..........................passed  [05/100]
+12) Testing overwritten variables...........................passed  [02/100]
+13) Testing all operators...................................passed  [02/100]
+14) Testing parallel operator...............................passed  [10/100]
+15) Testing big file........................................passed  [05/100]
+16) Testing sleep command...................................passed  [07/100]
+17) Testing fscanf function.................................passed  [07/100]
+18) Testing unknown command.................................passed  [04/100]
+
+                                                            Total:   90/100
+```
+
+The actual tests are located in the `inputs/` directory.
+
+```console
+student@os:~/.../assignment-mini-shell/tests/$ ls -F _test/inputs
 test_01.txt  test_03.txt  test_05.txt  test_07.txt  test_09.txt  test_11.txt  test_13.txt  test_15.txt  test_17.txt
 test_02.txt  test_04.txt  test_06.txt  test_08.txt  test_10.txt  test_12.txt  test_14.txt  test_16.txt  test_18.txt
 ```
 
-To execute tests you need to run:
+### Running the Linters
+
+To run the linters, use the make lint command in the `tests/` directory:
 
 ```console
-student@os:~/.../assignments/minishell/checker$ ./run_all.sh
+student@so:~/.../assignment-mini-shell/tests/$ make lint
+[...]
+cd .. && checkpatch.pl -f checker/*.sh tests/*.sh
+[...]
+cd .. && cpplint --recursive src/ tests/ checker/
+[...]
+cd .. && shellcheck checker/*.sh tests/*.sh
 ```
 
-### Debug
+Note that the linters have to be installed on your system: [`checkpatch.pl`](https://.com/torvalds/linux/blob/master/scripts/checkpatch.pl), [`cpplint`](https://github.com/cpplint/cpplint), [`shellcheck`](https://www.shellcheck.net/) with certain configuration options.
 
-To inspect the differences between the output of the mini-shell and the reference binary set `DO_CLEANUP=no` in `_test/run_test.sh`.
-To see the results of the tests, you can check `_test/outputs/` directory.
+### Debugging
+
+To inspect the differences between the output of the mini-shell and the reference binary set `DO_CLEANUP=no` in `tests/_test/run_test.sh`.
+To see the results of the tests, you can check `tests/_test/outputs/` directory.
 
 ### Memory leaks
 
-To inspect the unreleased resources (memory leaks, file descriptors) set `USE_VALGRIND=yes` and `DO_CLEANUP=no` in `_test/run_test.sh`.
+To inspect the unreleased resources (memory leaks, file descriptors) set `USE_VALGRIND=yes` and `DO_CLEANUP=no` in `tests/_test/run_test.sh`.
 You can modify both the path to the Valgrind log file and the command parameters.
-To see the results of the tests, you can check `_test/outputs/` directory.
-
-### Checkpatch
-
-`checkpatch.pl` is a script used in the development of the Linux kernel.
-It is used to check patches that are submitted to the kernel mailing list for adherence to the coding style guidelines of the Linux kernel.
-
-The script checks the code for common coding style issues, such as indentation, spacing, line length, function and variable naming conventions, and other formatting rules.
-It also checks for some common errors, such as uninitialized variables, memory leaks, and other potential bugs.
-
-You can [download](https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl) the `checkpatch.pl` script from the official Linux kernel repository.
-
-Running the following command will show you linting warnings and errors:
-
-```sh
-./checkpatch.pl --no-tree --terse -f /path/to/your/code.c
-```
+To see the results of the tests, you can check `tests/_test/outputs/` directory.
