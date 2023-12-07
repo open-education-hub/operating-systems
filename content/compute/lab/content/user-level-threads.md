@@ -14,7 +14,7 @@ Unless you are using the OS docker image, you will need to install `cmake` and `
 You can do this with the following command:
 
 ```console
-student@os:~$ sudo apt-get install cmake libboost-context-dev libboost-fiber-dev
+sudo apt-get install cmake libboost-context-dev libboost-fiber-dev
 ```
 
 ## Creation
