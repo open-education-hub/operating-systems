@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: BSD-3-Clause */
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -58,9 +58,8 @@ static void simple_cmd(char **args)
 		/* Child process */
 
 		/**
-		 * TODO: Call `do_redirect()`. Assume the only file descriptor
-		 * that needs to be redirected is `stdout`. Its file descriptor
-		 * is `STDOUT_FILENO`.
+		 * Call `do_redirect()`. Assume the only file descriptor that needs to
+		 * be redirected is `stdout`. Its file descriptor is `STDOUT_FILENO`.
 		 */
 		if (stdout_file != NULL)
 			do_redirect(STDOUT_FILENO, stdout_file);
@@ -132,6 +131,7 @@ static int parse_line(char *line)
 	int idx = 0;
 	char *token;
 	char *delim = "=\n";
+	char *saveptr = NULL;
 
 	stdin_file = NULL;
 	stdout_file = NULL;
@@ -143,7 +143,7 @@ static int parse_line(char *line)
 
 	/* Regular command. */
 	delim = " \t\n";
-	token = strtok_r(line, delim);
+	token = strtok_r(line, delim, &saveptr);
 
 	if (token == NULL)
 		return ERROR;
@@ -162,14 +162,14 @@ static int parse_line(char *line)
 				token++;
 				stdout_file = strdup(token);
 			} else {
-				token = strtok_r(NULL, delim);
+				token = strtok_r(NULL, delim, &saveptr);
 				stdout_file = strdup(token);
 			}
 		} else {
 			args[idx++] = strdup(token);
 		}
 
-		token = strtok_r(NULL, delim);
+		token = strtok_r(NULL, delim, &saveptr);
 	}
 
 	args[idx++] = NULL;
