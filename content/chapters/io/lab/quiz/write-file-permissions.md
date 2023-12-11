@@ -6,7 +6,7 @@
 
 Assume `write_file.txt` is opened like this:
 `open("write_file.txt", O_WRONLY | O_CREAT)`.
-What might cause it to have different permissions that `read_file.txt`?
+What might cause it to have different permissions than `read_file.txt`?
 
 ## Question Answers
 
@@ -18,7 +18,7 @@ What might cause it to have different permissions that `read_file.txt`?
 
 - a filesystem error.
 
-## Feedaback
+## Feedback
 
 Quoting from [`open()`'s man page](https://man7.org/linux/man-pages/man2/open.2.html), regarding the `O_CREAT` flag:
 
@@ -26,18 +26,20 @@ Quoting from [`open()`'s man page](https://man7.org/linux/man-pages/man2/open.2.
 > specified in flags; if it is not supplied, some arbitrary
 > bytes from the stack will be applied as the file mode.
 
-The wording "arbitrary bytes from the stack" is a bit obsolete.
-To demistify the quote above, let's consider that `open()` is a function call.
-In fact, `libc` defines wrapper functions on top of all system calls and our code actually calls those wrappers, so our assumption is not far-fetched.
+The wording "arbitrary bytes from the stack" is a bit obsolete on x86-64 systems.
 
-To call `open()` correctly, the coulde would look something like this:
+The x86 calling convention specifies that arguments are pushed on the stack, and because the `open()` wrapper is a variadic function in `libc` this would result in arbitrary bytes being read from the stack when `mode` is required but not provided.
+
+On the other hand, the x86-64 calling convention places arguments in registers.
+
+A correct `open()` call would look something like this:
 
 ```c
 open("write_file.txt", O_WRONLY | O_CREAT, 0644).
 ```
 
 `0644` is the octal representation of `rw-r--r--`.
-The approximate Assembly code for this function call would look like this:
+The approximate x86-64 assembly code for this function call would look like this:
 
 ```asm
 mov rdi, path_to_file   ; first argument: path
@@ -50,5 +52,4 @@ mov rdx, 0644           ; third argument: mode
 call open
 ```
 
-When we don't specifty a `mode` argument, the `open()` function simply takes this value from `rdx` as it was before the function call.
-This is an undefined behaviour because this register might have been modified either way by the program before calling `open()`.
+When we don't specify a `mode` argument, the `open()` function simply takes this value from `rdx` as it was before the function call, resulting in undefined behavior.
