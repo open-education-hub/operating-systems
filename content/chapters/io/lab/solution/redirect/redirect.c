@@ -68,7 +68,7 @@ int main(void)
 {
 	do_redirect(STDOUT_FILENO, REDIRECT_FILE_NAME);
 
-	printf("Where did this messge disappear?\n");
+	printf("Where did this message disappear?\n");
 
 	return 0;
 }
