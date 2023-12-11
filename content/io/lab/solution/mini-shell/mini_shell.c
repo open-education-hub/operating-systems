@@ -52,7 +52,8 @@ static void simple_cmd(char **args)
 	pid_t wait_ret;
 	int status;
 
-	/** Create a process to execute the command. Use `execvp` to launch the
+	/**
+	 * Create a process to execute the command. Use `execvp` to launch the
 	 * new process.
 	 */
 	pid = fork();
@@ -66,9 +67,8 @@ static void simple_cmd(char **args)
 		/* Child process */
 
 		/**
-		 * TODO: Call `do_redirect()`. Assume the only file descriptor
-		 * that needs to be redirected is `stdout`. Its file descriptor
-		 * is `STDOUT_FILENO`.
+		 * Call `do_redirect()`. Assume the only file descriptor that needs to
+		 * be redirected is `stdout`. Its file descriptor is `STDOUT_FILENO`.
 		 */
 		if (stdout_file != NULL)
 			do_redirect(STDOUT_FILENO, stdout_file);
@@ -138,8 +138,9 @@ static int parse_line(char *line)
 {
 	int ret = SIMPLE;
 	int idx = 0;
-	char *token; 
+	char *token;
 	char *delim = "=\n";
+	char *saveptr = NULL;
 
 	stdin_file = NULL;
 	stdout_file = NULL;
@@ -151,7 +152,7 @@ static int parse_line(char *line)
 
 	/* Regular command. */
 	delim = " \t\n";
-	token = strtok(line, delim);
+	token = strtok_r(line, delim, &saveptr);
 
 	if (token == NULL)
 		return ERROR;
@@ -170,14 +171,14 @@ static int parse_line(char *line)
 				token++;
 				stdout_file = strdup(token);
 			} else {
-				token = strtok(NULL, delim);
+				token = strtok_r(NULL, delim, &saveptr);
 				stdout_file = strdup(token);
 			}
 		} else {
 			args[idx++] = strdup(token);
 		}
 
-		token = strtok(NULL, delim);
+		token = strtok_r(NULL, delim, &saveptr);
 	}
 
 	args[idx++] = NULL;
