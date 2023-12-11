@@ -66,7 +66,7 @@ On the third column, you can see the file descriptor corresponding to each file.
 
 ```console
 student@os:~/.../lab/support/redirect$ lsof -w -p $(pidof redirect)  # before any file operations
-COMMAND    PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+COMMAND    PID     USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
 redirect 44303  student  cwd    DIR    8,1     4096  299870 /home/student/operating-systems-oer/content/chapters/io/lab/support/redirect
 redirect 44303  student  rtd    DIR  259,6     4096       2 /
 redirect 44303  student  txt    REG    8,1    25848  299929 /home/student/operating-systems-oer/content/chapters/io/lab/support/redirect/redirect
