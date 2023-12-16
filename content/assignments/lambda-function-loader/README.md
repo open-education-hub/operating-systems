@@ -104,28 +104,37 @@ What is needed for the implementation of the proposed project:
 
 ```bash
 ## Starting the server
-student@os:~/skel$ ./server
+student@os:.../lambda-function-loader/src$ make
+student@os:.../lambda-function-loader/src$ ./server
 
 ## Client
-# Execute the "run" function from libbasic.so
-student@os:~/checker$ ./client $(realpath libbasic.so)
-Output file: /home/so/checker/output/out-cfy0fl
+#
+# Open another terminal and instruct the client to send a library to the server.
+# Please remember the calling convention for client
+# ./client <libname> [<function> [<file>]]
+#
+# Note: When <function> is not provided, the server must execute the `run` function.
+student@os:.../lambda-function-loader/$ cd tests
+student@os:.../lambda-function-loader/tests$ make
+student@os:.../lambda-function-loader/tests$ ./client $(realpath libbasic.so)
+Output file: /home/student/operating-systems/content/assignments/lambda-function-loader/tests/output/out-bSJdTv
 
-student@os:~/checker$ cat /home/so/output/out-cfy0fl
+student@os:.../lambda-function-loader/tests$ cat /home/student/operating-systems/content/assignments/lambda-function-loader/tests/output/out-bSJdTv
 run
 
-# Execute the "function" function from libbasic.so
-student@os:~/checker$ ./client $(realpath libbasic.so) function
-Output file: /home/so/checker/output/out-vc7s03
+# Execute the "function" function from libbasic.so.
+# The function does not exist, so an error is printed.
+student@os:.../lambda-function-loader/tests$ ./client $(realpath libbasic.so) function
+Output file: /home/student/operating-systems/content/assignments/lambda-function-loader/tests/output/out-qOcoAA
 
-student@os:~/checker$ cat /home/so/output/out-vc7s03
-function
+student@os:.../lambda-function-loader/tests$ cat /home/so/output/out-qOcoAA
+Error: /home/student/operating-systems/content/assignments/lambda-function-loader/tests/libbasic.so function could not be executed.
 
-# Execute the "cat" function from libbasic.so with the argument "/home/so/checker/Makefile"
-student@os:~/checker$ ./client $(realpath libbasic.so) cat $(realpath Makefile)
-Output file: /home/so/checker/output/out-y732bN
+# Execute the "cat" function from libbasic.so with the argument being the full path of file "Makefile"
+student@os:.../lambda-function-loader/tests$ ./client $(realpath libbasic.so) cat $(realpath Makefile)
+Output file: /home/student/operating-systems/content/assignments/lambda-function-loader/tests/output/out-y732bN
 
-student@os:~/checker$ cat /home/so/output/out-y732bN
+student@os:.../lambda-function-loader/tests$ cat /home/student/operating-systems/content/assignments/lambda-function-loader/tests/output/out-y732bN
 CC=gcc
 [...]
 ```
@@ -134,10 +143,32 @@ CC=gcc
 
 You have a checker available for partial verification of your implementation.
 
-```text
-student@os~$ cd checker
+The checker behaves as follows:
 
-student@os~$ ./checker.sh
+- it automatically builds the source files then it starts the `server`.
+- it runs all the tests without restarting the `server`.
+- it then kills the `server`.
+
+For debugging purposes, you can instruct the checker to restart the server before each test.
+Please see below.
+
+```bash
+student@os:.../lambda-function-loader$ cd tests
+
+# Run the full test suite
+student@os:.../lambda-function-loader/tests$ make check
+[...]
+
+# Run a specific test be setting `TEST=<number>` variable
+student@os:.../lambda-function-loader/tests$ make check TEST=3
+./checker.sh 3
+Running test  3: Basic file content                      [  5/  5] Test passed
+
+# Run the checker with server debugging on
+student@os:.../lambda-function-loader/tests$ SERVER_DEBUG=1 make check
+./checker.sh
+Running the checker with server restart per test
+[...]
 ```
 
 ### Additional Tasks / Tie-breakers
