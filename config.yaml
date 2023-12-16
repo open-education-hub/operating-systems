@@ -138,6 +138,10 @@ docusaurus:
             - Parallel Graph/: parallel-graph/
             - Mini Shell/: minishell/
             - Asynchronous Web Server/: async-web-server/
+      - Hackathons:
+          path: content/assignments
+          subsections:
+            - Lambda Function Loader/: lambda-function-loader/
       - Rules and Grading: content/misc/rules-and-grading.md
       - Resources: content/misc/resources.md
     static_assets:
