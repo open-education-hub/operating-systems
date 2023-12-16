@@ -175,7 +175,11 @@ Saturday, December 16, 2023, within the interval 10:00-18:00.
 
 #### Location
 
-The hackathon takes place physically in rooms TODO-rooms.
+The hackathon takes place physically in rooms:
+
+- PR 703
+- PR 705
+- PR 706
 
 #### Prerequisites
 
@@ -194,7 +198,14 @@ Up to 30 teams will be selected.
 Create a private repository, add the supervising assistants, and include a README with the team composition.
 Follow [these steps](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository#inviting-a-collaborator-to-a-personal-repository) to add your teammate and teaching assistants as collaborators to the repository.
 The supervising assistants and their GitLab accounts are:
-    - TODO-assistant
+
+- `elena19m`
+- `fabianpatras`
+- `teodutu`
+- `gabrielmocanu`
+- `Alex-deVis`
+- `razvanvirtan`
+- `StefanJum`
 
 1. The code must pass a set of tests provided by the OS team.
 
