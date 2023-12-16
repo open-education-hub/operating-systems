@@ -3,6 +3,9 @@
 #ifndef _IPC_H
 #define _IPC_H
 
+/* ssize_t */
+#include <sys/types.h>
+
 #define BUFSIZE 1024
 #define MAX_CLIENTS 1024
 #define SOCKET_NAME "/tmp/sohack.socket"
