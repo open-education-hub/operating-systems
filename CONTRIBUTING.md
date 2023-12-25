@@ -1,7 +1,7 @@
 # Contributing to Operating Systems OER
 
 These are recommendations when contributing to the contents of the Operating Systems OER repository.
-They consider contributions to both actual content (mostly Markdown) and support code (demo, lab activities) made via Git.
+They consider contributions to both actual content (mostly Markdown) and support code made via Git.
 
 ## First Steps
 
@@ -9,7 +9,7 @@ Some good first steps and best practices when using Git are explained here:
 
 * the Git Immersion tutorial: <https://gitimmersion.com/>
 * the Atlassian tutorial: <https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud>
-* this blog post on the ROSEdu Techblog: <https://techblog.rosedu.org/git-good-practices.html>
+* this blog post on the `ROSEdu Techblog`: <https://techblog.rosedu.org/git-good-practices.html>
 
 ## Language
 
@@ -31,15 +31,21 @@ Use phrases like "find the flag", "run this command", "download the tool".
 
 ## Images
 
+Use [draw.io](https://app.diagrams.net/) to create diagrams.
+If using external images / diagram, make sure they use a CC BY-SA license and give credits (mention author and / or add link to the image source).
+
+## Slides
+
+Slides are to be written in Markdown, using [`reveal-md`](https://github.com/webpro/reveal-md), itself based on [`reveal-js`](https://revealjs.com/).
+Use `reveal-md` and `reveal-js` specifics to split information in slides.
+Aim to make slides attractive, sleek and simple to follow.
+
 Images and diagrams would ideally be animated on slides.
 Aim to use `reveal.js` features to animate drawing of diagrams.
 
 If `reveal.js` drawing is difficult, use [draw.io](https://app.diagrams.net/) to create diagrams.
 Ideally you would "animate" those diagrams by creating multiple incremental versions of the diagram and adding each to a slide;
 when browsing slides pieces of these diagrams will "appear" and complete the final image, rendering an animation-like effect.
-
-For text where no animation is required, use diagrams / images created with [draw.io](https://app.diagrams.net/).
-If using external images / diagram, make sure they use a CC BY-SA license and give credits (mention author and / or add link to the image source).
 
 ## Issues
 
