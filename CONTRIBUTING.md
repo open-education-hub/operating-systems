@@ -93,8 +93,7 @@ Signed-off-by: Your Name <your.email@example.com>
 Notice that the details above are the name and email that you configured earlier.
 
 Now the `git commit` command will open your default editor and ask you to write a commit message.
-Prefix each commit message title with the chapter it belongs to: `software-stack`, `data`, `compute`, `io`, `app-interact` and the component: `lecture` / `lab`.
-An example of a prefix is `compute/lab:`.
+Prefix each commit message name with the chapter and content type it belongs to, e.g. `software-stack/reading`, `data/slides`, `compute/drills`, `io/guides`, `app-interact/media`.
 Following the prefix, write a short and expressive title on the first line.
 Use commit messages with verbs at imperative mood: "Add README", "Update contents", "Introduce feature".
 
