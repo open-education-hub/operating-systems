@@ -36,9 +36,9 @@ int main(void)
 
 ### Exhibit 1 - Creating Interaction
 
-- `demo/send-receive/reader.c`
-- `demo/send-receive/writer.c`
-- `demo/send-receive/send_receive_pipe.c`
+- `demo/comm-channels/reader.c`
+- `demo/comm-channels/writer.c`
+- `demo/comm-channels/send_receive_pipe.c`
 
 ---
 
