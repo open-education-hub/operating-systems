@@ -10,6 +10,8 @@ What syscalls does `cp` use to copy files?
 
 + `read()` and `write()`
 
++ `copy_file_range()`
+
 - a combination of `read()` - `write()` and `mmap()`
 
 ## Feedback
@@ -40,3 +42,20 @@ write(4, "\35\277\207\243~\355(i\351^\1\346\312V\232\204\32\230~\376\20\245\"\30
 read(3, "\n)\334\275\331:R\236O\231\243\302\314\267\326\"\rY\262\21\374\305\275\3\332\23\345\16>\214\210\235"..., 131072) = 131072
 write(4, "\n)\334\275\331:R\236O\231\243\302\314\267\326\"\rY\262\21\374\305\275\3\332\23\345\16>\214\210\235"..., 131072) = 131072
 ```
+
+Alternatively, if your kernel version is `5.19` or newer, it's likely that `cp` will use `copy_file_range()`:
+
+```console
+student@os:/.../support/file-mappings$ strace cp test-file.txt output.txt
+openat(AT_FDCWD, "test-file.txt", O_RDONLY) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0664, st_size=1048576, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "output.txt", O_WRONLY|O_CREAT|O_EXCL, 0664) = 4
+ioctl(4, BTRFS_IOC_CLONE or FICLONE, 3) = -1 EOPNOTSUPP (Operation not supported)
+newfstatat(4, "", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_EMPTY_PATH) = 0
+fadvise64(3, 0, 0, POSIX_FADV_SEQUENTIAL) = 0
+copy_file_range(3, NULL, 4, NULL, 9223372035781033984, 0) = 1048576
+copy_file_range(3, NULL, 4, NULL, 9223372035781033984, 0) = 0
+```
+
+[This syscall](https://man7.org/linux/man-pages/man2/copy_file_range.2.html) copies files inside the kernel without having the data pass through the user space.
+This procedure is called zero-copy.
