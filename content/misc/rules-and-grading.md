@@ -33,10 +33,10 @@ The exam consists of two components:
    - This component accounts for **70% of the total exam score**, which is **2.8 out of the total 4 points**.
    - The oral exam will be recorded internally.
 
-1. Relevance quiz
+1. Understanding Concepts
    - It lasts **20 minutes**.
-   - This part is also **open-book**, meaning you can use written materials and offline resources.
-     However, internet access will not be allowed.
+   - This part is also **open-book**;
+   students have access to the internet, with the exception of collaborative resources (e.g., Google Docs, live questions on Stack Overflow, questions on ChatGPT, WhatsApp, etc.).
    - All students scheduled for the exam in the same day will take this component at the same time, usually 11:00-11:30.
    - It will be conducted on [Moodle](https://curs.upb.ro/2023/course/view.php?id=7774).
    - You will receive **11 True/False questions** that require explanations.
@@ -69,7 +69,7 @@ Similarly, another announcement will follow the simulation, offering students th
 
 1. [Recordings OS 2022-2023 3CC](https://ctipub.sharepoint.com/sites/03acsla3s2socacbcc/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2Fsites%2F03acsla3s2socacbcc%2FShared%20Documents%2FCurs%203CC%2FRecordings&FolderCTID=0x012000E35B9BA594DFDC438C2F7EEFC2BA28C1)
 1. [OS oral exam simulation 2022-2023](https://ctipub.sharepoint.com/sites/03acsla2s1socacbcccd/_layouts/15/stream.aspx?id=%2Fsites%2F03acsla2s1socacbcccd%2FShared%20Documents%2FGeneral%2FRecordings%2FSO%202022%2D2023%20%2D%20Simulare%20examen%20oral%2D20230121%5F165841%2DMeeting%20Recording%2Emp4&ga=1)
-1. [Relevance quiz example](https://curs.upb.ro/2023/mod/quiz/view.php?id=42286)
+1. [Understanding Concepts example](https://curs.upb.ro/2023/mod/quiz/view.php?id=42286)
 1. [Lecture notes](https://drive.google.com/drive/folders/1T08PmJ_fKTA8FLHvhXYw33CBK6D0QPpR?usp=drive_link)
 
 ### [Assignments](https://cs-pub-ro.github.io/operating-systems/Assignments/) (5 points)
