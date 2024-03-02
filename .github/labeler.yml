@@ -13,6 +13,9 @@ topic/io:
 topic/app-interact:
   - 'content/chapters/app-interact/**/*'
 
+topic/general:
+  - 'chapters/general/**/*'
+
 area/quiz:
   - '**/quiz/*'
 

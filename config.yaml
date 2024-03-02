@@ -138,6 +138,10 @@ docusaurus:
             - Parallel Graph/: parallel-graph/
             - Mini Shell/: minishell/
             - Asynchronous Web Server/: async-web-server/
+      - Exams:
+          path: chapters/general/drills/tasks
+          subsections:
+            - Digital Forensics/: digital-forensics.md
       - Hackathons:
           path: content/assignments
           subsections:
