@@ -10,156 +10,37 @@ The result is a dump with the size of the physical memory (RAM) of the system.
 Answer the following questions with "True" or "False" and justify your answer.
 The justification should be simple, 2-3 sentences for each answer.
 
-## Question 1 Text
+## Questions
 
-The application must be run in privileged mode, as root.
+1. The application must be run in privileged mode, as root.
+Answer: True
 
-## Question 1 Answers
+1. During its execution, the application does not make system calls.
+Answer: False
 
-+ True
+1. The application will benefit from a multithreaded implementation.
+Answer: True
 
-- False
+1. The memory dump will contain information about the application itself.
+Answer: True
 
-## Question 1 Arguments
+1. At runtime, the application will use network sockets.
+Answer: False
 
-type: textbox
+1. Two instances of the application CANNOT run simultaneously on the same system.
+Answer: False
 
-## Question 2 Text
+1. In its implementation, the application must use synchronization primitives.
+Answer: False
 
-During its execution, the application does not make system calls.
+1. The application must be implemented in the form of a static executable.
+Answer: False
 
-## Question 2 Answers
+1. During its execution, the application uses the virtual memory mechanism.
+Answer: True
 
-- True
+1. The application cannot realistically be used on a 64-bit system, only on a 32-bit system.
+Answer: False
 
-+ False
-
-## Question 2 Arguments
-
-type: textbox
-
-## Question 3 Text
-
-The application will benefit from a multithreaded implementation.
-
-## Question 3 Answers
-
-+ True
-
-- False
-
-## Question 3 Arguments
-
-type: textbox
-
-## Question 4 Text
-
-The memory dump will contain information about the application itself.
-
-## Question 4 Answers
-
-+ True
-
-- False
-
-## Question 4 Arguments
-
-type: textbox
-
-## Question 5 Text
-
-At runtime, the application will use network sockets.
-
-## Question 5 Answers
-
-- True
-
-+ False
-
-## Question 5 Arguments
-
-type: textbox
-
-## Question 6 Text
-
-Two instances of the application CANNOT run simultaneously on the same system.
-
-## Question 6 Answers
-
-- True
-
-+ False
-
-## Question 6 Arguments
-
-type: textbox
-
-## Question 7 Text
-
-In its implementation, the application must use synchronization primitives.
-
-## Question 7 Answers
-
-- True
-
-+ False
-
-## Question 7 Arguments
-
-type: textbox
-
-## Question 8 Text
-
-The application must be implemented in the form of a static executable.
-
-## Question 8 Answers
-
-- True
-
-+ False
-
-## Question 8 Arguments
-
-type: textbox
-
-## Question 9 Text
-
-During its execution, the application uses the virtual memory mechanism.
-
-## Question 9 Answers
-
-+ True
-
-- False
-
-## Question 9 Arguments
-
-type: textbox
-
-## Question 10 Text
-
-The application cannot realistically be used on a 64-bit system, only on a 32-bit system.
-
-## Question 10 Answers
-
-- True
-
-+ False
-
-## Question 10 Arguments
-
-type: textbox
-
-## Question 11 Text
-
-As long as the operating system provides support, the application can work on both x86 and ARM processor architectures.
-
-## Question 11 Answers
-
-- True
-
-+ False
-
-## Question 11 Arguments
-
-type: textbox
+1. As long as the operating system provides support, the application can work on both x86 and ARM processor architectures.
+Answer: False
