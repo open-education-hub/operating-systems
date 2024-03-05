@@ -1,0 +1,12 @@
+/malloc
+/malloc_free
+/malloc_free_sequence
+/malloc_perm_notok
+/malloc_perm_ok
+/mmap
+/mmap_munmap
+/mmap_perm_none
+/mmap_perm_notok
+/mmap_perm_ok
+/multiple_malloc
+/multiple_malloc_free

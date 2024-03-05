@@ -1,0 +1,15 @@
+/hello_world
+/malloc
+/strcpy_strcat
+/strcmp
+/memcmp
+/memmove
+/strstr_strrstr
+/open_close
+/stat
+/fstat
+/truncate_ftruncate
+/buffered_io
+/read
+/write
+/self_test_mem_list

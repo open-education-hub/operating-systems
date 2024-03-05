@@ -1,1 +1,0 @@
-../../support/basic-syscall/Makefile

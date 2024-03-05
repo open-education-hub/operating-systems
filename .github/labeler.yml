@@ -1,5 +1,5 @@
 topic/software-stack:
-  - 'content/chapters/software-stack/**/*'
+  - 'chapters/software-stack/**/*'
 
 topic/data:
   - 'content/chapters/data/**/*'
@@ -15,6 +15,34 @@ topic/app-interact:
 
 topic/general:
   - 'chapters/general/**/*'
+
+area/reading:
+  - '**/reading/*'
+  - '**/reading/**/*'
+
+area/media:
+  - '**/media/*'
+  - '**/media/**/*'
+
+area/slides:
+  - '**/slides/*'
+  - '**/slides/**/*'
+
+area/guides:
+  - '**/guides/*'
+  - '**/guides/**/*'
+
+area/tasks:
+  - '**/tasks/*'
+  - '**/tasks/**/*'
+
+area/questions:
+  - '**/questions/*'
+  - '**/questions/**/*'
+
+area/projects:
+  - '**/projects/*'
+  - '**/projects/**/*'
 
 area/quiz:
   - '**/quiz/*'
@@ -32,8 +60,15 @@ area/code:
 
 area/infra:
   - 'util/**/*'
+  - 'common/*'
+  - 'common/**/*'
+  - 'scripts/*'
+  - 'scripts/**/*'
+  - '.github/*'
   - '.github/**/*'
   - 'Dockerfile'
+  - 'Makefile'
+  - 'config.yaml'
 
 area/assignment:
   - 'content/assignments/**/*'

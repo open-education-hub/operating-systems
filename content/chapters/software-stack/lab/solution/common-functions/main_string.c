@@ -1,1 +1,0 @@
-../../support/common-functions/main_string.c

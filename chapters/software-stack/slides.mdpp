@@ -1,0 +1,22 @@
+---
+title: "OS: Software Stack"
+revealOptions:
+  background-color: 'aquamarine'
+  transition: 'none'
+  slideNumber: true
+  autoAnimateDuration: 0.0
+---
+
+# Software Stack
+
+1. [The Software Stack](#software-stack)
+1. [Types of Software](#types-of-software)
+1. [The Operating System](#operating-systems)
+1. [Types of Operating Systems](#types-of-operating-systems)
+1. [The Software Stack in Modern Systems](#modern-software-stacks)
+
+!INCLUDE "overview/slides/software-stack.md"
+!INCLUDE "software-types/slides/types-of-software.md"
+!INCLUDE "operating-system/slides/operating-system.md"
+!INCLUDE "operating-system-types/slides/os-types.md"
+!INCLUDE "modern-software-stacks/slides/modern-software-stacks.md"
