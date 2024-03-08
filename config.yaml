@@ -270,6 +270,7 @@ docusaurus:
             - User-level Threading Library/: user-level-threading-library.md
             - System Process Monitoring Tool/: system-process-monitoring-tool.md
             - Network Configurations Manager/: network-configurations-manager.md
+            - FaaS Application/: faas-application.md
       - Hackathons:
           path: content/assignments
           subsections:
