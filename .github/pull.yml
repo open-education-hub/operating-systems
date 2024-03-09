@@ -1,0 +1,9 @@
+version: "1"
+rules:
+  - base: main
+    upstream: cs-pub-ro:main
+    mergeMethod: none
+    assignees:
+      - teodutu
+    reviewers:
+      - gabrielmocanu
