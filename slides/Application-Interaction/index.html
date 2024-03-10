@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
     <link rel="stylesheet" href="./css/highlight/base16/zenburn.css" />
 
-
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template">
+      <div class="slides">
+        <section data-markdown data-separator="\r?\n---\r?\n" data-separator-vertical="\r?\n----\r?\n">
+          <textarea data-template>
+            
 
 # Application Interaction
 
@@ -25,7 +27,9 @@
 1. [Interaction Channels](./slides/channels.md)
 1. [Roles of the Operating System](./slides/os-roles.md)
 1. [Programming Interface](./slides/api.md)
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ## Firefox I/O
 
 ```console
@@ -45,7 +49,9 @@ firefox 32100 student  188u     unix 0x0000000000000000       0t0 38635209 type=
 firefox 32100 student  200r      REG                0,1      5196 14538955 /memfd:mozilla-ipc (deleted)
 [...]
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Reminder: I/O: Perspective of the Process
 
 - Communication / Interaction "outside" the process
@@ -53,7 +59,9 @@ firefox 32100 student  200r      REG                0,1      5196 14538955 /memf
 - "Outside" the process: I/O channels
   - File-like: data comes / goes from / to outside the system
   - Socket-like: data comes / goes from / to another process
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Why Do Applications Interact?
 
 - What is the alternative?
@@ -64,12 +72,18 @@ firefox 32100 student  200r      REG                0,1      5196 14538955 /memf
 - Modularity
 - Integration with existing components
   - Software reuse, but without building / linking
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Definitions and Terms
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 - What does it mean that applications interact?
 - Do the following programs interact with other applications?
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Exhibit 1
 
 ```c
@@ -81,7 +95,9 @@ int main(void)
 	return 0;
 }
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Exhibit 1
 
 - The program simply prints a message to the standard output.
@@ -90,13 +106,17 @@ int main(void)
 - Interaction is static.
 - However, this is not a voluntary interaction on the part of the program.
 - The program was designed as a standalone one.
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Exhibit 1 - Creating Interaction
 
 - `demo/send-receive/reader.c`
 - `demo/send-receive/writer.c`
 - `demo/send-receive/send_receive_pipe.c`
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Exhibit 2
 
 ```c
@@ -122,14 +142,18 @@ int main(void)
 	return 0;
 }
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Exhibit 2
 
 - The 2 programs indeed interact.
 - But is there any difference from the previous example?
 - There is no protocol of interaction.
 - If one of the applications did not exist, the other one could still be a valid, meaningful program.
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Exhibit 2
 
 - What if we start the reader before the writer?
@@ -139,7 +163,9 @@ int main(void)
 - Synchronization is required.
 
 <!-- .element class="fragment" -->
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### App Interaction
 
 - Communication (data transfer)
@@ -149,7 +175,9 @@ int main(void)
 - Synchronization (notification)
 
 <!-- .element class="fragment" -->
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Exhibit 3
 
 ```c
@@ -166,7 +194,9 @@ int main(void)
 	return 0;
 }
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Exhibit 3
 
 - Synchronization, but no communication
@@ -174,23 +204,31 @@ int main(void)
 - One process waits for the other to finish.
 - Interaction is dynamic - e.g. a process actively waits for the other.
 - The 2 processes have been designed to work together.
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Exhibit 4 - WhatsApp Application
 
 ![App1](./media/whatsApp.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Exhibit 4 - WhatsApp Application
 
 - There is interaction between the main client application and other applications: photos, location, YouTube etc.
 - There is also interaction with the web server when sending messages.
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### App Interaction
 
 - Applications that run at the same time and that communicate with each other during their lifetimes.
 - This communication involves:
   - passing messages (**communication**)
   - sending / waiting for notifications (**synchronization**)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Requirements for Interaction
 
 - Address / Identity of processes
@@ -203,7 +241,9 @@ int main(void)
   - Path in filesystem
   - Hostname, port, path
   - ID
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Metrics and Goals for Interaction
 
 - Speed: fast transfer
@@ -214,19 +254,27 @@ int main(void)
 - Inter-system interaction
   - Security: confidential connection
   - Scalability: multiple connections
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## App Classification
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### App Components
 
 - Threads and processes
 - Processes may be colocated on the same system
 - Processes may be distributed on multiple systems
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### App Components
 
 ![App Components](./media/app-components.svg)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### App Classification
 
 - Single-process single-threaded
@@ -234,7 +282,9 @@ int main(void)
 - Multi-process
 - Multi-system
 - These apps use OS primitives to communicate between components (threads, processes)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Single-process Single-threaded
 
 - No actual software component interaction
@@ -242,7 +292,9 @@ int main(void)
 - `ldd <exec> | grep pthread`
 
 - `/bin/bash`, `/bin/dd`
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Single-process Multi-threaded Homogeneous
 
 - Multiple threads doing the same work
@@ -252,13 +304,17 @@ int main(void)
 - multi-threaded web servers
 - `libx264` library for `ffmpeg`
 - Firefox web browser: browser tabs
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Single-process Multi-threaded Heterogeneous
 
 - Multiple threads, each doing different work
 
 - Firefox web browser: browser management processes
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Multi-process Homogeneous
 
 - Multiple processes doing the same work
@@ -267,7 +323,9 @@ int main(void)
 
 - Multi-process web servers (Apache2 mpm-prefork)
 - Google Chrome: a process per Tab
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Multi-process Heterogeneous
 
 - Multiple processes doing different items
@@ -275,15 +333,21 @@ int main(void)
 
 - Postfix
 - GitLab
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Postfix
 
 ![Postfix](./media/postfix-architecture.svg) ([source](https://commons.wikimedia.org/wiki/File:Postfix_architecture.svg))
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### GitLab
 
 <img src="./media/gitlab-architecture.png" width="400" /> ([source](https://docs.gitlab.com/ee/development/architecture.html))
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Multi-system
 
 - Processes run on different systems
@@ -291,32 +355,46 @@ int main(void)
 - Typically a combination of homogeneous and heterogeneous systems and processes
 
 - Kubernetes, OpenStack, Netflix backend servers
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Kubernetes
 
 ![Kubernetes Architecture](./media/kubernetes-architecture.png) ([source](https://medium.com/devops-mojo/kubernetes-architecture-overview-introduction-to-k8s-architecture-and-understanding-k8s-cluster-components-90e11eb34ccd))
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Interaction Channels
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 App components interact via interaction channels.
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Interaction Types
 
 - Sending / waiting for notifications (**synchronization**)
 - Passing messages (**communication**)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Reminder: App Components
 
 - Threads and processes
 - Processes may be colocated on the same system
 - Processes may be distributed on multiple systems
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Interaction Use-Cases
 
 - Inter-thread interaction (the same process)
 - Inter-process colocated
 - Inter-process distributed
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Synchronization
 
 - One component waits, the other notifies
@@ -324,15 +402,21 @@ App components interact via interaction channels.
   - The object typically has a binary value: set or unset
 - Notification may happen without a wait
   - Interruption of normal execution flow
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Synchronization
 
 ![Synchronization](./media/synchronization-generated.gif)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Interruption
 
 ![Interruption](./media/interruption-generated.gif)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Communication
 
 - One component sends / writes data, the other receives / reads it
@@ -341,7 +425,9 @@ App components interact via interaction channels.
   - Directly, via memory address: shared memory
   - Indirectly, via endpoints (file descriptors)
     - Required for distributed communication
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Shared Memory
 
 - Threads share the virtual address space of a process
@@ -350,11 +436,15 @@ App components interact via interaction channels.
   - Different processes use different virtual addresses mapped to the same physical address
 - Communication is not synchronized
   - Receiver doesn't know when data has been sent
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Shared Memory
 
 ![Shared Memory](./media/shared-memory.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Communication Channel
 
 - Underlying buffer is not directly exposed
@@ -365,13 +455,19 @@ App components interact via interaction channels.
   - Reader is blocked (waits) until data is available
   - Writer is blocked (waits) until room is available
 - Protocols are used to make communication reliable
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Communication Channel
 
 ![Communication Channel](./media/communication-channel.svg)
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Roles of the Operating System
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Reminder: Requirements
 
 - Address / Identity of processes
@@ -384,7 +480,9 @@ App components interact via interaction channels.
   - Path in filesystem
   - Hostname, port, path
   - ID
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ## OS Roles
 
 - Operating system mediates app interaction
@@ -394,26 +492,36 @@ App components interact via interaction channels.
   - post office: reliably passing messages between applications
   - police: ensuring access control and security
   - doorbell: app notification of incoming messages
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ## OS - The Lawmaker
 
 - The OS is like a lawmaker the dictates how the interaction takes place
 - Allows or denies the sending of data / notifications
 - Ensures correct delivery of data / notification
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ## OS - The Lawmaker
 
 ![Multiple Apps Interacting through the OS](./media/multiple-apps-interaction.svg)
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Programming Interface
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Summary of Channel Types
 
 - Synchronization
 - Interruption
 - Shared memory
 - Communication channels
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Synchronization
 
 - Synchronization object
@@ -423,20 +531,26 @@ App components interact via interaction channels.
 - monitor / condition variable: `wait()` / `notify()`
 - signals (Unix / Linux): `kill()` / `sigwait()`
 - Generally used for inter-thread synchronization
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Inter-Process Synchronization
 
 - Named semaphores
   - Entry in filesystem
 - File locking
   - Uses actual file
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Synchronization Demos
 
 In `./demo/lock/`
 
 In `./demo/sync/`
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Interruption
 
 - Asynchronous to normal execution flow
@@ -444,11 +558,15 @@ In `./demo/sync/`
 - Associate function handler to run when interruption is received
 - signals (Unix / Linux): `sigaction()`, `kill()`, `sigqueue()`, `sigsuspend()`
 - exceptions (Windows): `AddVectoredExceptionHandler()`, `RaiseException()`
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Interruption Demos
 
 In `./demo/interrupt/`
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Shared Memory
 
 - Implicit for inter-thread communication
@@ -457,11 +575,15 @@ In `./demo/interrupt/`
   - Filesystem entry as backing store
 - No API for using it
   - Just use memory operations
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Shared Memory Demos
 
 In `./demo/shared-mem/`
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Communication Channels
 
 - Discussed in I/O chapter, socket-like
@@ -471,11 +593,15 @@ In `./demo/shared-mem/`
 - named pipes (filesystem entry): any colocated processes
 - UNIX / local sockets (filesystem entry): any colocated processes
 - network sockets: colocated or distributed processes
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Communication Channels
 
 In `./demo/comm-channels/`
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Case study: Our Own Server
 
 - Server computes Fibonacci, sends it back
@@ -484,14 +610,21 @@ In `./demo/comm-channels/`
 - multi-process server: use a process per-connection
 - thread-pool server: uses pre-created threads to serve
 - process-pool server: use pre-created processes to serve
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ## Case study: Our Own Server
 
 In `./demo/fibonacci-server/`
-</script></section></section></div>
+
+          </textarea>
+        </section>
+      </div>
     </div>
 
     <script src="./dist/reveal.js"></script>
+
+    <script src="./mermaid/dist/mermaid.min.js"></script>
 
     <script src="./plugin/markdown/markdown.js"></script>
     <script src="./plugin/highlight/highlight.js"></script>
@@ -520,6 +653,9 @@ In `./demo/fibonacci-server/`
         center: true,
         transition: 'default', // none/fade/slide/convex/concave/zoom
         slideNumber: true,
+        highlight: {
+          highlightOnLoad: false
+        },
         plugins: [
           RevealMarkdown,
           RevealHighlight,
@@ -532,12 +668,26 @@ In `./demo/fibonacci-server/`
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"background-color":"aquamarine","transition":"none","slideNumber":true,"autoAnimateDuration":0}, queryOptions);
+      var options = extend(defaultOptions, {"background-color":"aquamarine","transition":"none","slideNumber":true,"autoAnimateDuration":0,"_":["slides.md"],"static":"_site"}, queryOptions);
     </script>
 
 
     <script>
       Reveal.initialize(options);
+      Reveal.addEventListener('ready', function (event) {
+        const blocks = Reveal.getRevealElement().querySelectorAll('pre code:not(.mermaid)');
+        const hlp = Reveal.getPlugin('highlight');
+        blocks.forEach(hlp.highlightBlock);
+      });
+    </script>
+
+    <script>
+      const mermaidOptions = extend({ startOnLoad: false }, {});
+      mermaid.startOnLoad = false;
+      mermaid.initialize(mermaidOptions);
+      const cb = function (event) { mermaid.init(mermaidOptions, '.stack.present>.present pre code.mermaid'); };
+      Reveal.addEventListener('ready', cb);
+      Reveal.addEventListener('slidetransitionend', cb);
     </script>
   </body>
 </html>

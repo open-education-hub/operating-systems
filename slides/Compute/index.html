@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
     <link rel="stylesheet" href="./css/highlight/base16/zenburn.css" />
 
-
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template">
+      <div class="slides">
+        <section data-markdown data-separator="\r?\n---\r?\n" data-separator-vertical="\r?\n----\r?\n">
+          <textarea data-template>
+            
 
 # COMPUTE
 
@@ -24,9 +26,13 @@
 1. [Scheduling](#3-scheduling)
 1. [Synchronization](#4-synchronization)
 
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Backstory
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Backstory
 
 Software running while you are doing your homework:
@@ -41,14 +47,18 @@ Software running while you are doing your homework:
 
 Only one CPU.
 How?
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Some CPU internals
 
 ![CPU Internals](media/cpu-internals.jpg)
 
 * Multiple **cores** per CPU
 * Still not enough for all processes
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### All Processes in a System
 
 ```console
@@ -90,9 +100,13 @@ student@os:~$ ps -e
 ```
 
 Way more processes than cores!
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Processes
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Processes
 
 * A process is a **running program**
@@ -100,7 +114,9 @@ Way more processes than cores!
 * An application can spawn multiple processes
 * The OS allows each [thread](./threads.md) to run on a **core** for a few milliseconds (time slice)
 * Then the OS pauses the thread and replaces it with another one (context switch)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### What We Want
 
 * Run more apps than cores
@@ -108,27 +124,37 @@ Way more processes than cores!
   * Memory: isolated data
   * CPU: low idle times
   * I/O: responsiveness
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Resource Management - Overview
 
 ![Resource Management](media/resource-management.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### What We Don't Want
 
 * Unresponsive processes
 * Processes monopolizing resources
 * System freezes
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Process Address Space
 
 * Each process has its own **Virtual Address Space (VAS)**:
   * Isolation
   * The process "thinks" it uses the entire address space
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Process Virtual Address Space
 
 ![Process VAS](media/vas.svg)
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Process Attributes - from User Space
 
 * PID: numeric identifier
@@ -144,9 +170,13 @@ student@os:~/.../compute/lecture/demo/create-process$ python3 create_process.py
 [child] PID = 186412; PPID = 186411
 [child] Message from parent: OS Rullz!
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Threads
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Threads - Backstory
 
 * You have an application that applies filters to a set of images
@@ -155,19 +185,25 @@ student@os:~/.../compute/lecture/demo/create-process$ python3 create_process.py
   * processes cannot easily modify the "shared" images
 * **Solution:** use threads
   * No copy-on-write: threads share the heap and data sections
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Threads - Definitions
 
 * Scheduling unit
 * Lightweight processes (LWP)
 * Each process has at least one thread
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### App, Process, Thread - The Bigger Picture
 
 * [Quiz](../quiz/threads-shared-data.md)
 
 ![Application Architecture](media/app-process-thread.svg)
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Process vs Thread
 
 | PROCESS                          | THREAD                               |
@@ -177,7 +213,9 @@ student@os:~/.../compute/lecture/demo/create-process$ python3 create_process.py
 | slower creation                  | faster creation                      |
 | larger context switch duration   | shorter context switch duration      |
 | ending means ending all threads  | other threads continue when finished |
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Process vs Thread
 
 `demo/create-thread/create_thread.py`
@@ -185,9 +223,13 @@ student@os:~/.../compute/lecture/demo/create-process$ python3 create_process.py
 vs
 
 `demo/create-process/create_process.py`
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Process Attributes
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 #### Process Attributes - from User Space
 
 ```console
@@ -225,7 +267,9 @@ student@os:~$ ps -e --forest -o pid,ppid,rss,vsz,etime,stat,comm
 20982 20981   176    988    05:22:54 S     \_ init
 20983 20982  5100  10056    05:22:54 Ss+       \_ bash
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Process Attributes - from Kernel Space
 
 * Process Control Block (PCB):
@@ -236,7 +280,9 @@ student@os:~$ ps -e --forest -o pid,ppid,rss,vsz,etime,stat,comm
   * All information about the process (from `ps`, `/proc`)
   * Threads use a **Thread Control Block (TCB)**
     * the [execution context](https://linux.die.net/man/2/setcontext) is a **thread**
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Process Attributes - from Kernel Space
 
 The most important fields in `task_struct`:
@@ -273,9 +319,13 @@ struct task_struct {
         struct files_struct             *files;
 };
 ```
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## `fork()`
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### `fork()`
 
 * Spawns child process
@@ -286,29 +336,39 @@ struct task_struct {
 * [Quiz](../quiz/process-creation.md)
 * Initially child and parent share the same PAS (Physical Address Space)
 * Child's writable pages are marked **copy-on-write**
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### `fork` and Threads
 
 * `fork` also creates a new thread...
 * ... but part of a different process
 
 ![fork - new Thread](./media/fork-thread.svg)
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Copy-on-write
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Copy-on-write
 
 When `fork` returns, the child duplicates the contents of the parent's page table.
 
 ![Copy-on-write after fork()](./media/copy-on-write-initial.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Copy-on-write
 
 * Writable pages are **copied and modified only** when written: `demo/copy-on-write/copy_on_write_overhead.c`
 * [Quiz](../quiz/sections-always-shared.md)
 
 ![Copy-on-write after Write](./media/copy-on-write-final.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Copy-on-write Overheard
 
 * Writes cause minor page faults
@@ -332,19 +392,27 @@ student@os:~$ cat /proc/`pidof copy_on_write_overhead`/stat | cut -d ' ' -f 10  
 student@os:~$ cat /proc/`pidof copy_on_write_overhead`/stat | cut -d ' ' -f 10  # after writing
 131094
 ```
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Scheduling
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Scheduling - Why?
 
 * For multitasking: more threads than CPU cores
 * For responsiveness: small waiting time
 * For productivity: execute more threads
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Typical Thread Execution
 
 ![Thread Execution](media/thread-behaviour.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Thread States
 
 * At most one RUNNING thread per core
@@ -354,7 +422,9 @@ student@os:~$ cat /proc/`pidof copy_on_write_overhead`/stat | cut -d ' ' -f 10  
 <img src="media/thread-states.svg" alt="Thread State Diagram" style="width:700px;"/>
 
 A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Context Switch - When?
 
 * Voluntary - initiated by the running thread:
@@ -364,11 +434,15 @@ A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
   * RUNNING thread ends
   * RUNNING thread's time slice expires
   * A thread with higher priority is READY
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Context Switch - How?
 
 ![Context Switch and TCBs](media/context-switch-tcb.svg)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Types of Threads
 
 * CPU-intensive / CPU-bound = mostly CPU bursts:
@@ -379,7 +453,9 @@ A more detailed diagram is [here](./cool-extra-stuff.md#the-suspended-states)
   * servers
   * databases
   * text editors
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### IO-bound vs CPU-bound
 
 * `demo/context-switch/cpu_bound.c`:
@@ -390,7 +466,9 @@ student@os:~$ cat /proc/$(pidof cpu_bound)/status
 voluntary_ctxt_switches:        13
 nonvoluntary_ctxt_switches:     7
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### IO-bound vs CPU-bound
 
 * `demo/context-switch/io_bound.c`:
@@ -401,7 +479,9 @@ student@os:~$ cat /proc/$(pidof io_bound)/status
 voluntary_ctxt_switches:        3729
 nonvoluntary_ctxt_switches:     3
 ```
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Context Switch - Overhead
 
 * Causes of overhead:
@@ -409,9 +489,13 @@ nonvoluntary_ctxt_switches:     3
   * flushing the [TLB](../../data/lecture) of the evicted thread is required
   * the new thread starts with an empty TLB
 * Faster context switches between threads of the same process because their TLB is not flushed
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Scheduling Algorithms
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Scheduling - Ideals
 
 * **Interactivity:** decrease time spent in READY
@@ -419,12 +503,16 @@ nonvoluntary_ctxt_switches:     3
   * also known as **fairness**
 * **Throughput:** finish threads as quickly as possible
   * low turnaround time
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Scheduling - Reality
 
 * There is no free lunch
 * Trade-off between interactivity and throughput
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Types of Schedulers
 
 * **Cooperative:** only allow voluntary context switches
@@ -433,21 +521,27 @@ nonvoluntary_ctxt_switches:     3
 * **Preemptive:** also allows involuntary context switches
   * Each process can run at most a certain _time slice_
   * When it expires, a context switch is triggered
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Scheduling Algorithms - The Bigger Picture
 
 * **Round-Robin**:
   * Push each new thread to a queue
   * Every time slice, dequeue one thread, run it, then reenqueue it
   * Threads run in the order in which they're spawned
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Scheduling Algorithms - The Bigger Picture
 
 * **Completely Fair Scheduler (CFS)**:
   * Add new threads to a red-black tree sorted by total running time
   * Every time slice, remove, run and add the thread that has run the least back to the tree
   * Each thread runs approximately the same amount of time
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Scheduling Algorithms - Round-Robin
 
 1. Add each new thread to a queue
@@ -455,7 +549,9 @@ nonvoluntary_ctxt_switches:     3
 1. The thread runs until finished or until its time slice ends
 1. If the thread is not finished, add it back to the queue
 1. Repeat from step 2
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Round-Robin - Example
 
 | Process | Running time |
@@ -465,11 +561,15 @@ nonvoluntary_ctxt_switches:     3
 | P3      | 5            |
 
 * Assume a time slice of 2
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Round-Robin - Live Scheduling
 
 ![Round-Robin Scheduling](./media/round-robin-generated.gif)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Round-Robin - Analysis
 
 * Large time slice:
@@ -478,7 +578,9 @@ nonvoluntary_ctxt_switches:     3
 * Small time slice:
   * low throughput
   * high fairness
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Round-Robin - Real Life (Unikraft)
 
 * [Cooperative scheduler](https://github.com/unikraft/unikraft/blob/staging/lib/ukschedcoop/schedcoop.c)
@@ -499,7 +601,9 @@ static void schedcoop_yield(struct uk_sched *s)
 	schedcoop_schedule(s);
 }
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Cooperative Scheduler - Demo
 
 * First, run `./do.sh setup && ./do.sh build`
@@ -532,7 +636,9 @@ Thread 2: step 2
 Thread 1 finished!
 Thread 2 finished!
 ```
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Completely Fair Scheduler (CFS)
 
 * Schedule the thread that has run **the least amount of time (vruntime)**
@@ -542,7 +648,9 @@ Thread 2 finished!
   * If the currently RUNNING task is over, terminate it
   * Otherwise, increase its vruntime and add it to RBTree
   * Move the **leftmost** thread in RBTree to RUNNING
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### CFS - Analysis
 
 * Context switch complexity:
@@ -550,14 +658,18 @@ Thread 2 finished!
   * Extract leftmost thread in the RBTree: `O(1)` (keep a pointer to it)
   * Overall complexity: `O(log(num_threads))`
 * Time slice size: same tradeoff as Round-Robin
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Fixed Priority Scheduling
 
 * Each thread has a priority
 * Threads with higher priority run more often
 * Threads with lower priority are starved
 * Easier to implement
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Fixed Priority Scheduling - `nice`
 
 * Lower `nice`-ness = higher priority
@@ -577,14 +689,18 @@ student@os:~$ sudo renice -n -20 -p 5753
 student@os:~$ ps -e -o pid,ni,comm | grep 5753
  5753 -20 bash
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Priority-Based Round-Robin
 
 * The scheduler keeps a list of queues, one for each priority
 * During a context switch, the new RUNNING thread is chosen from the highest priority non-empty queue
 
 ![Priority-Based Round-Robin](media/priority-round-robin.svg)
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Dynamic-Priority Scheduling
 
 * Problems with static priorities:
@@ -593,9 +709,13 @@ student@os:~$ ps -e -o pid,ni,comm | grep 5753
 * Solution:
   * Decrease priority of RUNNING threads
   * Increase priority of WAITING threads
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Synchronization
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 #### Synchronization - Why?
 
 * Each thread believes it's the only one running
@@ -605,12 +725,16 @@ student@os:~$ ps -e -o pid,ni,comm | grep 5753
   * files
   * networking
   * CPU
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Synchronization - How?
 
 * We want to give a thread **exclusive access** to a resource at a given time
 * Other threads **wait** to receive access
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Synchronization - Example
 
 * `demo/race-condition/race_condition.c`
@@ -619,7 +743,9 @@ student@os:~$ ps -e -o pid,ni,comm | grep 5753
 ![Race Condition - Instructions](./media/race-condition-generated.gif)
 
 * In the end `var = 1` or `var = 2`
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Synchronization Mistake - TOCTOU
 
 ```c
@@ -633,7 +759,9 @@ if (lock = 0) {
 ![Race Condition - TOCTOU](./media/race-condition-toctou-generated.gif)
 
 * **Wrong:** threads enter critical section simultaneously
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Synchronization - Solution
 
 * Only allow **one thread** to access the critical section at a given time (mutual exclusion)
@@ -642,9 +770,13 @@ if (lock = 0) {
 
 * In the end `var` is **always** 2
 * [Quiz](../quiz/not-race-condition.md)
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Mutual Exclusion
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Mutual Exclusion - Atomicity
 
 * Access to a resource is restricted to a single thread
@@ -654,13 +786,17 @@ if (lock = 0) {
 * Use architecture-independent wrappers:
   * [GCC built-ins](https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html) (eg. `__atomic_add_fetch`)
   * libc functions from [`stdatomic.h`](https://en.cppreference.com/w/c/atomic) (eg. `atomic_flag_test_and_set`)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Atomicity in Action
 
 * `demo/race-condition/race_condition_atomic_assembly.c`
 * "inline assembly version" of `__atomic_add_fetch`
 * similar running times
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Mutual Exclusion - Spinlock
 
 * Makes critical section **atomic**
@@ -683,7 +819,9 @@ void spin_unlock()
 	lock = 0;
 }
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Spinlock - Analysis
 
 * Advantages:
@@ -691,7 +829,9 @@ void spin_unlock()
   * Fast when lock is (almost) immediately acquired
 * Disadvantage:
   * Overhead: runs on the CPU while waiting for the lock (doing nothing)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Mutual Exclusion - Mutex
 
 ```c [1 - 3 | 5 - 9 | 12 - 19 | 21 - 26]
@@ -722,18 +862,24 @@ void mutex_unlock(struct mutex *m)
 	move_to_ready(thread);
 }
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Mutex - Analysis
 
 * Prevents overhead from busy-waiting
 * Threads move to WAITING state while waiting for the lock
 * Introduces overhead from context switch
 * Releasing a mutex held by another thread is [**undefinded behaviour**](https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_lock.html)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Who Should Release the Lock?
 
 ![Locks Undefined Behaviour](./media/lock-undefined-behaviour.svg)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Mutual Exclusion - Overhead
 
 * The more complex the synchronization mechanism, the higher the overhead:
@@ -752,7 +898,9 @@ var = 2000000; time = 98 ms
 * Why is the spinlock faster?
   * **Short** critical section, so the lock is acquired fast
   * The context switches performed by the mutex are costlier
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Spinlock vs Mutex
 
 | Spinlock                                 | Mutex                                    |
@@ -760,7 +908,9 @@ var = 2000000; time = 98 ms
 | Busy waiting                             | Yields CPU                               |
 | Good for short critical sections         | Good for complex critical sections       |
 | Only 1 thread can enter critical section | Only 1 thread can enter critical section |
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 ### Critical Section - Granularity
 
 * What if we place all the code in `increase_var` in a critical section?
@@ -773,7 +923,9 @@ var = 2000000; time = 36 ms
 student@os:~/.../compute/lecture/demo/granularity$ ./fine_granularity
 var = 2000000; time = 1268 ms
 ```
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Deadlock
 
 * Circular dependency
@@ -786,13 +938,19 @@ student@os:~/.../compute/lecture/demo/deadlock$ python3 deadlock.py
 Thread 1: locked resource 1. Waiting for resource 2...
 Thread 2: locked resource 2. Waiting for resource 1...
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Notifications
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Locks vs Notifications
 
 ![Lock vs Notification](./media/lock-vs-notify.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Locks vs Notifications
 
 * Locks:
@@ -802,7 +960,9 @@ Thread 2: locked resource 2. Waiting for resource 1...
 * Notifications (conditions and semaphores):
   * one thread waits for an **event**
   * **another thread** notifies waiting thread on event completion
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Two Types of Primitives
 
 1. For mutual exclusion:
@@ -814,7 +974,9 @@ Thread 2: locked resource 2. Waiting for resource 1...
 
 * semaphore, condition variables
 * methdos: `wait()` and `notify()`
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### Semaphores
 
 * Atomic counter
@@ -824,14 +986,18 @@ Thread 2: locked resource 2. Waiting for resource 1...
   * Thread blocks if `counter == 0`
 * `release() ~ counter++`:
   * Signals waiting threads
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Condition Variables
 
 * More complex synchronization logic
 * Similar to but more flexible than semaphores
 * A thread is suspended until a condition (logical predicate) is met
 * Always used with mutexes (evaluating the condition is **not atomic**)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Condition Variables - API
 
 * `wait`: suspend the thread until the condition is met
@@ -848,7 +1014,9 @@ cond.wait()
 * `notify_all`: wake up **all** threads waiting on the condition
 
 * If no thread is woken up (because none is waiting), the notification has no effect!
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Condition Variables - Demo
 
 ```console
@@ -861,15 +1029,21 @@ waiting thread is sleeping until woken up by main thread
 notify
 Waiting thread: notified by main thread
 ```
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Barrier
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Barrier
 
 * The code before the barrier is executed by **all threads** before the code after the barrier
 * Threads move to WAITING upon reaching the barrier
 * Threads move back to READY when the last thread reaches the barrier
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Barrier - Demo
 
 ```console [1 - 7 | 9 - 16]
@@ -891,9 +1065,13 @@ After barrier: thread name = thread-1
 ```
 
 * Notice that threads reach the barrier and end in arbitrary order
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Thread-safety and Reentrancy
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Thread-safety and Reentrancy
 
 * **Thread-safe function:** called simultaneously from multiple threads without race conditions
@@ -901,7 +1079,9 @@ After barrier: thread name = thread-1
   * Different from recursion:
 
 ![Recursion vs reentrancy](./media/recursive-vs-reentrant.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Thread-safety and Reentrancy - Examples
 
 ```c [1 - 8 | 10 - 16 | 18 - 24 | 26 - 30]
@@ -936,9 +1116,13 @@ int add2(int x)
     return x + 2;
 }
 ```
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ## Cool Extra Stuff
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Recap - `exec()`
 
 * Replaces the VAS of a process with that of another one
@@ -946,7 +1130,9 @@ int add2(int x)
 * The file descriptors of the original process are maintained
 * Only returns in case of error
   * Otherwise, the new process takes over
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Create a new process - `fork()` + `exec()`
 
 * [Quiz](../quiz/exec-without-fork.md)
@@ -954,7 +1140,9 @@ int add2(int x)
 * Use `fork()` and only the child calls `exec()`
 
 ![Fork and Exec Diagram](media/fork-exec.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Linux Syscalls
 
 ```console
@@ -965,7 +1153,9 @@ clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, c
 ```
 
 * `fork()` and `pthread_create()` are `libc` wrappers to the same syscall: `clone()`
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Libc vs Linux vs Windows
 
 * Libc approach - `system`:
@@ -982,12 +1172,16 @@ strace: Process 117771 attached
 [pid 117771] execve("/usr/bin/ls", ["ls", "-la"], 0x55c700084048 /* 60 vars */) = 0
 [...]
 ```
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Libc vs Linux vs Windows
 
 * `system` first creates a new shell (`execve("/bin/sh"`)
 * This shell now spawns `ls -la` (`execve("/usr/bin/ls", ["ls", "-la"]`)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Libc vs Linux vs Windows
 
 * Linux approach - `posix_spawn()` and `fork()` + `exec()`:
@@ -1009,7 +1203,9 @@ clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLDstr
 ```
 
 * The "manual" method (`fork()` + `exec()`) tries all `$PATH` entries before finding `"/usr/bin/ls"`
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Libc vs Linux vs Windows
 
 * Windows approach: `CreateProcess`
@@ -1021,7 +1217,9 @@ PS C:\...\lecture\demo\create-process> .\create_process.exe
 ```
 
 * The command given to `CreateProcess` must specify the interpreter: `cmd`
-</script></section></section><section  data-markdown><script type="text/template">
+
+---
+
 ### `fork()` vs `pthread_create()`
 
 ```console [1 - 2 | 3 - 4]
@@ -1036,18 +1234,24 @@ clone(child_stack=0x7f9ea7df0fb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGH
   * `CLONE_FS`: FS information (root, umask, cwd)
   * `CLONE_FILES`: File descriptor table
   * `CLONE_SIGHAND`: Signal handlers
-</script></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### The Suspended States
 
 ![Extended Thread Diagram](./media/thread-states-extended.svg)
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### The Suspended States
 
 * **SUSPENDED READY / WAITING:** placed on secondary storage (**swap area**) due to lack of RAM
   * Brought back to READY / WAITING when more RAM is available
 * Threads can move from SUSPENDED WAITING to SUSPENDED READY when I/O completes
 * Impossible to move from SUSPENDED READY to SUSPENDED WAITING (threads cannot perform I/O calls without running)
-</script></section></section><section ><section data-markdown><script type="text/template">
+
+---
+
 ### Kernel Level Threads
 
 * Advantages:
@@ -1058,7 +1262,9 @@ clone(child_stack=0x7f9ea7df0fb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGH
   * difficult to implement and maintain
   * kernel space scheduler (more complex)
   * Partial solution: **user level threads**
-</script></section><section data-markdown><script type="text/template">
+
+----
+
 #### Thread Implementations
 
 | User level                       | Kernel level                               |
@@ -1067,10 +1273,15 @@ clone(child_stack=0x7f9ea7df0fb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGH
 | blocking actions stall process   | blocking actions only stall current thread |
 | more mapped on one kernel thread | provide support for user level threads     |
 | Java, Python                     | Linux KThreads, Windows threads            |
-</script></section></section></div>
+
+          </textarea>
+        </section>
+      </div>
     </div>
 
     <script src="./dist/reveal.js"></script>
+
+    <script src="./mermaid/dist/mermaid.min.js"></script>
 
     <script src="./plugin/markdown/markdown.js"></script>
     <script src="./plugin/highlight/highlight.js"></script>
@@ -1099,6 +1310,9 @@ clone(child_stack=0x7f9ea7df0fb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGH
         center: true,
         transition: 'default', // none/fade/slide/convex/concave/zoom
         slideNumber: true,
+        highlight: {
+          highlightOnLoad: false
+        },
         plugins: [
           RevealMarkdown,
           RevealHighlight,
@@ -1111,12 +1325,26 @@ clone(child_stack=0x7f9ea7df0fb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGH
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"background-color":"aquamarine","transition":"none","slideNumber":true,"autoAnimateDuration":0}, queryOptions);
+      var options = extend(defaultOptions, {"background-color":"aquamarine","transition":"none","slideNumber":true,"autoAnimateDuration":0,"_":["slides.md"],"static":"_site"}, queryOptions);
     </script>
 
 
     <script>
       Reveal.initialize(options);
+      Reveal.addEventListener('ready', function (event) {
+        const blocks = Reveal.getRevealElement().querySelectorAll('pre code:not(.mermaid)');
+        const hlp = Reveal.getPlugin('highlight');
+        blocks.forEach(hlp.highlightBlock);
+      });
+    </script>
+
+    <script>
+      const mermaidOptions = extend({ startOnLoad: false }, {});
+      mermaid.startOnLoad = false;
+      mermaid.initialize(mermaidOptions);
+      const cb = function (event) { mermaid.init(mermaidOptions, '.stack.present>.present pre code.mermaid'); };
+      Reveal.addEventListener('ready', cb);
+      Reveal.addEventListener('slidetransitionend', cb);
     </script>
   </body>
 </html>

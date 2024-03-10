@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkos=self.webpackChunkos||[]).push([[7087],{6190:a=>{a.exports=JSON.parse('{"title":"Data","slug":"/Lab/Data/","permalink":"/operating-systems/Lab/Data/","navigation":{"previous":{"title":"Setting up the Lab Environment","permalink":"/operating-systems/Lab/lab-setup"},"next":{"title":"Data","permalink":"/operating-systems/Lab/Data/overview"}}}')}}]);
