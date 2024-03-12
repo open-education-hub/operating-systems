@@ -142,6 +142,7 @@ docusaurus:
           path: chapters/general/drills/tasks
           subsections:
             - Digital Forensics/: digital-forensics.md
+            - Distributed System/: distributed-system.md
       - Hackathons:
           path: content/assignments
           subsections:
