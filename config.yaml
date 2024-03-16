@@ -268,6 +268,7 @@ docusaurus:
             - Network Performance Utility/: network-performance-utility.md
             - Nightly Builds System/: nightly-builds-system.md
             - User-level Threading Library/: user-level-threading-library.md
+            - System Process Monitoring Tool/: system-process-monitoring-tool.md
       - Hackathons:
           path: content/assignments
           subsections:
