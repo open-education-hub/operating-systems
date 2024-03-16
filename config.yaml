@@ -261,6 +261,7 @@ docusaurus:
           subsections:
             - Digital Forensics/: digital-forensics.md
             - Distributed System/: distributed-system.md
+            - Aggregator Application/: aggregator-application.md
             - Benchmarking Application/: benchmarking-application.md
       - Hackathons:
           path: content/assignments
