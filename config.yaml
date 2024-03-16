@@ -263,6 +263,7 @@ docusaurus:
             - Distributed System/: distributed-system.md
             - Aggregator Application/: aggregator-application.md
             - Benchmarking Application/: benchmarking-application.md
+            - Database Application/: database-application.md
       - Hackathons:
           path: content/assignments
           subsections:
