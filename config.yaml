@@ -266,6 +266,7 @@ docusaurus:
             - Database Application/: database-application.md
             - Application Investigator/: application-investigator.md
             - Network Performance Utility/: network-performance-utility.md
+            - Nightly Builds System/: nightly-builds-system.md
       - Hackathons:
           path: content/assignments
           subsections:
