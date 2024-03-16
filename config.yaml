@@ -269,6 +269,7 @@ docusaurus:
             - Nightly Builds System/: nightly-builds-system.md
             - User-level Threading Library/: user-level-threading-library.md
             - System Process Monitoring Tool/: system-process-monitoring-tool.md
+            - Network Configurations Manager/: network-configurations-manager.md
       - Hackathons:
           path: content/assignments
           subsections:
