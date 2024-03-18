@@ -271,6 +271,9 @@ docusaurus:
             - System Process Monitoring Tool/: system-process-monitoring-tool.md
             - Network Configurations Manager/: network-configurations-manager.md
             - FaaS Application/: faas-application.md
+            - Industrial System/: industrial-system.md
+            - Blockchain System/: blockchain-system.md
+            - Supervisor-type Service/: supervisor-type-service.md
       - Hackathons:
           path: content/assignments
           subsections:
