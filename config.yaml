@@ -274,6 +274,17 @@ docusaurus:
             - Industrial System/: industrial-system.md
             - Blockchain System/: blockchain-system.md
             - Supervisor-type Service/: supervisor-type-service.md
+            - Header Analysis Application/: header-analysis-application.md
+            - Extending an App Manager/: extending-an-app-manager.md
+            - Backup System/: backup-system.md
+            - File Changes Notifier/: file-changes-notifier.md
+            - Intrusion Detection System/: intrusion-detection-system.md
+            - Resource Monitor/: resource-monitor.md
+            - Library Warmer/: library-warmer.md
+            - Web GUI 1/: web-gui-1.md
+            - Web GUI 2/: web-gui-2.md
+            - Memory Deduplication/: memory-deduplication.md
+            - Cloud System/: cloud-system.md
       - Hackathons:
           path: content/assignments
           subsections:

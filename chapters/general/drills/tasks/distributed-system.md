@@ -1,4 +1,4 @@
-# Distributed system
+# Distributed System
 
 ## Scenario
 
