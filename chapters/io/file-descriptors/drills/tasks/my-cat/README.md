@@ -17,6 +17,7 @@ Final Score: 100/100 points
 Good job!
 ----------------------------------------
 ```
+If possible, try to manually test your implementation. Use `./checker.sh` only when you are sure of your result.
 
 1. Implement `rread()` wrapper over `read()`.
 

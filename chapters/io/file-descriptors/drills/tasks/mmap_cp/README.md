@@ -15,6 +15,7 @@ make: Nothing to be done for 'all'.
 
 Test PASSED (File copies are identical)
 ```
+If possible, try to manually test your implementation. Use `./checker.sh` only when you are sure of your result.
 
 1. Open `mmap_cp.c` and complete the TODOs to map the files in memory and copy the contents.
    Do not forget to clean up by unmapping and closing the files.
